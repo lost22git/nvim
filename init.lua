@@ -1,5 +1,10 @@
 vim.cmd('syntax on')
 
+-- autocmd --
+-- see :help guicursor
+-- Set the style of the guicursor after leaving nvim
+vim.cmd("autocmd VimLeave * set guicursor=a:hor20-blinkwait700-blinkoff400-blinkon250")
+
 -- variables --
 local vars = {
     mapleader = ' ',
@@ -334,7 +339,7 @@ rust_tools.setup {
             -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
             ['rust-analyzer'] = {
                 checkOnSave = {
-                    command = "clippy"
+                    command = "clippy --fix --workspace --message-format=json --all-targets --allow-dirty"
                 }
             }
         }
@@ -344,7 +349,7 @@ rust_tools.setup {
     }
 }
 
--- config toggleterm
+-- config toggleterm 
 vim.cmd [[
     noremap <silent><leader>vh <cmd>ToggleTerm dir=. direction=horizontal<cr>
     noremap <silent><leader>vv <cmd>ToggleTerm dir=. direction=vertical<cr>
