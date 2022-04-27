@@ -105,15 +105,16 @@ vim.cmd('packadd packer.nvim')
 local packer = require('packer')
 packer.startup({
   function(use)
-    use { 'wbthomason/packer.nvim' }
-    use { "ellisonleao/gruvbox.nvim" }
-    use { 'nvim-lua/plenary.nvim' }
-    use { 'nvim-lua/popup.nvim' }
+    use 'wbthomason/packer.nvim'
+    use 'ellisonleao/gruvbox.nvim'
+    use 'projekt0n/github-nvim-theme'
+    use 'nvim-lua/plenary.nvim'
+    use 'nvim-lua/popup.nvim'
     use {
       'nvim-treesitter/nvim-treesitter',
       run = ':TSUpdate'
     }
-    use { 'folke/which-key.nvim' }
+    use 'folke/which-key.nvim'
 
     -- nvim-cmp for completion
     use 'hrsh7th/cmp-nvim-lsp'
@@ -196,10 +197,15 @@ packer.startup({
 })
 
 
--- config gruvbox --
+-- config gruvbox theme --
 vim.o.termguicolors = true
 vim.o.background = 'dark'
 vim.cmd('colorscheme gruvbox')
+
+-- config github theme --
+require('github-theme').setup{
+  theme_style = "light",
+}
 
 -- config treesitter --
 require('nvim-treesitter.configs').setup {
