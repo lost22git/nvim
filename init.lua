@@ -70,30 +70,30 @@ end
 vim.cmd [[
   vnoremap < <gv
   vnoremap > >gv
-  nnoremap qq <cmd>q<cr>
-  nnoremap Q <cmd>q!<cr>
-  nnoremap <c-s> <cmd>w<cr>
+  nnoremap qq :q<cr>
+  nnoremap Q :q!<cr>
+  nnoremap <c-s> :w<cr>
   nnoremap H ^
   nnoremap L $
   inoremap <c-m> <esc>o
   nnoremap <c-a> <esc>^v$
   noremap <a-a> <esc>ggvG
-  noremap <leader>n <cmd>set nu!<cr>
+  noremap <leader>n :set nu!<cr>
 
 ]]
 
 -- local keymaps = { --
---   { '', 'qq', '<cmd>q<cr>' }, --
---   { '', 'Q', '<cmd>q!<cr>' }, --
---   { '', '<C-s>', '<cmd>w<cr>' }, --
+--   { '', 'qq', ':q<cr>' }, --
+--   { '', 'Q', ':q!<cr>' }, --
+--   { '', '<C-s>', ':w<cr>' }, --
 --   { '', 'H', '^' }, --
 --   { '', 'L', '$' }, --
 --   { 'i', '<C-M>', '<Esc>o' }, --
 --   { '', '<C-a>', '<Esc>^v$' }, --
 --   { '', '<A-a>', '<Esc>ggvG' }, --
---   { 'n', '<leader>n', '<Cmd>set nu!<CR>' } --
+--   { 'n', '<leader>n', ':set nu!<CR>' } --
 --   -- use transparent background from terminal
---   --{'n','<A-t>', '<cmd>highlight Normal ctermbg=NONE guibg=NONE<cr>'} --
+--   --{'n','<A-t>', ':highlight Normal ctermbg=NONE guibg=NONE<cr>'} --
 -- }
 --
 -- for _, km in pairs(keymaps) do
@@ -417,9 +417,9 @@ rust_tools.setup {
 
 -- config toggleterm
 vim.cmd [[
-    noremap <silent><leader>vh <cmd>ToggleTerm dir=. direction=horizontal<cr>
-    noremap <silent><leader>vv <cmd>ToggleTerm dir=. direction=vertical<cr>
-    noremap <silent><leader>vf <cmd>ToggleTerm dir=. direction=float<cr>
+    noremap <silent><leader>vh :ToggleTerm dir=. direction=horizontal<cr>
+    noremap <silent><leader>vv :ToggleTerm dir=. direction=vertical<cr>
+    noremap <silent><leader>vf :ToggleTerm dir=. direction=float<cr>
 ]]
 require("toggleterm").setup {
   -- size can be a number or function which is passed the current terminal
@@ -474,8 +474,8 @@ require('lualine').setup {
 -- config bufferline --
 vim.opt.termguicolors = true
 vim.cmd [[
-    nnoremap <silent><TAB> <cmd>BufferLineCycleNext<cr>
-    nnoremap <silent><S-TAB> <cmd>BufferLineCyclePrev<cr>
+    nnoremap <silent><TAB> :BufferLineCycleNext<cr>
+    nnoremap <silent><S-TAB> :BufferLineCyclePrev<cr>
 ]]
 require('bufferline').setup {
   options = {
@@ -488,31 +488,31 @@ require('bufferline').setup {
 }
 -- config NvimTree --
 vim.cmd [[
-    noremap <silent><A-1> <cmd>NvimTreeToggle<cr>
+    noremap <silent><A-1> :NvimTreeToggle<cr>
 ]]
 require('nvim-tree').setup {}
 
 -- config trouble.nvim --
 vim.cmd [[
-  nnoremap <leader>xx <cmd>TroubleToggle<cr>
-  nnoremap <leader>xw <cmd>TroubleToggle workspace_diagnostics<cr>
-  nnoremap <leader>xd <cmd>TroubleToggle document_diagnostics<cr>
-  nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
-  nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
-  nnoremap gR <cmd>TroubleToggle lsp_references<cr>
+  nnoremap <leader>xx :TroubleToggle<cr>
+  nnoremap <leader>xw :TroubleToggle workspace_diagnostics<cr>
+  nnoremap <leader>xd :TroubleToggle document_diagnostics<cr>
+  nnoremap <leader>xq :TroubleToggle quickfix<cr>
+  nnoremap <leader>xl :TroubleToggle loclist<cr>
+  nnoremap gR :TroubleToggle lsp_references<cr>
 ]]
 -- config telescope --
 vim.cmd [[
-  nnoremap <silent><leader>tf <cmd>lua require('telescope.builtin').find_files()<cr>
-  nnoremap <silent><leader>ti <cmd>lua require('telescope.builtin').git_files()<cr>
-  nnoremap <silent><leader>tg <cmd>lua require('telescope.builtin').live_grep()<cr>
-  nnoremap <silent><leader>tb <cmd>lua require('telescope.builtin').buffers()<cr>
-  nnoremap <silent><leader>tp <cmd>lua require('telescope.builtin').builtin()<cr>
-  nnoremap <silent><leader>th <cmd>lua require('telescope.builtin').help_tags()<cr>
-  nnoremap <silent><leader>tR <cmd>lua require('telescope.builtin').reloader()<cr>
-  nnoremap <silent><leader>tc <cmd>lua require('telescope.builtin').commands()<cr>
-  nnoremap <silent><leader>tr <cmd>lua require('telescope.builtin').command_history()<cr>
-  nnoremap <silent><leader>tt <cmd>lua require('telescope').extensions.file_browser.file_browser()<cr>
+  nnoremap <silent><leader>tf :lua require('telescope.builtin').find_files()<cr>
+  nnoremap <silent><leader>ti :lua require('telescope.builtin').git_files()<cr>
+  nnoremap <silent><leader>tg :lua require('telescope.builtin').live_grep()<cr>
+  nnoremap <silent><leader>tb :lua require('telescope.builtin').buffers()<cr>
+  nnoremap <silent><leader>tp :lua require('telescope.builtin').builtin()<cr>
+  nnoremap <silent><leader>th :lua require('telescope.builtin').help_tags()<cr>
+  nnoremap <silent><leader>tR :lua require('telescope.builtin').reloader()<cr>
+  nnoremap <silent><leader>tc :lua require('telescope.builtin').commands()<cr>
+  nnoremap <silent><leader>tr :lua require('telescope.builtin').command_history()<cr>
+  nnoremap <silent><leader>tt :lua require('telescope').extensions.file_browser.file_browser()<cr>
 ]]
 local telescope = require('telescope')
 --  trouble.nvim integrate to telescope
