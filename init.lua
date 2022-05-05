@@ -67,30 +67,45 @@ for k, v in pairs(buf_options) do
 end
 
 -- keymaps --
-local keymaps = { --
-  { '', 'qq', '<cmd>q<cr>' }, --
-  { '', 'Q', '<cmd>q!<cr>' }, --
-  { '', '<C-s>', '<cmd>w<cr>' }, --
-  { '', 'H', '^' }, --
-  { '', 'L', '$' }, --
-  { 'i', '<C-M>', '<Esc>o' }, --
-  { '', '<C-a>', '<Esc>^v$' }, --
-  { '', '<A-a>', '<Esc>ggvG' }, --
-  { 'n', '<leader>n', '<Cmd>set nu!<CR>' } --
-  -- use transparent background from terminal
-  --{'n','<A-t>', '<cmd>highlight Normal ctermbg=NONE guibg=NONE<cr>'} --
-}
+vim.cmd [[
+  vnoremap < <gv
+  vnoremap > >gv
+  nnoremap qq <cmd>q<cr>
+  nnoremap Q <cmd>q!<cr>
+  nnoremap <c-s> <cmd>w<cr>
+  nnoremap H ^
+  nnoremap L $
+  inoremap <c-m> <esc>o
+  nnoremap <c-a> <esc>^v$
+  noremap <a-a> <esc>ggvG
+  noremap <leader>n <cmd>set nu!<cr>
 
-for _, km in pairs(keymaps) do
-  local opts = {
-    noremap = true,
-    silent = true
-  }
-  if km[4] ~= nil then
-    opts = km[4]
-  end
-  vim.api.nvim_set_keymap(km[1], km[2], km[3], opts)
-end
+]]
+
+-- local keymaps = { --
+--   { '', 'qq', '<cmd>q<cr>' }, --
+--   { '', 'Q', '<cmd>q!<cr>' }, --
+--   { '', '<C-s>', '<cmd>w<cr>' }, --
+--   { '', 'H', '^' }, --
+--   { '', 'L', '$' }, --
+--   { 'i', '<C-M>', '<Esc>o' }, --
+--   { '', '<C-a>', '<Esc>^v$' }, --
+--   { '', '<A-a>', '<Esc>ggvG' }, --
+--   { 'n', '<leader>n', '<Cmd>set nu!<CR>' } --
+--   -- use transparent background from terminal
+--   --{'n','<A-t>', '<cmd>highlight Normal ctermbg=NONE guibg=NONE<cr>'} --
+-- }
+--
+-- for _, km in pairs(keymaps) do
+--   local opts = {
+--     noremap = true,
+--     silent = true
+--   }
+--   if km[4] ~= nil then
+--     opts = km[4]
+--   end
+--   vim.api.nvim_set_keymap(km[1], km[2], km[3], opts)
+-- end
 
 -------------------------------------------------------------------------
 -- plugin & plugin config
@@ -203,8 +218,8 @@ vim.o.background = 'dark'
 vim.cmd('colorscheme gruvbox')
 
 -- config github theme --
-require('github-theme').setup{
-  theme_style = "light",
+require('github-theme').setup {
+  theme_style = "dark",
 }
 
 -- config treesitter --
