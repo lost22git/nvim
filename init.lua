@@ -73,13 +73,17 @@ vim.cmd [[
   nnoremap qq <cmd>q<cr>
   nnoremap Q <cmd>q!<cr>
   nnoremap <c-s> <cmd>w<cr>
-  nnoremap H ^
-  nnoremap L $
+  noremap J }
+  noremap K {
+  noremap H ^
+  noremap L $
   inoremap <c-m> <esc>o
   nnoremap <c-a> <esc>^v$
   noremap <a-a> <esc>ggvG
   noremap <leader>n <cmd>set nu!<cr>
-
+  vnoremap <c-C> "+y
+  inoremap <c-z> <esc>ui
+  noremap <c-z> u
 ]]
 
 -- local keymaps = { --
