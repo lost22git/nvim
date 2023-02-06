@@ -1,0 +1,67 @@
+local M = {
+  "nvim-neo-tree/neo-tree.nvim",
+  cmd = { "Neotree" },
+  keys = { "<M-1>", "<M-2>" },
+  branch = "v2.x",
+  requires = {
+    "nvim-lua/plenary.nvim",
+    "nvim-tree/nvim-web-devicons",
+    "MunifTanjim/nui.nvim",
+  },
+}
+
+function M.config()
+  local nt = require('neo-tree')
+  local maps = require('core.maps')
+  vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
+  nt.setup {
+    window = {
+      position = "left",
+      width = 30,
+      mapping_options = {
+        noremap = true,
+        nowait = true,
+      },
+      mappings = maps.neotree_window_mappings(),
+    },
+    filesystem = {
+      window = {
+        mappings = maps.neotree_filesystem_window_mappings(),
+      },
+    },
+    buffers = {
+      window = {
+        mappings = maps.neotree_buffers_window_mappings(),
+      }
+    },
+    git_status = {
+      window = {
+        position = 'float',
+        mappings = maps.neotree_git_status_window_mappings(),
+      }
+    },
+    event_handlers = {
+      {
+        event = "neo_tree_window_after_open",
+        handler = function(args)
+          if args.position == "left" or args.position == "right" then
+            vim.cmd("wincmd =")
+          end
+        end
+      },
+      {
+        event = "neo_tree_window_after_close",
+        handler = function(args)
+          if args.position == "left" or args.position == "right" then
+            vim.cmd("wincmd =")
+          end
+        end
+      }
+    }
+  }
+
+  maps.neotree()
+
+end
+
+return M
