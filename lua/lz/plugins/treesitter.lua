@@ -16,7 +16,6 @@ function M.config()
     config.install_info.url = config.install_info.url:gsub("https://github.com/", U.get_github_mirror())
   end
 
-
   local ts = require('nvim-treesitter.configs')
   ts.setup {
     sync_install = false,
@@ -40,20 +39,30 @@ function M.config()
       }
     },
     ensure_installed = {
+      -- 
       "vim",
       "regex",
       "dockerfile",
+      "lua",
+      "sql",
+      "python",
+      "julia",
+      "vhs",
+      -- 
       "toml",
       "json",
       "yaml",
       "proto",
+      -- 
       "norg",
       "markdown",
+      "markdown_inline",
+      -- 
       "html",
       "css",
       "javascript",
-      "tsx",
-      "lua",
+      "typescript",
+      --
       "java",
       "kotlin",
       "rust",
@@ -61,15 +70,11 @@ function M.config()
       "gomod",
       "dart",
       "zig",
-      "python",
-      "julia",
-      "vhs",
     },
     autotag = {
       enable = true,
     },
   }
-
 end
 
 return M

@@ -11,9 +11,9 @@ function M.config()
     options = {
       mode = "buffers",
       numbers = 'none',
-      close_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
-      right_mouse_command = '', -- can be a string | function, see "Mouse actions"
-      left_mouse_command = "buffer %d", -- can be a string | function, see "Mouse actions"
+      close_command = "bdelete! %d",        -- can be a string | function, see "Mouse actions"
+      right_mouse_command = '',             -- can be a string | function, see "Mouse actions"
+      left_mouse_command = "buffer %d",     -- can be a string | function, see "Mouse actions"
       middle_mouse_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
       left_trunc_marker = '',
       right_trunc_marker = '',
@@ -33,9 +33,11 @@ function M.config()
         }
       },
       always_show_bufferline = false,
-      show_buffer_close_icons = false,
       show_close_icon = false,
-      color_icons = true,
+      show_buffer_icons = false,
+      show_buffer_default_icon = false, -- 默认 filetype icon
+      show_buffer_close_icons = false,
+      color_icons = false,
       ---@diagnostic disable-next-line: assign-type-mismatch
       separator_style = { '', '' }, -- slant | thick | thin | { 'any', 'any' }
       show_tab_indicators = true,
@@ -50,12 +52,11 @@ function M.config()
         return '?'
       end,
     },
-    -- highlights = require('lz.plugins.vscode').get_bufferline_hl() --vscode
-    highlights = require("catppuccin.groups.integrations.bufferline").get() -- catppuccin
+    highlights = require('lz.plugins.vscode').get_bufferline_hl() --vscode
+    -- highlights = require("catppuccin.groups.integrations.bufferline").get() -- catppuccin
   }
 
   maps.bufferline()
-
 end
 
 return M

@@ -3,7 +3,7 @@ local U = require('core.utils')
 local opt = vim.opt
 
 -- gui client 字体
-opt.guifont = 'FantasqueSansMono NFM:h13'
+opt.guifont = 'SpaceMono NFM:h13'
 
 -- 编码
 vim.scriptencoding = 'utf-8'

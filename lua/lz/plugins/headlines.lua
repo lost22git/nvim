@@ -1,0 +1,12 @@
+local M = {
+  'lukas-reineke/headlines.nvim',
+  ft = { 'md', 'norg' },
+}
+
+function M.config()
+  require('headlines').setup {
+
+  }
+end
+
+return M

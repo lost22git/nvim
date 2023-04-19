@@ -6,16 +6,25 @@ local M = {
 
 function M.config()
   require("github-theme").setup {
-    theme_style = "dimmed",
-    msg_area_style = 'NONE',
-    variable_style = 'NONE',
-    comment_style = 'italic',
-    keyword_style = 'italic',
-    function_style = "italic",
-    dark_float = false,
-    dark_sidebar = false,
-    transparent = true,
+    options = {
+      hide_end_of_buffer = true,
+      hide_nc_statusline = true,
+      transparent = true,
+      styles = {
+        comments = 'italic',
+        functions = 'italic',
+        keywords = 'italic',
+        variables = 'none',
+      },
+      darken = {
+        floats = true,
+        sidebars = {
+          enable = true,
+        },
+      },
+    }
   }
+  vim.cmd('colorscheme github_dark_default')
 end
 
 return M

@@ -9,10 +9,8 @@ function M.config()
       -- select
       select = {
         enable = true,
-
         -- Automatically jump forward to textobj, similar to targets.vim
         lookahead = true,
-
         keymaps = {
           ["af"] = "@function.outer",
           ["if"] = "@function.inner",
@@ -30,7 +28,7 @@ function M.config()
         -- mapping query_strings to modes.
         selection_modes = {
           ['@parameter.outer'] = 'v', -- charwise
-          ['@function.outer'] = 'V', -- linewise
+          ['@function.outer'] = 'V',  -- linewise
           ['@class.outer'] = '<c-v>', -- blockwise
         },
         -- If you set this to `true` (default is `false`) then any textobject is
@@ -44,7 +42,6 @@ function M.config()
         -- and should return true of false
         include_surrounding_whitespace = true,
       },
-
       -- swap
       swap = {
         enable = true,
@@ -55,7 +52,6 @@ function M.config()
           ["<Leader>S"] = "@parameter.inner",
         },
       },
-
       -- move
       move = {
         enable = true,
@@ -77,7 +73,6 @@ function M.config()
           ["[]"] = "@class.outer",
         },
       },
-
       -- lsp
       lsp_interop = {
         enable = true,

@@ -13,28 +13,31 @@ function M.config()
     },
     symbol_in_winbar = {
       enable = true,
-      separator = ' ',
+      separator = " ",
+      ignore_patterns = {},
       hide_keyword = true,
       show_file = true,
       folder_level = 2,
       respect_root = false,
+      color_mode = true,
+    },
+    beacon = {
+      enable = true,
+      frequency = 7,
     },
     ui = {
-      -- currently only round theme
-      theme = 'round',
-      -- border type can be single,double,rounded,solid,shadow.
-      border = 'rounded',
+      -- This option only works in Neovim 0.9
+      title = true,
+      -- Border type can be single, double, rounded, solid, shadow.
+      border = "rounded",
       winblend = 0,
-      expand = '',
-      collapse = '',
-      preview = ' ',
-      code_action = '💡',
-      diagnostic = '🐞',
-      incoming = ' ',
-      outgoing = ' ',
-
-      colors = require("catppuccin.groups.integrations.lsp_saga").custom_colors(),
-      kind = require("catppuccin.groups.integrations.lsp_saga").custom_kind(),
+      expand = "",
+      collapse = "",
+      code_action = "💡",
+      incoming = " ",
+      outgoing = " ",
+      hover = ' ',
+      kind = {},
     },
   }
   require('core.maps').lspsaga()

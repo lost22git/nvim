@@ -8,7 +8,6 @@ require('core.shells')
 
 require("lz")
 -- require("plugin")
-
 --#endregion 加载插件
 
 require('core.maps')
@@ -19,5 +18,4 @@ local U = require('core.utils')
 if U.is_neovide() then
   require('neovide')
 end
-
 --#endregion 加载 neovide 配置

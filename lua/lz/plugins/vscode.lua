@@ -1,7 +1,7 @@
 local M = {
   'Mofiqul/vscode.nvim',
   lazy = false,
-  enabled = false,
+  enabled = true,
 }
 
 function M.config()
@@ -70,7 +70,6 @@ function M.get_bufferline_hl()
       fg = { attribute = "fg", highlight = "Normal" },
       bg = { attribute = "bg", highlight = "Normal" },
     },
-
   }
 end
 

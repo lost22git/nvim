@@ -9,14 +9,12 @@ function M.config()
     --
     -- default: true
     mode = 'symbol',
-
     -- default symbol map
     -- can be either 'default' (requires nerd-fonts font) or
     -- 'codicons' for codicon preset (requires vscode-codicons font)
     --
     -- default: 'default'
     preset = 'codicons',
-
     -- override preset symbols
     --
     -- default: {}
@@ -61,7 +59,7 @@ function M.config()
       Unit = "单元",
       Value = "值",
       Enum = "枚举",
-      Keyword = "关键字",
+      Keyword = "关键",
       Snippet = "片段",
       Color = "颜色",
       File = "文件",
@@ -69,12 +67,11 @@ function M.config()
       Folder = "目录",
       EnumMember = "枚举值",
       Constant = "常量",
-      Struct = "结构体",
+      Struct = "结构",
       Event = "事件",
       Operator = "运算",
-      TypeParameter = "类型参数"
+      TypeParameter = "类参"
     },
-
   })
 end
 

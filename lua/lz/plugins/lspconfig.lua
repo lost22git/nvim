@@ -24,7 +24,7 @@ function M.config()
 
   ------------------------------------- LSP Servers config
   -- Lua language server
-  nvim_lsp.sumneko_lua.setup {
+  nvim_lsp.lua_ls.setup {
     on_attach = on_attach,
     capabilities = capabilities,
     cmd = { get_lsp_server_path("lua-language-server") },
@@ -41,6 +41,7 @@ function M.config()
         workspace = {
           -- Make the server aware of Neovim runtime files
           library = vim.api.nvim_get_runtime_file("", true),
+          -- checkThirdParty = false,
         },
         -- Do not send telemetry data containing a randomized but unique identifier
         telemetry = {
@@ -50,29 +51,6 @@ function M.config()
     },
   }
 
-  -- TyepScript language server
-  nvim_lsp.tsserver.setup {
-    on_attach = on_attach,
-    filetypes = { "typescript", "typescriptreact", "typescript.tsx", "ts" },
-    cmd = { get_lsp_server_path("typescript-language-server"), "--stdio" },
-    capabilities = capabilities,
-  }
-
-  -- Lua language server
-  -- CSS language server
-  -- nvim_lsp.tailwindcss.setup {
-  --   on_attach = on_attach,
-  --   capabilities = capabilities,
-  --   cmd = { get_lsp_client_path("tailwindcss-language-server"), "--stdio" },
-  -- }
-
-  -- Dockerfile language server
-  nvim_lsp.dockerls.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    cmd = { get_lsp_server_path('docker-langserver'), '--stdio' }
-  }
-
   -- Powershell language server
   nvim_lsp.powershell_es.setup {
     on_attach = on_attach,
@@ -80,39 +58,27 @@ function M.config()
     bundle_path = get_lsp_server_package_path('powershell-editor-services')
   }
 
-
-  -- Zig language server
-  nvim_lsp.zls.setup {
+  vim.g.markdown_fenced_languages = {
+    "ts=typescript"
+  }
+  -- Deno language server for js jsx ts tsx
+  nvim_lsp.denols.setup {
     on_attach = on_attach,
     capabilities = capabilities,
-    cmd = { get_lsp_server_path('zls') }
   }
 
-  -- Deno language server
-  -- nvim_lsp.denols.setup {
-  --   on_attach = on_attach,
-  --   capabilities = capabilities,
-  -- }
+  -- SVELTE language server
+  nvim_lsp.svelte.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    cmd = { get_lsp_server_path("svelteserver"), "--stdio" }
+  }
 
   -- Markdown language server
   nvim_lsp.marksman.setup {
     on_attach    = on_attach,
     capabilities = capabilities,
     cmd          = { get_lsp_server_path("marksman"), "server" }
-  }
-
-  -- Go language server
-  nvim_lsp.gopls.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    cmd = { get_lsp_server_path('gopls') }
-  }
-
-  -- Gradle language server
-  nvim_lsp.gradle_ls.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    cmd = { get_lsp_server_path('gradle-language-server') }
   }
 
   -- TOML language server
@@ -136,18 +102,18 @@ function M.config()
     cmd = { get_lsp_server_path("yaml-language-server"), "--stdio" }
   }
 
-  -- SVELTE language server
-  nvim_lsp.svelte.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    cmd = { get_lsp_server_path("svelteserver"), "--stdio" }
-  }
-
   -- XML language server
   nvim_lsp.lemminx.setup {
     on_attach = on_attach,
     capabilities = capabilities,
     cmd = { get_lsp_server_path('lemminx') }
+  }
+
+  --Dockerfile language server
+  nvim_lsp.dockerls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    cmd = { get_lsp_server_path('docker-langserver'), '--stdio' }
   }
 
   -- Python language server
@@ -162,6 +128,28 @@ function M.config()
     on_attach = on_attach,
     capabilities = capabilities,
   }
+
+  -- Gradle language server
+  nvim_lsp.gradle_ls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    cmd = { get_lsp_server_path('gradle-language-server') }
+  }
+
+  -- Go language server
+  nvim_lsp.gopls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    cmd = { get_lsp_server_path('gopls') }
+  }
+
+  -- Zig language server
+  nvim_lsp.zls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    cmd = { get_lsp_server_path('zls') }
+  }
+
 end
 
 return M
