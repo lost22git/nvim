@@ -613,6 +613,12 @@ function M.todo()
   }
 end
 
+function M.treesj()
+  M.nmap {
+    { '<leader>j', function() require('treesj').toggle() end },
+  }
+end
+
 M.base()
 
 return M
