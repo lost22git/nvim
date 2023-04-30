@@ -35,7 +35,6 @@ function M.config()
       always_show_bufferline = false,
       show_close_icon = false,
       show_buffer_icons = false,
-      show_buffer_default_icon = false, -- 默认 filetype icon
       show_buffer_close_icons = false,
       color_icons = false,
       ---@diagnostic disable-next-line: assign-type-mismatch

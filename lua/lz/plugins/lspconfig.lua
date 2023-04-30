@@ -149,7 +149,6 @@ function M.config()
     capabilities = capabilities,
     cmd = { get_lsp_server_path('zls') }
   }
-
 end
 
 return M

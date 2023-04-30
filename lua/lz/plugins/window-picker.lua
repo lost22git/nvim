@@ -1,6 +1,5 @@
 local M = {
   's1n7ax/nvim-window-picker',
-  tag = 'v1.x',
   keys = { '<Leader>w' },
 }
 
