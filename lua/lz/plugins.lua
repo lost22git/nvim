@@ -30,6 +30,17 @@ return {
     end
   },
 
+  -- 动画
+  {
+    'echasnovski/mini.animate',
+    version = false,
+    enabled = function() return not require('core.utils').is_neovide() end,
+    event = { 'VeryLazy' },
+    config = function() 
+      require('mini.animate').setup()
+    end,
+  },
+
   -- 快速 ESC
   -- 先输出 `j`，如果后序为 `k` 则删除 `j` 并 `<Esc>`
   -- 避免 vim 默认需要等待超时才输出 `j`
