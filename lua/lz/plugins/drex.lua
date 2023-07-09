@@ -1,5 +1,8 @@
 local M = {
   'theblob42/drex.nvim',
+  enabled = function()
+    return vim.g.file_explorer == 'drex'
+  end,
   keys = { "<M-1>", "<M-2>" },
 }
 

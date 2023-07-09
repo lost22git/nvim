@@ -15,13 +15,14 @@ function M.config()
     debug = true,
     on_attach = on_attach,
     sources = {
+      fmt.prettier,
       -- fmt.rome.with {
       --   command = U.get_nulls_source_path('rome')
       -- },
       fmt.black.with { -- format python
         command = U.get_nulls_source_path('black')
       },
-    },
+},
   }
 end
 

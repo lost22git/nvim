@@ -1,11 +1,10 @@
 local M = {
-  'LhKipp/nvim-nu',
-  build = ':TSInstall nu',
+  "zioroboco/nu-ls.nvim",
   event = { 'BufReadPost *.nu', 'BufNewFile *.nu' },
 }
 
 function M.config()
-  require('nu').setup {}
+  require('nu-ls').setup {}
 end
 
 return M

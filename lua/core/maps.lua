@@ -550,16 +550,6 @@ function M.lspsaga()
   }
 end
 
-function M.sj()
-  local sj = require('sj')
-  M.nmap {
-    { "FF",    sj.run },
-    { "<M-;>", sj.prev_match },
-    { "<M-,>", sj.next_match },
-    { "FR",    sj.redo },
-  }
-end
-
 function M.trouble()
   M.nmap {
     { '<M-8>',      '<cmd>TroubleToggle<cr>' },
@@ -594,7 +584,6 @@ function M.move()
     { '<A-k>', ':MoveBlock(-1)<cr>' },
     { '<A-h>', ':MoveHBlock(-1)<cr>' },
     { '<A-l>', ':MoveHBlock(1)<cr>' },
-
   }
 end
 
@@ -616,6 +605,13 @@ end
 function M.treesj()
   M.nmap {
     { '<leader>j', function() require('treesj').toggle() end },
+  }
+end
+
+function M.mini_files()
+  M.nmap {
+    { '<M-1>', function() MiniFiles.open() end },
+    { '<M-2>', function() MiniFiles.open(vim.api.nvim_buf_get_name(0), false) end }
   }
 end
 

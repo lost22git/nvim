@@ -12,9 +12,9 @@ g.neovide_scale_factor = 1.0
 g.neovide_underline_automatic_scaling = true
 
 -- 透明度
-g.neovide_transparency = 0.8
--- g.neovide_floating_blur_amount_x = 0.3
--- g.neovide_floating_blur_amount_y = 0.3
+g.neovide_transparency =1.0
+g.neovide_floating_blur_amount_x = 2.0
+g.neovide_floating_blur_amount_y = 2.0
 
 -- 窗口
 g.neovide_fullscreen = true -- 全屏

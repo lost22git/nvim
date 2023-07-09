@@ -1,6 +1,6 @@
 local M = {
   "neovim/nvim-lspconfig",
-  cmd = { "LspInfo", "LspStart" },
+  cmd = { 'LspInfo', 'LspStart', 'LspLog' },
   dependencies = {
     "glepnir/lspsaga.nvim",
     "jose-elias-alvarez/null-ls.nvim",
@@ -8,7 +8,7 @@ local M = {
 }
 
 function M.config()
-  local nvim_lsp = require('lspconfig')
+  local lspconfig = require('lspconfig')
   local U = require('core.utils')
 
   local get_lsp_server_path = U.get_lsp_server_path
@@ -24,10 +24,10 @@ function M.config()
 
   ------------------------------------- LSP Servers config
   -- Lua language server
-  nvim_lsp.lua_ls.setup {
+  lspconfig.lua_ls.setup {
     on_attach = on_attach,
     capabilities = capabilities,
-    cmd = { get_lsp_server_path("lua-language-server") },
+    cmd = { get_lsp_server_path('lua-language-server') },
     settings = {
       Lua = {
         runtime = {
@@ -52,7 +52,7 @@ function M.config()
   }
 
   -- Powershell language server
-  nvim_lsp.powershell_es.setup {
+  lspconfig.powershell_es.setup {
     on_attach = on_attach,
     capabilities = capabilities,
     bundle_path = get_lsp_server_package_path('powershell-editor-services')
@@ -62,93 +62,112 @@ function M.config()
     "ts=typescript"
   }
   -- Deno language server for js jsx ts tsx
-  nvim_lsp.denols.setup {
+  lspconfig.denols.setup {
     on_attach = on_attach,
     capabilities = capabilities,
+    root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
+    single_file_support = true
   }
-
-  -- SVELTE language server
-  nvim_lsp.svelte.setup {
+  -- typescript-language-server
+  lspconfig.tsserver.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    cmd = { get_lsp_server_path("typescript-language-server"), "--stdio" },
+    root_dir = lspconfig.util.root_pattern("package.json"),
+    single_file_support = false
+  }
+  -- SVELTE language server (requires typescript-language-server)
+  lspconfig.svelte.setup {
     on_attach = on_attach,
     capabilities = capabilities,
     cmd = { get_lsp_server_path("svelteserver"), "--stdio" }
   }
+  -- Tailwindcss language server
+  lspconfig.tailwindcss.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    cmd = { get_lsp_server_path("tailwindcss-language-server"), "--stdio" }
+  }
 
   -- Markdown language server
-  nvim_lsp.marksman.setup {
+  lspconfig.marksman.setup {
     on_attach    = on_attach,
     capabilities = capabilities,
     cmd          = { get_lsp_server_path("marksman"), "server" }
   }
 
   -- TOML language server
-  nvim_lsp.taplo.setup {
+  lspconfig.taplo.setup {
     on_attach = on_attach,
     capabilities = capabilities,
     cmd = { get_lsp_server_path("taplo"), "lsp", "stdio" }
   }
 
   -- JSON language server
-  nvim_lsp.jsonls.setup {
+  lspconfig.jsonls.setup {
     on_attach = on_attach,
     capabilities = capabilities,
     cmd = { get_lsp_server_path("vscode-json-language-server"), "--stdio" }
   }
 
   -- YAML language server
-  nvim_lsp.yamlls.setup {
+  lspconfig.yamlls.setup {
     on_attach = on_attach,
     capabilities = capabilities,
     cmd = { get_lsp_server_path("yaml-language-server"), "--stdio" }
   }
 
   -- XML language server
-  nvim_lsp.lemminx.setup {
+  lspconfig.lemminx.setup {
     on_attach = on_attach,
     capabilities = capabilities,
     cmd = { get_lsp_server_path('lemminx') }
   }
 
   --Dockerfile language server
-  nvim_lsp.dockerls.setup {
+  lspconfig.dockerls.setup {
     on_attach = on_attach,
     capabilities = capabilities,
     cmd = { get_lsp_server_path('docker-langserver'), '--stdio' }
   }
 
   -- Python language server
-  nvim_lsp.pyright.setup {
+  lspconfig.pyright.setup {
     on_attach = on_attach,
     capabilities = capabilities,
     cmd = { get_lsp_server_path('pyright-langserver'), "--stdio" }
   }
 
   -- Julia language server
-  nvim_lsp.julials.setup {
+  lspconfig.julials.setup {
     on_attach = on_attach,
     capabilities = capabilities,
   }
 
   -- Gradle language server
-  nvim_lsp.gradle_ls.setup {
+  lspconfig.gradle_ls.setup {
     on_attach = on_attach,
     capabilities = capabilities,
     cmd = { get_lsp_server_path('gradle-language-server') }
   }
 
   -- Go language server
-  nvim_lsp.gopls.setup {
+  lspconfig.gopls.setup {
     on_attach = on_attach,
     capabilities = capabilities,
     cmd = { get_lsp_server_path('gopls') }
   }
-
   -- Zig language server
-  nvim_lsp.zls.setup {
+  lspconfig.zls.setup {
     on_attach = on_attach,
     capabilities = capabilities,
     cmd = { get_lsp_server_path('zls') }
   }
-end
+  -- V language server
+  lspconfig.vls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
+  end
 
 return M

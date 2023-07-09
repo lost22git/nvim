@@ -3,7 +3,8 @@ local U = require('core.utils')
 local opt = vim.opt
 
 -- gui client 字体
-opt.guifont = 'SpaceMono NFM:h13'
+opt.guifont = 'IntelOne Mono:h13'
+
 
 -- 编码
 vim.scriptencoding = 'utf-8'
@@ -23,19 +24,19 @@ opt.numberwidth = 2
 
 -- 颜色 & 透明度
 opt.termguicolors = true -- 终端使用 24-bit rgb
-opt.winblend = 0 -- float window 透明度 [0-100]
-opt.pumblend = 0 -- popup menu 透明度 [0-100]
-opt.background = 'dark' -- 背景色
+opt.winblend = 0         -- float window 透明度 [0-100]
+opt.pumblend = 0         -- popup menu 透明度 [0-100]
+opt.background = 'dark'  -- 背景色
 
 -- 高亮
-opt.cursorcolumn = false -- 高亮当前列
-opt.cursorline = true -- 高亮当前行
+opt.cursorcolumn = true      -- 高亮当前列
+opt.cursorline = true        -- 高亮当前行
 opt.cursorlineopt = "number" -- 只高亮行号, 默认 "line,number" 同时高亮行号和行
 -- opt.colorcolumn = '100' -- 高亮第n列
 -- opt.textwidth = 100 -- 每行文本最大列数，超过自动换行
 
 -- 最小可见区域
-opt.scrolloff = 2 -- 上下最小可见行数
+opt.scrolloff = 2     -- 上下最小可见行数
 opt.wrap = false
 opt.sidescrolloff = 4 -- 左右最小可见列数 (wrap=false 下有效)
 
@@ -115,13 +116,7 @@ opt.formatoptions:append { 'r' }
 
 
 
--- 剪贴板 register
--- if U.is_mac() then
---     opt.clipboard:append{'unnamedplus'}
--- elseif U.is_win() then
---     opt.clipboard:prepend{'unnamed', 'unnamedplus'}
--- end
-
+-- 剪贴板 :help clipboard
 -- 剪贴板 register 2.0 (提升启动速度)
 -- see https://github.com/neovim/neovim/issues/9570
 if U.is_win() then
@@ -137,7 +132,7 @@ if U.is_win() then
     },
     cache_enabled = 0,
   }
-else
+elseif U.is_mac() then
   vim.g.clipboard = {
     name = 'pbcopy',
     copy = {
@@ -150,7 +145,22 @@ else
     },
     cache_enabled = 0,
   }
+elseif U.is_wsl() then
+  vim.g.clipboard = {
+    name = 'WslClipboard',
+    copy = {
+      ['+'] = '/mnt/c/Windows/System32/clip.exe',
+      ['*'] = '/mnt/c/Windows/System32/clip.exe',
+    },
+    paste = {
+      ['+'] = 'powershell.exe -NoProfile -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+      ['*'] = 'powershell.exe -NoProfile -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+    },
+    cache_enabled = 0,
+  }
+else
 end
+
 
 vim.g.mapleader = ' '
 -- 不启用一些内置插件
@@ -172,3 +182,31 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwplugin = 1
 vim.g.loaded_netrwsettings = 1
 vim.g.loaded_netrwfilehandlers = 1
+
+
+-- filetype register
+
+-- avoid regarding *.v file as a verilog file
+vim.cmd [[au BufNewFile,BufRead *.v set filetype=vlang]]
+-- postcss
+vim.cmd [[au BufNewFile,BufRead *.postcss set filetype=postcss]]
+
+
+
+
+-- theme
+vim.g.transparent = false
+
+-- vim.g.theme = 'catppuccin'
+vim.g.theme = 'dark_flat'
+-- vim.g.theme = 'github'
+-- vim.g.theme = 'nord'
+-- vim.g.theme = 'oxocarbon'
+-- vim.g.theme = 'vscode'
+
+-- vim.cmd [[ colorscheme torte ]]
+
+
+-- file explorer
+vim.g.file_explorer = 'mini_files'
+-- vim.g.file_explorer = 'drex'

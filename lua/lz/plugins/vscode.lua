@@ -1,14 +1,15 @@
 local M = {
   'Mofiqul/vscode.nvim',
   lazy = false,
-  enabled = true,
+  priority = 1000,
+  enabled = function() return vim.g.theme == 'vscode' end,
 }
 
 function M.config()
   local code = require('vscode')
   local c = require('vscode.colors')
   code.setup {
-    transparent = false,
+    transparent = vim.g.transparent,
 
     italic_comments = true,
 

@@ -4,6 +4,10 @@ function M.is_neovide()
   return vim.g.neovide or false
 end
 
+function M.is_wsl()
+  return vim.fn.has 'wsl' == 1
+end
+
 function M.is_win()
   return vim.fn.has 'win32' == 1
 end

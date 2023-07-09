@@ -2,6 +2,7 @@ return {
   -- 启动时间统计
   {
     "dstein64/vim-startuptime",
+    enabled = true,
     cmd = "StartupTime",
     config = function()
       vim.g.startuptime_tries = 10
@@ -9,11 +10,7 @@ return {
   },
 
   -- Zen Mode
-  {
-    "folke/zen-mode.nvim",
-    module = "zen-mode",
-    cmd = { "ZenMode" },
-  },
+  { "folke/zen-mode.nvim", module = "zen-mode", cmd = { "ZenMode" } },
 
   -- UI
   { "MunifTanjim/nui.nvim" },
@@ -24,27 +21,13 @@ return {
     config = function()
       require("notify").setup {
         background_colour = "#000000",
-        stages = 'fade',
         top_down = true,
+        stages = 'fade',
       }
     end
   },
 
-  -- 动画
-  {
-    'echasnovski/mini.animate',
-    version = false,
-    enabled = function() return not require('core.utils').is_neovide() end,
-    event = { 'VeryLazy' },
-    config = function() 
-      require('mini.animate').setup()
-    end,
-  },
-
   -- 快速 ESC
-  -- 先输出 `j`，如果后序为 `k` 则删除 `j` 并 `<Esc>`
-  -- 避免 vim 默认需要等待超时才输出 `j`
-  -- 这样就只有需要同时输出 `jk` 这一种情况才需要等待
   {
     'TheBlob42/houdini.nvim',
     event = { "InsertEnter", "CmdLineEnter", "TermEnter" },
@@ -93,6 +76,15 @@ return {
     end
   },
 
+  -- 自动补全括号
+  {
+    "hrsh7th/nvim-insx",
+    event = { 'InsertEnter' },
+    config = function()
+      require('insx.preset.standard').setup {}
+    end
+  },
+
   -- 移动行/块
   {
     'fedepujol/move.nvim',
@@ -102,17 +94,52 @@ return {
     end
   },
 
-  -- 可视区域内查找跳转
+  -- 可视区域内跳转
   {
-    "woosaaahh/sj.nvim",
-    keys = { 'FF' },
-    config = function()
-      local sj = require('sj')
-      sj.setup {
-        separator = " ",
-      }
-      require('core.maps').sj()
-    end
+    "folke/flash.nvim",
+    opts = {},
+    keys = {
+      {
+        "s",
+        mode = { "n", "x", "o" },
+        function()
+          require("flash").jump()
+        end,
+        desc = "Flash",
+      },
+      {
+        "S",
+        mode = { "n", "o", "x" },
+        function()
+          require("flash").treesitter()
+        end,
+        desc = "Flash Treesitter",
+      },
+      {
+        "r",
+        mode = "o",
+        function()
+          require("flash").remote()
+        end,
+        desc = "Remote Flash",
+      },
+      {
+        "R",
+        mode = { "o", "x" },
+        function()
+          require("flash").treesitter_search()
+        end,
+        desc = "Flash Treesitter Search",
+      },
+      {
+        "<c-s>",
+        mode = { "c" },
+        function()
+          require("flash").toggle()
+        end,
+        desc = "Toggle Flash Search",
+      },
+    },
   },
 
   -- 错误列表
@@ -181,6 +208,14 @@ return {
         -- },
       }
       vim.keymap.set('n', ';', function() vim.cmd('NeoZoomToggle') end, { silent = true, nowait = true })
+    end
+  },
+  -- surround
+  {
+    "kylechui/nvim-surround",
+    event = { 'BufReadPost', 'BufNewFile' },
+    config = function()
+      require("nvim-surround").setup {}
     end
   },
 }

@@ -62,6 +62,7 @@ function M.config()
       "css",
       "javascript",
       "typescript",
+      "svelte",
       --
       "java",
       "kotlin",
@@ -70,6 +71,7 @@ function M.config()
       "gomod",
       "dart",
       "zig",
+      "v",
     },
     autotag = {
       enable = true,

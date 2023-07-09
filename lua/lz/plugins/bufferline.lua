@@ -51,8 +51,7 @@ function M.config()
         return '?'
       end,
     },
-    highlights = require('lz.plugins.vscode').get_bufferline_hl() --vscode
-    -- highlights = require("catppuccin.groups.integrations.bufferline").get() -- catppuccin
+    -- highlights = require('lz.plugins.vscode').get_bufferline_hl() --vscode
   }
 
   maps.bufferline()
