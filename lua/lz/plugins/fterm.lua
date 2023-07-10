@@ -14,7 +14,7 @@ function M.config()
         ---Command to run inside the terminal
         ---NOTE: if given string[], it will skip the shell and directly executes the command
         ---@type fun():(string|string[])|string|string[]
-        cmd = vim.o.shell,
+        cmd = vim.g.term_shell or vim.o.shell,
 
         ---Neovim's native window border. See `:h nvim_open_win` for more configuration options.
         border = 'single',

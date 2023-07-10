@@ -210,3 +210,14 @@ vim.g.theme = 'dark_flat'
 -- file explorer
 vim.g.file_explorer = 'mini_files'
 -- vim.g.file_explorer = 'drex'
+
+
+-- terminal shell
+if U.is_win() then
+  local exepath = vim.fn.exepath("clink")
+  if exepath ~= '' then
+    exepath = string.gsub(exepath, '\\', '/') -- 替换 \ 为 / 
+    vim.g.term_shell = {'cmd.exe','/s','/k','"' .. exepath .. ' inject"'}
+  end
+end
+
