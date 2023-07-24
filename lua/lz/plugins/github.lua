@@ -2,7 +2,7 @@ local M = {
   'projekt0n/github-nvim-theme',
   lazy = false,
   priority = 1000,
-  enabled = function() return vim.g.theme == 'github' end,
+  enabled = vim.g.theme == 'github',
 }
 
 function M.config()

@@ -3,7 +3,7 @@ local M = {
   name = 'catppuccin',
   lazy = false,
   priority = 1000,
-  enabled = function() return vim.g.theme == 'catppuccin' end,
+  enabled = vim.g.theme == 'catppuccin'
 }
 
 function M.config()

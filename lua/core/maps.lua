@@ -46,21 +46,21 @@ M.tmap = map('t')
 function M.base()
   M.nmap {
     -- 退出
-    { 'qq',        ':q<cr>' },
-    { 'Q',         ':q!<cr>' },
-    { '<C-x>',     ':bd<cr>' },
+    { 'qq',        ':q<CR>' },
+    { 'Q',         ':q!<CR>' },
+    { '<C-x>',     ':bd<CR>' },
 
     -- redo
     { 'U',         '<C-r>' },
 
     -- 清除最近一次搜索后的高亮
-    { '<BS><BS>',  ':noh<cr>' },
+    { '<BS><BS>',  ':noh<CR>' },
 
     -- 开启/关闭 行号
-    { '<Leader>n', ':set nu!<cr>' },
+    { '<Leader>n', ':set nu!<CR>' },
 
     -- start lsp client
-    { '<Leader>l', '<cmd>LspStart<cr>' },
+    { '<Leader>l', '<cmd>LspStart<CR>' },
 
     -- Increment/decrement
     { '=',         '<C-a>' },
@@ -74,7 +74,7 @@ function M.base()
     { '<C-a>',     'gg<S-v>G' },
 
     -- 保存
-    { '<C-s>',     ':w<cr>' },
+    { '<C-s>',     ':w<CR>' },
 
     -- Tab edit
     { 'te',        ':tabedit' },
@@ -208,12 +208,14 @@ function M.telescope_file_browser_mappings()
   }
 end
 
-function M.bufferline()
+function M.barbar()
   M.nmap {
-    { '<Tab>',     ':BufferLineCycleNext<cr>' },
-    { '<S-Tab>',   ':BufferLineCyclePrev<cr>' },
-    { '<Leader>b', ':BufferLinePick<cr>' },
-
+    { '<S-Tab>',    ':BufferPrevious<CR>' },
+    { '<Tab>',      ':BufferNext<CR>' },
+    { '{',          ':BufferMovePrevious<CR>' },
+    { '}',          ':BufferMoveNext<CR>' },
+    { '<leader>bb', ':BufferPick<CR>' },
+    { '<leader>bd', ':BufferPickDelete<CR>' },
   }
 end
 
@@ -230,11 +232,11 @@ function M.fterm()
   })
 
   M.nmap {
-    { '<M-3>', '<cmd>lua require("FTerm").toggle()<cr>' },
+    { '<M-3>', '<cmd>lua require("FTerm").toggle()<CR>' },
     { '<M-4>', function() gitui:toggle() end }
   }
   M.tmap {
-    { '<M-3>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<cr>', { noremap = true } }
+    { '<M-3>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>', { noremap = true } }
   }
 end
 
@@ -251,7 +253,7 @@ function M.cmp()
     ['<C-d>'] = cmp.mapping.scroll_docs(4),
     ['<M-.>'] = cmp.mapping.complete(),
     ['<C-c>'] = cmp.mapping.close(),
-    ['<cr>'] = cmp.mapping.confirm({
+    ['<CR>'] = cmp.mapping.confirm({
       behavior = cmp.ConfirmBehavior.Replace,
       select = true
     }),
@@ -309,8 +311,8 @@ end
 
 function M.drex()
   M.nmap {
-    { '<M-1>', '<cmd>DrexDrawerToggle<cr>' },
-    { '<M-2>', '<cmd>DrexDrawerFindFileAndFocus<cr>' },
+    { '<M-1>', '<cmd>DrexDrawerToggle<CR>' },
+    { '<M-2>', '<cmd>DrexDrawerFindFileAndFocus<CR>' },
   }
 end
 
@@ -333,68 +335,68 @@ function M.drex_keybindings()
     ['n'] = {
       ['v']             = 'V',
       ['X']             = { system_open, { desc = 'open the element in operation system' } },
-      -- ['l']             = { '<cmd>lua require("drex.elements").expand_element()<cr>', { desc = 'expand element' } },
+      -- ['l']             = { '<cmd>lua require("drex.elements").expand_element()<CR>', { desc = 'expand element' } },
       ['l']             = { expand_and_keep_focus, { desc = 'expand element' } },
-      ['h']             = { '<cmd>lua require("drex.elements").collapse_directory()<cr>',
+      ['h']             = { '<cmd>lua require("drex.elements").collapse_directory()<CR>',
         { desc = 'collapse directory' } },
-      ['<right>']       = { '<cmd>lua require("drex.elements").expand_element()<cr>', { desc = 'expand element' } },
-      ['<left>']        = { '<cmd>lua require("drex.elements").collapse_directory()<cr>',
+      ['<right>']       = { '<cmd>lua require("drex.elements").expand_element()<CR>', { desc = 'expand element' } },
+      ['<left>']        = { '<cmd>lua require("drex.elements").collapse_directory()<CR>',
         { desc = 'collapse directory' } },
-      ['<2-LeftMouse>'] = { '<LeftMouse><cmd>lua require("drex.elements").expand_element()<cr>',
+      ['<2-LeftMouse>'] = { '<LeftMouse><cmd>lua require("drex.elements").expand_element()<CR>',
         { desc = 'expand element' } },
-      ['<RightMouse>']  = { '<LeftMouse><cmd>lua require("drex.elements").collapse_directory()<cr>',
+      ['<RightMouse>']  = { '<LeftMouse><cmd>lua require("drex.elements").collapse_directory()<CR>',
         { desc = 'collapse directory' } },
-      ['<C-v>']         = { '<cmd>lua require("drex.elements").open_file("vs")<cr>', { desc = 'open file in vsplit' } },
-      ['<C-x>']         = { '<cmd>lua require("drex.elements").open_file("sp")<cr>', { desc = 'open file in split' } },
-      ['<C-t>']         = { '<cmd>lua require("drex.elements").open_file("tabnew", true)<cr>',
+      ['<C-v>']         = { '<cmd>lua require("drex.elements").open_file("vs")<CR>', { desc = 'open file in vsplit' } },
+      ['<C-x>']         = { '<cmd>lua require("drex.elements").open_file("sp")<CR>', { desc = 'open file in split' } },
+      ['<C-t>']         = { '<cmd>lua require("drex.elements").open_file("tabnew", true)<CR>',
         { desc = 'open file in new tab' } },
-      ['o']             = { '<cmd>lua require("drex.elements").open_directory()<cr>',
+      ['o']             = { '<cmd>lua require("drex.elements").open_directory()<CR>',
         { desc = 'open directory in new buffer' } },
-      ['O']             = { '<cmd>lua require("drex.elements").open_parent_directory()<cr>',
+      ['O']             = { '<cmd>lua require("drex.elements").open_parent_directory()<CR>',
         { desc = 'open parent directory in new buffer' } },
-      ['<F5>']          = { '<cmd>lua require("drex").reload_directory()<cr>', { desc = 'reload' } },
-      ['<C-r>']         = { '<cmd>lua require("drex").reload_directory()<cr>', { desc = 'reload' } },
-      ['J']             = { '<cmd>lua require("drex.actions.jump").jump_to_next_sibling()<cr>',
+      ['<F5>']          = { '<cmd>lua require("drex").reload_directory()<CR>', { desc = 'reload' } },
+      ['<C-r>']         = { '<cmd>lua require("drex").reload_directory()<CR>', { desc = 'reload' } },
+      ['J']             = { '<cmd>lua require("drex.actions.jump").jump_to_next_sibling()<CR>',
         { desc = 'jump to next sibling' } },
-      ['K']             = { '<cmd>lua require("drex.actions.jump").jump_to_prev_sibling()<cr>',
+      ['K']             = { '<cmd>lua require("drex.actions.jump").jump_to_prev_sibling()<CR>',
         { desc = 'jump to prev sibling' } },
-      ['I']             = { '<cmd>lua require("drex.actions.jump").jump_to_parent()<cr>',
+      ['I']             = { '<cmd>lua require("drex.actions.jump").jump_to_parent()<CR>',
         { desc = 'jump to parent element' } },
-      ['s']             = { '<cmd>lua require("drex.actions.stats").stats()<cr>', { desc = 'show element stats' } },
-      ['a']             = { '<cmd>lua require("drex.actions.files").create()<cr>', { desc = 'create element' } },
-      ['d']             = { '<cmd>lua require("drex.actions.files").delete("line")<cr>', { desc = 'delete element' } },
-      ['D']             = { '<cmd>lua require("drex.actions.files").delete("clipboard")<cr>',
+      ['s']             = { '<cmd>lua require("drex.actions.stats").stats()<CR>', { desc = 'show element stats' } },
+      ['a']             = { '<cmd>lua require("drex.actions.files").create()<CR>', { desc = 'create element' } },
+      ['d']             = { '<cmd>lua require("drex.actions.files").delete("line")<CR>', { desc = 'delete element' } },
+      ['D']             = { '<cmd>lua require("drex.actions.files").delete("clipboard")<CR>',
         { desc = 'delete (clipboard)' } },
-      ['p']             = { '<cmd>lua require("drex.actions.files").copy_and_paste()<cr>',
+      ['p']             = { '<cmd>lua require("drex.actions.files").copy_and_paste()<CR>',
         { desc = 'copy & paste (clipboard)' } },
-      ['P']             = { '<cmd>lua require("drex.actions.files").cut_and_move()<cr>',
+      ['P']             = { '<cmd>lua require("drex.actions.files").cut_and_move()<CR>',
         { desc = 'cut & move (clipboard)' } },
-      ['r']             = { '<cmd>lua require("drex.actions.files").rename()<cr>', { desc = 'rename element' } },
-      ['R']             = { '<cmd>lua require("drex.actions.files").multi_rename("clipboard")<cr>',
+      ['r']             = { '<cmd>lua require("drex.actions.files").rename()<CR>', { desc = 'rename element' } },
+      ['R']             = { '<cmd>lua require("drex.actions.files").multi_rename("clipboard")<CR>',
         { desc = 'rename (clipboard)' } },
-      ['/']             = { '<cmd>keepalt lua require("drex.actions.search").search()<cr>', { desc = 'search' } },
-      ['M']             = { '<cmd>DrexMark<cr>', { desc = 'mark element' } },
-      ['u']             = { '<cmd>DrexUnmark<cr>', { desc = 'unmark element' } },
-      ['m']             = { '<cmd>DrexToggle<cr>', { desc = 'toggle element' } },
-      ['cc']            = { '<cmd>lua require("drex.clipboard").clear_clipboard()<cr>', { desc = 'clear clipboard' } },
-      ['cs']            = { '<cmd>lua require("drex.clipboard").open_clipboard_window()<cr>',
+      ['/']             = { '<cmd>keepalt lua require("drex.actions.search").search()<CR>', { desc = 'search' } },
+      ['M']             = { '<cmd>DrexMark<CR>', { desc = 'mark element' } },
+      ['u']             = { '<cmd>DrexUnmark<CR>', { desc = 'unmark element' } },
+      ['m']             = { '<cmd>DrexToggle<CR>', { desc = 'toggle element' } },
+      ['cc']            = { '<cmd>lua require("drex.clipboard").clear_clipboard()<CR>', { desc = 'clear clipboard' } },
+      ['cs']            = { '<cmd>lua require("drex.clipboard").open_clipboard_window()<CR>',
         { desc = 'edit clipboard' } },
-      ['y']             = { '<cmd>lua require("drex.actions.text").copy_name()<cr>', { desc = 'copy element name' } },
-      ['Y']             = { '<cmd>lua require("drex.actions.text").copy_relative_path()<cr>',
+      ['y']             = { '<cmd>lua require("drex.actions.text").copy_name()<CR>', { desc = 'copy element name' } },
+      ['Y']             = { '<cmd>lua require("drex.actions.text").copy_relative_path()<CR>',
         { desc = 'copy element relative path' } },
-      ['<C-y>']         = { '<cmd>lua require("drex.actions.text").copy_absolute_path()<cr>',
+      ['<C-y>']         = { '<cmd>lua require("drex.actions.text").copy_absolute_path()<CR>',
         { desc = 'copy element absolute path' } },
     },
     ['v'] = {
-      ['d'] = { ':lua require("drex.actions.files").delete("visual")<cr>', { desc = 'delete elements' } },
-      ['r'] = { ':lua require("drex.actions.files").multi_rename("visual")<cr>', { desc = 'rename elements' } },
-      ['M'] = { ':DrexMark<cr>', { desc = 'mark elements' } },
-      ['u'] = { ':DrexUnmark<cr>', { desc = 'unmark elements' } },
-      ['m'] = { ':DrexToggle<cr>', { desc = 'toggle elements' } },
-      ['y'] = { ':lua require("drex.actions.text").copy_name(true)<cr>', { desc = 'copy element names' } },
-      ['Y'] = { ':lua require("drex.actions.text").copy_relative_path(true)<cr>',
+      ['d'] = { ':lua require("drex.actions.files").delete("visual")<CR>', { desc = 'delete elements' } },
+      ['r'] = { ':lua require("drex.actions.files").multi_rename("visual")<CR>', { desc = 'rename elements' } },
+      ['M'] = { ':DrexMark<CR>', { desc = 'mark elements' } },
+      ['u'] = { ':DrexUnmark<CR>', { desc = 'unmark elements' } },
+      ['m'] = { ':DrexToggle<CR>', { desc = 'toggle elements' } },
+      ['y'] = { ':lua require("drex.actions.text").copy_name(true)<CR>', { desc = 'copy element names' } },
+      ['Y'] = { ':lua require("drex.actions.text").copy_relative_path(true)<CR>',
         { desc = 'copy element relative paths' } },
-      ['<C-y>'] = { ':lua require("drex.actions.text").copy_absolute_path(true)<cr>',
+      ['<C-y>'] = { ':lua require("drex.actions.text").copy_absolute_path(true)<CR>',
         { desc = 'copy element absolute paths' } },
     }
   }
@@ -402,8 +404,8 @@ end
 
 function M.neotree()
   M.nmap {
-    { '<M-1>', '<cmd>Neotree action=focus toggle<cr>' },
-    { '<M-2>', '<cmd>Neotree action=focus toggle reveal<cr>' },
+    { '<M-1>', '<cmd>Neotree action=focus toggle<CR>' },
+    { '<M-2>', '<cmd>Neotree action=focus toggle reveal<CR>' },
   }
 end
 
@@ -439,7 +441,7 @@ function M.neotree_window_mappings()
     ["S"] = "open_split",
     ["s"] = "open_vsplit",
     ["t"] = "open_tabnew",
-    -- ["<cr>"] = "open_drop",
+    -- ["<CR>"] = "open_drop",
     -- ["t"] = "open_tab_drop",
     ["w"] = "open_with_window_picker",
     ["C"] = "close_node",
@@ -510,27 +512,27 @@ end
 
 function M.noice()
   M.nvmap {
-    { '<M-9>', '<cmd>Noice<cr>' }
+    { '<M-9>', '<cmd>Noice<CR>' }
   }
   M.imap {
-    { '<M-9>', '<cmd>Noice<cr>' }
+    { '<M-9>', '<cmd>Noice<CR>' }
   }
 end
 
 function M.lspsaga()
   M.nmap {
-    { "<Leader>gg", "<cmd>Lspsaga lsp_finder<cr>" },
-    { "<Leader>gh", "<cmd>Lspsaga hover_doc<cr>" },
-    { "<Leader>gr", "<cmd>Lspsaga rename<cr>" },
-    { "<Leader>gd", "<cmd>Lspsaga peek_definition<cr>" },
-    { "<Leader>go", "<cmd>Lspsaga outline<cr>" },
-    { "go",         "<cmd>Lspsaga incoming_calls<cr>" },
-    { "gO",         "<cmd>Lspsaga outgoing_calls<cr>" },
+    { "<Leader>gg", "<cmd>Lspsaga lsp_finder<CR>" },
+    { "<Leader>gh", "<cmd>Lspsaga hover_doc<CR>" },
+    { "<Leader>gr", "<cmd>Lspsaga rename<CR>" },
+    { "<Leader>gd", "<cmd>Lspsaga peek_definition<CR>" },
+    -- { "<Leader>go", "<cmd>Lspsaga outline<CR>" },
+    { "go",         "<cmd>Lspsaga incoming_calls<CR>" },
+    { "gO",         "<cmd>Lspsaga outgoing_calls<CR>" },
 
     -- Diagnostic
-    { "<Leader>ge", "<cmd>Lspsaga show_line_diagnostics<cr>" },
-    { "gk",         "<cmd>Lspsaga diagnostic_jump_prev<cr>" },
-    { "gj",         "<cmd>Lspsaga diagnostic_jump_next<cr>" },
+    { "<Leader>ge", "<cmd>Lspsaga show_line_diagnostics<CR>" },
+    { "gk",         "<cmd>Lspsaga diagnostic_jump_prev<CR>" },
+    { "gj",         "<cmd>Lspsaga diagnostic_jump_next<CR>" },
     { "gK", function()
       require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR })
     end },
@@ -538,27 +540,27 @@ function M.lspsaga()
       require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR })
     end },
 
-    { "<leader>gt", "<cmd>Lspsaga term_toggle<cr>" },
+    { "<leader>gt", "<cmd>Lspsaga term_toggle<CR>" },
   }
 
   M.tmap {
-    { "<leader>gt", "<cmd>Lspsaga term_toggle<cr>" },
+    { "<leader>gt", "<cmd>Lspsaga term_toggle<CR>" },
   }
 
   M.nvmap {
-    { "<Leader>ga", "<cmd>Lspsaga code_action<cr>" },
+    { "<Leader>ga", "<cmd>Lspsaga code_action<CR>" },
   }
 end
 
 function M.trouble()
   M.nmap {
-    { '<M-8>',      '<cmd>TroubleToggle<cr>' },
-    { '<leader>xx', '<cmd>TroubleToggle<cr>' },
-    { '<leader>xw', '<cmd>TroubleToggle workspace_diagnostics<cr>' },
-    { '<leader>xd', '<cmd>TroubleToggle document_diagnostics<cr>' },
-    { '<leader>xq', '<cmd>TroubleToggle quickfix<cr>' },
-    { '<leader>xl', '<cmd>TroubleToggle loclist<cr>' },
-    { '<Leader>xr', '<cmd>TroubleToggle lsp_references<cr>' },
+    { '<M-8>',      '<cmd>TroubleToggle<CR>' },
+    { '<leader>xx', '<cmd>TroubleToggle<CR>' },
+    { '<leader>xw', '<cmd>TroubleToggle workspace_diagnostics<CR>' },
+    { '<leader>xd', '<cmd>TroubleToggle document_diagnostics<CR>' },
+    { '<leader>xq', '<cmd>TroubleToggle quickfix<CR>' },
+    { '<leader>xl', '<cmd>TroubleToggle loclist<CR>' },
+    { '<Leader>xr', '<cmd>TroubleToggle lsp_references<CR>' },
   }
 end
 
@@ -574,24 +576,24 @@ end
 
 function M.move()
   M.nmap {
-    { '<A-j>', ':MoveLine(1)<cr>' },
-    { '<A-k>', ':MoveLine(-1)<cr>' },
-    { '<A-h>', ':MoveHChar(-1)<cr>' },
-    { '<A-l>', ':MoveHChar(1)<cr>' },
+    { '<A-j>', ':MoveLine(1)<CR>' },
+    { '<A-k>', ':MoveLine(-1)<CR>' },
+    { '<A-h>', ':MoveHChar(-1)<CR>' },
+    { '<A-l>', ':MoveHChar(1)<CR>' },
   }
   M.vmap {
-    { '<A-j>', ':MoveBlock(1)<cr>' },
-    { '<A-k>', ':MoveBlock(-1)<cr>' },
-    { '<A-h>', ':MoveHBlock(-1)<cr>' },
-    { '<A-l>', ':MoveHBlock(1)<cr>' },
+    { '<A-j>', ':MoveBlock(1)<CR>' },
+    { '<A-k>', ':MoveBlock(-1)<CR>' },
+    { '<A-h>', ':MoveHBlock(-1)<CR>' },
+    { '<A-l>', ':MoveHBlock(1)<CR>' },
   }
 end
 
 function M.presistence()
   M.nmap {
-    { '<leader>ss', '<cmd>lua require("persistence").load()<cr>' },
-    { '<leader>sa', '<cmd>lua require("persistence").load({ last = true })<cr>' },
-    { '<leader>sd', '<cmd>lua require("persistence").stop()<cr>' },
+    { '<leader>ss', '<cmd>lua require("persistence").load()<CR>' },
+    { '<leader>sa', '<cmd>lua require("persistence").load({ last = true })<CR>' },
+    { '<leader>sd', '<cmd>lua require("persistence").stop()<CR>' },
   }
 end
 
@@ -612,6 +614,12 @@ function M.mini_files()
   M.nmap {
     { '<M-1>', function() MiniFiles.open() end },
     { '<M-2>', function() MiniFiles.open(vim.api.nvim_buf_get_name(0), false) end }
+  }
+end
+
+function M.outline()
+  M.nmap {
+    { '<leader>go', ':SymbolsOutline<CR>' }
   }
 end
 

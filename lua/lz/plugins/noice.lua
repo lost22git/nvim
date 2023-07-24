@@ -1,6 +1,6 @@
 local M = {
   "folke/noice.nvim",
-  enabled = function() return not require('core.utils').is_neovide() end,
+  enabled = function() return not require('core.utils').is_gui() end,
   keys = { "<M-9>" },
   event = { "VeryLazy" },
   -- event = { "BufRead", "CmdLineEnter" },
@@ -52,9 +52,9 @@ function M.config()
         view = 'split',
         filter = {
           any = {
-            { find = 'Error', error = false },
+            { find = 'Error',  error = false },
             { min_height = 10, error = true },
-            { min_width = 50, error = true },
+            { min_width = 50,  error = true },
           }
         }
       },

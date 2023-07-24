@@ -5,6 +5,11 @@
 local M = {
   'lewis6991/satellite.nvim',
   event = { 'BufReadPost', 'BufNewFile' },
+  enabled = function()
+    local current = vim.version()
+    local min = vim.version.parse('0.10')
+    return vim.version.cmp(current, min) >= 0
+  end,
 }
 
 function M.config()
@@ -23,7 +28,8 @@ function M.config()
       },
       gitsigns = {
         enable = true,
-        signs = { -- can only be a single character (multibyte is okay)
+        signs = {
+          -- can only be a single character (multibyte is okay)
           add = "│",
           change = "│",
           delete = "-",

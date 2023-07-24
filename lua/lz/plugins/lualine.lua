@@ -11,10 +11,10 @@ function M.config()
     options = {
       icons_enabled = false,
       theme = 'auto',
-      section_separators = '',
-      component_separators = '',
       disabled_filetypes = {},
       globalstatus = true, -- 全局共用一个状态栏
+      section_separators = { left = '', right = '' },
+      component_separators = '',
     },
     sections = {
       lualine_a = {

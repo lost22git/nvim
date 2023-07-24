@@ -3,7 +3,8 @@ local U = require('core.utils')
 local opt = vim.opt
 
 -- gui client 字体
-opt.guifont = 'IntelOne Mono:h13'
+-- opt.guifont = 'IntelOne Mono:h13'
+opt.guifont = 'RobotoMono Nerd Font:h13'
 
 
 -- 编码
@@ -198,10 +199,10 @@ vim.cmd [[au BufNewFile,BufRead *.postcss set filetype=postcss]]
 vim.g.transparent = false
 
 -- vim.g.theme = 'catppuccin'
-vim.g.theme = 'dark_flat'
+-- vim.g.theme = 'dark_flat'
 -- vim.g.theme = 'github'
 -- vim.g.theme = 'nord'
--- vim.g.theme = 'oxocarbon'
+vim.g.theme = 'oxocarbon'
 -- vim.g.theme = 'vscode'
 
 -- vim.cmd [[ colorscheme torte ]]
@@ -216,8 +217,7 @@ vim.g.file_explorer = 'mini_files'
 if U.is_win() then
   local exepath = vim.fn.exepath("clink")
   if exepath ~= '' then
-    exepath = string.gsub(exepath, '\\', '/') -- 替换 \ 为 / 
-    vim.g.term_shell = {'cmd.exe','/s','/k','"' .. exepath .. ' inject"'}
+    exepath = string.gsub(exepath, '\\', '/') -- 替换 \ 为 /
+    vim.g.term_shell = { 'cmd.exe', '/s', '/k', '"' .. exepath .. ' inject"' }
   end
 end
-

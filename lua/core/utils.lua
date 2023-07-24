@@ -1,7 +1,15 @@
 local M = {}
 
+function M.is_gui()
+  return M.is_neovide() or M.is_fvim()
+end
+
 function M.is_neovide()
   return vim.g.neovide or false
+end
+
+function M.is_fvim()
+  return vim.g.fvim_loaded or false
 end
 
 function M.is_wsl()

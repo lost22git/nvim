@@ -2,7 +2,7 @@ local M = {
   'Mofiqul/vscode.nvim',
   lazy = false,
   priority = 1000,
-  enabled = function() return vim.g.theme == 'vscode' end,
+  enabled = vim.g.theme == 'vscode',
 }
 
 function M.config()

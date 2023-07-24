@@ -2,7 +2,7 @@ local M = {
   "sekke276/dark_flat.nvim",
   lazy = false,
   priority = 1000,
-  enabled = function() return vim.g.theme == 'dark_flat' end,
+  enabled = vim.g.theme == 'dark_flat'
 }
 
 function M.config()
