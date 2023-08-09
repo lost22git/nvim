@@ -72,13 +72,14 @@ function M.get_lsp_server_path(name)
   else
     path = lsp_server_bin_dir .. name
   end
-  if path == nil or path == '' or vim.fn.executable(path) ~= 1 then
-    path = vim.fn.exepath(name)
+  if vim.fn.executable(path) ~= 1 then
+    path = vim.fn.exepath(name) or ''
   end
   -- windows 下如果 path 没有后缀，添加 .cmd 后缀
-  if path ~= nil and M.is_win() and ({ M.get_name_and_ext(path) })[2] == nil then
+  if path ~= '' and M.is_win() and ({ M.get_name_and_ext(path) })[2] == nil then
     path = path .. '.cmd'
   end
+
   return path
 end
 

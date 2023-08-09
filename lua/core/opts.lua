@@ -201,11 +201,9 @@ vim.g.transparent = false
 -- vim.g.theme = 'catppuccin'
 -- vim.g.theme = 'dark_flat'
 -- vim.g.theme = 'github'
--- vim.g.theme = 'nord'
-vim.g.theme = 'oxocarbon'
+vim.g.theme = 'nord'
+-- vim.g.theme = 'oxocarbon'
 -- vim.g.theme = 'vscode'
-
--- vim.cmd [[ colorscheme torte ]]
 
 
 -- file explorer

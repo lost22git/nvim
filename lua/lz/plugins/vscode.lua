@@ -6,9 +6,9 @@ local M = {
 }
 
 function M.config()
-  local code = require('vscode')
+  local vscode = require('vscode')
   local c = require('vscode.colors')
-  code.setup {
+  vscode.setup {
     transparent = vim.g.transparent,
 
     italic_comments = true,
@@ -27,6 +27,10 @@ function M.config()
       Cursor = { fg = c.vscDarkBlue, bg = c.vscLightGreen, bold = true },
     }
   }
+
+  if(not require('core.utils').is_win()) then
+    vim.cmd.colorscheme 'vscode';
+  end
 end
 
 function M.get_bufferline_hl()

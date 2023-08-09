@@ -54,7 +54,7 @@ function M.config()
   }
 
   -- setup must be called before loading
-  vim.cmd.colorscheme 'github_dark_colorblind'
+  vim.cmd.colorscheme 'github_dark_high_contrast'
 end
 
 return M
