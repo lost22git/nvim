@@ -13,7 +13,8 @@ function M.config()
       theme = 'auto',
       disabled_filetypes = {},
       globalstatus = true, -- 全局共用一个状态栏
-      section_separators = { left = '', right = '' },
+      -- section_separators = { left = '', right = '' },
+      section_separators = { left = '', right = '' },
       component_separators = '',
     },
     sections = {

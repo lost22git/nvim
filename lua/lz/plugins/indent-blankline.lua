@@ -28,7 +28,6 @@ function M.config()
       -- "IndentBlanklineIndent6",
     },
   }
-
 end
 
 return M

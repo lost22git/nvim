@@ -51,12 +51,11 @@ function M.config()
       {
         view = 'split',
         filter = {
-          any = {
-            { find = 'Error',  error = false },
-            { min_height = 10, error = true },
-            { min_width = 50,  error = true },
-          }
-        }
+          event = "msg_show",
+          kind = "",
+          find = "written",
+        },
+        opts = { skip = true },
       },
     },
   }

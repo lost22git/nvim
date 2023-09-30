@@ -22,7 +22,7 @@ function M.config()
       fmt.black.with { -- format python
         command = U.get_nulls_source_path('black')
       },
-},
+    },
   }
 end
 

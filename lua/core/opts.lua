@@ -4,7 +4,7 @@ local opt = vim.opt
 
 -- gui client 字体
 -- opt.guifont = 'IntelOne Mono:h13'
-opt.guifont = 'RobotoMono Nerd Font:h13'
+opt.guifont = 'FiraCode Nerd Font:h13'
 
 
 -- 编码
@@ -20,7 +20,7 @@ opt.laststatus = 3
 
 -- 行号
 opt.number = true
-opt.relativenumber = true
+opt.relativenumber = false
 opt.numberwidth = 2
 
 -- 颜色 & 透明度
@@ -30,9 +30,9 @@ opt.pumblend = 0         -- popup menu 透明度 [0-100]
 opt.background = 'dark'  -- 背景色
 
 -- 高亮
-opt.cursorcolumn = true      -- 高亮当前列
-opt.cursorline = true        -- 高亮当前行
-opt.cursorlineopt = "number" -- 只高亮行号, 默认 "line,number" 同时高亮行号和行
+opt.cursorcolumn = false          -- 高亮当前列
+opt.cursorline = false             -- 高亮当前行
+opt.cursorlineopt = "line,number" -- 只高亮行号, 默认 "line,number" 同时高亮行号和行
 -- opt.colorcolumn = '100' -- 高亮第n列
 -- opt.textwidth = 100 -- 每行文本最大列数，超过自动换行
 
@@ -194,17 +194,21 @@ vim.cmd [[au BufNewFile,BufRead *.postcss set filetype=postcss]]
 
 
 
-
 -- theme
 vim.g.transparent = false
 
 -- vim.g.theme = 'catppuccin'
 -- vim.g.theme = 'dark_flat'
 -- vim.g.theme = 'github'
-vim.g.theme = 'nord'
+-- vim.g.theme = 'nord'
 -- vim.g.theme = 'oxocarbon'
 -- vim.g.theme = 'vscode'
-
+-- vim.g.theme = 'kanagawa'
+-- vim.g.theme = 'fluoromachine'
+-- vim.g.theme = 'zenbones'
+vim.g.theme = 'mellow'
+-- vim.g.theme = 'citruszest'
+-- vim.g.theme = 'night-owl'
 
 -- file explorer
 vim.g.file_explorer = 'mini_files'
