@@ -3,8 +3,7 @@ local U = require('core.utils')
 local opt = vim.opt
 
 -- gui client 字体
--- opt.guifont = 'IntelOne Mono:h13'
-opt.guifont = 'FiraCode Nerd Font:h13'
+opt.guifont = 'Maple Mono NF:h13'
 
 
 -- 编码

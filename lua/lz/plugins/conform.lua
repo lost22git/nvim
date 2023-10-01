@@ -13,8 +13,8 @@ function M.config()
     formatters = {
       crystal = {
         command = "crystal",
-        args = { "tool", "format", "-" },
-        stdin = true,
+        args = { "tool", "format", "$FILENAME" },
+        stdin = false,
       },
     },
     format_on_save = {
