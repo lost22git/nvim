@@ -87,10 +87,6 @@ function M.get_lsp_server_package_path(name)
   return lsp_server_package_dir .. name
 end
 
-function M.get_nulls_source_path(name)
-  return M.get_lsp_server_path(name)
-end
-
 function M.system_open(path)
   if M.is_mac() then
     vim.notify('mac system_open path=' .. path, vim.log.levels.INFO)

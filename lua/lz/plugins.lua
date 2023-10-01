@@ -36,6 +36,15 @@ return {
     end
   },
 
+  -- 缩进
+  {
+    'lukas-reineke/indent-blankline.nvim',
+    event = { "BufReadPost", "BufNewFile" },
+    config = function()
+      require('ibl').setup {}
+    end
+  },
+
   -- 注释
   {
     'numToStr/Comment.nvim',

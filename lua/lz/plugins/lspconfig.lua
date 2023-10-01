@@ -2,8 +2,7 @@ local M = {
   "neovim/nvim-lspconfig",
   cmd = { 'LspInfo', 'LspStart', 'LspLog' },
   dependencies = {
-    "glepnir/lspsaga.nvim",
-    "jose-elias-alvarez/null-ls.nvim",
+    "glepnir/lspsaga.nvim"
   }
 }
 
@@ -22,7 +21,8 @@ function M.config()
   require('lz.plugins.lsp.common').some_config()
 
 
-  ------------------------------------- LSP Servers config
+  -------- LSP Servers config ----------
+
   -- Lua language server
   if get_lsp_server_path('lua-language-server') ~= '' then
     lspconfig.lua_ls.setup {
@@ -67,15 +67,14 @@ function M.config()
   }
 
   -- Deno language server for js jsx ts tsx
-  if vim.fn.exepath('deno') ~= '' then
-    lspconfig.denols.setup {
-      on_attach = on_attach,
-      capabilities = capabilities,
-      root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
-      single_file_support = true
-    }
-  end
-
+  -- if vim.fn.exepath('deno') ~= '' then
+  --   lspconfig.denols.setup {
+  --     on_attach = on_attach,
+  --     capabilities = capabilities,
+  --     root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
+  --     single_file_support = true
+  --   }
+  -- end
   -- typescript-language-server
   if get_lsp_server_path("typescript-language-server") ~= '' then
     lspconfig.tsserver.setup {
@@ -83,7 +82,7 @@ function M.config()
       capabilities = capabilities,
       cmd = { get_lsp_server_path("typescript-language-server"), "--stdio" },
       root_dir = lspconfig.util.root_pattern("package.json"),
-      single_file_support = false
+      single_file_support = true
     }
   end
 
@@ -140,6 +139,7 @@ function M.config()
       cmd = { get_lsp_server_path("yaml-language-server"), "--stdio" }
     }
   end
+
   -- XML language server
   if get_lsp_server_path('lemminx') ~= '' then
     lspconfig.lemminx.setup {
