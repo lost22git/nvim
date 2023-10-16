@@ -194,7 +194,7 @@ vim.cmd [[au BufNewFile,BufRead *.postcss set filetype=postcss]]
 
 
 -- theme
-vim.g.transparent = false
+vim.g.transparent = true
 
 -- vim.g.theme = 'catppuccin'
 -- vim.g.theme = 'dark_flat'

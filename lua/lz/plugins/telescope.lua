@@ -14,7 +14,7 @@ local file_browser = {
 }
 
 local M = {
-  'nvim-telescope/telescope.nvim', tag = '0.1.0',
+  'nvim-telescope/telescope.nvim', tag = '0.1.4',
   cmd = { "Telescope" },
   keys = { "<Leader>ff", "<Leader>fg", "<Leader>fm", "<Leader>fo", "<Leader>fb", "<Leader>fp", "<Leader>ft", "<Leader>fs" },
   dependencies = {
