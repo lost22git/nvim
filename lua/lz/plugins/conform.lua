@@ -4,11 +4,13 @@ local M = {
 }
 
 function M.config()
+  local U = require('core.utils')
   require('conform').setup {
     formatters_by_ft = {
       javascript = { 'prettier' },
       python     = { 'black' },
-      crystal    = { 'crystal' }
+      crystal    = { 'crystal' },
+      sh         = { 'shfmt' },
     },
     formatters = {
       crystal = {
@@ -16,6 +18,11 @@ function M.config()
         args = { "tool", "format", "$FILENAME" },
         stdin = false,
       },
+      shfmt = {
+        command = U.get_lsp_server_path("shfmt"),
+        args = { "-l", "-w", "$FILENAME" },
+        stdin = false,
+      }
     },
     format_on_save = {
       timeout_ms = 500,
