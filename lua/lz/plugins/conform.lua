@@ -1,6 +1,6 @@
 local M = {
   'stevearc/conform.nvim',
-  event = { 'BufWritePre' }
+  event = { 'BufWritePre' },
 }
 
 function M.config()
@@ -8,11 +8,17 @@ function M.config()
   require('conform').setup {
     formatters_by_ft = {
       javascript = { 'prettier' },
-      python     = { 'black' },
+      -- python     = { 'black' },
+      python     = { 'ruff' },
       crystal    = { 'crystal' },
       sh         = { 'shfmt' },
     },
     formatters = {
+      ruff = {
+        command = "ruff",
+        args = { "format", "$FILENAME" },
+        stdin = false,
+      },
       crystal = {
         command = "crystal",
         args = { "tool", "format", "$FILENAME" },
@@ -26,7 +32,7 @@ function M.config()
     },
     format_on_save = {
       timeout_ms = 500,
-      lsp_fallback = true,
+      lsp_fallback = false,
     },
   }
 end
