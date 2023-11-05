@@ -30,7 +30,7 @@ opt.background = 'dark'  -- 背景色
 
 -- 高亮
 opt.cursorcolumn = false          -- 高亮当前列
-opt.cursorline = false             -- 高亮当前行
+opt.cursorline = false            -- 高亮当前行
 opt.cursorlineopt = "line,number" -- 只高亮行号, 默认 "line,number" 同时高亮行号和行
 -- opt.colorcolumn = '100' -- 高亮第n列
 -- opt.textwidth = 100 -- 每行文本最大列数，超过自动换行
@@ -194,25 +194,20 @@ vim.cmd [[au BufNewFile,BufRead *.postcss set filetype=postcss]]
 
 
 -- theme
-vim.g.transparent = true
+vim.g.transparent = false
 
 -- vim.g.theme = 'catppuccin'
 -- vim.g.theme = 'dark_flat'
 -- vim.g.theme = 'github'
 -- vim.g.theme = 'nord'
--- vim.g.theme = 'oxocarbon'
+vim.g.theme = 'oxocarbon'
 -- vim.g.theme = 'vscode'
 -- vim.g.theme = 'kanagawa'
 -- vim.g.theme = 'fluoromachine'
 -- vim.g.theme = 'zenbones'
-vim.g.theme = 'mellow'
+-- vim.g.theme = 'mellow'
 -- vim.g.theme = 'citruszest'
 -- vim.g.theme = 'night-owl'
-
--- file explorer
-vim.g.file_explorer = 'mini_files'
--- vim.g.file_explorer = 'drex'
-
 
 -- terminal shell
 if U.is_win() then

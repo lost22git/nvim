@@ -9,23 +9,16 @@ return {
     end,
   },
 
+  -- Nvim web devicons
+  {
+    'nvim-tree/nvim-web-devicons',
+  },
+
   -- Zen Mode
   { "folke/zen-mode.nvim", module = "zen-mode", cmd = { "ZenMode" } },
 
   -- UI
   { "MunifTanjim/nui.nvim" },
-
-  -- 通知
-  {
-    "rcarriga/nvim-notify",
-    config = function()
-      require("notify").setup {
-        background_colour = "#000000",
-        top_down = true,
-        stages = 'fade',
-      }
-    end
-  },
 
   -- 快速 ESC
   {
@@ -41,7 +34,30 @@ return {
     'lukas-reineke/indent-blankline.nvim',
     event = { "BufReadPost", "BufNewFile" },
     config = function()
-      require('ibl').setup {}
+      local scope_highlight = {
+        "RainbowBlue",
+      }
+      local indent_highlight = {
+        "RainbowViolet",
+      }
+
+      local hooks = require "ibl.hooks"
+      -- create the highlight groups in the highlight setup hook, so they are reset
+      -- every time the colorscheme changes
+      hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+        -- vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
+        -- vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
+        vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
+        -- vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
+        -- vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
+        vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
+        -- vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
+      end)
+
+      require("ibl").setup {
+        scope = { highlight = scope_highlight },
+        indent = { highlight = indent_highlight },
+      }
     end
   },
 
@@ -52,11 +68,6 @@ return {
     config = function()
       require('Comment').setup()
     end
-  },
-
-  -- Nvim web devicons
-  {
-    'nvim-tree/nvim-web-devicons',
   },
 
   -- 颜色代码高亮
@@ -174,15 +185,6 @@ return {
     end,
   },
 
-  -- Textobject selection
-  {
-    'echasnovski/mini.ai',
-    event = { 'BufReadPost', 'BufNewFile' },
-    config = function()
-      require('mini.ai').setup()
-    end,
-  },
-
   -- Session
   {
     "folke/persistence.nvim",
@@ -219,12 +221,71 @@ return {
       vim.keymap.set('n', ';', function() vim.cmd('NeoZoomToggle') end, { silent = true, nowait = true })
     end
   },
+
   -- surround
   {
     "kylechui/nvim-surround",
     event = { 'BufReadPost', 'BufNewFile' },
     config = function()
-      require("nvim-surround").setup {}
+      require("nvim-surround").setup()
+    end
+  },
+
+  -- split and join
+  {
+    'Wansmer/treesj',
+    keys = { '<leader>j' },
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    config = function()
+      require('treesj').setup {
+        -- Use default keymaps
+        -- (<space>m - toggle, <space>j - join, <space>s - split)
+        use_default_keymaps = false,
+
+        -- Node with syntax error will not be formatted
+        check_syntax_error = true,
+
+        -- If line after join will be longer than max value,
+        -- node will not be formatted
+        max_join_length = 120,
+
+        -- hold|start|end:
+        -- hold - cursor follows the node/place on which it was called
+        -- start - cursor jumps to the first symbol of the node being formatted
+        -- end - cursor jumps to the last symbol of the node being formatted
+        cursor_behavior = 'hold',
+
+        -- Notify about possible problems or not
+        notify = true,
+        langs = {},
+
+        -- Use `dot` for repeat action
+        dot_repeat = true,
+      }
+
+      require('core.maps').treesj()
+    end
+  },
+
+  -- TODO
+  {
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    event = { 'BufReadPost', 'BufNewFile' },
+    config = function()
+      require("todo-comments").setup {}
+      require('core.maps').todo()
+    end
+  },
+
+  -- outline
+  {
+    'simrat39/symbols-outline.nvim',
+    keys = { '<leader>go' },
+    config = function()
+      require('symbols-outline').setup {
+        require('core.maps').outline()
+      }
     end
   },
 }

@@ -4,6 +4,7 @@ local M = {
     local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
     ts_update()
   end,
+  event = { "BufReadPost", "BufNewFile" },
 }
 
 
@@ -11,6 +12,7 @@ function M.config()
   local U = require('core.utils')
   -- 从 git 下载，而不是 curl
   require("nvim-treesitter.install").prefer_git = true
+
   -- 替换 github 为镜像地址
   for _, config in pairs(require("nvim-treesitter.parsers").get_parser_configs()) do
     config.install_info.url = config.install_info.url:gsub("https://github.com/", U.get_github_mirror())
@@ -39,7 +41,7 @@ function M.config()
       }
     },
     ensure_installed = {
-      -- 
+      --
       "vim",
       "regex",
       "dockerfile",
@@ -48,16 +50,16 @@ function M.config()
       "python",
       "julia",
       "vhs",
-      -- 
+      --
       "toml",
       "json",
       "yaml",
       "proto",
-      -- 
+      --
       "norg",
       "markdown",
       "markdown_inline",
-      -- 
+      --
       "html",
       "css",
       "javascript",

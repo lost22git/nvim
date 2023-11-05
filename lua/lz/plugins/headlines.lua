@@ -1,6 +1,6 @@
 local M = {
   'lukas-reineke/headlines.nvim',
-  ft = { 'md', 'norg' },
+  ft = { 'markdown', 'md', 'norg' },
 }
 
 function M.config()

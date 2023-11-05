@@ -1,6 +1,5 @@
 local M = {
   "folke/noice.nvim",
-  -- enabled = function() return not require('core.utils').is_gui() end,
   keys = { "<M-9>" },
   event = { "VeryLazy" },
   -- event = { "BufRead", "CmdLineEnter" },

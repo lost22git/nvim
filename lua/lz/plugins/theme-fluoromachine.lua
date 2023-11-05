@@ -10,7 +10,7 @@ function M.config()
     glow = true,
     brightness = 0.4,
     theme = 'fluoromachine',
-    transparent = vim.g.transparent,
+    transparent = vim.g.transparent and 'full' or false,
 
     overrides = {
       ['@type'] = { italic = false, bold = false },
