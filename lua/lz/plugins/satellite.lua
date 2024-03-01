@@ -6,9 +6,7 @@ local M = {
   'lewis6991/satellite.nvim',
   event = { 'BufReadPost', 'BufNewFile' },
   enabled = function()
-    local current = vim.version()
-    local min = vim.version.parse('0.10')
-    return vim.version.cmp(current, min) >= 0
+    return require('core.utils').version_ge('0.9.999')
   end,
 }
 

@@ -8,8 +8,10 @@ local M = {
 function M.config()
   require('fluoromachine').setup {
     glow = true,
-    brightness = 0.4,
-    theme = 'fluoromachine',
+    brightness = 0.2,
+    -- theme = 'fluoromachine',
+    theme = 'retrowave',
+    -- theme = 'delta',
     transparent = vim.g.transparent and 'full' or false,
 
     overrides = {

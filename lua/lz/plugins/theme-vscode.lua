@@ -27,55 +27,54 @@ function M.config()
       Cursor = { fg = c.vscDarkBlue, bg = c.vscLightGreen, bold = true },
     }
   }
-
-  if(not require('core.utils').is_win()) then
-    vim.cmd.colorscheme 'vscode';
+  if (not require('core.utils').is_win()) then
+    vim.cmd.colorscheme 'vscode'
   end
 end
 
-function M.get_bufferline_hl()
-  return {
-    fill = {
-      fg = { attribute = "fg", highlight = "Normal" },
-      bg = { attribute = "bg", highlight = "StatusLineNC" },
-    },
-    background = {
-      fg = { attribute = "fg", highlight = "Normal" },
-      bg = { attribute = "bg", highlight = "StatusLine" },
-    },
-    buffer_visible = {
-      fg = { attribute = "fg", highlight = "Normal" },
-      bg = { attribute = "bg", highlight = "Normal" },
-    },
-    buffer_selected = {
-      fg = { attribute = "fg", highlight = "Normal" },
-      bg = { attribute = "bg", highlight = "Normal" },
-    },
-    separator = {
-      fg = { attribute = "bg", highlight = "Normal" },
-      bg = { attribute = "bg", highlight = "StatusLine" },
-    },
-    separator_selected = {
-      fg = { attribute = "fg", highlight = "Special" },
-      bg = { attribute = "bg", highlight = "Normal" },
-    },
-    separator_visible = {
-      fg = { attribute = "fg", highlight = "Normal" },
-      bg = { attribute = "bg", highlight = "StatusLineNC" },
-    },
-    close_button = {
-      fg = { attribute = "fg", highlight = "Normal" },
-      bg = { attribute = "bg", highlight = "StatusLine" },
-    },
-    close_button_selected = {
-      fg = { attribute = "fg", highlight = "Normal" },
-      bg = { attribute = "bg", highlight = "Normal" },
-    },
-    close_button_visible = {
-      fg = { attribute = "fg", highlight = "Normal" },
-      bg = { attribute = "bg", highlight = "Normal" },
-    },
-  }
-end
+-- function M.get_bufferline_hl()
+--   return {
+--     fill = {
+--       fg = { attribute = "fg", highlight = "Normal" },
+--       bg = { attribute = "bg", highlight = "StatusLineNC" },
+--     },
+--     background = {
+--       fg = { attribute = "fg", highlight = "Normal" },
+--       bg = { attribute = "bg", highlight = "StatusLine" },
+--     },
+--     buffer_visible = {
+--       fg = { attribute = "fg", highlight = "Normal" },
+--       bg = { attribute = "bg", highlight = "Normal" },
+--     },
+--     buffer_selected = {
+--       fg = { attribute = "fg", highlight = "Normal" },
+--       bg = { attribute = "bg", highlight = "Normal" },
+--     },
+--     separator = {
+--       fg = { attribute = "bg", highlight = "Normal" },
+--       bg = { attribute = "bg", highlight = "StatusLine" },
+--     },
+--     separator_selected = {
+--       fg = { attribute = "fg", highlight = "Special" },
+--       bg = { attribute = "bg", highlight = "Normal" },
+--     },
+--     separator_visible = {
+--       fg = { attribute = "fg", highlight = "Normal" },
+--       bg = { attribute = "bg", highlight = "StatusLineNC" },
+--     },
+--     close_button = {
+--       fg = { attribute = "fg", highlight = "Normal" },
+--       bg = { attribute = "bg", highlight = "StatusLine" },
+--     },
+--     close_button_selected = {
+--       fg = { attribute = "fg", highlight = "Normal" },
+--       bg = { attribute = "bg", highlight = "Normal" },
+--     },
+--     close_button_visible = {
+--       fg = { attribute = "fg", highlight = "Normal" },
+--       bg = { attribute = "bg", highlight = "Normal" },
+--     },
+--   }
+-- end
 
 return M

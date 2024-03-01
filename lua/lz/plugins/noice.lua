@@ -11,15 +11,11 @@ function M.config()
   noice.setup {
     cmdline = {
       enabled = true,
-      view = "cmdline_popup",
-      opts = {}, -- global options for the cmdline. See section on views
+      -- view = "cmdline_popup",
+      view = "cmdline",
+      opts = {},
       ---@type table<string, CmdlineFormat>
       format = {
-        -- conceal: (default=true) This will hide the text in the cmdline that matches the pattern.
-        -- view: (default is cmdline view)
-        -- opts: any options passed to the view
-        -- icon_hl_group: optional hl_group for the icon
-        -- title: set to anything or empty string to hide
         cmdline = { pattern = "^:", icon = "命令", lang = "vim" },
         search_down = { kind = "search", pattern = "^/", icon = "搜索 ", lang = "regex" },
         search_up = { kind = "search", pattern = "^%?", icon = "搜索 ", lang = "regex" },
@@ -27,7 +23,6 @@ function M.config()
         lua = { pattern = "^:%s*lua%s+", icon = "lua", lang = "lua" },
         help = { pattern = "^:%s*he?l?p?%s+", icon = "帮助" },
         input = {}, -- Used by input()
-        -- lua = false, -- to disable a format, set to `false`
       },
     },
     lsp = {
@@ -40,7 +35,7 @@ function M.config()
     },
     -- you can enable a preset for easier configuration
     presets = {
-      bottom_search = false,
+      bottom_search = true,
       command_palette = true,
       long_message_to_split = true,
       inc_rename = true, -- enables an input dialog for inc-rename.nvim

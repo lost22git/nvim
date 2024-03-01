@@ -56,7 +56,7 @@ return {
 
       require("ibl").setup {
         scope = { highlight = scope_highlight },
-        indent = { highlight = indent_highlight },
+        indent = { char = '╎', highlight = indent_highlight },
       }
     end
   },
@@ -110,6 +110,7 @@ return {
     'fedepujol/move.nvim',
     keys = { '<M-j>', '<M-k>', '<M-l>', '<M-h>' },
     config = function()
+      require('move').setup {}
       require('core.maps').move()
     end
   },
@@ -278,14 +279,13 @@ return {
     end
   },
 
-  -- outline
+  -- 大纲 outline
   {
-    'simrat39/symbols-outline.nvim',
+    "hedyhli/outline.nvim",
     keys = { '<leader>go' },
     config = function()
-      require('symbols-outline').setup {
-        require('core.maps').outline()
-      }
+      require("outline").setup {}
+      require('core.maps').outline()
     end
   },
 }

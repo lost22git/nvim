@@ -46,57 +46,57 @@ M.tmap = map('t')
 function M.base()
   M.nmap {
     -- 退出
-    { 'qq',        ':q<CR>' },
-    { 'Q',         ':q!<CR>' },
-    { '<C-x>',     ':bd<CR>' },
+    { 'qq',              ':q<CR>' },
+    { 'Q',               ':q!<CR>' },
+    { '<C-x>',           ':bd<CR>' },
 
     -- redo
-    { 'U',         '<C-r>' },
+    { 'U',               '<C-r>' },
 
     -- 清除最近一次搜索后的高亮
-    { '<BS><BS>',  ':noh<CR>' },
+    { '<BS><BS>',        ':noh<CR>' },
 
     -- 开启/关闭 行号
-    { '<Leader>n', ':set nu!<CR>' },
+    { '<Leader>n',       ':set nu!<CR>' },
 
     -- start lsp client
-    { '<Leader>l', '<cmd>LspStart<CR>' },
+    { '<Leader><Enter>', '<cmd>LspStart<CR>' },
 
     -- Increment/decrement
-    { '=',         '<C-a>' },
-    { '-',         '<C-x>' },
+    { '=',               '<C-a>' },
+    { '-',               '<C-x>' },
 
     -- 删除
-    { 'x',         '"_x' },
-    { 'dw',        'vb"_d' },
+    { 'x',               '"_x' },
+    { 'dw',              'vb"_d' },
 
     -- 选择全部
-    { '<C-a>',     'gg<S-v>G' },
+    { '<C-a>',           'gg<S-v>G' },
 
     -- 保存
-    { '<C-s>',     ':w<CR>' },
+    { '<C-s>',           ':w<CR>' },
 
     -- Tab edit
-    { 'te',        ':tabedit' },
+    { 'te',              ':tabedit' },
 
     -- Window move
-    { '<C-h>',     '<C-w>h' },
-    { '<C-k>',     '<C-w>k' },
-    { '<C-j>',     '<C-w>j' },
-    { '<C-l>',     '<C-w>l' },
+    { '<C-h>',           '<C-w>h' },
+    { '<C-k>',           '<C-w>k' },
+    { '<C-j>',           '<C-w>j' },
+    { '<C-l>',           '<C-w>l' },
 
     -- Window resize
-    { '<C-M-h>',   '<C-w><' },
-    { '<C-M-l>',   '<C-w>>' },
-    { '<C-M-j>',   '<C-w>+' },
-    { '<C-M-k>',   '<C-w>-' },
-    { '<C-M-g>',   '<C-w>=' },
+    { '<C-M-h>',         '<C-w><' },
+    { '<C-M-l>',         '<C-w>>' },
+    { '<C-M-j>',         '<C-w>+' },
+    { '<C-M-k>',         '<C-w>-' },
+    { '<C-M-g>',         '<C-w>=' },
 
     -- Zoom move
-    { '<C-[>',     'zh' },
-    { '<C-]>',     'zl' },
+    { '<C-[>',           'zh' },
+    { '<C-]>',           'zl' },
 
-    { '<C-v>',     '"+p' },
+    { '<C-v>',           '"+p' },
   }
 
   M.vmap {
@@ -128,8 +128,8 @@ function M.base()
     { '<C-a>', '<Home>' },
     { '<C-e>', '<End>' },
     { '<C-d>', '<Del>' },
-    { '<M-h>', '<Left>' },
-    { '<M-l>', '<Right>' },
+    { '<C-b>', '<Left>' },
+    { '<C-f>', '<Right>' },
   }
 end
 
@@ -142,10 +142,10 @@ function M.telescope()
   end
 
   M.nmap {
-    { '<Leader>fp', builtin.builtin },
+    { '<Leader>fa', builtin.builtin },
     { '<Leader>fr', builtin.resume },
-    { '<Leader>fM', builtin.man_pages },
-    { '<Leader>fo', builtin.oldfiles },
+    { '<Leader>fm', builtin.man_pages },
+    { '<Leader>fe', builtin.oldfiles },
     { '<Leader>ff', function()
       builtin.find_files({
         no_ignore = false,
@@ -154,30 +154,18 @@ function M.telescope()
     end
     },
     { '<Leader>fg', builtin.live_grep },
-    { '<Leader>fb', builtin.buffers },
+    { '<Leader>bb', builtin.buffers },
     { '<Leader>fh', builtin.help_tags },
     { '<Leader>fc', builtin.commands },
     { '<Leader>fC', builtin.command_history },
     { '<Leader>fk', builtin.keymaps },
     { '<Leader>fq', builtin.quickfix },
     { '<Leader>fQ', builtin.quickfixhistory },
-    { "<Leader>fm", function()
-      tel.extensions.file_browser.file_browser {
-        path = "%:p:h",
-        cwd = telescope_buffer_dir(),
-        respect_gitignore = false,
-        hidden = true,
-        grouped = true,
-        previewer = false,
-        initial_mode = "normal",
-        layout_config = { height = 40 }
-      }
-    end },
 
     -- TS
     { '<Leader>ft', builtin.treesitter },
     --  LSP
-    { '<Leader>fe', builtin.diagnostics },
+    { '<Leader>fd', builtin.diagnostics },
     { '<Leader>fs', builtin.lsp_document_symbols },
     { '<Leader>fS', builtin.lsp_workspace_symbols },
   }
@@ -193,28 +181,13 @@ function M.telescope_default_mapping()
   }
 end
 
-function M.telescope_file_browser_mappings()
-  local tel = require 'telescope'
-  return {
-    ["i"] = {
-      ['<C-k>'] = 'which_key',
-    },
-    ["n"] = {
-      ['<C-k>'] = 'which_key',
-      ["<bs>"] = function()
-        tel.extensions.file_browser.actions.goto_parent_dir()
-      end,
-    },
-  }
-end
-
 function M.barbar()
   M.nmap {
     { '<S-Tab>',    ':BufferPrevious<CR>' },
     { '<Tab>',      ':BufferNext<CR>' },
     { '{',          ':BufferMovePrevious<CR>' },
     { '}',          ':BufferMoveNext<CR>' },
-    { '<leader>bb', ':BufferPick<CR>' },
+    { '<leader>bf', ':BufferPick<CR>' },
     { '<leader>bd', ':BufferPickDelete<CR>' },
   }
 end
@@ -375,16 +348,16 @@ end
 
 function M.move()
   M.nmap {
-    { '<A-j>', ':MoveLine(1)<CR>' },
-    { '<A-k>', ':MoveLine(-1)<CR>' },
-    { '<A-h>', ':MoveHChar(-1)<CR>' },
-    { '<A-l>', ':MoveHChar(1)<CR>' },
+    { '<M-j>', ':MoveLine(1)<CR>' },
+    { '<M-k>', ':MoveLine(-1)<CR>' },
+    { '<M-h>', ':MoveHChar(-1)<CR>' },
+    { '<M-l>', ':MoveHChar(1)<CR>' },
   }
   M.vmap {
-    { '<A-j>', ':MoveBlock(1)<CR>' },
-    { '<A-k>', ':MoveBlock(-1)<CR>' },
-    { '<A-h>', ':MoveHBlock(-1)<CR>' },
-    { '<A-l>', ':MoveHBlock(1)<CR>' },
+    { '<M-j>', ':MoveBlock(1)<CR>' },
+    { '<M-k>', ':MoveBlock(-1)<CR>' },
+    { '<M-h>', ':MoveHBlock(-1)<CR>' },
+    { '<M-l>', ':MoveHBlock(1)<CR>' },
   }
 end
 
@@ -410,6 +383,27 @@ function M.treesj()
 end
 
 function M.mini_files()
+  local yank_full_path = function()
+    local path = MiniFiles.get_fs_entry().path
+    vim.fn.setreg('+', path)
+    -- Print path yanked
+    print(path)
+  end
+  local yank_relative_path = function()
+    local path = MiniFiles.get_fs_entry().path
+    vim.fn.setreg('+', vim.fn.fnamemodify(path, ':.'))
+    -- Print path yanked
+    print(vim.fn.fnamemodify(path, ':.'))
+  end
+
+  vim.api.nvim_create_autocmd('User', {
+    pattern = 'MiniFilesBufferCreate',
+    callback = function(args)
+      vim.keymap.set('n', 'gy', yank_full_path, { buffer = args.data.buf_id })
+      vim.keymap.set('n', 'gY', yank_relative_path, { buffer = args.data.buf_id })
+    end,
+  })
+
   M.nmap {
     { '<M-1>', function() MiniFiles.open() end },
     { '<M-2>', function() MiniFiles.open(vim.api.nvim_buf_get_name(0), false) end }
@@ -418,7 +412,41 @@ end
 
 function M.outline()
   M.nmap {
-    { '<leader>go', ':SymbolsOutline<CR>' }
+    { '<leader>go', ':Outline<CR>' }
+  }
+end
+
+function M.mini_pick()
+  local U = require('core.utils')
+  local pick_files = function()
+    if U.is_win() then
+      return MiniPick.builtin.files()
+    else
+      local show_icon = function(buf_id, items, query) MiniPick.default_show(buf_id, items, query, { show_icons = true }) end
+
+      ---- use bfs
+      local default_opts = { source = { name = string.format('Files (%s)', 'bfs'), show = show_icon } }
+      local cmd = { 'bfs', '-type', 'f', '-nocolor', '-exclude', '-name', '.git' }
+
+      ---- use nimf
+      -- local default_opts = { source = { name = string.format('Files (%s)', 'nimf'), show = show_icon } }
+      -- local cmd = { 'f', '-t=f', '-c=false', '-x=/.git' }
+
+      local opts = vim.tbl_deep_extend('force', default_opts, {})
+      return MiniPick.builtin.cli({ command = cmd }, opts)
+    end
+  end
+
+  M.nmap {
+    { '<leader>ff', pick_files },
+    { '<leader>fs', ':Pick grep_live<CR>' },
+    { '<leader>fr', ':Pick resume<CR>' },
+    { '<leader>bb', ':Pick buffers<CR>' },
+    { '<leader>fh', ':Pick help<CR>' },
+    -- mini.extras pickers
+    { '<leader>fg', ':Pick git_files<CR>' },
+    { '<leader>fe', ':Pick oldfiles<CR>' },
+    { '<leader>fv', ':Pick visit_paths<CR>' },
   }
 end
 

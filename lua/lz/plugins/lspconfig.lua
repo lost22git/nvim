@@ -209,6 +209,46 @@ function M.config()
       capabilities = capabilities,
     }
   end
+
+  -- nim language server
+  if get_lsp_server_path('nimlangserver') ~= '' then
+    lspconfig.nim_langserver.setup {
+      on_attach = on_attach,
+      capabilities = capabilities,
+    }
+  end
+
+
+  -- crystal language server
+  if get_lsp_server_path('crystalline') ~= '' then
+    lspconfig.crystalline.setup {
+      on_attach = on_attach,
+      capabilities = capabilities,
+      cmd = { get_lsp_server_path('crystalline') },
+    }
+  end
+
+  -- nushell language server
+  lspconfig.nushell.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
+
+  -- htmx language server
+  if get_lsp_server_path('htmx-lsp') ~= '' then
+    lspconfig.htmx.setup {
+      on_attach = on_attach,
+      capabilities = capabilities,
+    }
+  end
+
+  -- html language server
+  if get_lsp_server_path('vscode-html-language-server') ~= '' then
+    lspconfig.html.setup {
+      on_attach = on_attach,
+      capabilities = capabilities,
+    }
+  end
 end
 
 return M

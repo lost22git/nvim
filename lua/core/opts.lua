@@ -2,9 +2,10 @@ local U = require('core.utils')
 
 local opt = vim.opt
 
--- gui client 字体
-opt.guifont = 'Maple Mono NF:h13'
+opt.fileformat = 'unix'
 
+-- gui client 字体
+opt.guifont = 'SauceCodePro Nerd Font Mono:l:h14'
 
 -- 编码
 vim.scriptencoding = 'utf-8'
@@ -29,7 +30,7 @@ opt.pumblend = 0         -- popup menu 透明度 [0-100]
 opt.background = 'dark'  -- 背景色
 
 -- 高亮
-opt.cursorcolumn = false          -- 高亮当前列
+opt.cursorcolumn = false          -- 高亮当
 opt.cursorline = false            -- 高亮当前行
 opt.cursorlineopt = "line,number" -- 只高亮行号, 默认 "line,number" 同时高亮行号和行
 -- opt.colorcolumn = '100' -- 高亮第n列
@@ -190,30 +191,40 @@ vim.g.loaded_netrwfilehandlers = 1
 vim.cmd [[au BufNewFile,BufRead *.v set filetype=vlang]]
 -- postcss
 vim.cmd [[au BufNewFile,BufRead *.postcss set filetype=postcss]]
+-- nushell
+vim.cmd [[au BufNewFile,BufRead *.nu set filetype=nu]]
 
-
+-- picker
+vim.g.picker = 'mini.pick'
+-- vim.g.picker = 'telescope'
 
 -- theme
 vim.g.transparent = false
 
--- vim.g.theme = 'catppuccin'
--- vim.g.theme = 'dark_flat'
--- vim.g.theme = 'github'
--- vim.g.theme = 'nord'
-vim.g.theme = 'oxocarbon'
--- vim.g.theme = 'vscode'
--- vim.g.theme = 'kanagawa'
--- vim.g.theme = 'fluoromachine'
--- vim.g.theme = 'zenbones'
--- vim.g.theme = 'mellow'
--- vim.g.theme = 'citruszest'
--- vim.g.theme = 'night-owl'
+-- vim.cmd.colorscheme 'darkblue'
+
+if not require('core.utils').version_ge('1.9.999') then
+  -- vim.g.theme = 'base16'
+  vim.g.theme = 'catppuccin'
+  -- vim.g.theme = 'dark_flat'
+  -- vim.g.theme = 'github'
+  -- vim.g.theme = 'nord'
+  -- vim.g.theme = 'oxocarbon'
+  -- vim.g.theme = 'vscode'
+  -- vim.g.theme = 'kanagawa'
+  -- vim.g.theme = 'fluoromachine'
+  -- vim.g.theme = 'mellow'
+  -- vim.g.theme = 'citruszest'
+  -- vim.g.theme = 'night-owl'
+end
 
 -- terminal shell
 if U.is_win() then
-  local exepath = vim.fn.exepath("clink")
-  if exepath ~= '' then
-    exepath = string.gsub(exepath, '\\', '/') -- 替换 \ 为 /
-    vim.g.term_shell = { 'cmd.exe', '/s', '/k', '"' .. exepath .. ' inject"' }
-  end
+  -- local exepath = vim.fn.exepath("clink")
+  -- if exepath ~= '' then
+  --   exepath = string.gsub(exepath, '\\', '/') -- 替换 \ 为 /
+  --   vim.g.term_shell = { 'cmd.exe', '/s', '/k', '"' .. exepath .. ' inject"' }
+  -- end
+
+  vim.g.term_shell = { 'pwsh' }
 end

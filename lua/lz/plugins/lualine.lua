@@ -51,7 +51,7 @@ function M.config()
           ---@diagnostic disable-next-line: unused-local
           color = function(section) return U.get_lualine_hl_group('a') end
         },
-        -- 文件类型
+        -- -- 文件类型
         'filetype',
         -- 文件大小
         'filesize',

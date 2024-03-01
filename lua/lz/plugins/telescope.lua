@@ -1,26 +1,21 @@
 local fzf = {
   'nvim-telescope/telescope-fzf-native.nvim',
-  build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
+  build =
+  'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
   config = function()
     require('telescope').load_extension('fzf')
   end
 }
 
-local file_browser = {
-  'nvim-telescope/telescope-file-browser.nvim',
-  config = function()
-    require("telescope").load_extension('file_browser')
-  end
-}
-
 local M = {
-  'nvim-telescope/telescope.nvim', tag = '0.1.4',
+  'nvim-telescope/telescope.nvim',
+  enabled = vim.g.picker == 'telescope',
+  tag = '0.1.4',
   cmd = { "Telescope" },
-  keys = { "<Leader>ff", "<Leader>fg", "<Leader>fm", "<Leader>fo", "<Leader>fb", "<Leader>fp", "<Leader>ft", "<Leader>fs" },
+  keys = { "<Leader>ff", "<Leader>fg", "<Leader>fm", "<Leader>fe", "<leader>bb", "<Leader>fa", "<Leader>ft", "<Leader>fs" },
   dependencies = {
     'nvim-lua/plenary.nvim',
     fzf,
-    file_browser,
   },
 }
 
@@ -35,12 +30,6 @@ function M.config()
       mappings = maps.telescope_default_mapping(),
     },
     extensions = {
-      file_browser = {
-        theme = "dropdown",
-        -- disables netrw and use telescope-file-browser in its place
-        hijack_netrw = true,
-        mappings = maps.telescope_file_browser_mappings()
-      },
       fzf = {
         -- false will only do exact matching
         fuzzy = true,
@@ -56,7 +45,6 @@ function M.config()
 
   -- keymaps
   maps.telescope()
-
 end
 
 return M

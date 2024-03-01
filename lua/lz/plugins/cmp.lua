@@ -1,8 +1,20 @@
+local friendly_snippets = {
+  'rafamadriz/friendly-snippets',
+  config = function()
+    require("luasnip.loaders.from_vscode").lazy_load()
+  end
+}
+
+local luasnip = {
+  "L3MON4D3/LuaSnip",
+  version = "v2.*",
+  build = "make install_jsregexp",
+  dependencies = { friendly_snippets },
+}
+
 local cmp_luasnip = {
   'saadparwaiz1/cmp_luasnip',
-  dependencies = {
-   'L3MON4D3/LuaSnip'
-  }
+  dependencies = { luasnip },
 }
 
 local M = {
@@ -48,13 +60,13 @@ function M.config()
     }),
     window = {
       completion = {
-        border = 'rounded', -- single | rounded | double | solid | shadow | { }
+        border = 'solid', -- single | rounded | double | solid | shadow | { }
         --border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
         -- col_offset = -3,
         side_padding = 0,
       },
       documentation = {
-        border = 'rounded',
+        border = 'solid',
         -- winhighlight = 'Normal:TelescopeNormal,FloatBorder:TelescopeBorder',
       }
     },
@@ -84,8 +96,6 @@ function M.config()
       { name = 'cmdline' }
     })
   })
-
-
 end
 
 return M

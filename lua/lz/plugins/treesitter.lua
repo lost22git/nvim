@@ -74,6 +74,7 @@ function M.config()
       "dart",
       "zig",
       "v",
+      "nim",
     },
     autotag = {
       enable = true,

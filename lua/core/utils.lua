@@ -1,5 +1,11 @@
 local M = {}
 
+function M.version_ge(version_string)
+  local current = vim.version()
+  local min = vim.version.parse(version_string)
+  return vim.version.cmp(current, min) >= 0
+end
+
 function M.is_gui()
   return M.is_neovide() or M.is_fvim()
 end
