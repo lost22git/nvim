@@ -2,8 +2,6 @@ local U = require('core.utils')
 
 local opt = vim.opt
 
-opt.fileformat = 'unix'
-
 -- gui client 字体
 opt.guifont = 'SauceCodePro Nerd Font Mono:l:h14'
 
@@ -184,14 +182,12 @@ vim.g.loaded_netrwplugin = 1
 vim.g.loaded_netrwsettings = 1
 vim.g.loaded_netrwfilehandlers = 1
 
+-- set file format to unix
+vim.cmd [[ autocmd BufNewFile,BufRead * set ff=unix ]]
 
 -- filetype register
-
--- avoid regarding *.v file as a verilog file
 vim.cmd [[au BufNewFile,BufRead *.v set filetype=vlang]]
--- postcss
 vim.cmd [[au BufNewFile,BufRead *.postcss set filetype=postcss]]
--- nushell
 vim.cmd [[au BufNewFile,BufRead *.nu set filetype=nu]]
 
 -- picker
