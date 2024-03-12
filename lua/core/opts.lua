@@ -199,19 +199,23 @@ vim.g.transparent = false
 
 -- vim.cmd.colorscheme 'darkblue'
 
+local themes = {
+  'base16',
+  'catppuccin',
+  'dark_flat',
+  'github',
+  'nord',
+  'oxocarbon',
+  'vscode',
+  'kanagawa',
+  'fluoromachine',
+  'mellow',
+  'citruszest',
+}
+
 if not require('core.utils').version_ge('1.9.999') then
-  -- vim.g.theme = 'base16'
-  vim.g.theme = 'catppuccin'
-  -- vim.g.theme = 'dark_flat'
-  -- vim.g.theme = 'github'
-  -- vim.g.theme = 'nord'
-  -- vim.g.theme = 'oxocarbon'
-  -- vim.g.theme = 'vscode'
-  -- vim.g.theme = 'kanagawa'
-  -- vim.g.theme = 'fluoromachine'
-  -- vim.g.theme = 'mellow'
-  -- vim.g.theme = 'citruszest'
-  -- vim.g.theme = 'night-owl'
+  local index = (vim.fn.rand() % vim.fn.len(themes)) + 1
+  vim.g.theme = themes[index]
 end
 
 -- terminal shell

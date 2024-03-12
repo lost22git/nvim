@@ -9,7 +9,7 @@ function M.config()
   require("citruszest").setup {
     option = {
       transparent = vim.g.transparent,
-      italic = true,
+      italic = false,
       bold = true,
     },
     style = {

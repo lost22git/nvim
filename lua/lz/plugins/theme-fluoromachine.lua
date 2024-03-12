@@ -19,7 +19,7 @@ function M.config()
       ['@function'] = { italic = false, bold = false },
       ['@comment'] = { italic = false },
       ['@keyword'] = { italic = false },
-      ['@constant'] = { italic = false, bold = false },
+      ['@constant'] = { italic = false, bold = true },
       ['@variable'] = { italic = false },
       ['@field'] = { italic = false },
       ['@parameter'] = { italic = false },
