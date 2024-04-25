@@ -39,6 +39,11 @@ function M.config()
 
   ---@diagnostic disable-next-line: redundant-parameter
   cmp.setup({
+    view = {
+      entries = {
+        follow_cursor = true,
+      }
+    },
     mapping = maps.cmp(),
     formatting = {
       format = require('lz.plugins.lspkind').cmp_format(),
@@ -60,13 +65,13 @@ function M.config()
     }),
     window = {
       completion = {
-        border = 'solid', -- single | rounded | double | solid | shadow | { }
-        --border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+        border = 'single', -- single | rounded | double | solid | shadow | { }
+        -- border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
         -- col_offset = -3,
         side_padding = 0,
       },
       documentation = {
-        border = 'solid',
+        border = 'single',
         -- winhighlight = 'Normal:TelescopeNormal,FloatBorder:TelescopeBorder',
       }
     },

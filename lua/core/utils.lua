@@ -7,7 +7,11 @@ function M.version_ge(version_string)
 end
 
 function M.is_gui()
-  return M.is_neovide() or M.is_fvim()
+  return M.is_neovide() or M.is_fvim() or M.is_vscode()
+end
+
+function M.is_vscode()
+  return vim.g.vscode or false
 end
 
 function M.is_neovide()

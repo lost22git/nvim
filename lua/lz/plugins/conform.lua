@@ -6,10 +6,15 @@ local M = {
 function M.config()
   local U = require('core.utils')
   require('conform').setup {
+    format_on_save = {
+      timeout_ms = 1000,
+      async = false,
+      quiet = false,
+      lsp_fallback = true,
+    },
     formatters_by_ft = {
       -- html       = { 'prettier' },
       javascript = { 'prettier' },
-      -- python     = { 'black' },
       python     = { 'ruff' },
       crystal    = { 'crystal' },
       sh         = { 'shfmt' },
@@ -32,14 +37,10 @@ function M.config()
         stdin = false,
       },
       nph = {
-        command = U.get_lsp_server_path("nph"),
+        command = "nph",
         args = { "$FILENAME" },
         stdin = false,
       },
-    },
-    format_on_save = {
-      timeout_ms = 500,
-      lsp_fallback = false,
     },
   }
 end

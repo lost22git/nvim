@@ -15,11 +15,11 @@ function M.config()
       hide_nc_statusline = true,         -- Override the underline style for non-active statuslines
       transparent = vim.g.transparent,   -- Disable setting background
       terminal_colors = true,            -- Set terminal colors (vim.g.terminal_color_*) used in `:terminal`
-      dim_inactive = false,              -- Non focused panes set to alternative background
+      dim_inactive = true,              -- Non focused panes set to alternative background
       module_default = true,             -- Default enable value for modules
       styles = {
         -- Style to be applied to different syntax groups
-        comments = 'italic', -- Value is any valid attr-list value `:help attr-list`
+        comments = 'NONE', -- Value is any valid attr-list value `:help attr-list`
         functions = 'NONE',
         keywords = 'bold',
         variables = 'NONE',
@@ -53,18 +53,25 @@ function M.config()
     groups = {},
   }
 
-  -- github_dark
-  -- github_dark_dimmed
-  -- github_dark_default
-  -- github_dark_high_contrast
-  -- github_dark_colorblind
-  -- github_dark_tritanopia
-  -- github_light
-  -- github_light_default
-  -- github_light_high_contrast
-  -- github_light_colorblind
-  -- github_light_tritanopia
-  vim.cmd.colorscheme 'github_dark_tritanopia'
+  local themes = {
+    dark = {
+      'github_dark',
+      'github_dark_dimmed',
+      'github_dark_default',
+      'github_dark_high_contrast',
+      'github_dark_colorblind',
+      'github_dark_tritanopia',
+    },
+    light = {
+      'github_light',
+      'github_light_default',
+      'github_light_high_contrast',
+      'github_light_colorblind',
+      'github_light_tritanopia',
+    },
+  }
+  local bg = vim.o.background
+  vim.cmd.colorscheme(themes[bg][vim.fn.rand() % vim.fn.len(themes[bg]) + 1])
 end
 
 return M

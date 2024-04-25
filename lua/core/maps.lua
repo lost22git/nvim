@@ -61,6 +61,7 @@ function M.base()
 
     -- start lsp client
     { '<Leader><Enter>', '<cmd>LspStart<CR>' },
+    { 'gl',              '<cmd>LspStart<CR>' },
 
     -- Increment/decrement
     { '=',               '<C-a>' },
@@ -109,7 +110,7 @@ function M.base()
 
     -- 退出 visual mode
     { '<C-[',  '<Esc>' },
-    { 'ii',    '<Esc>' },
+    { 'a',     '<Esc>' },
 
   }
 
@@ -123,6 +124,7 @@ function M.base()
 
   M.imap {
     { 'jk',    '<Esc>' },
+    { '<C-v>', '<Esc>"+pa' },
     { '<C-h>', '<Esc>^i' },
     { '<C-l>', '<Esc>$a' },
     { '<C-a>', '<Home>' },
@@ -247,6 +249,24 @@ function M.cmp()
         fallback()
       end
     end, { 'i', 's' }),
+    ['<M-j>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif has_words_before() then
+        ---@diagnostic disable-next-line: missing-parameter
+        cmp.complete()
+      else
+        fallback()
+      end
+    end, { 'i', 's', 'c' }),
+    ['<M-k>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      else
+        fallback()
+      end
+    end, { 'i', 's', 'c' }),
+
   })
 end
 
@@ -254,40 +274,46 @@ function M.lsp(bufnr)
   local opts = { noremap = true, silent = true, buffer = bufnr }
 
   M.nmap {
-    { '<Leader><Leader>f', vim.lsp.buf.format,                                                      opts },
-    { "gs",                vim.lsp.buf.document_symbol,                                             opts },
-    { "gS",                vim.lsp.buf.workspace_symbol,                                            opts },
-    { 'gt',                vim.lsp.buf.type_definition,                                             opts },
-    { 'gD',                vim.lsp.buf.declaration,                                                 opts },
-    { 'gd',                vim.lsp.buf.definition,                                                  opts },
-    { 'gi',                vim.lsp.buf.implementation,                                              opts },
-    { 'gh',                vim.lsp.buf.hover,                                                       opts },
-    { 'gH',                vim.lsp.buf.signature_help,                                              opts },
-    { 'gR',                vim.lsp.buf.references,                                                  opts },
-    { 'gr',                vim.lsp.buf.rename,                                                      opts },
-    { 'ga',                vim.lsp.buf.code_action,                                                 opts },
+    { 'gf',  vim.lsp.buf.format,                                                      opts },
+    { "gs",  vim.lsp.buf.document_symbol,                                             opts },
+    { "gS",  vim.lsp.buf.workspace_symbol,                                            opts },
+    { 'gt',  vim.lsp.buf.type_definition,                                             opts },
+    { 'gD',  vim.lsp.buf.definition,                                                  opts },
+    { 'ge',  vim.lsp.buf.declaration,                                                 opts },
+    { 'gR',  vim.lsp.buf.references,                                                  opts },
+    { 'gi',  vim.lsp.buf.implementation,                                              opts },
+    { 'gh',  vim.lsp.buf.hover,                                                       opts },
+    { 'gH',  vim.lsp.buf.signature_help,                                              opts },
 
-    { 'ge',                vim.diagnostic.open_float,                                               opts },
-    { '[e',                vim.diagnostic.goto_prev,                                                opts },
-    { ']e',                vim.diagnostic.goto_next,                                                opts },
-    { 'gq',                vim.diagnostic.setloclist,                                               opts },
+    -- use lspsaga.nvim to enhance it. see lspsaga()
+    -- { 'ga',  vim.lsp.buf.code_action,                                                 opts },
+    -- { 'gr',                vim.lsp.buf.rename,                                                      opts },
 
-    { 'gwa',               vim.lsp.buf.add_workspace_folder,                                        opts },
-    { 'gwr',               vim.lsp.buf.remove_workspace_folder,                                     opts },
-    { 'gwl',               function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, opts },
+    -- use trouble.nvim and lspsaga.nvim to enhance it, see trouble() and lspsaga()
+    -- { 'ge',                vim.diagnostic.open_float,                                               opts },
+    -- { 'gk',                vim.diagnostic.goto_prev,                                                opts },
+    -- { 'gj',                vim.diagnostic.goto_next,                                                opts },
+    -- { 'gl',                vim.diagnostic.setloclist,                                               opts },
+
+    { 'gwa', vim.lsp.buf.add_workspace_folder,                                        opts },
+    { 'gwr', vim.lsp.buf.remove_workspace_folder,                                     opts },
+    { 'gwl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, opts },
   }
 
-  M.vmap {
-    { 'ga', vim.lsp.buf.range_code_action, opts },
-  }
+  -- use lspsaga.nvim to enhance it. see lspsaga()
+  -- M.vmap {
+  -- { 'ga', vim.lsp.buf.range_code_action, opts },
+  -- }
 end
 
-function M.noice()
-  M.nvmap {
-    { '<M-9>', '<cmd>Noice<CR>' }
-  }
-  M.imap {
-    { '<M-9>', '<cmd>Noice<CR>' }
+function M.trouble()
+  M.nmap {
+    { 'gee', '<cmd>TroubleToggle<CR>' },
+    { 'gew', '<cmd>TroubleToggle workspace_diagnostics<CR>' },
+    { 'ged', '<cmd>TroubleToggle document_diagnostics<CR>' },
+    { 'geq', '<cmd>TroubleToggle quickfix<CR>' },
+    { 'gel', '<cmd>TroubleToggle loclist<CR>' },
+    { 'ger', '<cmd>TroubleToggle lsp_references<CR>' },
   }
 end
 
@@ -295,10 +321,10 @@ function M.lspsaga()
   M.nmap {
     { "<Leader>gg", "<cmd>Lspsaga lsp_finder<CR>" },
     { "<Leader>gh", "<cmd>Lspsaga hover_doc<CR>" },
-    { "<Leader>gr", "<cmd>Lspsaga rename<CR>" },
-    { "<Leader>gd", "<cmd>Lspsaga peek_definition<CR>" },
+    { "gr",         "<cmd>Lspsaga rename<CR>" },
+    { "gd",         "<cmd>Lspsaga peek_definition<CR>" },
     -- { "<Leader>go", "<cmd>Lspsaga outline<CR>" },
-    { "go",         "<cmd>Lspsaga incoming_calls<CR>" },
+    { "go",         "<cmd>lspsaga incoming_calls<cr>" },
     { "gO",         "<cmd>Lspsaga outgoing_calls<CR>" },
 
     -- Diagnostic
@@ -320,19 +346,16 @@ function M.lspsaga()
   }
 
   M.nvmap {
-    { "<Leader>ga", "<cmd>Lspsaga code_action<CR>" },
+    { "ga", "<cmd>Lspsaga code_action<CR>" },
   }
 end
 
-function M.trouble()
-  M.nmap {
-    { '<M-8>',      '<cmd>TroubleToggle<CR>' },
-    { '<leader>xx', '<cmd>TroubleToggle<CR>' },
-    { '<leader>xw', '<cmd>TroubleToggle workspace_diagnostics<CR>' },
-    { '<leader>xd', '<cmd>TroubleToggle document_diagnostics<CR>' },
-    { '<leader>xq', '<cmd>TroubleToggle quickfix<CR>' },
-    { '<leader>xl', '<cmd>TroubleToggle loclist<CR>' },
-    { '<Leader>xr', '<cmd>TroubleToggle lsp_references<CR>' },
+function M.noice()
+  M.nvmap {
+    { '<M-9>', '<cmd>Noice<CR>' }
+  }
+  M.imap {
+    { '<M-9>', '<cmd>Noice<CR>' }
   }
 end
 

@@ -3,7 +3,12 @@ local U = require('core.utils')
 local opt = vim.opt
 
 -- gui client 字体
-opt.guifont = 'SauceCodePro Nerd Font Mono:l:h14'
+-- neovide 使用自己的 config.toml, 因为它支持配置 light style
+--
+if not U.is_neovide() then
+  opt.guifont = 'IntoneMono Nerd Font:h16'
+  opt.guifontwide = 'Maple Mono SC NF:h16'
+end
 
 -- 编码
 vim.scriptencoding = 'utf-8'
@@ -28,8 +33,8 @@ opt.pumblend = 0         -- popup menu 透明度 [0-100]
 opt.background = 'dark'  -- 背景色
 
 -- 高亮
-opt.cursorcolumn = false          -- 高亮当
-opt.cursorline = false            -- 高亮当前行
+opt.cursorcolumn = false          -- 高亮当前列
+opt.cursorline = true            -- 高亮当前行
 opt.cursorlineopt = "line,number" -- 只高亮行号, 默认 "line,number" 同时高亮行号和行
 -- opt.colorcolumn = '100' -- 高亮第n列
 -- opt.textwidth = 100 -- 每行文本最大列数，超过自动换行
@@ -195,27 +200,32 @@ vim.g.picker = 'mini.pick'
 -- vim.g.picker = 'telescope'
 
 -- theme
-vim.g.transparent = false
 
+if vim.g.transparent == nil then
+  vim.g.transparent = false
+end
 -- vim.cmd.colorscheme 'darkblue'
 
-local themes = {
-  'base16',
-  'catppuccin',
-  'dark_flat',
-  'github',
-  'nord',
-  'oxocarbon',
-  'vscode',
-  'kanagawa',
-  'fluoromachine',
-  'mellow',
-  'citruszest',
-}
-
-if not require('core.utils').version_ge('1.9.999') then
-  local index = (vim.fn.rand() % vim.fn.len(themes)) + 1
-  vim.g.theme = themes[index]
+if vim.g.theme == nil or vim.g.theme == '' then
+  if not require('core.utils').version_ge('1.9.999') then
+    local themes = {
+      'catppuccin',
+      'dark_flat',
+      'github',
+      'nord',
+      'northern',
+      'oxocarbon',
+      'vscode',
+      'kanagawa',
+      'fluoromachine',
+      'mellow',
+      'rose-pine',
+      'zenbones',
+      'darcula',
+    }
+    vim.g.theme = 'darcula'
+    -- vim.g.theme = themes[vim.fn.rand() % vim.fn.len(themes) + 1]
+  end
 end
 
 -- terminal shell

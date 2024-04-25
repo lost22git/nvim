@@ -103,4 +103,37 @@ return {
     end,
   },
 
+  -- mini.indent
+  {
+    'echasnovski/mini.indentscope',
+    event = { "BufReadPost", "BufNewFile" },
+    version = false,
+    config = function()
+      require('mini.indentscope').setup {}
+    end,
+  },
+
+  -- mini.surround
+  {
+    'echasnovski/mini.surround',
+    version = false,
+    event = { 'BufReadPost', 'BufNewFile' },
+    config = function()
+      require("mini.surround").setup {
+        mappings = {
+          add = 'ms',
+          delete = 'md',
+          find = 'mf',
+          find_left = 'mF',
+          highlight = 'mh',
+          replace = 'mr',
+          update_n_lines = 'mn',
+
+          suffix_last = 'l',
+          suffix_next = 'n',
+        },
+      }
+    end
+  }
+
 }

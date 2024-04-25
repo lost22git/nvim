@@ -2,7 +2,7 @@ local M = {
   "folke/noice.nvim",
   keys = { "<M-9>" },
   event = { "VeryLazy" },
-  -- event = { "BufRead", "CmdLineEnter" },
+  cond = not vim.g.vscode
 }
 
 function M.config()

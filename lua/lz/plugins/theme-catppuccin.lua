@@ -17,10 +17,19 @@ function M.config()
       percentage = 0.15,
     },
   }
-  -- vim.cmd.colorscheme 'catppuccin-latte'
-  -- vim.cmd.colorscheme 'catppuccin-frappe'
-  -- vim.cmd.colorscheme 'catppuccin-macchiato'
-  vim.cmd.colorscheme 'catppuccin-mocha'
+
+  local themes = {
+    dark = {
+      'catppuccin-frappe',
+      'catppuccin-macchiato',
+      'catppuccin-mocha',
+    },
+    light = {
+      'catppuccin-latte'
+    },
+  }
+  local bg = vim.o.background
+  vim.cmd.colorscheme(themes[bg][vim.fn.rand() % vim.fn.len(themes[bg]) + 1])
 end
 
 return M

@@ -15,7 +15,16 @@ return {
   },
 
   -- Zen Mode
-  { "folke/zen-mode.nvim", module = "zen-mode", cmd = { "ZenMode" } },
+  -- { "folke/zen-mode.nvim", module = "zen-mode", cmd = { "ZenMode" } },
+
+  -- True Zen
+  {
+    "Pocco81/true-zen.nvim",
+    cmd = { 'TZNarrow', 'TZFocus', 'TZMinimalist', 'TZAtaraxis' },
+    config = function()
+      require("true-zen").setup {}
+    end,
+  },
 
   -- UI
   { "MunifTanjim/nui.nvim" },
@@ -30,36 +39,36 @@ return {
   },
 
   -- 缩进
-  {
-    'lukas-reineke/indent-blankline.nvim',
-    event = { "BufReadPost", "BufNewFile" },
-    config = function()
-      local scope_highlight = {
-        "RainbowBlue",
-      }
-      local indent_highlight = {
-        "RainbowViolet",
-      }
-
-      local hooks = require "ibl.hooks"
-      -- create the highlight groups in the highlight setup hook, so they are reset
-      -- every time the colorscheme changes
-      hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-        -- vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
-        -- vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
-        vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
-        -- vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
-        -- vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
-        vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
-        -- vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
-      end)
-
-      require("ibl").setup {
-        scope = { highlight = scope_highlight },
-        indent = { char = '╎', highlight = indent_highlight },
-      }
-    end
-  },
+  -- {
+  --   'lukas-reineke/indent-blankline.nvim',
+  --   event = { "BufReadPost", "BufNewFile" },
+  --   config = function()
+  --     local scope_highlight = {
+  --       "RainbowBlue",
+  --     }
+  --     local indent_highlight = {
+  --       "RainbowViolet",
+  --     }
+  --
+  --     local hooks = require "ibl.hooks"
+  --     -- create the highlight groups in the highlight setup hook, so they are reset
+  --     -- every time the colorscheme changes
+  --     hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+  --       -- vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
+  --       -- vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
+  --       vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
+  --       -- vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
+  --       -- vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
+  --       vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
+  --       -- vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
+  --     end)
+  --
+  --     require("ibl").setup {
+  --       scope = { highlight = scope_highlight },
+  --       indent = { char = '╎', highlight = indent_highlight },
+  --     }
+  --   end
+  -- },
 
   -- 注释
   {
@@ -72,8 +81,17 @@ return {
 
   -- 颜色代码高亮
   {
-    'norcalli/nvim-colorizer.lua',
+    'NvChad/nvim-colorizer.lua',
     cmd = { "ColorizerAttachToBuffer" },
+    config = function()
+      require("colorizer").setup {
+        user_default_options = {
+          tailwind    = true,
+          mode        = "virtualtext",
+          virtualtext = "■",
+        }
+      }
+    end
   },
 
   -- 增量重命名
@@ -167,7 +185,7 @@ return {
   {
     "folke/trouble.nvim",
     cmd = { 'Trouble' },
-    keys = { '<M-8>', '<leader>xx', '<Leader>xd', '<Leader>xr' },
+    keys = { '<M-8>', 'gee', 'ged', 'ger', 'geq', 'gel' },
     config = function()
       local trouble = require('trouble')
       trouble.setup {
@@ -202,24 +220,51 @@ return {
     keys = { ';' },
     config = function()
       require('neo-zoom').setup {
-        -- top_ratio = 0,
-        -- left_ratio = 0.225,
-        -- width_ratio = 0.775,
-        -- height_ratio = 0.925,
-        border = 'rounded',
-        -- disable_by_cursor = true, -- zoom-out/unfocus when you click anywhere else.
-        -- exclude_filetypes = { 'lspinfo', 'mason', 'lazy', 'fzf', 'qf' },
+        popup = { enabled = true }, -- this is the default.
         exclude_buftypes = { 'terminal' },
-        -- popup = {
-        --   -- NOTE: Add popup-effect (replace the window on-zoom with a `[No Name]`).
-        --   -- This way you won't see two windows of the same buffer
-        --   -- got updated at the same time.
-        --   enabled = true,
-        --   exclude_filetypes = {},
-        --   exclude_buftypes = {},
-        -- },
+        -- exclude_filetypes = { 'lspinfo', 'mason', 'lazy', 'fzf', 'qf' },
+        winopts = {
+          offset = {
+            -- NOTE: omit `top`/`left` to center the floating window vertically/horizontally.
+            -- top = 0,
+            -- left = 0.17,
+            width = 150,
+            height = 0.85,
+          },
+          -- NOTE: check :help nvim_open_win() for possible border values.
+          border = 'rounded',
+        },
+        presets = {
+          {
+            -- NOTE: regex pattern can be used here!
+            filetypes = { 'dapui_.*', 'dap-repl' },
+            winopts = {
+              offset = { top = 0.02, left = 0.26, width = 0.74, height = 0.25 },
+            },
+          },
+          {
+            filetypes = { 'markdown' },
+            callbacks = {
+              function() vim.wo.wrap = true end,
+            },
+          },
+        },
       }
+
       vim.keymap.set('n', ';', function() vim.cmd('NeoZoomToggle') end, { silent = true, nowait = true })
+
+      vim.api.nvim_create_autocmd({ 'WinEnter' }, {
+        callback = function()
+          local zoom_book = require('neo-zoom').zoom_book
+
+          if require('neo-zoom').is_neo_zoom_float()
+          then
+            for z, _ in pairs(zoom_book) do vim.wo[z].winbl = 0 end
+          else
+            for z, _ in pairs(zoom_book) do vim.wo[z].winbl = 20 end
+          end
+        end
+      })
     end
   },
 
@@ -288,4 +333,61 @@ return {
       require('core.maps').outline()
     end
   },
+
+  -- markdown better previewer
+  {
+    'MeanderingProgrammer/markdown.nvim',
+    name = 'render-markdown',
+    ft = 'markdown',
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    config = function()
+      require('render-markdown').setup {}
+    end,
+  },
+
+  -- cursor line number mode indicator
+  {
+    'mawkler/modicator.nvim',
+    event = { 'BufReadPost', 'BufNewFile' },
+    config = function()
+      require('modicator').setup {
+        highlights = {
+          defaults = {
+            bold = true,
+            italic = false,
+          },
+        },
+        integration = {
+          lualine = {
+            enabled = true,
+            -- Letter of lualine section to use (if `nil`, gets detected automatically)
+            mode_section = nil,
+            -- Whether to use lualine's mode highlight's foreground or background
+            highlight = 'bg',
+          },
+        },
+      }
+    end
+  },
+
+  -- 窗口动画
+  -- {
+  --   'tamton-aquib/flirt.nvim',
+  --   lazy = false,
+  --   config = function()
+  --     require("flirt").setup {
+  --       override_open = true,                          -- experimental
+  --       close_command = 'Q',
+  --       default_move_mappings = true,                  -- <C-arrows> to move floats
+  --       default_resize_mappings = true,                -- <A-arrows> to resize floats
+  --       default_mouse_mappings = true,                 -- Drag floats with mouse
+  --       exclude_fts = { 'notify', 'cmp_menu' },
+  --       speed = 100,                                    -- Can vary from 1 to 100 (100 is fast)
+  --       custom_filter = function(buffer, win_config)
+  --         return vim.bo[buffer].filetype == 'cmp_menu' -- avoids animation
+  --       end
+  --     }
+  --   end
+  -- }
+
 }

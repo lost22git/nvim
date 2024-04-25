@@ -198,7 +198,14 @@ function M.config()
     lspconfig.zls.setup {
       on_attach = on_attach,
       capabilities = capabilities,
-      cmd = { get_lsp_server_path('zls') }
+      cmd = { get_lsp_server_path('zls') },
+      settings = {
+        zls = {
+          enable_snippets = true,
+          enable_argument_placeholders = false,
+          highlight_global_var_declarations = true,
+        }
+      },
     }
   end
 
@@ -234,6 +241,7 @@ function M.config()
     capabilities = capabilities,
   }
 
+
   -- htmx language server
   if get_lsp_server_path('htmx-lsp') ~= '' then
     lspconfig.htmx.setup {
@@ -247,6 +255,23 @@ function M.config()
     lspconfig.html.setup {
       on_attach = on_attach,
       capabilities = capabilities,
+    }
+  end
+
+  -- gleam language server
+  if get_lsp_server_path('gleam') ~= '' then
+    lspconfig.gleam.setup {
+      on_attach = on_attach,
+      capabilities = capabilities,
+    }
+  end
+
+  -- elixir language server
+  if get_lsp_server_path('elixir-ls') ~= '' then
+    lspconfig.elixirls.setup {
+      on_attach = on_attach,
+      capabilities = capabilities,
+      cmd = { get_lsp_server_path('elixir-ls') }
     }
   end
 end

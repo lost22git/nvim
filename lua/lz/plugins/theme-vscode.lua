@@ -11,7 +11,7 @@ function M.config()
   vscode.setup {
     transparent = vim.g.transparent,
 
-    italic_comments = true,
+    italic_comments = false,
 
     disable_nvimtree_bg = true,
 
@@ -27,9 +27,8 @@ function M.config()
       Cursor = { fg = c.vscDarkBlue, bg = c.vscLightGreen, bold = true },
     }
   }
-  if (not require('core.utils').is_win()) then
-    vim.cmd.colorscheme 'vscode'
-  end
+
+  vim.cmd.colorscheme 'vscode'
 end
 
 -- function M.get_bufferline_hl()

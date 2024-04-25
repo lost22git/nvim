@@ -9,7 +9,7 @@ function M.config()
   local U = require('core.utils')
   lualine.setup {
     options = {
-      icons_enabled = false,
+      icons_enabled = true,
       theme = 'auto',
       disabled_filetypes = {},
       globalstatus = true, -- 全局共用一个状态栏
@@ -40,7 +40,7 @@ function M.config()
           'filename',
           file_status = true, -- displays file status (readonly status, modified status)
           path = 1,           -- 0 = just filename, 1 = relative path, 2 = absolute path
-          color = { gui = 'italic' },
+          -- color = { gui = 'italic' },
           align = 'center',
         }
       },
@@ -49,12 +49,13 @@ function M.config()
         {
           U.get_buf_lsp_clients_name,
           ---@diagnostic disable-next-line: unused-local
-          color = function(section) return U.get_lualine_hl_group('a') end
+          color = function(section) return U.get_lualine_hl_group('b') end
         },
-        -- -- 文件类型
-        'filetype',
-        -- 文件大小
-        'filesize',
+
+        -- 光标位置
+        'location',
+        -- 光标位置处于当前文件的%进度
+        'progress',
         -- 文件编码
         'encoding',
         -- 文件换行符
@@ -67,23 +68,27 @@ function M.config()
             mac = 'lf',
           },
         },
+      },
+      lualine_y = {
         -- 插件状态
         {
           function()
             local stats = require('lazy').stats()
-            return string.format('插件：%s/%s', stats.loaded, stats.count)
+            return string.format('%s/%s', stats.loaded, stats.count)
           end,
           cond = function() return pcall(require, 'lazy') end,
           -- color = { bg = '#d7af00', fg = '#000000' },
         },
-      },
-      lualine_y = {
-        -- 光标位置处于当前文件的%进度
-        'progress'
+        -- 当前 theme
+        {
+          function()
+            return vim.g.colors_name
+          end
+        },
       },
       lualine_z = {
-        -- 光标位置
-        'location'
+        -- -- 文件类型
+        'filetype',
       }
     },
     inactive_sections = {

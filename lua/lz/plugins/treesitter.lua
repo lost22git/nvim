@@ -4,6 +4,9 @@ local M = {
     local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
     ts_update()
   end,
+  dependencies = {
+    { "nushell/tree-sitter-nu" },
+  },
   event = { "BufReadPost", "BufNewFile" },
 }
 
@@ -48,8 +51,6 @@ function M.config()
       "lua",
       "sql",
       "python",
-      "julia",
-      "vhs",
       --
       "toml",
       "json",
@@ -67,7 +68,6 @@ function M.config()
       "svelte",
       --
       "java",
-      "kotlin",
       "rust",
       "go",
       "gomod",
@@ -75,6 +75,7 @@ function M.config()
       "zig",
       "v",
       "nim",
+      "gleam",
     },
     autotag = {
       enable = true,
