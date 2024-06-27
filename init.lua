@@ -3,6 +3,7 @@
 
 
 require('core.opts')
+require('core.autocmd')
 require('core.shells')
 
 --#region 加载插件

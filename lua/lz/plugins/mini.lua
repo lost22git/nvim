@@ -134,6 +134,15 @@ return {
         },
       }
     end
-  }
+  },
 
+  -- mini.tabline
+  {
+    'echasnovski/mini.tabline',
+    version = false,
+    event = { 'BufAdd', 'TabEnter' },
+    config = function()
+      require('mini.tabline').setup {}
+    end
+  }
 }

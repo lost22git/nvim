@@ -14,9 +14,6 @@ return {
     'nvim-tree/nvim-web-devicons',
   },
 
-  -- Zen Mode
-  -- { "folke/zen-mode.nvim", module = "zen-mode", cmd = { "ZenMode" } },
-
   -- True Zen
   {
     "Pocco81/true-zen.nvim",
@@ -34,7 +31,12 @@ return {
     'TheBlob42/houdini.nvim',
     event = { "InsertEnter", "CmdLineEnter", "TermEnter" },
     config = function()
-      require('houdini').setup()
+      require('houdini').setup {
+        escape_sequences = {
+          ['v'] = false,
+          ['V'] = false,
+        }
+      }
     end
   },
 
@@ -69,15 +71,6 @@ return {
   --     }
   --   end
   -- },
-
-  -- 注释
-  {
-    'numToStr/Comment.nvim',
-    keys = { 'gcc', { 'gc', mode = 'v' } },
-    config = function()
-      require('Comment').setup()
-    end
-  },
 
   -- 颜色代码高亮
   {

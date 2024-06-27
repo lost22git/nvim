@@ -1,6 +1,10 @@
 vim.cmd [[
-  highlight Pmenu guibg=none
-  " highlight Normal guibg=none
-  " highlight NormalFloat guibg=none
-  " highlight FloatBorder guibg=none
+    highlight Pmenu ctermbg=none guibg=none
 ]]
+
+if vim.g.transparent then
+  vim.cmd [[
+    highlight Normal ctermbg=none guibg=none
+    highlight NormalFloat ctermbg=none guibg=none
+  ]]
+end

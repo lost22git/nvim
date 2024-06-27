@@ -102,24 +102,28 @@ function M.base()
 
   M.vmap {
     --缩进
-    { '<',     '<gv' },
-    { '>',     '>gv' },
+    { '<',       '<gv' },
+    { '>',       '>gv' },
 
     -- 复制到剪贴板
-    { '<C-c>', '"+y' },
+    { '<C-c>',   '"+y' },
 
     -- 退出 visual mode
-    { '<C-[',  '<Esc>' },
-    { 'a',     '<Esc>' },
+    { '<C-[',    '<Esc>' },
+    { 'a',       '<Esc>' },
 
   }
 
   M.nvmap {
     -- 指针移动
-    { 'J', '}' },
-    { 'K', '{' },
-    { 'H', '^' },
-    { 'L', '$' },
+    { 'J',       '}' },
+    { 'K',       '{' },
+    { 'H',       '^' },
+    { 'L',       '$' },
+
+    -- tab
+    { '<Tab>',   ':bnext<CR>' },
+    { '<S-Tab>', ':bprev<CR>' },
   }
 
   M.imap {
@@ -180,17 +184,6 @@ function M.telescope_default_mapping()
       ["C-c"] = actions.close,
       ["qq"] = actions.close,
     },
-  }
-end
-
-function M.barbar()
-  M.nmap {
-    { '<S-Tab>',    ':BufferPrevious<CR>' },
-    { '<Tab>',      ':BufferNext<CR>' },
-    { '{',          ':BufferMovePrevious<CR>' },
-    { '}',          ':BufferMoveNext<CR>' },
-    { '<leader>bf', ':BufferPick<CR>' },
-    { '<leader>bd', ':BufferPickDelete<CR>' },
   }
 end
 

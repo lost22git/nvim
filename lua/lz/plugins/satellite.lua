@@ -5,9 +5,6 @@
 local M = {
   'lewis6991/satellite.nvim',
   event = { 'BufReadPost', 'BufNewFile' },
-  enabled = function()
-    return require('core.utils').version_ge('0.9.999')
-  end,
 }
 
 function M.config()

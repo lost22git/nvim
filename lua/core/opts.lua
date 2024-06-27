@@ -6,8 +6,8 @@ local opt = vim.opt
 -- neovide 使用自己的 config.toml, 因为它支持配置 light style
 --
 if not U.is_neovide() then
-  opt.guifont = 'IntoneMono Nerd Font:h16'
-  opt.guifontwide = 'Maple Mono SC NF:h16'
+  opt.guifont = 'IosevkaTermSlab NFM:h14'
+  opt.guifontwide = 'Maple Mono SC NF:h14'
 end
 
 -- 编码
@@ -34,15 +34,17 @@ opt.background = 'dark'  -- 背景色
 
 -- 高亮
 opt.cursorcolumn = false          -- 高亮当前列
-opt.cursorline = true            -- 高亮当前行
+opt.cursorline = true             -- 高亮当前行
 opt.cursorlineopt = "line,number" -- 只高亮行号, 默认 "line,number" 同时高亮行号和行
 -- opt.colorcolumn = '100' -- 高亮第n列
 -- opt.textwidth = 100 -- 每行文本最大列数，超过自动换行
 
 -- 最小可见区域
-opt.scrolloff = 2     -- 上下最小可见行数
+opt.scrolloff = 10     -- scroll offset 上下最小可见行数
 opt.wrap = false
-opt.sidescrolloff = 4 -- 左右最小可见列数 (wrap=false 下有效)
+opt.sidescrolloff = 10 -- scroll offset 左右最小可见列数 (wrap=false 下有效)
+
+-- opt.scrolloff = (999 - vim.o.scrolloff) -- 保持光标一直在中间
 
 -- 缩进
 opt.breakindent = true
@@ -108,16 +110,8 @@ opt.wildignore:append { '*/node_modules/*' }
 vim.cmd([[let &t_Cs = "\e[4:3m"]])
 vim.cmd([[let &t_Ce = "\e[4:0m"]])
 
--- Turn off paste mode when leaving insert
-vim.api.nvim_create_autocmd("InsertLeave", {
-  pattern = '*',
-  command = "set nopaste"
-})
-
 -- Add asterisks in block comments
 opt.formatoptions:append { 'r' }
-
-
 
 
 -- 剪贴板 :help clipboard
@@ -187,13 +181,6 @@ vim.g.loaded_netrwplugin = 1
 vim.g.loaded_netrwsettings = 1
 vim.g.loaded_netrwfilehandlers = 1
 
--- set file format to unix
-vim.cmd [[ autocmd BufNewFile,BufRead * set ff=unix ]]
-
--- filetype register
-vim.cmd [[au BufNewFile,BufRead *.v set filetype=vlang]]
-vim.cmd [[au BufNewFile,BufRead *.postcss set filetype=postcss]]
-vim.cmd [[au BufNewFile,BufRead *.nu set filetype=nu]]
 
 -- picker
 vim.g.picker = 'mini.pick'
@@ -209,21 +196,17 @@ end
 if vim.g.theme == nil or vim.g.theme == '' then
   if not require('core.utils').version_ge('1.9.999') then
     local themes = {
-      'catppuccin',
       'dark_flat',
       'github',
-      'nord',
-      'northern',
-      'oxocarbon',
-      'vscode',
-      'kanagawa',
       'fluoromachine',
       'mellow',
-      'rose-pine',
       'zenbones',
       'darcula',
+      'neofusion',
     }
-    vim.g.theme = 'darcula'
+    vim.g.theme = 'neofusion'
+    -- vim.g.theme = 'zenbones'
+    -- vim.g.theme = 'darcula'
     -- vim.g.theme = themes[vim.fn.rand() % vim.fn.len(themes) + 1]
   end
 end

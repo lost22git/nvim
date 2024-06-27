@@ -46,14 +46,14 @@ end
 
 function M.get_buf_lsp_clients_name()
   local names = ''
-  ---@diagnostic disable-next-line: unused-local
-  vim.lsp.for_each_buffer_client(0, function(client, client_id, bufnr)
+  local clients = vim.lsp.get_clients({ bufnr = 0 })
+  for i, client in ipairs(clients) do
     if string.len(names) > 0 then
       names = names .. '/' .. client.name
     else
       names = client.name
     end
-  end)
+  end
   return names
 end
 
