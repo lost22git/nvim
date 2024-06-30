@@ -204,8 +204,8 @@ if vim.g.theme == nil or vim.g.theme == '' then
       'darcula',
       'neofusion',
     }
-    vim.g.theme = 'neofusion'
-    -- vim.g.theme = 'zenbones'
+    -- vim.g.theme = 'neofusion'
+    vim.g.theme = 'zenbones'
     -- vim.g.theme = 'darcula'
     -- vim.g.theme = themes[vim.fn.rand() % vim.fn.len(themes) + 1]
   end

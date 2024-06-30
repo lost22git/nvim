@@ -328,14 +328,25 @@ return {
   },
 
   -- markdown better previewer
+  -- {
+  --   'MeanderingProgrammer/markdown.nvim',
+  --   name = 'render-markdown',
+  --   ft = 'markdown',
+  --   dependencies = { 'nvim-treesitter/nvim-treesitter' },
+  --   config = function()
+  --     require('render-markdown').setup {}
+  --   end,
+  -- },
+  --
   {
-    'MeanderingProgrammer/markdown.nvim',
-    name = 'render-markdown',
+    "OXY2DEV/markview.nvim",
     ft = 'markdown',
-    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    dependencies = {
+      "nvim-tree/nvim-web-devicons", -- Used by the code bloxks
+    },
     config = function()
-      require('render-markdown').setup {}
-    end,
+      require("markview").setup {}
+    end
   },
 
   -- cursor line number mode indicator
