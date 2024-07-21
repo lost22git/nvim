@@ -30,7 +30,7 @@ function M.config()
     transparent_mode = vim.g.transparent,
   }
 
-  vim.cmd([[ colorscheme neofusion ]])
+  vim.cmd [[ colorscheme neofusion ]]
 end
 
 return M

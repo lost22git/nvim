@@ -9,10 +9,10 @@ return {
     end,
   },
 
-  -- Nvim web devicons
-  {
-    'nvim-tree/nvim-web-devicons',
-  },
+  -- -- Nvim web devicons
+  -- {
+  --   'nvim-tree/nvim-web-devicons',
+  -- },
 
   -- True Zen
   {
@@ -337,7 +337,7 @@ return {
   --     require('render-markdown').setup {}
   --   end,
   -- },
-  --
+
   {
     "OXY2DEV/markview.nvim",
     ft = 'markdown',
@@ -346,31 +346,6 @@ return {
     },
     config = function()
       require("markview").setup {}
-    end
-  },
-
-  -- cursor line number mode indicator
-  {
-    'mawkler/modicator.nvim',
-    event = { 'BufReadPost', 'BufNewFile' },
-    config = function()
-      require('modicator').setup {
-        highlights = {
-          defaults = {
-            bold = true,
-            italic = false,
-          },
-        },
-        integration = {
-          lualine = {
-            enabled = true,
-            -- Letter of lualine section to use (if `nil`, gets detected automatically)
-            mode_section = nil,
-            -- Whether to use lualine's mode highlight's foreground or background
-            highlight = 'bg',
-          },
-        },
-      }
     end
   },
 
@@ -393,5 +368,30 @@ return {
   --     }
   --   end
   -- }
+  --
+
+  -- HURL
+  {
+    "jellydn/hurl.nvim",
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter"
+    },
+    ft = "hurl",
+    opts = {
+      debug = false,
+      show_notification = false,
+      mode = "split",
+      formatters = {
+        json = { 'jq' },
+        html = {
+          'prettier',
+          '--parser',
+          'html',
+        },
+      },
+    },
+  },
 
 }

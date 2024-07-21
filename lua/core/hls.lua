@@ -1,10 +1,11 @@
 vim.cmd [[
-    highlight Pmenu ctermbg=none guibg=none
+    highlight Pmenu ctermbg=NONE guibg=NONE
 ]]
 
 if vim.g.transparent then
   vim.cmd [[
-    highlight Normal ctermbg=none guibg=none
-    highlight NormalFloat ctermbg=none guibg=none
+    highlight Normal ctermbg=NONE guibg=NONE
+    highlight NormalFloat ctermbg=NONE guibg=NONE
+    highlight EndOfBuffer ctermbg=NONE guibg=NONE
   ]]
 end

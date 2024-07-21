@@ -101,18 +101,16 @@ opt.wildignore:append { '*/node_modules/*' }
 
 -- 在 vim grep 中使用 rg (此处使用 vim.fn.executable 会影响启动速度 TODO)
 -- if vim.fn.executable('rg') == 1 then
---     opt.grepformat = '%f:%l:%c:%m,%f:%l:%m'
---     opt.grepprg = 'rg --vimgrep --no-heading --smart-case'
+opt.grepformat = '%f:%l:%c:%m,%f:%l:%m'
+opt.grepprg = 'rg --vimgrep --no-heading --smart-case'
 -- end
 
-
 -- Undercurl
-vim.cmd([[let &t_Cs = "\e[4:3m"]])
-vim.cmd([[let &t_Ce = "\e[4:0m"]])
+vim.cmd [[let &t_Cs = "\e[4:3m"]]
+vim.cmd [[let &t_Ce = "\e[4:0m"]]
 
 -- Add asterisks in block comments
 opt.formatoptions:append { 'r' }
-
 
 -- 剪贴板 :help clipboard
 -- 剪贴板 register 2.0 (提升启动速度)
@@ -187,14 +185,12 @@ vim.g.picker = 'mini.pick'
 -- vim.g.picker = 'telescope'
 
 -- theme
-
 if vim.g.transparent == nil then
-  vim.g.transparent = false
+  vim.g.transparent = true
 end
--- vim.cmd.colorscheme 'darkblue'
 
 if vim.g.theme == nil or vim.g.theme == '' then
-  if not require('core.utils').version_ge('1.9.999') then
+  if not U.version_ge('1.9.999') then
     local themes = {
       'dark_flat',
       'github',
@@ -204,20 +200,18 @@ if vim.g.theme == nil or vim.g.theme == '' then
       'darcula',
       'neofusion',
     }
-    -- vim.g.theme = 'neofusion'
     vim.g.theme = 'zenbones'
     -- vim.g.theme = 'darcula'
+    -- vim.g.theme = 'github'
+    -- vim.g.theme = 'mellow'
+    -- vim.g.theme = 'dark_flat'
+    -- vim.g.theme = 'neofusion'
+    -- vim.g.theme = 'fluoromachine'
     -- vim.g.theme = themes[vim.fn.rand() % vim.fn.len(themes) + 1]
   end
 end
 
 -- terminal shell
 if U.is_win() then
-  -- local exepath = vim.fn.exepath("clink")
-  -- if exepath ~= '' then
-  --   exepath = string.gsub(exepath, '\\', '/') -- 替换 \ 为 /
-  --   vim.g.term_shell = { 'cmd.exe', '/s', '/k', '"' .. exepath .. ' inject"' }
-  -- end
-
   vim.g.term_shell = { 'pwsh' }
 end

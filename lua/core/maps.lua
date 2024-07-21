@@ -1,19 +1,19 @@
 local M = {}
 
-local default_opts = {
-  silent = true
-}
-
 local do_map = function(mode, tbl)
   vim.validate({
     tbl = { tbl, 'table' }
   })
+
   local len = #tbl
   if len < 2 then
     vim.notify('keymap must has rhs', vim.log.levels.ERROR)
     return
   end
 
+  local default_opts = {
+    silent = true
+  }
   local opts = len == 3 and tbl[3] or default_opts
 
   vim.keymap.set(mode, tbl[1], tbl[2], opts)
@@ -102,15 +102,15 @@ function M.base()
 
   M.vmap {
     --缩进
-    { '<',       '<gv' },
-    { '>',       '>gv' },
+    { '<',     '<gv' },
+    { '>',     '>gv' },
 
     -- 复制到剪贴板
-    { '<C-c>',   '"+y' },
+    { '<C-c>', '"+y' },
 
     -- 退出 visual mode
-    { '<C-[',    '<Esc>' },
-    { 'a',       '<Esc>' },
+    { '<C-[',  '<Esc>' },
+    { 'a',     '<Esc>' },
 
   }
 
@@ -140,12 +140,7 @@ function M.base()
 end
 
 function M.telescope()
-  local tel = require('telescope')
   local builtin = require('telescope.builtin')
-
-  local function telescope_buffer_dir()
-    return vim.fn.expand('%:p:h')
-  end
 
   M.nmap {
     { '<Leader>fa', builtin.builtin },

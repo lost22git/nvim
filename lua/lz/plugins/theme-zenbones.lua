@@ -45,7 +45,8 @@ function M.init()
     end
   })
 
-  vim.cmd.colorscheme(themes[(vim.fn.rand() % vim.fn.len(themes)) + 1])
+  -- vim.cmd.colorscheme(themes[(vim.fn.rand() % vim.fn.len(themes)) + 1])
+  vim.cmd.colorscheme('neobones')
 end
 
 return M

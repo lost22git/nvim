@@ -3,6 +3,7 @@ local M = {}
 function M.version_ge(version_string)
   local current = vim.version()
   local min = vim.version.parse(version_string)
+  assert(min ~= nil)
   return vim.version.cmp(current, min) >= 0
 end
 
@@ -45,16 +46,9 @@ function M.get_name_and_ext(path)
 end
 
 function M.get_buf_lsp_clients_name()
-  local names = ''
-  local clients = vim.lsp.get_clients({ bufnr = 0 })
-  for i, client in ipairs(clients) do
-    if string.len(names) > 0 then
-      names = names .. '/' .. client.name
-    else
-      names = client.name
-    end
-  end
-  return names
+  local clients = vim.lsp.get_clients { bufnr = 0 }
+  local names = vim.tbl_map(function(cli) return cli.name end, clients)
+  return table.concat(names, '/')
 end
 
 function M.get_data_path()
