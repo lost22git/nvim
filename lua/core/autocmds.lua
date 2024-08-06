@@ -15,6 +15,7 @@ vim.cmd [[
   au FileType crystal setlocal commentstring=#\ %s
   au FileType inko setlocal commentstring=#\ %s
   au FileType cyber setlocal commentstring=--\ %s
+  au FileType just setlocal commentstring=#\ %s
 ]]
 
 

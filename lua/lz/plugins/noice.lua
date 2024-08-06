@@ -1,5 +1,6 @@
 local M = {
   "folke/noice.nvim",
+  enabled = not vim.g.vscode,
   keys = { "<M-9>" },
   event = { "VeryLazy" },
   cond = not vim.g.vscode

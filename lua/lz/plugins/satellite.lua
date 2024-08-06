@@ -4,6 +4,7 @@
 
 local M = {
   'lewis6991/satellite.nvim',
+  enabled = not vim.g.vscode,
   event = { 'BufReadPost', 'BufNewFile' },
 }
 

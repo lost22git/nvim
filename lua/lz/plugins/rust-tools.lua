@@ -1,5 +1,6 @@
 local M = {
   'simrat39/rust-tools.nvim',
+  enabled = not vim.g.vscode,
   ft = 'rust',
   cmd = { "RustReloadWorkspace" },
 }

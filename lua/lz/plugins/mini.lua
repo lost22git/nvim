@@ -19,6 +19,7 @@ return {
   -- 文件管理 mini.files
   {
     'echasnovski/mini.files',
+    enabled = not vim.g.vscode,
     keys = { '<M-1>', '<M-2>' },
     version = false,
     config = function()
@@ -75,7 +76,7 @@ return {
   {
     'echasnovski/mini.pick',
     version = false,
-    enabled = vim.g.picker == 'mini.pick',
+    enabled = vim.g.picker == 'mini.pick' and (not vim.g.vscode),
     dependencies = { 'echasnovski/mini.extra' },
     keys = {
       '<leader>ff',
@@ -123,6 +124,7 @@ return {
   -- mini.indent
   {
     'echasnovski/mini.indentscope',
+    enabled = not vim.g.vscode, 
     event = { "BufReadPost", "BufNewFile" },
     version = false,
     config = function()
@@ -157,6 +159,7 @@ return {
   {
     'echasnovski/mini.tabline',
     version = false,
+    enabled = not vim.g.vscode, 
     event = { 'BufAdd', 'TabEnter' },
     config = function()
       require('mini.tabline').setup {}

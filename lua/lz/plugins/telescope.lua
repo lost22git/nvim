@@ -9,7 +9,7 @@ local fzf = {
 
 local M = {
   'nvim-telescope/telescope.nvim',
-  enabled = vim.g.picker == 'telescope',
+  enabled = vim.g.picker == 'telescope' and (not vim.g.vscode),
   tag = '0.1.4',
   cmd = { "Telescope" },
   keys = { "<Leader>ff", "<Leader>fg", "<Leader>fm", "<Leader>fe", "<leader>bb", "<Leader>fa", "<Leader>ft", "<Leader>fs" },

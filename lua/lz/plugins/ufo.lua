@@ -1,5 +1,6 @@
 local M = {
   'kevinhwang91/nvim-ufo',
+  enabled = not vim.g.vscode,
   dependencies = { 'kevinhwang91/promise-async' },
   keys = { 'zR', 'zM', 'zr', 'zm' },
 }

@@ -1,5 +1,6 @@
 local M = {
   'numToStr/FTerm.nvim',
+  enabled = not vim.g.vscode,
   keys = { '<M-3>', '<M-4>' },
 }
 

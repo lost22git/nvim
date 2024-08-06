@@ -1,5 +1,6 @@
 local M = {
   "glepnir/lspsaga.nvim",
+  enabled = not vim.g.vscode,
   cmd = { "Lspsaga" },
 }
 

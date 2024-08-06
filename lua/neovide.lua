@@ -16,7 +16,7 @@ vim.g.neovide_scale_factor                 = 1.0
 vim.g.neovide_underline_automatic_scaling  = true
 
 -- 透明度
-vim.g.neovide_transparency                 = 0.88
+vim.g.neovide_transparency                 = 0.8
 vim.g.neovide_floating_blur_amount_x       = 2.0
 vim.g.neovide_floating_blur_amount_y       = 2.0
 

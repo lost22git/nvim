@@ -1,5 +1,6 @@
 local M = {
   "neovim/nvim-lspconfig",
+  enabled = not vim.g.vscode,
   cmd = { 'LspInfo', 'LspStart', 'LspLog' },
   dependencies = {
     "glepnir/lspsaga.nvim"
@@ -278,6 +279,15 @@ function M.config()
       on_attach = on_attach,
       capabilities = capabilities,
       cmd = { get_lsp_server_path('elixir-ls') }
+    }
+  end
+
+  -- java language server
+  if get_lsp_server_path('jdtls') ~= '' then
+    lspconfig.jdtls.setup {
+      on_attach = on_attach,
+      capabilities = capabilities,
+      cmd = { get_lsp_server_path('jdtls') }
     }
   end
 end

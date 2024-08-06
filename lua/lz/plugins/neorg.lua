@@ -1,8 +1,8 @@
 local M = {
   "nvim-neorg/neorg",
+  enabled = false and (not vim.g.vscode),
   build = ":Neorg sync-parsers", -- This is the important bit!
   ft = "norg",
-  enabled = false,
 }
 
 

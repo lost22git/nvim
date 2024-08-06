@@ -1,5 +1,6 @@
 local M = {
   'nvim-lualine/lualine.nvim',
+  enabled = not vim.g.vscode,
   -- event = { 'BufRead', 'BufNewFile' },
   event = { 'VeryLazy' },
 }

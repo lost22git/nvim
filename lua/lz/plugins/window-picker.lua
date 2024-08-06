@@ -1,5 +1,6 @@
 local M = {
   's1n7ax/nvim-window-picker',
+  enabled = not vim.g.vscode,
   keys = { '<Leader>w' },
 }
 

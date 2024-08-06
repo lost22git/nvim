@@ -9,14 +9,12 @@ return {
     end,
   },
 
-  -- -- Nvim web devicons
-  -- {
-  --   'nvim-tree/nvim-web-devicons',
-  -- },
-
   -- True Zen
   {
-    "Pocco81/true-zen.nvim",
+    -- "Pocco81/true-zen.nvim",
+    "ilan-schemoul/true-zen.nvim",
+    enabled = not vim.g.vscode,
+    branch = "fix-restore-value",
     cmd = { 'TZNarrow', 'TZFocus', 'TZMinimalist', 'TZAtaraxis' },
     config = function()
       require("true-zen").setup {}
@@ -177,6 +175,7 @@ return {
   -- 错误列表
   {
     "folke/trouble.nvim",
+    enabled = not vim.g.vscode,
     cmd = { 'Trouble' },
     keys = { '<M-8>', 'gee', 'ged', 'ger', 'geq', 'gel' },
     config = function()
@@ -190,6 +189,7 @@ return {
   -- Rust crate
   {
     'saecki/crates.nvim',
+    enabled = not vim.g.vscode,
     event = { "BufRead Cargo.toml" },
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = function()
@@ -210,6 +210,7 @@ return {
   -- 保护颈椎
   {
     'nyngwang/NeoZoom.lua',
+    enabled = not vim.g.vscode,
     keys = { ';' },
     config = function()
       require('neo-zoom').setup {
@@ -320,6 +321,7 @@ return {
   -- 大纲 outline
   {
     "hedyhli/outline.nvim",
+    enabled = not vim.g.vscode,
     keys = { '<leader>go' },
     config = function()
       require("outline").setup {}
@@ -340,6 +342,7 @@ return {
 
   {
     "OXY2DEV/markview.nvim",
+    enabled = not vim.g.vscode,
     ft = 'markdown',
     dependencies = {
       "nvim-tree/nvim-web-devicons", -- Used by the code bloxks
@@ -393,5 +396,4 @@ return {
       },
     },
   },
-
 }
