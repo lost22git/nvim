@@ -1,108 +1,110 @@
 local U = require('core.utils')
 
-local opt = vim.opt
+vim.opt.guicursor = [[n-v-sm:block,c-i-ci-ve:ver25,r-cr-o:hor20]]
 
 -- gui client 字体
 -- neovide 使用自己的 config.toml, 因为它支持配置 light style
---
-if not U.is_neovide() then
-  opt.guifont = 'IosevkaTermSlab NFM:h14'
-  opt.guifontwide = 'Maple Mono SC NF:h14'
+if not U.on_neovide() then
+  vim.opt.guifont = [[IosevkaTermSlab NFM:h14]]
+  vim.opt.guifontwide = [[Maple Mono SC NF:h14]]
 end
 
 -- 编码
 vim.scriptencoding = 'utf-8'
-opt.encoding = 'utf-8'
-opt.fileencoding = 'utf-8'
+vim.opt.encoding = 'utf-8'
+vim.opt.fileencoding = 'utf-8'
 
 -- 鼠标支持
-opt.mouse = 'a'
+vim.opt.mouse = 'a'
 
 -- 全局共用一个状态栏
-opt.laststatus = 3
+vim.opt.laststatus = 3
 
 -- 行号
-opt.number = true
-opt.relativenumber = false
-opt.numberwidth = 2
+vim.opt.number = true
+vim.opt.relativenumber = false
+vim.opt.numberwidth = 2
 
 -- 颜色 & 透明度
-opt.termguicolors = true -- 终端使用 24-bit rgb
-opt.winblend = 0         -- float window 透明度 [0-100]
-opt.pumblend = 0         -- popup menu 透明度 [0-100]
-opt.background = 'dark'  -- 背景色
+vim.opt.termguicolors = true -- 终端使用 24-bit rgb
+vim.opt.winblend = 0         -- float window 透明度 [0-100]
+vim.opt.pumblend = 0         -- popup menu 透明度 [0-100]
+vim.opt.background = 'dark'  -- 背景色
 
 -- 高亮
-opt.cursorcolumn = false          -- 高亮当前列
-opt.cursorline = true             -- 高亮当前行
-opt.cursorlineopt = "line,number" -- 只高亮行号, 默认 "line,number" 同时高亮行号和行
+vim.opt.cursorcolumn = false          -- 高亮当前列
+vim.opt.cursorline = false            -- 高亮当前行
+vim.opt.cursorlineopt = "line,number" -- 只高亮行号, 默认 "line,number" 同时高亮行号和行
 -- opt.colorcolumn = '100' -- 高亮第n列
 -- opt.textwidth = 100 -- 每行文本最大列数，超过自动换行
 
+-- 总是渲染 signcolumn, 避免渲染抖动
+vim.opt.signcolumn = 'yes'
+
 -- 最小可见区域
-opt.scrolloff = 10     -- scroll offset 上下最小可见行数
-opt.wrap = false
-opt.sidescrolloff = 10 -- scroll offset 左右最小可见列数 (wrap=false 下有效)
+vim.opt.scrolloff = 10     -- scroll offset 上下最小可见行数
+vim.opt.wrap = false
+vim.opt.sidescrolloff = 10 -- scroll offset 左右最小可见列数 (wrap=false 下有效)
 
 -- opt.scrolloff = (999 - vim.o.scrolloff) -- 保持光标一直在中间
 
 -- 缩进
-opt.breakindent = true
-opt.autoindent = true
-opt.smartindent = true
-opt.shiftwidth = 2 -- 缩进列数
+vim.opt.breakindent = true
+vim.opt.autoindent = true
+vim.opt.smartindent = true
+vim.opt.shiftwidth = 2 -- 缩进列数
 
 -- <tab> 字符
-opt.tabstop = 2 -- <tab> 空格个数
-opt.expandtab = true
-opt.smarttab = true
+vim.opt.tabstop = 2 -- <tab> 空格个数
+vim.opt.expandtab = true
+vim.opt.smarttab = true
 
 -- list mode
--- opt.list = true
--- opt.listchars = 'tab:»·,nbsp:+,trail:·,extends:→,precedes:←'
+-- vim.opt.list = true
+-- vim.opt.listchars = 'tab:»·,nbsp:+,trail:·,extends:→,precedes:←'
 
 -- 命令行
-opt.showcmd = true
-opt.cmdheight = 1 -- 命令行 window 高度
+vim.opt.showcmd = true
+vim.opt.cmdheight = 1 -- 命令行 window 高度
 
 -- 大小写
-opt.ignorecase = true
-opt.smartcase = true
-opt.infercase = true
-opt.wildignorecase = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.infercase = true
+vim.opt.wildignorecase = true
 
 -- 搜索
-opt.hlsearch = true
-opt.magic = true -- 默认正则表达式模式 magic, 在正则中使用模式: \m => magic, \m => nomagic, \v => very magic, \v => very nomagic
+vim.opt.hlsearch = true
+vim.opt.magic = true -- 默认正则表达式模式 magic, 在正则中使用模式: \m => magic, \m => nomagic, \v => very magic, \v => very nomagic
 
 -- 补全
-opt.completeopt = "menu,menuone,noselect"
+vim.opt.completeopt = [[menu,menuone,noselect]]
 
 -- 其他
-opt.backup = false
-opt.swapfile = false
-opt.undofile = false
-opt.hidden = true
-opt.title = false
-opt.ruler = false
-opt.history = 2000
-opt.virtualedit = 'block' -- allow virtual editing in visual block mode.
-opt.inccommand = 'split'
-opt.timeout = true
-opt.ttimeout = true
-opt.timeoutlen = 500
-opt.ttimeoutlen = 10
-opt.updatetime = 100
-opt.redrawtime = 1500
+vim.opt.backup = false
+vim.opt.swapfile = false
+vim.opt.undofile = false
+vim.opt.hidden = true
+vim.opt.title = false
+vim.opt.ruler = false
+vim.opt.history = 2000
+vim.opt.virtualedit = 'block' -- allow virtual editing in visual block mode.
+vim.opt.inccommand = 'split'
+vim.opt.timeout = true
+vim.opt.ttimeout = true
+vim.opt.timeoutlen = 500
+vim.opt.ttimeoutlen = 10
+vim.opt.updatetime = 100
+vim.opt.redrawtime = 1500
 
 -- Finding files - Search down into subfolders
-opt.path:append { '**' }
-opt.wildignore:append { '*/node_modules/*' }
+vim.opt.path:append { '**' }
+vim.opt.wildignore:append { '*/node_modules/*' }
 
 -- 在 vim grep 中使用 rg (此处使用 vim.fn.executable 会影响启动速度 TODO)
 -- if vim.fn.executable('rg') == 1 then
-opt.grepformat = '%f:%l:%c:%m,%f:%l:%m'
-opt.grepprg = 'rg --vimgrep --no-heading --smart-case'
+vim.opt.grepformat = [[%f:%l:%c:%m,%f:%l:%m]]
+vim.opt.grepprg = [[rg --vimgrep --no-heading --smart-case]]
 -- end
 
 -- Undercurl
@@ -110,12 +112,12 @@ vim.cmd [[let &t_Cs = "\e[4:3m"]]
 vim.cmd [[let &t_Ce = "\e[4:0m"]]
 
 -- Add asterisks in block comments
-opt.formatoptions:append { 'r' }
+vim.opt.formatoptions:append { 'r' }
 
 -- 剪贴板 :help clipboard
 -- 剪贴板 register 2.0 (提升启动速度)
 -- see https://github.com/neovim/neovim/issues/9570
-if U.is_win() then
+if U.on_win() then
   vim.g.clipboard = {
     name = 'win32yank',
     copy = {
@@ -128,7 +130,7 @@ if U.is_win() then
     },
     cache_enabled = 0,
   }
-elseif U.is_mac() then
+elseif U.on_mac() then
   vim.g.clipboard = {
     name = 'pbcopy',
     copy = {
@@ -141,7 +143,7 @@ elseif U.is_mac() then
     },
     cache_enabled = 0,
   }
-elseif U.is_wsl() then
+elseif U.on_wsl() then
   vim.g.clipboard = {
     name = 'WslClipboard',
     copy = {
@@ -186,32 +188,37 @@ vim.g.picker = 'mini.pick'
 
 -- theme
 if vim.g.transparent == nil then
-  vim.g.transparent = true
+  vim.g.transparent = false
 end
 
 if vim.g.theme == nil or vim.g.theme == '' then
   if not U.version_ge('1.9.999') then
+    ---@diagnostic disable-next-line: unused-local
     local themes = {
-      'dark_flat',
       'github',
       'fluoromachine',
       'mellow',
       'zenbones',
       'darcula',
-      'neofusion',
+      'cyberdream',
+      'lackluster',
+      'vesper',
+      'newpaper',
     }
-    vim.g.theme = 'zenbones'
+    -- vim.g.theme = 'newpaper'
+    -- vim.g.theme = 'vesper'
+    -- vim.g.theme = 'lackluster'
+    -- vim.g.theme = 'cyberdream'
+    -- vim.g.theme = 'zenbones'
     -- vim.g.theme = 'darcula'
-    -- vim.g.theme = 'github'
+    vim.g.theme = 'github'
     -- vim.g.theme = 'mellow'
-    -- vim.g.theme = 'dark_flat'
-    -- vim.g.theme = 'neofusion'
     -- vim.g.theme = 'fluoromachine'
     -- vim.g.theme = themes[vim.fn.rand() % vim.fn.len(themes) + 1]
   end
 end
 
 -- terminal shell
-if U.is_win() then
+if U.on_win() then
   vim.g.term_shell = { 'pwsh' }
 end

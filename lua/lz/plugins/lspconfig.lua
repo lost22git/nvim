@@ -24,35 +24,183 @@ function M.config()
 
   -------- LSP Servers config ----------
 
+  -- `:help lspconfig-all`
+
   -- Lua language server
-  if get_lsp_server_path('lua-language-server') ~= '' then
-    lspconfig.lua_ls.setup {
-      on_attach = on_attach,
-      capabilities = capabilities,
-      cmd = { get_lsp_server_path('lua-language-server') },
-      settings = {
-        Lua = {
-          runtime = {
-            -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-            version = 'LuaJIT',
-          },
-          diagnostics = {
-            -- Get the language server to recognize the `vim` global
-            globals = { 'vim' },
-          },
-          workspace = {
-            -- Make the server aware of Neovim runtime files
-            library = vim.api.nvim_get_runtime_file("", true),
-            -- checkThirdParty = false,
-          },
-          -- Do not send telemetry data containing a randomized but unique identifier
-          telemetry = {
-            enable = false,
-          },
+  lspconfig.lua_ls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    settings = {
+      Lua = {
+        runtime = {
+          -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+          version = 'LuaJIT',
+        },
+        diagnostics = {
+          -- Get the language server to recognize the `vim` global
+          globals = { 'vim' },
+        },
+        workspace = {
+          -- Make the server aware of Neovim runtime files
+          library = vim.api.nvim_get_runtime_file("", true),
+          -- checkThirdParty = false,
+        },
+        -- Do not send telemetry data containing a randomized but unique identifier
+        telemetry = {
+          enable = false,
         },
       },
-    }
-  end
+    },
+  }
+
+  vim.g.markdown_fenced_languages = {
+    "ts=typescript"
+  }
+
+  -- Deno language server for js jsx ts tsx
+  --   lspconfig.denols.setup {
+  --     on_attach = on_attach,
+  --     capabilities = capabilities,
+  --     root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
+  --     single_file_support = true
+  --   }
+
+  -- typescript-language-server
+  lspconfig.ts_ls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    root_dir = lspconfig.util.root_pattern("package.json"),
+    single_file_support = true
+  }
+
+  -- SVELTE language server (requires typescript-language-server)
+  lspconfig.svelte.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
+
+  -- Markdown language server
+  lspconfig.marksman.setup {
+    on_attach    = on_attach,
+    capabilities = capabilities,
+  }
+
+  -- TOML language server
+  lspconfig.taplo.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
+
+  -- JSON language server
+  lspconfig.jsonls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
+
+  -- YAML language server
+  lspconfig.yamlls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
+
+  -- XML language server
+  lspconfig.lemminx.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
+
+  -- Julia language server
+  lspconfig.julials.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    on_new_config = function(new_config, _)
+      local julia = vim.fn.expand("~/.julia/environments/nvim-lspconfig/bin/julia")
+      if require 'lspconfig'.util.path.is_file(julia) then
+        new_config.cmd[1] = julia
+      end
+    end
+  }
+
+  -- Gradle language server
+  lspconfig.gradle_ls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
+
+  -- Go language server
+  lspconfig.gopls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
+
+  -- Zig language server
+  lspconfig.zls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    settings = {
+      zls = {
+        enable_snippets = true,
+        enable_argument_placeholders = false,
+        highlight_global_var_declarations = true,
+      }
+    },
+  }
+
+  -- V language server
+  lspconfig.vls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
+
+  -- nim language server
+  lspconfig.nim_langserver.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
+
+
+  -- crystal language server
+  lspconfig.crystalline.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
+
+  -- nushell language server
+  lspconfig.nushell.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
+
+  -- html language server
+  lspconfig.html.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
+
+  -- gleam language server
+  lspconfig.gleam.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
+
+  -- odin language server
+  lspconfig.ols.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
+
+  -- ocaml language server
+  lspconfig.ocamllsp.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
+
+  -- koka language server
+  lspconfig.koka.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
+
 
   -- Powershell language server
   if get_lsp_server_package_path('powershell-editor-services') ~= '' then
@@ -63,213 +211,21 @@ function M.config()
     }
   end
 
-  vim.g.markdown_fenced_languages = {
-    "ts=typescript"
-  }
-
-  -- Deno language server for js jsx ts tsx
-  -- if vim.fn.exepath('deno') ~= '' then
-  --   lspconfig.denols.setup {
-  --     on_attach = on_attach,
-  --     capabilities = capabilities,
-  --     root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
-  --     single_file_support = true
-  --   }
-  -- end
-  -- typescript-language-server
-  if get_lsp_server_path("typescript-language-server") ~= '' then
-    lspconfig.tsserver.setup {
-      on_attach = on_attach,
-      capabilities = capabilities,
-      cmd = { get_lsp_server_path("typescript-language-server"), "--stdio" },
-      root_dir = lspconfig.util.root_pattern("package.json"),
-      single_file_support = true
-    }
-  end
-
-  -- SVELTE language server (requires typescript-language-server)
-  if get_lsp_server_path("svelteserver") ~= '' then
-    lspconfig.svelte.setup {
-      on_attach = on_attach,
-      capabilities = capabilities,
-      cmd = { get_lsp_server_path("svelteserver"), "--stdio" }
-    }
-  end
-
-  -- Tailwindcss language server
-  if get_lsp_server_path("tailwindcss-language-server") ~= '' then
-    lspconfig.tailwindcss.setup {
-      on_attach = on_attach,
-      capabilities = capabilities,
-      cmd = { get_lsp_server_path("tailwindcss-language-server"), "--stdio" }
-    }
-  end
-
-  -- Markdown language server
-  if get_lsp_server_path("marksman") ~= '' then
-    lspconfig.marksman.setup {
-      on_attach    = on_attach,
-      capabilities = capabilities,
-      cmd          = { get_lsp_server_path("marksman"), "server" }
-    }
-  end
-
-  -- TOML language server
-  if get_lsp_server_path("taplo") ~= '' then
-    lspconfig.taplo.setup {
-      on_attach = on_attach,
-      capabilities = capabilities,
-      cmd = { get_lsp_server_path("taplo"), "lsp", "stdio" }
-    }
-  end
-
-  -- JSON language server
-  if get_lsp_server_path("vscode-json-language-server") ~= '' then
-    lspconfig.jsonls.setup {
-      on_attach = on_attach,
-      capabilities = capabilities,
-      cmd = { get_lsp_server_path("vscode-json-language-server"), "--stdio" }
-    }
-  end
-
-  -- YAML language server
-  if get_lsp_server_path("yaml-language-server") ~= '' then
-    lspconfig.yamlls.setup {
-      on_attach = on_attach,
-      capabilities = capabilities,
-      cmd = { get_lsp_server_path("yaml-language-server"), "--stdio" }
-    }
-  end
-
-  -- XML language server
-  if get_lsp_server_path('lemminx') ~= '' then
-    lspconfig.lemminx.setup {
-      on_attach = on_attach,
-      capabilities = capabilities,
-      cmd = { get_lsp_server_path('lemminx') }
-    }
-  end
-
-  --Dockerfile language server
-  if get_lsp_server_path('docker-langserver') ~= '' then
-    lspconfig.dockerls.setup {
-      on_attach = on_attach,
-      capabilities = capabilities,
-      cmd = { get_lsp_server_path('docker-langserver'), '--stdio' }
-    }
-  end
-
-  -- Python language server
-  if get_lsp_server_path('pyright-langserver') ~= '' then
-    lspconfig.pyright.setup {
-      on_attach = on_attach,
-      capabilities = capabilities,
-      cmd = { get_lsp_server_path('pyright-langserver'), "--stdio" }
-    }
-  end
-
-  -- Julia language server
-  if vim.fn.exepath('julia') ~= '' then
-    lspconfig.julials.setup {
-      on_attach = on_attach,
-      capabilities = capabilities,
-      on_new_config = function(new_config, _)
-        local julia = vim.fn.expand("~/.julia/environments/nvim-lspconfig/bin/julia")
-        if require 'lspconfig'.util.path.is_file(julia) then
-          new_config.cmd[1] = julia
-        end
-      end
-    }
-  end
-
-  -- Gradle language server
-  if get_lsp_server_path('gradle-language-server') ~= '' then
-    lspconfig.gradle_ls.setup {
-      on_attach = on_attach,
-      capabilities = capabilities,
-      cmd = { get_lsp_server_path('gradle-language-server') }
-    }
-  end
-
-  -- Go language server
-  if get_lsp_server_path('gopls') ~= '' then
-    lspconfig.gopls.setup {
-      on_attach = on_attach,
-      capabilities = capabilities,
-      cmd = { get_lsp_server_path('gopls') }
-    }
-  end
-
-  -- Zig language server
-  if get_lsp_server_path('zls') ~= '' then
-    lspconfig.zls.setup {
-      on_attach = on_attach,
-      capabilities = capabilities,
-      cmd = { get_lsp_server_path('zls') },
-      settings = {
-        zls = {
-          enable_snippets = true,
-          enable_argument_placeholders = false,
-          highlight_global_var_declarations = true,
-        }
-      },
-    }
-  end
-
-  -- V language server
-  if get_lsp_server_path('v') ~= '' then
-    lspconfig.vls.setup {
-      on_attach = on_attach,
-      capabilities = capabilities,
-    }
-  end
-
-  -- nim language server
-  if get_lsp_server_path('nimlangserver') ~= '' then
-    lspconfig.nim_langserver.setup {
-      on_attach = on_attach,
-      capabilities = capabilities,
-    }
-  end
-
-
-  -- crystal language server
-  if get_lsp_server_path('crystalline') ~= '' then
-    lspconfig.crystalline.setup {
-      on_attach = on_attach,
-      capabilities = capabilities,
-      cmd = { get_lsp_server_path('crystalline') },
-    }
-  end
-
-  -- nushell language server
-  lspconfig.nushell.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-  }
-
-
   -- htmx language server
   if get_lsp_server_path('htmx-lsp') ~= '' then
     lspconfig.htmx.setup {
       on_attach = on_attach,
       capabilities = capabilities,
+      cmd = { get_lsp_server_path('htmx-lsp') },
     }
   end
 
-  -- html language server
-  if get_lsp_server_path('vscode-html-language-server') ~= '' then
-    lspconfig.html.setup {
+  -- Tailwindcss language server
+  if get_lsp_server_path('tailwindcss-language-server') ~= '' then
+    lspconfig.tailwindcss.setup {
       on_attach = on_attach,
       capabilities = capabilities,
-    }
-  end
-
-  -- gleam language server
-  if get_lsp_server_path('gleam') ~= '' then
-    lspconfig.gleam.setup {
-      on_attach = on_attach,
-      capabilities = capabilities,
+      cmd = { get_lsp_server_path('tailwindcss-language-server'), '--stdio' },
     }
   end
 
@@ -288,6 +244,24 @@ function M.config()
       on_attach = on_attach,
       capabilities = capabilities,
       cmd = { get_lsp_server_path('jdtls') }
+    }
+  end
+
+  --Dockerfile language server
+  if get_lsp_server_path('docker-langserver') ~= '' then
+    lspconfig.dockerls.setup {
+      on_attach = on_attach,
+      capabilities = capabilities,
+      cmd = { get_lsp_server_path('docker-langserver'), '--stdio' }
+    }
+  end
+
+  -- Python language server
+  if get_lsp_server_path('pyright-langserver') ~= '' then
+    lspconfig.pyright.setup {
+      on_attach = on_attach,
+      capabilities = capabilities,
+      cmd = { get_lsp_server_path('pyright-langserver'), "--stdio" }
     }
   end
 end

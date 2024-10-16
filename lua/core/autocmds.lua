@@ -7,6 +7,9 @@ vim.cmd [[
   au BufNewFile,BufReadPost *.postcss set filetype=postcss
   au BufNewFile,BufReadPost *.nu set filetype=nu
   au BufNewFile,BufReadPost *.cy set filetype=cyber
+  au BufNewFile,BufReadPost *.lobster set filetype=lobster
+  au BufNewFile,BufReadPost *.c3 set filetype=c3
+  au BufNewFile,BufReadPost *.kk set filetype=koka
 ]]
 
 -- set commentstring for filetype
@@ -16,6 +19,10 @@ vim.cmd [[
   au FileType inko setlocal commentstring=#\ %s
   au FileType cyber setlocal commentstring=--\ %s
   au FileType just setlocal commentstring=#\ %s
+  au FileType gleam setlocal commentstring=//\ %s
+  au FileType lobster setlocal commentstring=//\ %s
+  au FileType c3 setlocal commentstring=//\ %s
+  au FileType koka setlocal commentstring=//\ %s
 ]]
 
 

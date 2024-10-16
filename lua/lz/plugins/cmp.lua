@@ -66,13 +66,13 @@ function M.config()
     }),
     window = {
       completion = {
-        border = 'single', -- single | rounded | double | solid | shadow | { }
+        border = 'solid', -- single | rounded | double | solid | shadow | { }
         -- border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
         -- col_offset = -3,
         side_padding = 0,
       },
       documentation = {
-        border = 'single',
+        border = 'solid',
         -- winhighlight = 'Normal:TelescopeNormal,FloatBorder:TelescopeBorder',
       }
     },

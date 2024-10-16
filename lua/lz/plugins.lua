@@ -340,15 +340,31 @@ return {
   --   end,
   -- },
 
+  -- {
+  --   "OXY2DEV/markview.nvim",
+  --   enabled = not vim.g.vscode,
+  --   ft = 'markdown',
+  --   dependencies = {
+  --     "nvim-tree/nvim-web-devicons", -- Used by the code bloxks
+  --   },
+  --   config = function()
+  --     require("markview").setup {}
+  --   end
+  -- },
+
   {
-    "OXY2DEV/markview.nvim",
+    'MeanderingProgrammer/render-markdown.nvim',
     enabled = not vim.g.vscode,
     ft = 'markdown',
-    dependencies = {
-      "nvim-tree/nvim-web-devicons", -- Used by the code bloxks
-    },
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' },
+    opts = {},
+  },
+
+  {
+    'Kicamon/markdown-table-mode.nvim',
+    ft = 'markdown',
     config = function()
-      require("markview").setup {}
+      require('markdown-table-mode').setup()
     end
   },
 
@@ -396,4 +412,15 @@ return {
       },
     },
   },
+
+  -- border global settings
+  {
+    'mikesmithgh/borderline.nvim',
+    event = 'VeryLazy',
+    config = function()
+      require('borderline').setup {}
+      require('borderline.api').borderline('solid')
+    end,
+  }
+
 }

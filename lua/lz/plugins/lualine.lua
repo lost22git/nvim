@@ -46,13 +46,6 @@ function M.config()
         }
       },
       lualine_x = {
-        -- 当前激活的 lsp clients
-        {
-          U.get_buf_lsp_clients_name,
-          ---@diagnostic disable-next-line: unused-local
-          color = function(section) return U.get_lualine_hl_group('b') end
-        },
-
         -- 光标位置
         'location',
         -- 光标位置处于当前文件的%进度
@@ -68,6 +61,12 @@ function M.config()
             dos = 'crlf',
             mac = 'lf',
           },
+        },
+        -- 当前激活的 lsp clients
+        {
+          U.get_buf_lsp_clients_name,
+          ---@diagnostic disable-next-line: unused-local
+          color = function(section) return U.get_lualine_hl_group('b') end
         },
       },
       lualine_y = {

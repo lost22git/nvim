@@ -69,6 +69,19 @@ return {
         },
       }
       require('core.maps').mini_files()
+
+      vim.api.nvim_create_autocmd('User', {
+        pattern = 'MiniFilesWindowOpen',
+        callback = function(args)
+          local win_id = args.data.win_id
+
+          -- Customize window-local settings
+          -- vim.wo[win_id].winblend = 50
+          local config = vim.api.nvim_win_get_config(win_id)
+          config.border, config.title_pos = 'solid', 'left'
+          vim.api.nvim_win_set_config(win_id, config)
+        end,
+      })
     end
   },
 
@@ -97,6 +110,9 @@ return {
           scroll_up    = '<C-k>',
           move_down    = '<M-j>',
           move_up      = '<M-k>',
+        },
+        window = {
+          config = { border = 'solid' }
         }
       }
       require('core.maps').mini_pick()
@@ -124,9 +140,9 @@ return {
   -- mini.indent
   {
     'echasnovski/mini.indentscope',
-    enabled = not vim.g.vscode, 
-    event = { "BufReadPost", "BufNewFile" },
     version = false,
+    enabled = not vim.g.vscode,
+    event = { "BufReadPost", "BufNewFile" },
     config = function()
       require('mini.indentscope').setup {}
     end,
@@ -159,7 +175,7 @@ return {
   {
     'echasnovski/mini.tabline',
     version = false,
-    enabled = not vim.g.vscode, 
+    enabled = not vim.g.vscode,
     event = { 'BufAdd', 'TabEnter' },
     config = function()
       require('mini.tabline').setup {}

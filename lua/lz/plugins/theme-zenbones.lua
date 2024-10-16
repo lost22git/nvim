@@ -37,7 +37,7 @@ function M.init()
 
   -- disable italic for `Constant` and `Number`
   vim.api.nvim_create_autocmd({ 'ColorScheme' }, {
-    pattern = {'zen*', '*bones'},
+    pattern = { 'zen*', '*bones' },
     callback = function(params)
       local base = require(params.match)
       vim.api.nvim_set_hl(0, "Constant", { fg = base.Constant.fg.hex })

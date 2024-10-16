@@ -5,7 +5,7 @@ local M = {
     ts_update()
   end,
   dependencies = {
-    { "nushell/tree-sitter-nu" },
+    -- { "nushell/tree-sitter-nu" },
   },
   event = { "BufReadPost", "BufNewFile" },
 }
@@ -21,7 +21,54 @@ function M.config()
     config.install_info.url = config.install_info.url:gsub("https://github.com/", U.get_github_mirror())
   end
 
+  -------------------------------
+  -- helix treesitter parsers  --
+  -------------------------------
+  local helix_runtimepath = U.on_win() and 'e:/_config/helix/runtime/' or
+      (U.on_wsl() and '/mnt/e/_config/helix/runtime/' or "")
+  if vim.fn.exists(helix_runtimepath) then
+    -------------
+    -- queries --
+    -------------
+    -- append helix_runtimepath to help search `queries/*/*.scm`
+    vim.opt.runtimepath:append(',' .. helix_runtimepath)
+
+    -------------
+    -- parsers --
+    -------------
+    local helix_treesitter_parsers_sources = helix_runtimepath .. 'grammars/sources/'
+    local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
+    -- koka lang
+    ---@diagnostic disable-next-line: inject-field
+    parser_config.koka = {
+      filetype = 'koka',
+      install_info = {
+        url = helix_treesitter_parsers_sources .. 'koka',
+        files = { 'src/parser.c', 'src/scanner.c' }, -- note that some parsers also require src/scanner.c or src/scanner.cc
+      },
+    }
+    -- nushell
+    ---@diagnostic disable-next-line: inject-field
+    parser_config.nu = {
+      filetype = 'nu',
+      install_info = {
+        url = helix_treesitter_parsers_sources .. 'nu',
+        files = { 'src/parser.c' }, -- note that some parsers also require src/scanner.c or src/scanner.cc
+      },
+    }
+  end
+
+  -----------------------------------
+  -- register parser for filetypes --
+  -----------------------------------
+  vim.treesitter.language.register('ruby', { 'ruby', 'crystal' })
+
+  ------------------------------
+  -- nvim treesitter parsers  --
+  ------------------------------
+
   local ts = require('nvim-treesitter.configs')
+  ---@diagnostic disable-next-line: missing-fields
   ts.setup {
     sync_install = false,
     auto_install = false,

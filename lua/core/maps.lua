@@ -296,12 +296,10 @@ end
 
 function M.trouble()
   M.nmap {
-    { 'gee', '<cmd>TroubleToggle<CR>' },
-    { 'gew', '<cmd>TroubleToggle workspace_diagnostics<CR>' },
-    { 'ged', '<cmd>TroubleToggle document_diagnostics<CR>' },
-    { 'geq', '<cmd>TroubleToggle quickfix<CR>' },
-    { 'gel', '<cmd>TroubleToggle loclist<CR>' },
-    { 'ger', '<cmd>TroubleToggle lsp_references<CR>' },
+    { 'gee', '<cmd>Trouble diagnostics toggle<CR>' },
+    { 'geq', '<cmd>Trouble qflist toggle<CR>' },
+    { 'gel', '<cmd>Trouble loclist toggle<CR>' },
+    { 'ger', '<cmd>Trouble lsp toggle focus=false win.position=right<CR>' },
   }
 end
 
@@ -395,12 +393,14 @@ end
 
 function M.mini_files()
   local yank_full_path = function()
+    ---@diagnostic disable-next-line: undefined-global
     local path = MiniFiles.get_fs_entry().path
     vim.fn.setreg('+', path)
     -- Print path yanked
     print(path)
   end
   local yank_relative_path = function()
+    ---@diagnostic disable-next-line: undefined-global
     local path = MiniFiles.get_fs_entry().path
     vim.fn.setreg('+', vim.fn.fnamemodify(path, ':.'))
     -- Print path yanked
@@ -416,7 +416,9 @@ function M.mini_files()
   })
 
   M.nmap {
+    ---@diagnostic disable-next-line: undefined-global
     { '<M-1>', function() MiniFiles.open() end },
+    ---@diagnostic disable-next-line: undefined-global
     { '<M-2>', function() MiniFiles.open(vim.api.nvim_buf_get_name(0), false) end }
   }
 end
@@ -430,7 +432,7 @@ end
 function M.mini_pick()
   local U = require('core.utils')
   local pick_files = function()
-    if U.is_win() then
+    if U.on_win() then
       return MiniPick.builtin.files()
     else
       local show_icon = function(buf_id, items, query) MiniPick.default_show(buf_id, items, query, { show_icons = true }) end

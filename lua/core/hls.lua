@@ -1,5 +1,7 @@
 vim.cmd [[
     highlight Pmenu ctermbg=NONE guibg=NONE
+    highlight link MiniPickMatchCurrent PmenuSel
+    highlight link MiniPickNormal CmpItemMenu
 ]]
 
 if vim.g.transparent then
@@ -9,3 +11,5 @@ if vim.g.transparent then
     highlight EndOfBuffer ctermbg=NONE guibg=NONE
   ]]
 end
+
+
