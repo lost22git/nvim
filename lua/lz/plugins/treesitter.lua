@@ -24,8 +24,7 @@ function M.config()
   -------------------------------
   -- helix treesitter parsers  --
   -------------------------------
-  local helix_runtimepath = U.on_win() and 'e:/_config/helix/runtime/' or
-      (U.on_wsl() and '/mnt/e/_config/helix/runtime/' or "")
+  local helix_runtimepath = vim.env.HELIX_RUNTIMEPATH
   if vim.fn.exists(helix_runtimepath) then
     -------------
     -- queries --

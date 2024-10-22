@@ -28,7 +28,8 @@ vim.cmd [[
 
 -- restore terminal cursor shape when leaving
 -- \x1b[?12l -> disable cursor blink
-vim.cmd [[ au VimLeave * set guicursor= | call chansend(v:stderr, "\x1b[ q \x1b[?12l") ]]
+-- \x1b[6 q -> set cursor style to bar
+vim.cmd [[ au VimLeave * set guicursor= | call chansend(v:stderr, "\x1b[6 q \x1b[?12l") ]]
 
 
 -- Turn off paste mode when leaving insert
