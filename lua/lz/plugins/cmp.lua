@@ -19,7 +19,7 @@ local cmp_luasnip = {
 
 local M = {
   'hrsh7th/nvim-cmp',
-  enabled = not vim.g.vscode,
+  enabled = (not vim.g.vscode) and vim.g.cmp == 'nvim-cmp',
   event = { 'InsertEnter', 'CmdlineEnter' },
   dependencies = {
     -- Snippet

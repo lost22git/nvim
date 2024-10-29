@@ -435,18 +435,20 @@ function M.mini_pick()
     if U.on_win() then
       return MiniPick.builtin.files()
     else
-      local show_icon = function(buf_id, items, query) MiniPick.default_show(buf_id, items, query, { show_icons = true }) end
+      return MiniPick.builtin.files()
 
-      ---- use bfs
-      local default_opts = { source = { name = string.format('Files (%s)', 'bfs'), show = show_icon } }
-      local cmd = { 'bfs', '-type', 'f', '-nocolor', '-exclude', '-name', '.git' }
-
-      ---- use nimf
-      -- local default_opts = { source = { name = string.format('Files (%s)', 'nimf'), show = show_icon } }
-      -- local cmd = { 'f', '-t=f', '-c=false', '-x=/.git' }
-
-      local opts = vim.tbl_deep_extend('force', default_opts, {})
-      return MiniPick.builtin.cli({ command = cmd }, opts)
+      -- local show_icon = function(buf_id, items, query) MiniPick.default_show(buf_id, items, query, { show_icons = true }) end
+      --
+      -- ---- use bfs
+      -- local default_opts = { source = { name = string.format('Files (%s)', 'bfs'), show = show_icon } }
+      -- local cmd = { 'bfs', '-type', 'f', '-nocolor', '-exclude', '-name', '.git' }
+      --
+      -- ---- use nimf
+      -- -- local default_opts = { source = { name = string.format('Files (%s)', 'nimf'), show = show_icon } }
+      -- -- local cmd = { 'f', '-t=f', '-c=false', '-x=/.git' }
+      --
+      -- local opts = vim.tbl_deep_extend('force', default_opts, {})
+      -- return MiniPick.builtin.cli({ command = cmd }, opts)
     end
   end
 

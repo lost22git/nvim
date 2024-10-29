@@ -186,6 +186,11 @@ vim.g.loaded_netrwfilehandlers = 1
 vim.g.picker = 'mini.pick'
 -- vim.g.picker = 'telescope'
 
+-- completion
+vim.g.cmp = 'nvim-cmp'
+-- vim.g.cmp = 'blink-cmp'
+
+
 -- theme
 if vim.g.transparent == nil then
   vim.g.transparent = false
@@ -208,10 +213,10 @@ if vim.g.theme == nil or vim.g.theme == '' then
     -- vim.g.theme = 'newpaper'
     -- vim.g.theme = 'vesper'
     -- vim.g.theme = 'lackluster'
-    -- vim.g.theme = 'cyberdream'
+    vim.g.theme = 'cyberdream'
     -- vim.g.theme = 'zenbones'
     -- vim.g.theme = 'darcula'
-    vim.g.theme = 'github'
+    -- vim.g.theme = 'github'
     -- vim.g.theme = 'mellow'
     -- vim.g.theme = 'fluoromachine'
     -- vim.g.theme = themes[vim.fn.rand() % vim.fn.len(themes) + 1]
