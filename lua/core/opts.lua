@@ -2,12 +2,31 @@ vim.g.mapleader = ' '
 
 local U = require('core.utils')
 
+
+-----------------------------
+-- custom global variables --
+-----------------------------
+do
+  vim.g.picker = 'mini.pick'
+  -- vim.g.picker = 'telescope'
+end
+
+do
+  vim.g.cmp = 'nvim-cmp'
+end
+
+do
+  vim.g.transparent = vim.g.transparent or false
+end
+
+-------------
+-- options --
+-------------
+
 -- terminal shell
 if U.on_win() then
   vim.g.term_shell = { 'pwsh' }
 end
-
-vim.opt.guicursor = [[n-v-sm:block,c-i-ci-ve:ver25,r-cr-o:hor20]]
 
 -- gui client 字体
 -- neovide 使用自己的 config.toml, 因为它支持配置 light style
@@ -15,6 +34,9 @@ if not U.on_neovide() then
   vim.opt.guifont = [[IosevkaTermSlab NFM:h14]]
   vim.opt.guifontwide = [[Maple Mono SC NF:h14]]
 end
+
+-- fix default: use bar style (ver25) on cmd mode
+vim.opt.guicursor = [[n-v-sm:block,c-i-ci-ve:ver25,r-cr-o:hor20]]
 
 -- 编码
 vim.scriptencoding = 'utf-8'
@@ -36,7 +58,7 @@ vim.opt.numberwidth = 2
 vim.opt.termguicolors = true -- 终端使用 24-bit rgb
 vim.opt.winblend = 0         -- float window 透明度 [0-100]
 vim.opt.pumblend = 0         -- popup menu 透明度 [0-100]
-vim.opt.background = 'dark'  -- 背景色
+vim.opt.background = 'dark'  -- 背景
 
 -- 高亮
 vim.opt.cursorcolumn = false          -- 高亮当前列
@@ -52,8 +74,7 @@ vim.opt.signcolumn = 'yes'
 vim.opt.scrolloff = 10     -- scroll offset 上下最小可见行数
 vim.opt.wrap = false
 vim.opt.sidescrolloff = 10 -- scroll offset 左右最小可见列数 (wrap=false 下有效)
-
--- opt.scrolloff = (999 - vim.o.scrolloff) -- 保持光标一直在中间
+-- vim.opt.scrolloff = (999 - vim.o.scrolloff) -- 保持光标一直在中间
 
 -- 缩进
 vim.opt.breakindent = true
@@ -156,8 +177,10 @@ elseif U.on_wsl() then
       ['*'] = '/mnt/c/Windows/System32/clip.exe',
     },
     paste = {
-      ['+'] = 'powershell.exe -NoProfile -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-      ['*'] = 'powershell.exe -NoProfile -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+      ['+'] =
+      'powershell.exe -NoLogo -NoProfile -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+      ['*'] =
+      'powershell.exe -NoLogo -NoProfile -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
     },
     cache_enabled = 0,
   }
@@ -184,45 +207,3 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwplugin = 1
 vim.g.loaded_netrwsettings = 1
 vim.g.loaded_netrwfilehandlers = 1
-
-
--- picker
-vim.g.picker = 'mini.pick'
--- vim.g.picker = 'telescope'
-
--- completion
-vim.g.cmp = 'nvim-cmp'
--- vim.g.cmp = 'blink-cmp'
-
-
--- theme
-if vim.g.transparent == nil then
-  vim.g.transparent = false
-end
-
-if vim.g.theme == nil or vim.g.theme == '' then
-  if not U.version_ge('1.9.999') then
-    ---@diagnostic disable-next-line: unused-local
-    local themes = {
-      'github',
-      'fluoromachine',
-      'mellow',
-      'zenbones',
-      'darcula',
-      'cyberdream',
-      'lackluster',
-      'vesper',
-      'newpaper',
-    }
-    -- vim.g.theme = 'newpaper'
-    -- vim.g.theme = 'vesper'
-    -- vim.g.theme = 'lackluster'
-    -- vim.g.theme = 'cyberdream'
-    -- vim.g.theme = 'zenbones'
-    -- vim.g.theme = 'darcula'
-    -- vim.g.theme = 'github'
-    -- vim.g.theme = 'mellow'
-    -- vim.g.theme = 'fluoromachine'
-    -- vim.g.theme = themes[vim.fn.rand() % vim.fn.len(themes) + 1]
-  end
-end
