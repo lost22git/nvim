@@ -2,7 +2,6 @@ vim.g.mapleader = ' '
 
 local U = require('core.utils')
 
-
 -----------------------------
 -- custom global variables --
 -----------------------------
