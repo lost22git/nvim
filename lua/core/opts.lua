@@ -1,4 +1,11 @@
+vim.g.mapleader = ' '
+
 local U = require('core.utils')
+
+-- terminal shell
+if U.on_win() then
+  vim.g.term_shell = { 'pwsh' }
+end
 
 vim.opt.guicursor = [[n-v-sm:block,c-i-ci-ve:ver25,r-cr-o:hor20]]
 
@@ -101,11 +108,9 @@ vim.opt.redrawtime = 1500
 vim.opt.path:append { '**' }
 vim.opt.wildignore:append { '*/node_modules/*' }
 
--- 在 vim grep 中使用 rg (此处使用 vim.fn.executable 会影响启动速度 TODO)
--- if vim.fn.executable('rg') == 1 then
+-- 在 vim grep 中使用 rg
 vim.opt.grepformat = [[%f:%l:%c:%m,%f:%l:%m]]
 vim.opt.grepprg = [[rg --vimgrep --no-heading --smart-case]]
--- end
 
 -- Undercurl
 vim.cmd [[let &t_Cs = "\e[4:3m"]]
@@ -160,7 +165,6 @@ else
 end
 
 
-vim.g.mapleader = ' '
 -- 不启用一些内置插件
 vim.g.loaded_gzip = 1
 vim.g.loaded_tar = 1
@@ -213,7 +217,7 @@ if vim.g.theme == nil or vim.g.theme == '' then
     -- vim.g.theme = 'newpaper'
     -- vim.g.theme = 'vesper'
     -- vim.g.theme = 'lackluster'
-    vim.g.theme = 'cyberdream'
+    -- vim.g.theme = 'cyberdream'
     -- vim.g.theme = 'zenbones'
     -- vim.g.theme = 'darcula'
     -- vim.g.theme = 'github'
@@ -221,9 +225,4 @@ if vim.g.theme == nil or vim.g.theme == '' then
     -- vim.g.theme = 'fluoromachine'
     -- vim.g.theme = themes[vim.fn.rand() % vim.fn.len(themes) + 1]
   end
-end
-
--- terminal shell
-if U.on_win() then
-  vim.g.term_shell = { 'pwsh' }
 end
