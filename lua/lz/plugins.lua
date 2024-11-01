@@ -177,7 +177,7 @@ return {
     "folke/trouble.nvim",
     enabled = not vim.g.vscode,
     cmd = { 'Trouble' },
-    keys = { '<M-8>', 'gee', 'ged', 'ger', 'geq', 'gel' },
+    keys = { '<M-8>', 'gx' },
     config = function()
       local trouble = require('trouble')
       trouble.setup {
@@ -197,15 +197,6 @@ return {
     end,
   },
 
-  -- Session
-  {
-    "folke/persistence.nvim",
-    keys = { '<leader>ss', '<leader>sa', '<leader>sd' },
-    config = function()
-      require("persistence").setup()
-      require('core.maps').presistence()
-    end,
-  },
 
   -- 保护颈椎
   {
@@ -315,17 +306,6 @@ return {
     config = function()
       require("todo-comments").setup {}
       require('core.maps').todo()
-    end
-  },
-
-  -- 大纲 outline
-  {
-    "hedyhli/outline.nvim",
-    enabled = not vim.g.vscode,
-    keys = { '<leader>go' },
-    config = function()
-      require("outline").setup {}
-      require('core.maps').outline()
     end
   },
 
