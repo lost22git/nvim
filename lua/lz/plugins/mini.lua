@@ -1,4 +1,9 @@
 return {
+
+  ----------------
+  -- mini.icons --
+  ----------------
+
   {
     "echasnovski/mini.icons",
     opts = {},
@@ -16,7 +21,10 @@ return {
     end,
   },
 
-  -- 文件管理 mini.files
+  ----------------
+  -- mini.files --
+  ----------------
+
   {
     'echasnovski/mini.files',
     enabled = not vim.g.vscode,
@@ -85,7 +93,10 @@ return {
     end
   },
 
-  -- mini.pick
+  ---------------
+  -- mini.pick --
+  ---------------
+
   {
     'echasnovski/mini.pick',
     version = false,
@@ -137,7 +148,10 @@ return {
     end,
   },
 
-  -- mini.indent
+  -----------------
+  -- mini.indent --
+  -----------------
+
   {
     'echasnovski/mini.indentscope',
     version = false,
@@ -148,7 +162,10 @@ return {
     end,
   },
 
-  -- mini.surround
+  -------------------
+  -- mini.surround --
+  -------------------
+
   {
     'echasnovski/mini.surround',
     version = false,
@@ -171,7 +188,10 @@ return {
     end
   },
 
-  -- mini.tabline
+  ------------------
+  -- mini.tabline --
+  ------------------
+
   {
     'echasnovski/mini.tabline',
     version = false,
