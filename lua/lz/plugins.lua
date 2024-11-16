@@ -356,6 +356,6 @@ return {
       require('borderline').setup {}
       require('borderline.api').borderline('solid')
     end,
-  }
+  },
 
 }

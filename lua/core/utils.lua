@@ -66,6 +66,13 @@ end
 local lsp_server_bin_dir = M.get_mason_path() .. '/bin/'
 local lsp_server_package_dir = M.get_mason_path() .. '/packages/'
 
+function M.lsp_server_found(name, fn)
+  local path = M.get_lsp_server_path(name)
+  if path ~= '' then
+    fn(path)
+  end
+end
+
 function M.get_lsp_server_path(name)
   -- 查找顺序：
   -- 1. mason 目录
@@ -74,12 +81,10 @@ function M.get_lsp_server_path(name)
 
   -- 2. 环境变量 PATH
   path = vim.fn.exepath(name) or ''
-
   -- windows: 如果 path 没有扩展名，添加 .cmd
   if path ~= '' and M.on_win() and ({ M.get_name_and_ext(path) })[2] == nil then
     path = path .. '.cmd'
   end
-
   return path
 end
 

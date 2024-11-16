@@ -11,7 +11,7 @@ function M.config()
   local lspconfig = require('lspconfig')
   local U = require('core.utils')
 
-  local get_lsp_server_path = U.get_lsp_server_path
+  local lsp_server_found = U.lsp_server_found
   local get_lsp_server_package_path = U.get_lsp_server_package_path
 
   local capabilities = require('lz.plugins.lsp.common').cmp_capabilities()
@@ -203,67 +203,74 @@ function M.config()
 
 
   -- Powershell language server
-  if get_lsp_server_package_path('powershell-editor-services') ~= '' then
-    lspconfig.powershell_es.setup {
-      on_attach = on_attach,
-      capabilities = capabilities,
-      bundle_path = get_lsp_server_package_path('powershell-editor-services')
-    }
-  end
+  lspconfig.powershell_es.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    bundle_path = get_lsp_server_package_path('powershell-editor-services')
+  }
 
   -- htmx language server
-  if get_lsp_server_path('htmx-lsp') ~= '' then
+  lsp_server_found('htmx-lsp', function(server_path)
     lspconfig.htmx.setup {
       on_attach = on_attach,
       capabilities = capabilities,
-      cmd = { get_lsp_server_path('htmx-lsp') },
+      cmd = { server_path },
     }
-  end
+  end)
 
   -- Tailwindcss language server
-  if get_lsp_server_path('tailwindcss-language-server') ~= '' then
+  lsp_server_found('tailwindcss-language-server', function(server_path)
     lspconfig.tailwindcss.setup {
       on_attach = on_attach,
       capabilities = capabilities,
-      cmd = { get_lsp_server_path('tailwindcss-language-server'), '--stdio' },
+      cmd = { server_path, '--stdio' },
     }
-  end
+  end)
 
   -- elixir language server
-  if get_lsp_server_path('elixir-ls') ~= '' then
+  lsp_server_found('elixir-ls', function(server_path)
     lspconfig.elixirls.setup {
       on_attach = on_attach,
       capabilities = capabilities,
-      cmd = { get_lsp_server_path('elixir-ls') }
+      cmd = { server_path }
     }
-  end
+  end)
 
   -- java language server
-  if get_lsp_server_path('jdtls') ~= '' then
+  lsp_server_found('jdtls', function(server_path)
     lspconfig.jdtls.setup {
       on_attach = on_attach,
       capabilities = capabilities,
-      cmd = { get_lsp_server_path('jdtls') }
+      cmd = { server_path }
     }
-  end
+  end)
 
   --Dockerfile language server
-  if get_lsp_server_path('docker-langserver') ~= '' then
+  lsp_server_found('docker-langserver', function(server_path)
     lspconfig.dockerls.setup {
       on_attach = on_attach,
       capabilities = capabilities,
-      cmd = { get_lsp_server_path('docker-langserver'), '--stdio' }
+      cmd = { server_path, '--stdio' }
     }
-  end
+  end)
 
   -- Python language server
-  if get_lsp_server_path('pyright-langserver') ~= '' then
+  lsp_server_found('pyright-langserver', function(server_path)
     lspconfig.pyright.setup {
       on_attach = on_attach,
       capabilities = capabilities,
-      cmd = { get_lsp_server_path('pyright-langserver'), "--stdio" }
+      cmd = { server_path, "--stdio" }
     }
-  end
+  end)
+
+  -- Clojure language server
+  lsp_server_found('clojure-lsp', function(server_path)
+    lspconfig.clojure_lsp.setup {
+      on_attach = on_attach,
+      capabilities = capabilities,
+      cmd = { server_path },
+    }
+  end)
 end
 
 return M
