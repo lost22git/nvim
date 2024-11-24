@@ -271,6 +271,13 @@ function M.config()
       cmd = { server_path },
     }
   end)
+
+  -- Fennel language server
+  -- lspconfig.fennel_language_server.setup {
+  lspconfig.fennel_ls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
 end
 
 return M

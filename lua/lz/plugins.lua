@@ -358,4 +358,39 @@ return {
     end,
   },
 
+  ---------------------------
+  -- highlight block scope --
+  ---------------------------
+  {
+    'rareitems/hl_match_area.nvim',
+    event = { "BufReadPost", "BufNewFile" },
+    config = function()
+      require('hl_match_area').setup {}
+    end
+  },
+
+  {
+    "utilyre/sentiment.nvim",
+    version = "*",
+    event = { "BufReadPost", "BufNewFile" },
+    opts = {
+      -- config
+    },
+    init = function()
+      -- `matchparen.vim` needs to be disabled manually in case of lazy loading
+      vim.g.loaded_matchparen = 1
+    end,
+  },
+
+  ----------
+  -- REPL --
+  ----------
+  {
+    "Olical/conjure",
+    ft = { 'clojure', 'fennel' },
+    init = function()
+      vim.g.maplocalleader = ' '
+      vim.g["conjure#mapping#doc_word"] = { "gh" }
+    end,
+  },
 }

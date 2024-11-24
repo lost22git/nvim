@@ -25,6 +25,8 @@ function M.config()
       roc        = { 'roc' },
       gleam      = { 'gleam' },
       ocaml      = { 'ocamlformat' },
+      clojure    = { 'cljfmt' },
+      fennel     = { 'fnlfmt' },
     },
     formatters = {
       shfmt = {
