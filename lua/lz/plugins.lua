@@ -393,4 +393,15 @@ return {
       vim.g["conjure#mapping#doc_word"] = { "gh" }
     end,
   },
+
+  -------------------
+  -- cursor effect -- 
+  -------------------
+  {
+    "sphamba/smear-cursor.nvim",
+    event = 'VeryLazy',
+    config = function()
+      require('smear_cursor').setup {}
+    end
+  },
 }
