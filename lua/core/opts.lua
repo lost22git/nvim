@@ -75,6 +75,10 @@ vim.opt.wrap = false
 vim.opt.sidescrolloff = 10 -- scroll offset 左右最小可见列数 (wrap=false 下有效)
 -- vim.opt.scrolloff = (999 - vim.o.scrolloff) -- 保持光标一直在中间
 
+-- vsplit default right
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+
 -- 缩进
 vim.opt.breakindent = true
 vim.opt.autoindent = true

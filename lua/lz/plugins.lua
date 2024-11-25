@@ -382,20 +382,8 @@ return {
     end,
   },
 
-  ----------
-  -- REPL --
-  ----------
-  {
-    "Olical/conjure",
-    ft = { 'clojure', 'fennel' },
-    init = function()
-      vim.g.maplocalleader = ' '
-      vim.g["conjure#mapping#doc_word"] = { "gh" }
-    end,
-  },
-
   -------------------
-  -- cursor effect -- 
+  -- cursor effect --
   -------------------
   {
     "sphamba/smear-cursor.nvim",
@@ -403,5 +391,25 @@ return {
     config = function()
       require('smear_cursor').setup {}
     end
+  },
+
+  ----------
+  -- REPL --
+  ----------
+  {
+    "Olical/conjure",
+    ft = { 'clojure', 'fennel', 'lua' },
+    init = function()
+      vim.g.maplocalleader = ' '
+      vim.g["conjure#mapping#doc_word"] = { "gh" }
+      vim.g['conjure#extract#tree_sitter#enabled'] = true
+    end,
+  },
+  {
+    'clojure-vim/vim-jack-in',
+    ft = { 'clojure' },
+    dependencies = {
+      'radenling/vim-dispatch-neovim',
+    }
   },
 }
