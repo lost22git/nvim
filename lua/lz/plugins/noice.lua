@@ -3,13 +3,13 @@ local M = {
   enabled = not vim.g.vscode,
   keys = { "<M-9>" },
   event = { "VeryLazy" },
-  cond = not vim.g.vscode
+  cond = not vim.g.vscode,
 }
 
 function M.config()
-  local noice = require('noice')
+  local noice = require("noice")
 
-  noice.setup {
+  noice.setup({
     cmdline = {
       enabled = true,
       -- view = "cmdline_popup",
@@ -27,6 +27,10 @@ function M.config()
       },
     },
     lsp = {
+      progress = {
+        enabled = false,
+      },
+
       -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
       override = {
         ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
@@ -39,12 +43,12 @@ function M.config()
       bottom_search = true,
       command_palette = true,
       long_message_to_split = true,
-      inc_rename = true, -- enables an input dialog for inc-rename.nvim
+      inc_rename = true,
       lsp_doc_border = false,
     },
     routes = {
       {
-        view = 'split',
+        view = "split",
         filter = {
           event = "msg_show",
           kind = "",
@@ -53,9 +57,9 @@ function M.config()
         opts = { skip = true },
       },
     },
-  }
+  })
 
-  require('core.maps').noice()
+  require("core.maps").noice()
 end
 
 return M

@@ -1,7 +1,7 @@
 local M = {
-  'nvim-treesitter/nvim-treesitter',
+  "nvim-treesitter/nvim-treesitter",
   build = function()
-    local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+    local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
     ts_update()
   end,
   dependencies = {
@@ -10,15 +10,15 @@ local M = {
   event = { "BufReadPost", "BufNewFile" },
 }
 
-
 function M.config()
-  local U = require('core.utils')
+  local U = require("core.utils")
   -- 从 git 下载，而不是 curl
   require("nvim-treesitter.install").prefer_git = true
 
   -- 替换 github 为镜像地址
   for _, config in pairs(require("nvim-treesitter.parsers").get_parser_configs()) do
-    config.install_info.url = config.install_info.url:gsub("https://github.com/", U.get_github_mirror())
+    config.install_info.url =
+      config.install_info.url:gsub("https://github.com/", U.get_github_mirror())
   end
 
   -------------------------------
@@ -30,29 +30,29 @@ function M.config()
     -- queries --
     -------------
     -- append helix_runtimepath to help search `queries/*/*.scm`
-    vim.opt.runtimepath:append(',' .. helix_runtimepath)
+    vim.opt.runtimepath:append("," .. helix_runtimepath)
 
     -------------
     -- parsers --
     -------------
-    local helix_treesitter_parsers_sources = helix_runtimepath .. 'grammars/sources/'
-    local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
+    local helix_treesitter_parsers_sources = helix_runtimepath .. "grammars/sources/"
+    local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
     -- koka lang
     ---@diagnostic disable-next-line: inject-field
     parser_config.koka = {
-      filetype = 'koka',
+      filetype = "koka",
       install_info = {
-        url = helix_treesitter_parsers_sources .. 'koka',
-        files = { 'src/parser.c', 'src/scanner.c' }, -- note that some parsers also require src/scanner.c or src/scanner.cc
+        url = helix_treesitter_parsers_sources .. "koka",
+        files = { "src/parser.c", "src/scanner.c" }, -- note that some parsers also require src/scanner.c or src/scanner.cc
       },
     }
     -- nushell
     ---@diagnostic disable-next-line: inject-field
     parser_config.nu = {
-      filetype = 'nu',
+      filetype = "nu",
       install_info = {
-        url = helix_treesitter_parsers_sources .. 'nu',
-        files = { 'src/parser.c' }, -- note that some parsers also require src/scanner.c or src/scanner.cc
+        url = helix_treesitter_parsers_sources .. "nu",
+        files = { "src/parser.c" }, -- note that some parsers also require src/scanner.c or src/scanner.cc
       },
     }
   end
@@ -60,15 +60,15 @@ function M.config()
   -----------------------------------
   -- register parser for filetypes --
   -----------------------------------
-  vim.treesitter.language.register('ruby', { 'ruby', 'crystal' })
+  vim.treesitter.language.register("ruby", { "ruby", "crystal" })
 
   ------------------------------
   -- nvim treesitter parsers  --
   ------------------------------
 
-  local ts = require('nvim-treesitter.configs')
+  local ts = require("nvim-treesitter.configs")
   ---@diagnostic disable-next-line: missing-fields
-  ts.setup {
+  ts.setup({
     sync_install = false,
     auto_install = false,
     highlight = {
@@ -83,11 +83,11 @@ function M.config()
     incremental_selection = {
       enable = true,
       keymaps = {
-        init_selection = '<CR>',
-        node_incremental = '<CR>',
-        scope_incremental = '<CR>',
-        node_decremental = '<BS>',
-      }
+        init_selection = "<CR>",
+        -- scope_incremental = "<CR>",
+        node_incremental = "<CR>",
+        node_decremental = "<BS>",
+      },
     },
     ensure_installed = {
       --
@@ -126,7 +126,7 @@ function M.config()
     autotag = {
       enable = true,
     },
-  }
+  })
 end
 
 return M
