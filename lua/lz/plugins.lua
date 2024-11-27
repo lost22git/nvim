@@ -28,9 +28,9 @@ return {
     "ilan-schemoul/true-zen.nvim",
     enabled = not vim.g.vscode,
     branch = "fix-restore-value",
-    cmd = { 'TZNarrow', 'TZFocus', 'TZMinimalist', 'TZAtaraxis' },
+    cmd = { "TZNarrow", "TZFocus", "TZMinimalist", "TZAtaraxis" },
     config = function()
-      require("true-zen").setup {}
+      require("true-zen").setup({})
     end,
   },
 
@@ -39,16 +39,16 @@ return {
   --------------
 
   {
-    'TheBlob42/houdini.nvim',
+    "TheBlob42/houdini.nvim",
     event = { "InsertEnter", "CmdLineEnter", "TermEnter" },
     config = function()
-      require('houdini').setup {
+      require("houdini").setup({
         escape_sequences = {
-          ['v'] = false,
-          ['V'] = false,
-        }
-      }
-    end
+          ["v"] = false,
+          ["V"] = false,
+        },
+      })
+    end,
   },
 
   ------------------
@@ -56,17 +56,17 @@ return {
   ------------------
 
   {
-    'NvChad/nvim-colorizer.lua',
+    "NvChad/nvim-colorizer.lua",
     cmd = { "ColorizerAttachToBuffer" },
     config = function()
-      require("colorizer").setup {
+      require("colorizer").setup({
         user_default_options = {
-          tailwind    = true,
-          mode        = "virtualtext",
+          tailwind = true,
+          mode = "virtualtext",
           virtualtext = "■",
-        }
-      }
-    end
+        },
+      })
+    end,
   },
 
   ------------------
@@ -75,19 +75,19 @@ return {
 
   {
     "windwp/nvim-autopairs",
-    event = { 'InsertEnter', 'CmdlineEnter' },
+    event = { "InsertEnter", "CmdlineEnter" },
     config = function()
-      require('nvim-autopairs').setup {
+      require("nvim-autopairs").setup({
         disable_filetype = { "TelescopePrompt", "vim" },
-      }
-    end
+      })
+    end,
   },
   {
     "hrsh7th/nvim-insx",
-    event = { 'InsertEnter' },
+    event = { "InsertEnter" },
     config = function()
-      require('insx.preset.standard').setup {}
-    end
+      require("insx.preset.standard").setup({})
+    end,
   },
 
   ---------------
@@ -95,14 +95,13 @@ return {
   ---------------
 
   {
-    'fedepujol/move.nvim',
-    keys = { '<M-j>', '<M-k>', '<M-l>', '<M-h>' },
+    "fedepujol/move.nvim",
+    keys = { "<M-j>", "<M-k>", "<M-l>", "<M-h>" },
     config = function()
-      require('move').setup {}
-      require('core.maps').move()
-    end
+      require("move").setup({})
+      require("core.maps").move()
+    end,
   },
-
 
   --------------------
   -- 可视区域内跳转 --
@@ -162,14 +161,13 @@ return {
   {
     "folke/trouble.nvim",
     enabled = not vim.g.vscode,
-    cmd = { 'Trouble' },
-    keys = { '<M-8>', 'gx' },
+    cmd = { "Trouble" },
+    keys = { "<M-8>", "gx" },
     config = function()
-      local trouble = require('trouble')
-      trouble.setup {
-      }
-      require('core.maps').trouble()
-    end
+      local trouble = require("trouble")
+      trouble.setup({})
+      require("core.maps").trouble()
+    end,
   },
 
   ----------------
@@ -177,28 +175,27 @@ return {
   ----------------
 
   {
-    'saecki/crates.nvim',
+    "saecki/crates.nvim",
     enabled = not vim.g.vscode,
     event = { "BufRead Cargo.toml" },
-    dependencies = { 'nvim-lua/plenary.nvim' },
+    dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
-      require('crates').setup()
+      require("crates").setup()
     end,
   },
-
 
   --------------
   -- 保护颈椎 --
   --------------
 
   {
-    'nyngwang/NeoZoom.lua',
+    "nyngwang/NeoZoom.lua",
     enabled = not vim.g.vscode,
-    keys = { ';' },
+    keys = { ";" },
     config = function()
-      require('neo-zoom').setup {
+      require("neo-zoom").setup({
         popup = { enabled = true }, -- this is the default.
-        exclude_buftypes = { 'terminal' },
+        exclude_buftypes = { "terminal" },
         -- exclude_filetypes = { 'lspinfo', 'mason', 'lazy', 'fzf', 'qf' },
         winopts = {
           offset = {
@@ -209,40 +206,47 @@ return {
             height = 0.85,
           },
           -- NOTE: check :help nvim_open_win() for possible border values.
-          border = 'rounded',
+          border = "rounded",
         },
         presets = {
           {
             -- NOTE: regex pattern can be used here!
-            filetypes = { 'dapui_.*', 'dap-repl' },
+            filetypes = { "dapui_.*", "dap-repl" },
             winopts = {
               offset = { top = 0.02, left = 0.26, width = 0.74, height = 0.25 },
             },
           },
           {
-            filetypes = { 'markdown' },
+            filetypes = { "markdown" },
             callbacks = {
-              function() vim.wo.wrap = true end,
+              function()
+                vim.wo.wrap = true
+              end,
             },
           },
         },
-      }
-
-      vim.keymap.set('n', ';', function() vim.cmd('NeoZoomToggle') end, { silent = true, nowait = true })
-
-      vim.api.nvim_create_autocmd({ 'WinEnter' }, {
-        callback = function()
-          local zoom_book = require('neo-zoom').zoom_book
-
-          if require('neo-zoom').is_neo_zoom_float()
-          then
-            for z, _ in pairs(zoom_book) do vim.wo[z].winbl = 0 end
-          else
-            for z, _ in pairs(zoom_book) do vim.wo[z].winbl = 20 end
-          end
-        end
       })
-    end
+
+      vim.keymap.set("n", ";", function()
+        vim.cmd("NeoZoomToggle")
+      end, { silent = true, nowait = true })
+
+      vim.api.nvim_create_autocmd({ "WinEnter" }, {
+        callback = function()
+          local zoom_book = require("neo-zoom").zoom_book
+
+          if require("neo-zoom").is_neo_zoom_float() then
+            for z, _ in pairs(zoom_book) do
+              vim.wo[z].winbl = 0
+            end
+          else
+            for z, _ in pairs(zoom_book) do
+              vim.wo[z].winbl = 20
+            end
+          end
+        end,
+      })
+    end,
   },
 
   --------------------
@@ -250,11 +254,11 @@ return {
   --------------------
 
   {
-    'Wansmer/treesj',
-    keys = { '<leader>j' },
-    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    "Wansmer/treesj",
+    keys = { "<leader>j" },
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
     config = function()
-      require('treesj').setup {
+      require("treesj").setup({
         -- Use default keymaps
         -- (<space>m - toggle, <space>j - join, <space>s - split)
         use_default_keymaps = false,
@@ -270,7 +274,7 @@ return {
         -- hold - cursor follows the node/place on which it was called
         -- start - cursor jumps to the first symbol of the node being formatted
         -- end - cursor jumps to the last symbol of the node being formatted
-        cursor_behavior = 'hold',
+        cursor_behavior = "hold",
 
         -- Notify about possible problems or not
         notify = true,
@@ -278,10 +282,10 @@ return {
 
         -- Use `dot` for repeat action
         dot_repeat = true,
-      }
+      })
 
-      require('core.maps').treesj()
-    end
+      require("core.maps").treesj()
+    end,
   },
 
   ----------
@@ -291,11 +295,11 @@ return {
   {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
-    event = { 'BufReadPost', 'BufNewFile' },
+    event = { "BufReadPost", "BufNewFile" },
     config = function()
-      require("todo-comments").setup {}
-      require('core.maps').todo()
-    end
+      require("todo-comments").setup({})
+      require("core.maps").todo()
+    end,
   },
 
   --------------
@@ -303,19 +307,19 @@ return {
   --------------
 
   {
-    'MeanderingProgrammer/render-markdown.nvim',
+    "MeanderingProgrammer/render-markdown.nvim",
     enabled = not vim.g.vscode,
-    ft = 'markdown',
-    dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' },
+    ft = "markdown",
+    dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.icons" },
     opts = {},
   },
 
   {
-    'Kicamon/markdown-table-mode.nvim',
-    ft = 'markdown',
+    "Kicamon/markdown-table-mode.nvim",
+    ft = "markdown",
     config = function()
-      require('markdown-table-mode').setup()
-    end
+      require("markdown-table-mode").setup()
+    end,
   },
 
   ----------
@@ -327,7 +331,7 @@ return {
     dependencies = {
       "MunifTanjim/nui.nvim",
       "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter"
+      "nvim-treesitter/nvim-treesitter",
     },
     ft = "hurl",
     opts = {
@@ -335,11 +339,11 @@ return {
       show_notification = false,
       mode = "split",
       formatters = {
-        json = { 'jq' },
+        json = { "jq" },
         html = {
-          'prettier',
-          '--parser',
-          'html',
+          "prettier",
+          "--parser",
+          "html",
         },
       },
     },
@@ -350,11 +354,11 @@ return {
   ----------------------------
 
   {
-    'mikesmithgh/borderline.nvim',
-    event = 'VeryLazy',
+    "mikesmithgh/borderline.nvim",
+    event = "VeryLazy",
     config = function()
-      require('borderline').setup {}
-      require('borderline.api').borderline('solid')
+      require("borderline").setup({})
+      require("borderline.api").borderline("solid")
     end,
   },
 
@@ -362,11 +366,11 @@ return {
   -- highlight block scope --
   ---------------------------
   {
-    'rareitems/hl_match_area.nvim',
+    "rareitems/hl_match_area.nvim",
     event = { "BufReadPost", "BufNewFile" },
     config = function()
-      require('hl_match_area').setup {}
-    end
+      require("hl_match_area").setup({})
+    end,
   },
 
   {
@@ -387,10 +391,10 @@ return {
   -------------------
   {
     "sphamba/smear-cursor.nvim",
-    event = 'VeryLazy',
+    event = "VeryLazy",
     config = function()
-      require('smear_cursor').setup {}
-    end
+      require("smear_cursor").setup({})
+    end,
   },
 
   ----------
@@ -398,18 +402,19 @@ return {
   ----------
   {
     "Olical/conjure",
-    ft = { 'clojure', 'fennel', 'lua' },
+    ft = { "clojure", "fennel", "lua", "julia", "python", "rust" },
     init = function()
-      vim.g.maplocalleader = ' '
+      vim.g.maplocalleader = " "
       vim.g["conjure#mapping#doc_word"] = { "gh" }
-      vim.g['conjure#extract#tree_sitter#enabled'] = true
+      vim.g["conjure#extract#tree_sitter#enabled"] = true
     end,
   },
   {
-    'clojure-vim/vim-jack-in',
-    ft = { 'clojure' },
+    "clojure-vim/vim-jack-in",
+    cmd = { "Clj" },
+    -- ft = { "clojure" },
     dependencies = {
-      'radenling/vim-dispatch-neovim',
-    }
+      "radenling/vim-dispatch-neovim",
+    },
   },
 }
