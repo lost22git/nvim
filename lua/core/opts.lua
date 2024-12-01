@@ -1,31 +1,70 @@
-vim.g.mapleader = ' '
-
-local U = require('core.utils')
+local U = require("core.utils")
 
 -----------------------------
 -- custom global variables --
 -----------------------------
+
+vim.g.mapleader = " "
+vim.g.transparent = vim.g.transparent or false
+
 do
-  vim.g.picker = 'mini.pick'
+  vim.g.picker = "mini.pick"
   -- vim.g.picker = 'telescope'
 end
 
-do
-  vim.g.cmp = 'nvim-cmp'
+-- terminal shell
+if U.on_win() then
+  vim.g.term_shell = { "pwsh" }
 end
 
-do
-  vim.g.transparent = vim.g.transparent or false
+-- 剪贴板 :help clipboard
+-- 剪贴板 register 2.0 (提升启动速度)
+-- see https://github.com/neovim/neovim/issues/9570
+if U.on_win() then
+  vim.g.clipboard = {
+    name = "win32yank",
+    copy = {
+      ["+"] = "win32yank.exe -i --crlf",
+      ["*"] = "win32yank.exe -i --crlf",
+    },
+    paste = {
+      ["+"] = "win32yank.exe -o --lf",
+      ["*"] = "win32yank.exe -o --lf",
+    },
+    cache_enabled = 0,
+  }
+elseif U.on_mac() then
+  vim.g.clipboard = {
+    name = "pbcopy",
+    copy = {
+      ["+"] = "pbcopy",
+      ["*"] = "pbcopy",
+    },
+    paste = {
+      ["+"] = "pbpaste",
+      ["*"] = "pbpaste",
+    },
+    cache_enabled = 0,
+  }
+elseif U.on_wsl() then
+  vim.g.clipboard = {
+    name = "WslClipboard",
+    copy = {
+      ["+"] = "/mnt/c/Windows/System32/clip.exe",
+      ["*"] = "/mnt/c/Windows/System32/clip.exe",
+    },
+    paste = {
+      ["+"] = 'powershell.exe -NoLogo -NoProfile -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+      ["*"] = 'powershell.exe -NoLogo -NoProfile -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+    },
+    cache_enabled = 0,
+  }
+else
 end
 
 -------------
 -- options --
 -------------
-
--- terminal shell
-if U.on_win() then
-  vim.g.term_shell = { 'pwsh' }
-end
 
 -- gui client 字体
 -- neovide 使用自己的 config.toml, 因为它支持配置 light style
@@ -38,12 +77,12 @@ end
 vim.opt.guicursor = [[n-v-sm:block,c-i-ci-ve:ver25,r-cr-o:hor20]]
 
 -- 编码
-vim.scriptencoding = 'utf-8'
-vim.opt.encoding = 'utf-8'
-vim.opt.fileencoding = 'utf-8'
+vim.scriptencoding = "utf-8"
+vim.opt.encoding = "utf-8"
+vim.opt.fileencoding = "utf-8"
 
 -- 鼠标支持
-vim.opt.mouse = 'a'
+vim.opt.mouse = "a"
 
 -- 全局共用一个状态栏
 vim.opt.laststatus = 3
@@ -55,22 +94,22 @@ vim.opt.numberwidth = 2
 
 -- 颜色 & 透明度
 vim.opt.termguicolors = true -- 终端使用 24-bit rgb
-vim.opt.winblend = 0         -- float window 透明度 [0-100]
-vim.opt.pumblend = 0         -- popup menu 透明度 [0-100]
-vim.opt.background = 'dark'  -- 背景
+vim.opt.winblend = 0 -- float window 透明度 [0-100]
+vim.opt.pumblend = 0 -- popup menu 透明度 [0-100]
+vim.opt.background = "dark" -- 背景
 
 -- 高亮
-vim.opt.cursorcolumn = false          -- 高亮当前列
-vim.opt.cursorline = false            -- 高亮当前行
+vim.opt.cursorcolumn = false -- 高亮当前列
+vim.opt.cursorline = false -- 高亮当前行
 vim.opt.cursorlineopt = "line,number" -- 只高亮行号, 默认 "line,number" 同时高亮行号和行
 -- opt.colorcolumn = '100' -- 高亮第n列
 -- opt.textwidth = 100 -- 每行文本最大列数，超过自动换行
 
 -- 总是渲染 signcolumn, 避免渲染抖动
-vim.opt.signcolumn = 'yes'
+vim.opt.signcolumn = "yes"
 
 -- 最小可见区域
-vim.opt.scrolloff = 10     -- scroll offset 上下最小可见行数
+vim.opt.scrolloff = 10 -- scroll offset 上下最小可见行数
 vim.opt.wrap = false
 vim.opt.sidescrolloff = 10 -- scroll offset 左右最小可见列数 (wrap=false 下有效)
 -- vim.opt.scrolloff = (999 - vim.o.scrolloff) -- 保持光标一直在中间
@@ -119,8 +158,8 @@ vim.opt.hidden = true
 vim.opt.title = false
 vim.opt.ruler = false
 vim.opt.history = 2000
-vim.opt.virtualedit = 'block' -- allow virtual editing in visual block mode.
-vim.opt.inccommand = 'split'
+vim.opt.virtualedit = "block" -- allow virtual editing in visual block mode.
+vim.opt.inccommand = "split"
 vim.opt.timeout = true
 vim.opt.ttimeout = true
 vim.opt.timeoutlen = 500
@@ -129,84 +168,16 @@ vim.opt.updatetime = 100
 vim.opt.redrawtime = 1500
 
 -- Finding files - Search down into subfolders
-vim.opt.path:append { '**' }
-vim.opt.wildignore:append { '*/node_modules/*' }
+vim.opt.path:append({ "**" })
+vim.opt.wildignore:append({ "*/node_modules/*" })
 
 -- 在 vim grep 中使用 rg
 vim.opt.grepformat = [[%f:%l:%c:%m,%f:%l:%m]]
 vim.opt.grepprg = [[rg --vimgrep --no-heading --smart-case]]
 
 -- Undercurl
-vim.cmd [[let &t_Cs = "\e[4:3m"]]
-vim.cmd [[let &t_Ce = "\e[4:0m"]]
+vim.cmd([[let &t_Cs = "\e[4:3m"]])
+vim.cmd([[let &t_Ce = "\e[4:0m"]])
 
 -- Add asterisks in block comments
-vim.opt.formatoptions:append { 'r' }
-
--- 剪贴板 :help clipboard
--- 剪贴板 register 2.0 (提升启动速度)
--- see https://github.com/neovim/neovim/issues/9570
-if U.on_win() then
-  vim.g.clipboard = {
-    name = 'win32yank',
-    copy = {
-      ['+'] = 'win32yank.exe -i --crlf',
-      ['*'] = 'win32yank.exe -i --crlf',
-    },
-    paste = {
-      ['+'] = 'win32yank.exe -o --lf',
-      ['*'] = 'win32yank.exe -o --lf',
-    },
-    cache_enabled = 0,
-  }
-elseif U.on_mac() then
-  vim.g.clipboard = {
-    name = 'pbcopy',
-    copy = {
-      ['+'] = 'pbcopy',
-      ['*'] = 'pbcopy',
-    },
-    paste = {
-      ['+'] = 'pbpaste',
-      ['*'] = 'pbpaste',
-    },
-    cache_enabled = 0,
-  }
-elseif U.on_wsl() then
-  vim.g.clipboard = {
-    name = 'WslClipboard',
-    copy = {
-      ['+'] = '/mnt/c/Windows/System32/clip.exe',
-      ['*'] = '/mnt/c/Windows/System32/clip.exe',
-    },
-    paste = {
-      ['+'] =
-      'powershell.exe -NoLogo -NoProfile -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-      ['*'] =
-      'powershell.exe -NoLogo -NoProfile -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-    },
-    cache_enabled = 0,
-  }
-else
-end
-
-
--- 不启用一些内置插件
-vim.g.loaded_gzip = 1
-vim.g.loaded_tar = 1
-vim.g.loaded_tarplugin = 1
-vim.g.loaded_zip = 1
-vim.g.loaded_zipplugin = 1
-vim.g.loaded_getscript = 1
-vim.g.loaded_getscriptplugin = 1
-vim.g.loaded_vimball = 1
-vim.g.loaded_vimballplugin = 1
-vim.g.loaded_matchit = 1
-vim.g.loaded_matchparen = 1
-vim.g.loaded_2html_plugin = 1
-vim.g.loaded_logipat = 1
-vim.g.loaded_rrhelper = 1
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwplugin = 1
-vim.g.loaded_netrwsettings = 1
-vim.g.loaded_netrwfilehandlers = 1
+vim.opt.formatoptions:append({ "r" })

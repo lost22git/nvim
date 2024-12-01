@@ -4,9 +4,6 @@ local M = {
     local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
     ts_update()
   end,
-  dependencies = {
-    -- { "nushell/tree-sitter-nu" },
-  },
   event = { "BufReadPost", "BufNewFile" },
 }
 
@@ -66,9 +63,8 @@ function M.config()
   -- nvim treesitter parsers  --
   ------------------------------
 
-  local ts = require("nvim-treesitter.configs")
   ---@diagnostic disable-next-line: missing-fields
-  ts.setup({
+  require("nvim-treesitter.configs").setup({
     sync_install = false,
     auto_install = false,
     highlight = {
@@ -84,7 +80,6 @@ function M.config()
       enable = true,
       keymaps = {
         init_selection = "<CR>",
-        -- scope_incremental = "<CR>",
         node_incremental = "<CR>",
         node_decremental = "<BS>",
       },
@@ -129,4 +124,13 @@ function M.config()
   })
 end
 
-return M
+return {
+  M,
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    cmd = { "TSContextEnable" },
+    config = function()
+      require("treesitter-context").setup({})
+    end,
+  },
+}

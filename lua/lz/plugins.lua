@@ -1,18 +1,4 @@
 return {
-
-  ------------------
-  -- 启动时间统计 --
-  ------------------
-
-  {
-    "dstein64/vim-startuptime",
-    enabled = true,
-    cmd = "StartupTime",
-    config = function()
-      vim.g.startuptime_tries = 10
-    end,
-  },
-
   --------
   -- UI --
   --------

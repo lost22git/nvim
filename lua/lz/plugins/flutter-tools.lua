@@ -1,20 +1,20 @@
 local M = {
   "akinsho/flutter-tools.nvim",
   enabled = not vim.g.vscode,
-  cmd = { 'FlutterLspRestart' },
+  cmd = { "FlutterLspRestart" },
   dependencies = {
-    'nvim-lua/plenary.nvim',
+    "nvim-lua/plenary.nvim",
   },
 }
 
 function M.config()
   local ft = require("flutter-tools")
+  local U = require("core.utils")
+  local capabilities = U.lsp_cmp_capabilities()
   local on_attach = function(client, bufnr)
-    require('lz.plugins.lsp.common').on_attach(client, bufnr)
+    U.lsp_on_attach(client, bufnr)
   end
-  local capabilities = require('lz.plugins.lsp.common').cmp_capabilities()
-  local U = require('core.utils')
-  ft.setup {
+  ft.setup({
     ui = {
       -- the border type to use for all floating windows, the same options/formats
       -- used for ":h nvim_open_win" e.g. "single" | "shadow" | {<table-of-eight-chars>}
@@ -22,7 +22,7 @@ function M.config()
       -- This determines whether notifications are show with `vim.notify` or with the plugin's custom UI
       -- please note that this option is eventually going to be deprecated and users will need to
       -- depend on plugins like `nvim-notify` instead.
-      notification_style = 'plugin'
+      notification_style = "plugin",
     },
     decorations = {
       statusline = {
@@ -33,7 +33,7 @@ function M.config()
         -- this will show the currently running device if an application was started with a specific
         -- device
         device = true,
-      }
+      },
     },
     debugger = { -- integrate with nvim dap + install dart code debugger
       enabled = false,
@@ -56,7 +56,7 @@ function M.config()
     closing_tags = {
       highlight = "ErrorMsg", -- highlight for the closing tag
       prefix = ">", -- character to use for close tag e.g. > Widget
-      enabled = true -- set to false to disable
+      enabled = true, -- set to false to disable
     },
     dev_log = {
       enabled = true,
@@ -69,7 +69,7 @@ function M.config()
     outline = {
       -- open_cmd = "30vnew", -- command to use to open the outline buffer
       open_cmd = "rightb 30vnew",
-      auto_open = false -- if true this will open the outline automatically when it is first populated
+      auto_open = false, -- if true this will open the outline automatically when it is first populated
     },
     lsp = {
       on_attach = on_attach,
@@ -89,9 +89,9 @@ function M.config()
         analysisExcludedFolders = { vim.fn.expand("$HOME/AppData/Local/Pub/Cache") },
         renameFilesWithClasses = "prompt", -- "always"
         enableSnippets = true,
-      }
-    }
-  }
+      },
+    },
+  })
 end
 
 return M

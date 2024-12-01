@@ -14,12 +14,10 @@ function M.config()
   local lsp_server_found = U.lsp_server_found
   local get_lsp_server_package_path = U.get_lsp_server_package_path
 
-  local capabilities = require("lz.plugins.lsp.common").cmp_capabilities()
+  local capabilities = U.lsp_cmp_capabilities()
   local on_attach = function(client, bufnr)
-    require("lz.plugins.lsp.common").on_attach(client, bufnr)
+    U.lsp_on_attach(client, bufnr)
   end
-
-  require("lz.plugins.lsp.common").some_config()
 
   -------- LSP Servers config ----------
 
