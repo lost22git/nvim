@@ -8,11 +8,11 @@ function M.config()
   local U = require("core.utils")
   require("conform").setup({
     format_on_save = {
-      timeout_ms = 1000,
-      async = false,
+      timeout_ms = 3000,
       quiet = false,
       lsp_format = "fallback",
     },
+
     -- see :help conform-formatters
     formatters_by_ft = {
       lua = { "stylua" },
@@ -28,6 +28,8 @@ function M.config()
       ocaml = { "ocamlformat" },
       clojure = { "cljfmt" },
       fennel = { "fnlfmt" },
+      dart = { "dart_format" },
+      just = { "just" },
     },
     formatters = {
       shfmt = {

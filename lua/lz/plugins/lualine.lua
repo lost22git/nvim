@@ -9,7 +9,7 @@ function M.config()
   local U = require("core.utils")
   lualine.setup({
     options = {
-      icons_enabled = true,
+      icons_enabled = false,
       theme = "auto",
       disabled_filetypes = {},
       globalstatus = true, -- 全局共用一个状态栏
@@ -20,7 +20,12 @@ function M.config()
     sections = {
       lualine_a = {
         -- vim mode
-        "mode",
+        {
+          "mode",
+          fmt = function(str)
+            return str:sub(1, 1)
+          end,
+        },
       },
       lualine_b = {
         -- git 分支
@@ -40,7 +45,6 @@ function M.config()
           "filename",
           file_status = true, -- displays file status (readonly status, modified status)
           path = 1, -- 0 = just filename, 1 = relative path, 2 = absolute path
-          -- color = { gui = 'italic' },
           align = "center",
         },
       },
@@ -54,12 +58,9 @@ function M.config()
         -- 文件换行符
         {
           "fileformat",
-          symbols = {
-            -- icons_enabled = true 下才会生效
-            unix = "lf",
-            dos = "crlf",
-            mac = "lf",
-          },
+          fmt = function(fmt)
+            return fmt == "dos" and "crlf" or "lf"
+          end,
         },
         -- 当前激活的 lsp clients
         {
@@ -71,7 +72,7 @@ function M.config()
         },
       },
       lualine_y = {
-        -- 插件状态
+        -- 插件 count
         {
           function()
             local stats = require("lazy").stats()
@@ -80,7 +81,6 @@ function M.config()
           cond = function()
             return pcall(require, "lazy")
           end,
-          -- color = { bg = '#d7af00', fg = '#000000' },
         },
         -- 当前 theme
         {
@@ -90,7 +90,6 @@ function M.config()
         },
       },
       lualine_z = {
-        -- -- 文件类型
         "filetype",
       },
     },
