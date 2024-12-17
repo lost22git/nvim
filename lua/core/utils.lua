@@ -137,7 +137,11 @@ function M.get_flutter_path()
 end
 
 function M.lsp_cmp_capabilities()
-  return require("cmp_nvim_lsp").default_capabilities()
+  if vim.g.cmp == "cmp" then
+    return require("cmp_nvim_lsp").default_capabilities()
+  elseif vim.g.cmp == "blink" then
+    return require("blink.cmp").get_lsp_capabilities()
+  end
 end
 
 function M.lsp_on_attach(client, bufnr)

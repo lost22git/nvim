@@ -12,6 +12,11 @@ do
   -- vim.g.picker = 'telescope'
 end
 
+do
+  -- vim.g.cmp = "cmp"
+  vim.g.cmp = "blink"
+end
+
 -- terminal shell
 if U.on_win() then
   vim.g.term_shell = { "pwsh" }

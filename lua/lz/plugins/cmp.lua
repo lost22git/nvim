@@ -104,4 +104,4 @@ function M.config()
   })
 end
 
-return M
+return (vim.g.cmp == "cmp") and M or {}
