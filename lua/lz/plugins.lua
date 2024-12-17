@@ -5,6 +5,35 @@ return {
 
   { "MunifTanjim/nui.nvim" },
 
+  -- cursor effect --
+  {
+    "sphamba/smear-cursor.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("smear_cursor").setup({})
+    end,
+  },
+
+  -- mode colorize --
+  {
+    "mvllow/modes.nvim",
+    tag = "v0.2.0",
+    lazy = false,
+    config = function()
+      require("modes").setup()
+    end,
+  },
+
+  -- border global settings --
+  {
+    "mikesmithgh/borderline.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("borderline").setup({})
+      require("borderline.api").borderline("solid")
+    end,
+  },
+
   --------------
   -- True Zen --
   --------------
@@ -153,20 +182,6 @@ return {
       local trouble = require("trouble")
       trouble.setup({})
       require("core.maps").trouble()
-    end,
-  },
-
-  ----------------
-  -- Rust crate --
-  ----------------
-
-  {
-    "saecki/crates.nvim",
-    enabled = not vim.g.vscode,
-    event = { "BufRead Cargo.toml" },
-    dependencies = { "nvim-lua/plenary.nvim" },
-    config = function()
-      require("crates").setup()
     end,
   },
 
@@ -335,19 +350,6 @@ return {
     },
   },
 
-  ----------------------------
-  -- border global settings --
-  ----------------------------
-
-  {
-    "mikesmithgh/borderline.nvim",
-    event = "VeryLazy",
-    config = function()
-      require("borderline").setup({})
-      require("borderline.api").borderline("solid")
-    end,
-  },
-
   ---------------------------
   -- highlight block scope --
   ---------------------------
@@ -372,23 +374,12 @@ return {
     end,
   },
 
-  -------------------
-  -- cursor effect --
-  -------------------
-  {
-    "sphamba/smear-cursor.nvim",
-    event = "VeryLazy",
-    config = function()
-      require("smear_cursor").setup({})
-    end,
-  },
-
   ----------
   -- REPL --
   ----------
   {
     "Olical/conjure",
-    ft = { "clojure", "fennel", "lua", "julia", "python", "rust" },
+    cmd = { "ConjureConnect" },
     init = function()
       vim.g.maplocalleader = " "
       vim.g["conjure#mapping#doc_word"] = { "gh" }
@@ -398,7 +389,6 @@ return {
   {
     "clojure-vim/vim-jack-in",
     cmd = { "Clj" },
-    -- ft = { "clojure" },
     dependencies = {
       "radenling/vim-dispatch-neovim",
     },
