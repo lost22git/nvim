@@ -177,14 +177,13 @@ end
 
 function M.blink_cmp()
   return {
-    preset = "default",
     ["<M-j>"] = { "select_next", "fallback" },
     ["<M-k>"] = { "select_prev", "fallback" },
+    ["<Tab>"] = { "select_and_accept", "fallback" },
     ["<C-c>"] = { "hide", "fallback" },
+    ["<M-Space>"] = { "show", "show_documentation", "hide_documentation" },
     ["<C-u>"] = { "scroll_documentation_up", "fallback" },
     ["<C-d>"] = { "scroll_documentation_down", "fallback" },
-    ["<CR>"] = { "select_and_accept", "fallback" },
-    ["<Tab>"] = { "show", "show_documentation", "hide_documentation" },
   }
 end
 

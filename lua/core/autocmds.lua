@@ -10,6 +10,7 @@ vim.cmd([[
   au BufNewFile,BufReadPost *.lobster set filetype=lobster
   au BufNewFile,BufReadPost *.c3 set filetype=c3
   au BufNewFile,BufReadPost *.kk set filetype=koka
+  au BufNewFile,BufReadPost *.cljd set filetype=clojure
 ]])
 
 -- set commentstring for filetype

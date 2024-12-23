@@ -3,7 +3,8 @@ return {
   enabled = vim.g.cmp == "blink",
   lazy = false,
   dependencies = { "rafamadriz/friendly-snippets" },
-  build = [[RUSTC_BOOTSTRAP=1 cargo build --release]],
+  -- build = [[RUSTC_BOOTSTRAP=1 cargo build --release]],
+  version = "*",
 
   opts = {
     keymap = require("core.maps").blink_cmp(),

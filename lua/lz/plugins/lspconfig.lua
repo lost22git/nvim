@@ -272,6 +272,12 @@ function M.config()
     on_attach = on_attach,
     capabilities = capabilities,
   })
+
+  -- swift language server
+  lspconfig.sourcekit.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+  })
 end
 
 return M
