@@ -9,7 +9,7 @@ local M = {
 }
 
 function M.config()
-  require('satellite').setup {
+  require('satellite').setup({
     current_only = false,
     winblend = 50,
     zindex = 40,
@@ -19,7 +19,7 @@ function M.config()
       cursor = {
         enable = true,
         -- Supports any number of symbols
-        symbols = { '⎺', '⎻', '⎼', '⎽' }
+        symbols = { '⎺', '⎻', '⎼', '⎽' },
         -- symbols = { '⎻', '⎼' }
         -- Highlights:
         -- - SatelliteCursor (default links to NonText
@@ -43,9 +43,9 @@ function M.config()
       gitsigns = {
         enable = true,
         signs = { -- can only be a single character (multibyte is okay)
-          add = "│",
-          change = "│",
-          delete = "-",
+          add = '│',
+          change = '│',
+          delete = '-',
         },
         -- Highlights:
         -- SatelliteGitSignsAdd (default links to GitSignsAdd)
@@ -55,7 +55,7 @@ function M.config()
       marks = {
         enable = true,
         show_builtins = false, -- shows the builtin marks like [ ] < >
-        key = 'm'
+        key = 'm',
         -- Highlights:
         -- SatelliteMark (default links to Normal)
       },
@@ -63,9 +63,9 @@ function M.config()
         signs = { '-', '=', '≡' },
         -- Highlights:
         -- SatelliteQuickfix (default links to WarningMsg)
-      }
+      },
     },
-  }
+  })
 end
 
 return M

@@ -1,4 +1,4 @@
-vim.cmd [[
+vim.cmd([[
   FVimCursorSmoothMove v:true
   FVimCursorSmoothBlink v:true
 
@@ -26,7 +26,7 @@ vim.cmd [[
   FVimFontAutoSnap v:true
   FVimFontNormalWeight 100
   FVimFontBoldWeight 400
-]]
+]])
 
 local map = vim.keymap
 map.set({ '', 'i' }, '<M-Enter>', ':FVimToggleFullScreen<CR>')
@@ -35,4 +35,3 @@ map.set({ '', 'i' }, '<C-ScrollWheelUp>', ':set guifont=+<CR>')
 map.set({ '', 'i' }, '<C-ScrollWheelDown>', ':set guifont=-<CR>')
 map.set({ '' }, 'zi', ':set guifont=+<CR>')
 map.set({ '' }, 'zo', ':set guifont=-<CR>')
-

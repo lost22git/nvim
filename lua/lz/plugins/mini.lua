@@ -5,18 +5,19 @@ return {
   ----------------
 
   {
-    "echasnovski/mini.icons",
+    'echasnovski/mini.icons',
     opts = {},
     lazy = true,
     specs = {
-      { "nvim-tree/nvim-web-devicons", enabled = false, optional = true },
+      { 'nvim-tree/nvim-web-devicons', enabled = false, optional = true },
     },
     init = function()
-      package.preload["nvim-web-devicons"] = function()
+      ---@diagnostic disable-next-line: duplicate-set-field
+      package.preload['nvim-web-devicons'] = function()
         -- needed since it will be false when loading and mini will fail
-        package.loaded["nvim-web-devicons"] = {}
-        require("mini.icons").mock_nvim_web_devicons()
-        return package.loaded["nvim-web-devicons"]
+        package.loaded['nvim-web-devicons'] = {}
+        require('mini.icons').mock_nvim_web_devicons()
+        return package.loaded['nvim-web-devicons']
       end
     end,
   },
@@ -31,7 +32,7 @@ return {
     keys = { '<M-1>', '<M-2>' },
     version = false,
     config = function()
-      require('mini.files').setup {
+      require('mini.files').setup({
         -- Customization of shown content
         content = {
           -- Predicate for which file system entries to show
@@ -44,16 +45,16 @@ return {
         -- Module mappings created only inside explorer.
         -- Use `''` (empty string) to not create one.
         mappings = {
-          close       = 'q',
-          go_in       = 'l',
-          go_in_plus  = 'L',
-          go_out      = 'h',
+          close = 'q',
+          go_in = 'l',
+          go_in_plus = 'L',
+          go_out = 'h',
           go_out_plus = 'H',
-          reset       = '<BS>',
-          show_help   = 'g?',
+          reset = '<BS>',
+          show_help = 'g?',
           synchronize = '=',
-          trim_left   = '<',
-          trim_right  = '>',
+          trim_left = '<',
+          trim_right = '>',
         },
         -- General options
         options = {
@@ -75,7 +76,7 @@ return {
           -- Width of preview window
           width_preview = 25,
         },
-      }
+      })
       require('core.maps').mini_files()
 
       vim.api.nvim_create_autocmd('User', {
@@ -90,7 +91,7 @@ return {
           vim.api.nvim_win_set_config(win_id, config)
         end,
       })
-    end
+    end,
   },
 
   ---------------
@@ -100,7 +101,7 @@ return {
   {
     'echasnovski/mini.pick',
     version = false,
-    enabled = vim.g.picker == 'mini.pick' and (not vim.g.vscode),
+    enabled = not vim.g.vscode,
     dependencies = { 'echasnovski/mini.extra' },
     keys = {
       '<leader>ff',
@@ -113,39 +114,35 @@ return {
       '<leader>fv',
     },
     config = function()
-      require('mini.pick').setup {
+      require('mini.pick').setup({
         mappings = {
-          scroll_down  = '<C-j>',
-          scroll_left  = '<C-h>',
+          scroll_down = '<C-j>',
+          scroll_left = '<C-h>',
           scroll_right = '<C-l>',
-          scroll_up    = '<C-k>',
-          move_down    = '<M-j>',
-          move_up      = '<M-k>',
+          scroll_up = '<C-k>',
+          move_down = '<M-j>',
+          move_up = '<M-k>',
         },
         window = {
-          config = { border = 'solid' }
-        }
-      }
+          config = { border = 'solid' },
+        },
+      })
       require('core.maps').mini_pick()
-    end
+    end,
   },
 
   -- mini.extras (作为 mini.pick 的依赖并由其加载)
   {
     'echasnovski/mini.extra',
     version = false,
-    config = function()
-      require('mini.extra').setup {}
-    end
+    config = function() require('mini.extra').setup({}) end,
   },
 
   -- mini.visits (由 mini.extra 加载)
   {
     'echasnovski/mini.visits',
     version = false,
-    config = function()
-      require('mini.visits').setup {}
-    end,
+    config = function() require('mini.visits').setup({}) end,
   },
 
   -----------------
@@ -156,10 +153,8 @@ return {
     'echasnovski/mini.indentscope',
     version = false,
     enabled = not vim.g.vscode,
-    event = { "BufReadPost", "BufNewFile" },
-    config = function()
-      require('mini.indentscope').setup {}
-    end,
+    event = { 'BufReadPost', 'BufNewFile' },
+    config = function() require('mini.indentscope').setup({}) end,
   },
 
   -------------------
@@ -171,7 +166,7 @@ return {
     version = false,
     event = { 'BufReadPost', 'BufNewFile' },
     config = function()
-      require("mini.surround").setup {
+      require('mini.surround').setup({
         mappings = {
           add = 'ms',
           delete = 'md',
@@ -184,8 +179,8 @@ return {
           suffix_last = 'l',
           suffix_next = 'n',
         },
-      }
-    end
+      })
+    end,
   },
 
   ------------------
@@ -197,8 +192,6 @@ return {
     version = false,
     enabled = not vim.g.vscode,
     event = { 'BufAdd', 'TabEnter' },
-    config = function()
-      require('mini.tabline').setup {}
-    end
-  }
+    config = function() require('mini.tabline').setup({}) end,
+  },
 }

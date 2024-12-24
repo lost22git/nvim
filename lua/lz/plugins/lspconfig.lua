@@ -1,23 +1,21 @@
 local M = {
-  "neovim/nvim-lspconfig",
+  'neovim/nvim-lspconfig',
   enabled = not vim.g.vscode,
-  cmd = { "LspInfo", "LspStart", "LspLog" },
+  cmd = { 'LspInfo', 'LspStart', 'LspLog' },
   dependencies = {
-    "glepnir/lspsaga.nvim",
+    'glepnir/lspsaga.nvim',
   },
 }
 
 function M.config()
-  local lspconfig = require("lspconfig")
-  local U = require("core.utils")
+  local lspconfig = require('lspconfig')
+  local U = require('core.utils')
 
   local lsp_server_found = U.lsp_server_found
   local get_lsp_server_package_path = U.get_lsp_server_package_path
 
   local capabilities = U.lsp_cmp_capabilities()
-  local on_attach = function(client, bufnr)
-    U.lsp_on_attach(client, bufnr)
-  end
+  local on_attach = function(client, bufnr) U.lsp_on_attach(client, bufnr) end
 
   -------- LSP Servers config ----------
 
@@ -31,15 +29,15 @@ function M.config()
       Lua = {
         runtime = {
           -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-          version = "LuaJIT",
+          version = 'LuaJIT',
         },
         diagnostics = {
           -- Get the language server to recognize the `vim` global
-          globals = { "vim" },
+          globals = { 'vim' },
         },
         workspace = {
           -- Make the server aware of Neovim runtime files
-          library = vim.api.nvim_get_runtime_file("", true),
+          library = vim.api.nvim_get_runtime_file('', true),
           -- checkThirdParty = false,
         },
         -- Do not send telemetry data containing a randomized but unique identifier
@@ -51,7 +49,7 @@ function M.config()
   })
 
   vim.g.markdown_fenced_languages = {
-    "ts=typescript",
+    'ts=typescript',
   }
 
   -- Deno language server for js jsx ts tsx
@@ -66,7 +64,7 @@ function M.config()
   lspconfig.ts_ls.setup({
     on_attach = on_attach,
     capabilities = capabilities,
-    root_dir = lspconfig.util.root_pattern("package.json"),
+    root_dir = lspconfig.util.root_pattern('package.json'),
     single_file_support = true,
   })
 
@@ -111,10 +109,8 @@ function M.config()
     on_attach = on_attach,
     capabilities = capabilities,
     on_new_config = function(new_config, _)
-      local julia = vim.fn.expand("~/.julia/environments/nvim-lspconfig/bin/julia")
-      if require("lspconfig").util.path.is_file(julia) then
-        new_config.cmd[1] = julia
-      end
+      local julia = vim.fn.expand('~/.julia/environments/nvim-lspconfig/bin/julia')
+      if require('lspconfig').util.path.is_file(julia) then new_config.cmd[1] = julia end
     end,
   })
 
@@ -201,71 +197,92 @@ function M.config()
   lspconfig.powershell_es.setup({
     on_attach = on_attach,
     capabilities = capabilities,
-    bundle_path = get_lsp_server_package_path("powershell-editor-services"),
+    bundle_path = get_lsp_server_package_path('powershell-editor-services'),
   })
 
   -- htmx language server
-  lsp_server_found("htmx-lsp", function(server_path)
-    lspconfig.htmx.setup({
-      on_attach = on_attach,
-      capabilities = capabilities,
-      cmd = { server_path },
-    })
-  end)
+  lsp_server_found(
+    'htmx-lsp',
+    function(server_path)
+      lspconfig.htmx.setup({
+        on_attach = on_attach,
+        capabilities = capabilities,
+        cmd = { server_path },
+      })
+    end
+  )
 
   -- Tailwindcss language server
-  lsp_server_found("tailwindcss-language-server", function(server_path)
-    lspconfig.tailwindcss.setup({
-      on_attach = on_attach,
-      capabilities = capabilities,
-      cmd = { server_path, "--stdio" },
-    })
-  end)
+  lsp_server_found(
+    'tailwindcss-language-server',
+    function(server_path)
+      lspconfig.tailwindcss.setup({
+        on_attach = on_attach,
+        capabilities = capabilities,
+        cmd = { server_path, '--stdio' },
+      })
+    end
+  )
 
   -- elixir language server
-  lsp_server_found("elixir-ls", function(server_path)
-    lspconfig.elixirls.setup({
-      on_attach = on_attach,
-      capabilities = capabilities,
-      cmd = { server_path },
-    })
-  end)
+  lsp_server_found(
+    'elixir-ls',
+    function(server_path)
+      lspconfig.elixirls.setup({
+        on_attach = on_attach,
+        capabilities = capabilities,
+        cmd = { server_path },
+      })
+    end
+  )
 
   -- java language server
-  lsp_server_found("jdtls", function(server_path)
-    lspconfig.jdtls.setup({
-      on_attach = on_attach,
-      capabilities = capabilities,
-      cmd = { server_path },
-    })
-  end)
+  lsp_server_found(
+    'jdtls',
+    function(server_path)
+      lspconfig.jdtls.setup({
+        on_attach = on_attach,
+        capabilities = capabilities,
+        cmd = { server_path },
+      })
+    end
+  )
 
   --Dockerfile language server
-  lsp_server_found("docker-langserver", function(server_path)
-    lspconfig.dockerls.setup({
-      on_attach = on_attach,
-      capabilities = capabilities,
-      cmd = { server_path, "--stdio" },
-    })
-  end)
+  lsp_server_found(
+    'docker-langserver',
+    function(server_path)
+      lspconfig.dockerls.setup({
+        on_attach = on_attach,
+        capabilities = capabilities,
+        cmd = { server_path, '--stdio' },
+      })
+    end
+  )
 
   -- Python language server
-  lsp_server_found("pyright-langserver", function(server_path)
-    lspconfig.pyright.setup({
-      on_attach = on_attach,
-      capabilities = capabilities,
-      cmd = { server_path, "--stdio" },
-    })
-  end)
+  lsp_server_found(
+    'pyright-langserver',
+    function(server_path)
+      lspconfig.pyright.setup({
+        on_attach = on_attach,
+        capabilities = capabilities,
+        cmd = { server_path, '--stdio' },
+      })
+    end
+  )
 
   -- Clojure language server
-  lsp_server_found("clojure-lsp", function(server_path)
-    lspconfig.clojure_lsp.setup({
-      on_attach = on_attach,
-      capabilities = capabilities,
-      cmd = { server_path },
-    })
-  end)
+  lsp_server_found(
+    'clojure-lsp',
+    function(server_path)
+      lspconfig.clojure_lsp.setup({
+        on_attach = on_attach,
+        capabilities = capabilities,
+        cmd = { server_path },
+      })
+    end
+  )
 
   -- Fennel language server
   lspconfig.fennel_ls.setup({

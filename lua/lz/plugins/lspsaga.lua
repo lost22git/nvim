@@ -1,20 +1,20 @@
 local M = {
-  "glepnir/lspsaga.nvim",
+  'glepnir/lspsaga.nvim',
   enabled = not vim.g.vscode,
-  cmd = { "Lspsaga" },
+  cmd = { 'Lspsaga' },
 }
 
 function M.config()
   local saga = require('lspsaga')
 
-  saga.setup {
+  saga.setup({
     scroll_preview = {
       scroll_down = '<C-d>',
       scroll_up = '<C-u>',
     },
     symbol_in_winbar = {
       enable = true,
-      separator = " ",
+      separator = ' ',
       ignore_patterns = {},
       hide_keyword = true,
       show_file = true,
@@ -30,17 +30,17 @@ function M.config()
       -- This option only works in Neovim 0.9
       title = true,
       -- Border type can be single, double, rounded, solid, shadow.
-      border = "rounded",
+      border = 'rounded',
       winblend = 0,
-      expand = "",
-      collapse = "",
-      code_action = "💡",
-      incoming = " ",
-      outgoing = " ",
+      expand = '',
+      collapse = '',
+      code_action = '💡',
+      incoming = ' ',
+      outgoing = ' ',
       hover = ' ',
       kind = {},
     },
-  }
+  })
   require('core.maps').lspsaga()
 end
 

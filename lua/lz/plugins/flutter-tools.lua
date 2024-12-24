@@ -1,28 +1,26 @@
 local M = {
-  "akinsho/flutter-tools.nvim",
+  'akinsho/flutter-tools.nvim',
   enabled = not vim.g.vscode,
-  cmd = { "FlutterLspRestart" },
+  cmd = { 'FlutterLspRestart' },
   dependencies = {
-    "nvim-lua/plenary.nvim",
+    'nvim-lua/plenary.nvim',
   },
 }
 
 function M.config()
-  local ft = require("flutter-tools")
-  local U = require("core.utils")
+  local ft = require('flutter-tools')
+  local U = require('core.utils')
   local capabilities = U.lsp_cmp_capabilities()
-  local on_attach = function(client, bufnr)
-    U.lsp_on_attach(client, bufnr)
-  end
+  local on_attach = function(client, bufnr) U.lsp_on_attach(client, bufnr) end
   ft.setup({
     ui = {
       -- the border type to use for all floating windows, the same options/formats
       -- used for ":h nvim_open_win" e.g. "single" | "shadow" | {<table-of-eight-chars>}
-      border = "single",
+      border = 'single',
       -- This determines whether notifications are show with `vim.notify` or with the plugin's custom UI
       -- please note that this option is eventually going to be deprecated and users will need to
       -- depend on plugins like `nvim-notify` instead.
-      notification_style = "plugin",
+      notification_style = 'plugin',
     },
     decorations = {
       statusline = {
@@ -42,7 +40,7 @@ function M.config()
       -- see |:help dap.set_exception_breakpoints()| for more info
       exception_breakpoints = {},
       register_configurations = function(paths)
-        require("dap").configurations.dart = {
+        require('dap').configurations.dart = {
           -- <put here config that you would find in .vscode/launch.json>
         }
       end,
@@ -54,13 +52,13 @@ function M.config()
       enabled = true,
     },
     closing_tags = {
-      highlight = "ErrorMsg", -- highlight for the closing tag
-      prefix = ">", -- character to use for close tag e.g. > Widget
+      highlight = 'ErrorMsg', -- highlight for the closing tag
+      prefix = '>', -- character to use for close tag e.g. > Widget
       enabled = true, -- set to false to disable
     },
     dev_log = {
       enabled = true,
-      open_cmd = "tabedit", -- command to use to open the log buffer
+      open_cmd = 'tabedit', -- command to use to open the log buffer
     },
     dev_tools = {
       autostart = false, -- autostart devtools server if not detected
@@ -68,7 +66,7 @@ function M.config()
     },
     outline = {
       -- open_cmd = "30vnew", -- command to use to open the outline buffer
-      open_cmd = "rightb 30vnew",
+      open_cmd = 'rightb 30vnew',
       auto_open = false, -- if true this will open the outline automatically when it is first populated
     },
     lsp = {
@@ -79,15 +77,15 @@ function M.config()
         background = false, -- highlight the background
         foreground = false, -- highlight the foreground
         virtual_text = true, -- show the highlight using virtual text
-        virtual_text_str = "■", -- the virtual text character to highlight
+        virtual_text_str = '■', -- the virtual text character to highlight
       },
       -- see the link below for details on each option:
       -- https://github.com/dart-lang/sdk/blob/master/pkg/analysis_server/tool/lsp_spec/README.md#client-workspace-configuration
       settings = {
         showTodos = true,
         completeFunctionCalls = true,
-        analysisExcludedFolders = { vim.fn.expand("$HOME/AppData/Local/Pub/Cache") },
-        renameFilesWithClasses = "prompt", -- "always"
+        analysisExcludedFolders = { vim.fn.expand('$HOME/AppData/Local/Pub/Cache') },
+        renameFilesWithClasses = 'prompt', -- "always"
         enableSnippets = true,
       },
     },

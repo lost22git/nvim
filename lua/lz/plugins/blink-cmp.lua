@@ -1,21 +1,20 @@
 return {
-  "saghen/blink.cmp",
-  enabled = vim.g.cmp == "blink",
+  'saghen/blink.cmp',
   lazy = false,
-  dependencies = { "rafamadriz/friendly-snippets" },
+  dependencies = { 'rafamadriz/friendly-snippets' },
   -- build = [[RUSTC_BOOTSTRAP=1 cargo build --release]],
-  version = "*",
+  version = '*',
 
   opts = {
-    keymap = require("core.maps").blink_cmp(),
+    keymap = require('core.maps').blink_cmp(),
     appearance = {
       use_nvim_cmp_as_default = true,
-      nerd_font_variant = "mono",
+      nerd_font_variant = 'mono',
     },
     sources = {
-      default = { "lsp", "path", "snippets", "buffer" },
+      default = { 'lsp', 'path', 'snippets', 'buffer' },
     },
     signature = { enabled = true },
   },
-  opts_extend = { "sources.default" },
+  opts_extend = { 'sources.default' },
 }

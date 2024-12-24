@@ -1,28 +1,28 @@
 -- bootstrap from github
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable",
+    'git',
+    'clone',
+    '--filter=blob:none',
+    'https://github.com/folke/lazy.nvim.git',
+    '--branch=stable',
     lazypath,
   })
 end
 vim.opt.runtimepath:prepend(lazypath)
 
 -- load lazy
-require("lazy").setup("lz.plugins", {
+require('lazy').setup('lz.plugins', {
   -- debug = true,
   defaults = { lazy = true },
-  lockfile = vim.fn.stdpath("config") .. "/lazy-lock.json",
+  lockfile = vim.fn.stdpath('config') .. '/lazy-lock.json',
   git = {
     -- defaults for the `Lazy log` command
     -- log = { "-10" }, -- show the last 10 commits
-    log = { "--since=3 days ago" }, -- show commits from the last 3 days
+    log = { '--since=3 days ago' }, -- show commits from the last 3 days
     timeout = 120, -- kill processes that take more than 2 minutes
-    url_format = "https://github.com/%s.git",
+    url_format = 'https://github.com/%s.git',
   },
   install = {
     missing = true,
@@ -41,19 +41,19 @@ require("lazy").setup("lz.plugins", {
   },
   ui = {
     size = { width = 0.8, height = 0.8 },
-    border = "single",
+    border = 'single',
     icons = {
-      cmd = " ",
-      config = "",
-      event = "",
-      ft = " ",
-      init = " ",
-      keys = " ",
-      plugin = " ",
-      runtime = " ",
-      source = " ",
-      start = "",
-      task = "✔ ",
+      cmd = ' ',
+      config = '',
+      event = '',
+      ft = ' ',
+      init = ' ',
+      keys = ' ',
+      plugin = ' ',
+      runtime = ' ',
+      source = ' ',
+      start = '',
+      task = '✔ ',
     },
     throttle = 20, -- how frequently should the ui process render events
   },
@@ -71,18 +71,18 @@ require("lazy").setup("lz.plugins", {
     reset_packpath = true, -- reset the package path to improve startup time
     rtp = {
       disabled_plugins = {
-        "gzip",
-        "matchit",
-        "matchparen",
-        "netrwPlugin",
-        "tarPlugin",
-        "tohtml",
-        "tutor",
-        "zipPlugin",
-        "spellfile",
+        'gzip',
+        'matchit',
+        'matchparen',
+        'netrwPlugin',
+        'tarPlugin',
+        'tohtml',
+        'tutor',
+        'zipPlugin',
+        'spellfile',
       },
     },
   },
 })
 
-vim.keymap.set({ "", "i" }, "<M-0>", "<cmd>Lazy<CR>", { silent = true, noremap = true })
+vim.keymap.set({ '', 'i' }, '<M-0>', '<cmd>Lazy<CR>', { silent = true, noremap = true })

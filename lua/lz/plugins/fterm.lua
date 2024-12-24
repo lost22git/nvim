@@ -7,7 +7,7 @@ local M = {
 function M.config()
   local maps = require('core.maps')
   local fterm = require('FTerm')
-  fterm.setup {
+  fterm.setup({
     ---Filetype of the terminal buffer
     ---@type string
     ft = 'FTerm',
@@ -27,7 +27,7 @@ function M.config()
 
     ---Highlight group for the terminal. See `:h winhl`
     ---@type string
-    hl = "Normal",
+    hl = 'Normal',
 
     ---Transparency of the floating window. See `:h winblend`
     ---@type integer
@@ -38,9 +38,9 @@ function M.config()
     ---@type table<string,number>
     dimensions = {
       height = 0.8, -- Height of the terminal window
-      width = 0.8,  -- Width of the terminal window
-      x = 0.5,      -- X axis of the terminal window
-      y = 0.5,      -- Y axis of the terminal window
+      width = 0.8, -- Width of the terminal window
+      x = 0.5, -- X axis of the terminal window
+      y = 0.5, -- Y axis of the terminal window
     },
 
     ---Callback invoked when the terminal exits.
@@ -57,7 +57,7 @@ function M.config()
     ---See `:h jobstart-options`
     ---@type fun()|nil
     on_stderr = nil,
-  }
+  })
 
   maps.fterm()
 end

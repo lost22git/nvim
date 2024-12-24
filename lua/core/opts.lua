@@ -1,66 +1,54 @@
-local U = require("core.utils")
+local U = require('core.utils')
 
 -----------------------------
 -- custom global variables --
 -----------------------------
 
-vim.g.mapleader = " "
+vim.g.mapleader = ' '
 vim.g.transparent = vim.g.transparent or false
 
-do
-  vim.g.picker = "mini.pick"
-  -- vim.g.picker = 'telescope'
-end
-
-do
-  -- vim.g.cmp = "cmp"
-  vim.g.cmp = "blink"
-end
-
 -- terminal shell
-if U.on_win() then
-  vim.g.term_shell = { "pwsh" }
-end
+if U.on_win() then vim.g.term_shell = { 'pwsh' } end
 
 -- 剪贴板 :help clipboard
 -- 剪贴板 register 2.0 (提升启动速度)
 -- see https://github.com/neovim/neovim/issues/9570
 if U.on_win() then
   vim.g.clipboard = {
-    name = "win32yank",
+    name = 'win32yank',
     copy = {
-      ["+"] = "win32yank.exe -i --crlf",
-      ["*"] = "win32yank.exe -i --crlf",
+      ['+'] = 'win32yank.exe -i --crlf',
+      ['*'] = 'win32yank.exe -i --crlf',
     },
     paste = {
-      ["+"] = "win32yank.exe -o --lf",
-      ["*"] = "win32yank.exe -o --lf",
+      ['+'] = 'win32yank.exe -o --lf',
+      ['*'] = 'win32yank.exe -o --lf',
     },
     cache_enabled = 0,
   }
 elseif U.on_mac() then
   vim.g.clipboard = {
-    name = "pbcopy",
+    name = 'pbcopy',
     copy = {
-      ["+"] = "pbcopy",
-      ["*"] = "pbcopy",
+      ['+'] = 'pbcopy',
+      ['*'] = 'pbcopy',
     },
     paste = {
-      ["+"] = "pbpaste",
-      ["*"] = "pbpaste",
+      ['+'] = 'pbpaste',
+      ['*'] = 'pbpaste',
     },
     cache_enabled = 0,
   }
 elseif U.on_wsl() then
   vim.g.clipboard = {
-    name = "WslClipboard",
+    name = 'WslClipboard',
     copy = {
-      ["+"] = "/mnt/c/Windows/System32/clip.exe",
-      ["*"] = "/mnt/c/Windows/System32/clip.exe",
+      ['+'] = '/mnt/c/Windows/System32/clip.exe',
+      ['*'] = '/mnt/c/Windows/System32/clip.exe',
     },
     paste = {
-      ["+"] = 'powershell.exe -NoLogo -NoProfile -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-      ["*"] = 'powershell.exe -NoLogo -NoProfile -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+      ['+'] = 'powershell.exe -NoLogo -NoProfile -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+      ['*'] = 'powershell.exe -NoLogo -NoProfile -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
     },
     cache_enabled = 0,
   }
@@ -82,12 +70,12 @@ end
 vim.opt.guicursor = [[n-v-sm:block,c-i-ci-ve:ver25,r-cr-o:hor20]]
 
 -- 编码
-vim.scriptencoding = "utf-8"
-vim.opt.encoding = "utf-8"
-vim.opt.fileencoding = "utf-8"
+vim.scriptencoding = 'utf-8'
+vim.opt.encoding = 'utf-8'
+vim.opt.fileencoding = 'utf-8'
 
 -- 鼠标支持
-vim.opt.mouse = "a"
+vim.opt.mouse = 'a'
 
 -- 全局共用一个状态栏
 vim.opt.laststatus = 3
@@ -101,17 +89,17 @@ vim.opt.numberwidth = 2
 vim.opt.termguicolors = true -- 终端使用 24-bit rgb
 vim.opt.winblend = 0 -- float window 透明度 [0-100]
 vim.opt.pumblend = 0 -- popup menu 透明度 [0-100]
-vim.opt.background = "dark" -- 背景
+vim.opt.background = 'dark' -- 背景
 
 -- 高亮
 vim.opt.cursorcolumn = false -- 高亮当前列
 vim.opt.cursorline = false -- 高亮当前行
-vim.opt.cursorlineopt = "line,number" -- 只高亮行号, 默认 "line,number" 同时高亮行号和行
+vim.opt.cursorlineopt = 'line,number' -- 只高亮行号, 默认 "line,number" 同时高亮行号和行
 -- opt.colorcolumn = '100' -- 高亮第n列
 -- opt.textwidth = 100 -- 每行文本最大列数，超过自动换行
 
 -- 总是渲染 signcolumn, 避免渲染抖动
-vim.opt.signcolumn = "yes"
+vim.opt.signcolumn = 'yes'
 
 -- 最小可见区域
 vim.opt.scrolloff = 10 -- scroll offset 上下最小可见行数
@@ -163,8 +151,8 @@ vim.opt.hidden = true
 vim.opt.title = false
 vim.opt.ruler = false
 vim.opt.history = 2000
-vim.opt.virtualedit = "block" -- allow virtual editing in visual block mode.
-vim.opt.inccommand = "split"
+vim.opt.virtualedit = 'block' -- allow virtual editing in visual block mode.
+vim.opt.inccommand = 'split'
 vim.opt.timeout = true
 vim.opt.ttimeout = true
 vim.opt.timeoutlen = 500
@@ -173,8 +161,8 @@ vim.opt.updatetime = 100
 vim.opt.redrawtime = 1500
 
 -- Finding files - Search down into subfolders
-vim.opt.path:append({ "**" })
-vim.opt.wildignore:append({ "*/node_modules/*" })
+vim.opt.path:append({ '**' })
+vim.opt.wildignore:append({ '*/node_modules/*' })
 
 -- 在 vim grep 中使用 rg
 vim.opt.grepformat = [[%f:%l:%c:%m,%f:%l:%m]]
@@ -185,4 +173,4 @@ vim.cmd([[let &t_Cs = "\e[4:3m"]])
 vim.cmd([[let &t_Ce = "\e[4:0m"]])
 
 -- Add asterisks in block comments
-vim.opt.formatoptions:append({ "r" })
+vim.opt.formatoptions:append({ 'r' })

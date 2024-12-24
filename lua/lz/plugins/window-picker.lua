@@ -5,7 +5,7 @@ local M = {
 }
 
 function M.config()
-  require 'window-picker'.setup {
+  require('window-picker').setup({
     autoselect_one = true,
 
     include_current_win = false,
@@ -39,7 +39,7 @@ function M.config()
       -- filter using buffer options
       bo = {
         -- if the file type is one of following, the window will be ignored
-        filetype = { 'NvimTree', "neo-tree", "notify", "drex" },
+        filetype = { 'NvimTree', 'neo-tree', 'notify', 'drex' },
 
         -- if the buffer type is one of following, the window will be ignored
         buftype = { 'terminal' },
@@ -72,7 +72,7 @@ function M.config()
     -- It supports '%' printf style. Such as `return char .. ': %f'` to display
     -- buffer filepath. See :h 'stl' for details.
     selection_display = function(char) return char end,
-  }
+  })
 
   require('core.maps').window_picker()
 end

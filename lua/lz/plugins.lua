@@ -3,34 +3,30 @@ return {
   -- UI --
   --------
 
-  { "MunifTanjim/nui.nvim" },
+  { 'MunifTanjim/nui.nvim' },
 
   -- cursor effect --
   {
-    "sphamba/smear-cursor.nvim",
-    event = "VeryLazy",
-    config = function()
-      require("smear_cursor").setup({})
-    end,
+    'sphamba/smear-cursor.nvim',
+    event = 'VeryLazy',
+    config = function() require('smear_cursor').setup({}) end,
   },
 
   -- mode colorize --
   {
-    "mvllow/modes.nvim",
-    tag = "v0.2.0",
+    'mvllow/modes.nvim',
+    tag = 'v0.2.0',
     lazy = false,
-    config = function()
-      require("modes").setup()
-    end,
+    config = function() require('modes').setup() end,
   },
 
   -- border global settings --
   {
-    "mikesmithgh/borderline.nvim",
-    event = "VeryLazy",
+    'mikesmithgh/borderline.nvim',
+    event = 'VeryLazy',
     config = function()
-      require("borderline").setup({})
-      require("borderline.api").borderline("solid")
+      require('borderline').setup({})
+      require('borderline.api').borderline('solid')
     end,
   },
 
@@ -40,13 +36,11 @@ return {
 
   {
     -- "Pocco81/true-zen.nvim",
-    "ilan-schemoul/true-zen.nvim",
+    'ilan-schemoul/true-zen.nvim',
     enabled = not vim.g.vscode,
-    branch = "fix-restore-value",
-    cmd = { "TZNarrow", "TZFocus", "TZMinimalist", "TZAtaraxis" },
-    config = function()
-      require("true-zen").setup({})
-    end,
+    branch = 'fix-restore-value',
+    cmd = { 'TZNarrow', 'TZFocus', 'TZMinimalist', 'TZAtaraxis' },
+    config = function() require('true-zen').setup({}) end,
   },
 
   --------------
@@ -54,13 +48,13 @@ return {
   --------------
 
   {
-    "TheBlob42/houdini.nvim",
-    event = { "InsertEnter", "CmdLineEnter", "TermEnter" },
+    'TheBlob42/houdini.nvim',
+    event = { 'InsertEnter', 'CmdLineEnter', 'TermEnter' },
     config = function()
-      require("houdini").setup({
+      require('houdini').setup({
         escape_sequences = {
-          ["v"] = false,
-          ["V"] = false,
+          ['v'] = false,
+          ['V'] = false,
         },
       })
     end,
@@ -71,14 +65,14 @@ return {
   ------------------
 
   {
-    "NvChad/nvim-colorizer.lua",
-    cmd = { "ColorizerAttachToBuffer" },
+    'NvChad/nvim-colorizer.lua',
+    cmd = { 'ColorizerAttachToBuffer' },
     config = function()
-      require("colorizer").setup({
+      require('colorizer').setup({
         user_default_options = {
           tailwind = true,
-          mode = "virtualtext",
-          virtualtext = "■",
+          mode = 'virtualtext',
+          virtualtext = '■',
         },
       })
     end,
@@ -89,20 +83,18 @@ return {
   ------------------
 
   {
-    "windwp/nvim-autopairs",
-    event = { "InsertEnter", "CmdlineEnter" },
+    'windwp/nvim-autopairs',
+    event = { 'InsertEnter', 'CmdlineEnter' },
     config = function()
-      require("nvim-autopairs").setup({
-        disable_filetype = { "TelescopePrompt", "vim" },
+      require('nvim-autopairs').setup({
+        disable_filetype = { 'TelescopePrompt', 'vim' },
       })
     end,
   },
   {
-    "hrsh7th/nvim-insx",
-    event = { "InsertEnter" },
-    config = function()
-      require("insx.preset.standard").setup({})
-    end,
+    'hrsh7th/nvim-insx',
+    event = { 'InsertEnter' },
+    config = function() require('insx.preset.standard').setup({}) end,
   },
 
   ---------------
@@ -110,11 +102,11 @@ return {
   ---------------
 
   {
-    "fedepujol/move.nvim",
-    keys = { "<M-j>", "<M-k>", "<M-l>", "<M-h>" },
+    'fedepujol/move.nvim',
+    keys = { '<M-j>', '<M-k>', '<M-l>', '<M-h>' },
     config = function()
-      require("move").setup({})
-      require("core.maps").move()
+      require('move').setup({})
+      require('core.maps').move()
     end,
   },
 
@@ -123,48 +115,38 @@ return {
   --------------------
 
   {
-    "folke/flash.nvim",
+    'folke/flash.nvim',
     opts = {},
     keys = {
       {
-        "s",
-        mode = { "n", "x", "o" },
-        function()
-          require("flash").jump()
-        end,
-        desc = "Flash",
+        's',
+        mode = { 'n', 'x', 'o' },
+        function() require('flash').jump() end,
+        desc = 'Flash',
       },
       {
-        "S",
-        mode = { "n", "o", "x" },
-        function()
-          require("flash").treesitter()
-        end,
-        desc = "Flash Treesitter",
+        'S',
+        mode = { 'n', 'o', 'x' },
+        function() require('flash').treesitter() end,
+        desc = 'Flash Treesitter',
       },
       {
-        "r",
-        mode = "o",
-        function()
-          require("flash").remote()
-        end,
-        desc = "Remote Flash",
+        'r',
+        mode = 'o',
+        function() require('flash').remote() end,
+        desc = 'Remote Flash',
       },
       {
-        "R",
-        mode = { "o", "x" },
-        function()
-          require("flash").treesitter_search()
-        end,
-        desc = "Flash Treesitter Search",
+        'R',
+        mode = { 'o', 'x' },
+        function() require('flash').treesitter_search() end,
+        desc = 'Flash Treesitter Search',
       },
       {
-        "<c-s>",
-        mode = { "c" },
-        function()
-          require("flash").toggle()
-        end,
-        desc = "Toggle Flash Search",
+        '<c-s>',
+        mode = { 'c' },
+        function() require('flash').toggle() end,
+        desc = 'Toggle Flash Search',
       },
     },
   },
@@ -174,14 +156,14 @@ return {
   --------------
 
   {
-    "folke/trouble.nvim",
+    'folke/trouble.nvim',
     enabled = not vim.g.vscode,
-    cmd = { "Trouble" },
-    keys = { "<M-8>", "gx" },
+    cmd = { 'Trouble' },
+    keys = { '<M-8>', 'gx' },
     config = function()
-      local trouble = require("trouble")
+      local trouble = require('trouble')
       trouble.setup({})
-      require("core.maps").trouble()
+      require('core.maps').trouble()
     end,
   },
 
@@ -190,13 +172,13 @@ return {
   --------------
 
   {
-    "nyngwang/NeoZoom.lua",
+    'nyngwang/NeoZoom.lua',
     enabled = not vim.g.vscode,
-    keys = { ";" },
+    keys = { ';' },
     config = function()
-      require("neo-zoom").setup({
+      require('neo-zoom').setup({
         popup = { enabled = true }, -- this is the default.
-        exclude_buftypes = { "terminal" },
+        exclude_buftypes = { 'terminal' },
         -- exclude_filetypes = { 'lspinfo', 'mason', 'lazy', 'fzf', 'qf' },
         winopts = {
           offset = {
@@ -207,36 +189,32 @@ return {
             height = 0.85,
           },
           -- NOTE: check :help nvim_open_win() for possible border values.
-          border = "rounded",
+          border = 'rounded',
         },
         presets = {
           {
             -- NOTE: regex pattern can be used here!
-            filetypes = { "dapui_.*", "dap-repl" },
+            filetypes = { 'dapui_.*', 'dap-repl' },
             winopts = {
               offset = { top = 0.02, left = 0.26, width = 0.74, height = 0.25 },
             },
           },
           {
-            filetypes = { "markdown" },
+            filetypes = { 'markdown' },
             callbacks = {
-              function()
-                vim.wo.wrap = true
-              end,
+              function() vim.wo.wrap = true end,
             },
           },
         },
       })
 
-      vim.keymap.set("n", ";", function()
-        vim.cmd("NeoZoomToggle")
-      end, { silent = true, nowait = true })
+      vim.keymap.set('n', ';', function() vim.cmd('NeoZoomToggle') end, { silent = true, nowait = true })
 
-      vim.api.nvim_create_autocmd({ "WinEnter" }, {
+      vim.api.nvim_create_autocmd({ 'WinEnter' }, {
         callback = function()
-          local zoom_book = require("neo-zoom").zoom_book
+          local zoom_book = require('neo-zoom').zoom_book
 
-          if require("neo-zoom").is_neo_zoom_float() then
+          if require('neo-zoom').is_neo_zoom_float() then
             for z, _ in pairs(zoom_book) do
               vim.wo[z].winbl = 0
             end
@@ -255,11 +233,11 @@ return {
   --------------------
 
   {
-    "Wansmer/treesj",
-    keys = { "<leader>j" },
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    'Wansmer/treesj',
+    keys = { '<leader>j' },
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
     config = function()
-      require("treesj").setup({
+      require('treesj').setup({
         -- Use default keymaps
         -- (<space>m - toggle, <space>j - join, <space>s - split)
         use_default_keymaps = false,
@@ -275,7 +253,7 @@ return {
         -- hold - cursor follows the node/place on which it was called
         -- start - cursor jumps to the first symbol of the node being formatted
         -- end - cursor jumps to the last symbol of the node being formatted
-        cursor_behavior = "hold",
+        cursor_behavior = 'hold',
 
         -- Notify about possible problems or not
         notify = true,
@@ -285,7 +263,7 @@ return {
         dot_repeat = true,
       })
 
-      require("core.maps").treesj()
+      require('core.maps').treesj()
     end,
   },
 
@@ -294,12 +272,12 @@ return {
   ----------
 
   {
-    "folke/todo-comments.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    event = { "BufReadPost", "BufNewFile" },
+    'folke/todo-comments.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    event = { 'BufReadPost', 'BufNewFile' },
     config = function()
-      require("todo-comments").setup({})
-      require("core.maps").todo()
+      require('todo-comments').setup({})
+      require('core.maps').todo()
     end,
   },
 
@@ -308,19 +286,17 @@ return {
   --------------
 
   {
-    "MeanderingProgrammer/render-markdown.nvim",
+    'MeanderingProgrammer/render-markdown.nvim',
     enabled = not vim.g.vscode,
-    ft = "markdown",
-    dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.icons" },
+    ft = 'markdown',
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' },
     opts = {},
   },
 
   {
-    "Kicamon/markdown-table-mode.nvim",
-    ft = "markdown",
-    config = function()
-      require("markdown-table-mode").setup()
-    end,
+    'Kicamon/markdown-table-mode.nvim',
+    ft = 'markdown',
+    config = function() require('markdown-table-mode').setup() end,
   },
 
   ----------
@@ -328,23 +304,23 @@ return {
   ----------
 
   {
-    "jellydn/hurl.nvim",
+    'jellydn/hurl.nvim',
     dependencies = {
-      "MunifTanjim/nui.nvim",
-      "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
+      'MunifTanjim/nui.nvim',
+      'nvim-lua/plenary.nvim',
+      'nvim-treesitter/nvim-treesitter',
     },
-    ft = "hurl",
+    ft = 'hurl',
     opts = {
       debug = false,
       show_notification = false,
-      mode = "split",
+      mode = 'split',
       formatters = {
-        json = { "jq" },
+        json = { 'jq' },
         html = {
-          "prettier",
-          "--parser",
-          "html",
+          'prettier',
+          '--parser',
+          'html',
         },
       },
     },
@@ -354,17 +330,15 @@ return {
   -- highlight block scope --
   ---------------------------
   {
-    "rareitems/hl_match_area.nvim",
-    event = { "BufReadPost", "BufNewFile" },
-    config = function()
-      require("hl_match_area").setup({})
-    end,
+    'rareitems/hl_match_area.nvim',
+    event = { 'BufReadPost', 'BufNewFile' },
+    config = function() require('hl_match_area').setup({}) end,
   },
 
   {
-    "utilyre/sentiment.nvim",
-    version = "*",
-    event = { "BufReadPost", "BufNewFile" },
+    'utilyre/sentiment.nvim',
+    version = '*',
+    event = { 'BufReadPost', 'BufNewFile' },
     opts = {
       -- config
     },
@@ -378,19 +352,19 @@ return {
   -- REPL --
   ----------
   {
-    "Olical/conjure",
-    cmd = { "ConjureConnect" },
+    'Olical/conjure',
+    cmd = { 'ConjureConnect' },
     init = function()
-      vim.g.maplocalleader = " "
-      vim.g["conjure#mapping#doc_word"] = { "gh" }
-      vim.g["conjure#extract#tree_sitter#enabled"] = true
+      vim.g.maplocalleader = ' '
+      vim.g['conjure#mapping#doc_word'] = { 'gh' }
+      vim.g['conjure#extract#tree_sitter#enabled'] = true
     end,
   },
   {
-    "clojure-vim/vim-jack-in",
-    cmd = { "Clj" },
+    'clojure-vim/vim-jack-in',
+    cmd = { 'Clj' },
     dependencies = {
-      "radenling/vim-dispatch-neovim",
+      'radenling/vim-dispatch-neovim',
     },
   },
 }

@@ -1,12 +1,12 @@
 local M = {
-  "williamboman/mason.nvim",
+  'williamboman/mason.nvim',
   enabled = not vim.g.vscode,
-  cmd = { "Mason" },
+  cmd = { 'Mason' },
 }
 
 function M.config()
   local U = require('core.utils')
-  require("mason").setup {
+  require('mason').setup({
     -- 下载目录
     install_root_dir = U.get_mason_path(),
 
@@ -15,7 +15,7 @@ function M.config()
     -- skip 跳过
     -- prepend 添加到 PATH 头部
     -- append 添加到 PATH 尾部
-    PATH = "prepend",
+    PATH = 'prepend',
 
     -- python pip 包下载工具
     pip = {
@@ -40,7 +40,7 @@ function M.config()
       -- 1. The repository (e.g. "rust-lang/rust-analyzer")
       -- 2. The release version (e.g. "v0.3.0")
       -- 3. The asset name (e.g. "rust-analyzer-v0.3.0-x86_64-unknown-linux-gnu.tar.gz")
-      download_url_template = "https://github.com/%s/releases/download/%s/%s",
+      download_url_template = 'https://github.com/%s/releases/download/%s/%s',
     },
 
     -- 包下载服务器(提供商)
@@ -50,7 +50,7 @@ function M.config()
     --   - mason.providers.registry-api (default) - uses the https://api.mason-registry.dev API
     --   - mason.providers.client                 - uses only client-side tooling to resolve metadata
     providers = {
-      "mason.providers.registry-api",
+      'mason.providers.registry-api',
     },
 
     -- ui 配置
@@ -59,40 +59,40 @@ function M.config()
       check_outdated_packages_on_open = true,
 
       -- 窗口配置见 :h nvim_open_win()
-      border = "none",
+      border = 'none',
 
       -- 图标配置
       icons = {
         -- The list icon to use for installed packages.
-        package_installed = "◍",
+        package_installed = '◍',
         -- The list icon to use for packages that are installing, or queued for installation.
-        package_pending = "◍",
+        package_pending = '◍',
         -- The list icon to use for packages that are not installed.
-        package_uninstalled = "◍",
+        package_uninstalled = '◍',
       },
       -- 按键配置
       keymaps = {
         -- Keymap to expand a package
-        toggle_package_expand = "<CR>",
+        toggle_package_expand = '<CR>',
         -- Keymap to install the package under the current cursor position
-        install_package = "i",
+        install_package = 'i',
         -- Keymap to reinstall/update the package under the current cursor position
-        update_package = "u",
+        update_package = 'u',
         -- Keymap to check for new version for the package under the current cursor position
-        check_package_version = "c",
+        check_package_version = 'c',
         -- Keymap to update all installed packages
-        update_all_packages = "U",
+        update_all_packages = 'U',
         -- Keymap to check which installed packages are outdated
-        check_outdated_packages = "C",
+        check_outdated_packages = 'C',
         -- Keymap to uninstall a package
-        uninstall_package = "X",
+        uninstall_package = 'X',
         -- Keymap to cancel a package installation
-        cancel_installation = "<C-c>",
+        cancel_installation = '<C-c>',
         -- Keymap to apply language filter
-        apply_language_filter = "<C-f>",
+        apply_language_filter = '<C-f>',
       },
     },
-  }
+  })
 end
 
 return M
