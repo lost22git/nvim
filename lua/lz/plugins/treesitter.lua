@@ -85,10 +85,10 @@ function M.config()
     },
     ensure_installed = {
       --
+      'lua',
       'vim',
       'regex',
       'dockerfile',
-      'lua',
       'sql',
       'python',
       --
@@ -97,7 +97,6 @@ function M.config()
       'yaml',
       'proto',
       --
-      'norg',
       'markdown',
       'markdown_inline',
       --
@@ -105,16 +104,15 @@ function M.config()
       'css',
       'javascript',
       'typescript',
-      'svelte',
       --
       'java',
+      'clojure',
+      'nim',
       'rust',
+      'zig',
       'go',
       'gomod',
       'dart',
-      'zig',
-      'v',
-      'nim',
       'gleam',
     },
     autotag = {

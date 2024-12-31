@@ -97,19 +97,6 @@ return {
     config = function() require('insx.preset.standard').setup({}) end,
   },
 
-  ---------------
-  -- 移动行/块 --
-  ---------------
-
-  {
-    'fedepujol/move.nvim',
-    keys = { '<M-j>', '<M-k>', '<M-l>', '<M-h>' },
-    config = function()
-      require('move').setup({})
-      require('core.maps').move()
-    end,
-  },
-
   --------------------
   -- 可视区域内跳转 --
   --------------------

@@ -7,6 +7,11 @@ return {
 
   opts = {
     keymap = require('core.maps').blink_cmp(),
+    completion = {
+      list = {
+        selection = 'manual',
+      },
+    },
     appearance = {
       use_nvim_cmp_as_default = true,
       nerd_font_variant = 'mono',

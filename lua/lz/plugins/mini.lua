@@ -194,4 +194,43 @@ return {
     event = { 'BufAdd', 'TabEnter' },
     config = function() require('mini.tabline').setup({}) end,
   },
+
+  ---------------
+  -- mini.move --
+  ---------------
+  {
+    'echasnovski/mini.move',
+    version = false,
+    keys = { '<M-j>', '<M-k>', '<M-l>', '<M-h>' },
+    config = function() require('mini.move').setup({}) end,
+  },
+
+  -------------
+  -- mini.ai --
+  -------------
+
+  {
+    'echasnovski/mini.ai',
+    version = false,
+    event = { 'BufReadPost', 'BufNewFile' },
+    config = function()
+      require('mini.ai').setup({
+        mappings = {
+          -- Main textobject prefixes
+          around = 'a',
+          inside = 'i',
+
+          -- Next/last textobjects
+          around_next = 'an',
+          inside_next = 'in',
+          around_last = 'al',
+          inside_last = 'il',
+
+          -- Move cursor to corresponding edge of `a` textobject
+          goto_left = '[',
+          goto_right = ']',
+        },
+      })
+    end,
+  },
 }

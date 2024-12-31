@@ -48,21 +48,6 @@ function M.noice()
   })
 end
 
-function M.move()
-  M.nmap({
-    { '<M-j>', ':MoveLine(1)<CR>' },
-    { '<M-k>', ':MoveLine(-1)<CR>' },
-    { '<M-h>', ':MoveHChar(-1)<CR>' },
-    { '<M-l>', ':MoveHChar(1)<CR>' },
-  })
-  M.vmap({
-    { '<M-j>', ':MoveBlock(1)<CR>' },
-    { '<M-k>', ':MoveBlock(-1)<CR>' },
-    { '<M-h>', ':MoveHBlock(-1)<CR>' },
-    { '<M-l>', ':MoveHBlock(1)<CR>' },
-  })
-end
-
 function M.todo()
   M.nmap({
     {
@@ -126,14 +111,20 @@ end
 
 function M.blink_cmp()
   return {
+    preset = 'super-tab',
     ['<M-j>'] = { 'select_next', 'fallback' },
     ['<M-k>'] = { 'select_prev', 'fallback' },
-    ['<Tab>'] = { 'select_and_accept', 'fallback' },
     ['<C-c>'] = { 'hide', 'fallback' },
     ['<M-Space>'] = { 'show', 'show_documentation', 'hide_documentation' },
     ['<C-u>'] = { 'scroll_documentation_up', 'fallback' },
     ['<C-d>'] = { 'scroll_documentation_down', 'fallback' },
   }
+end
+
+function M.trouble()
+  M.nmap({
+    { 'gx', '<cmd>Trouble diagnostics toggle<CR>' },
+  })
 end
 
 function M.lsp(bufnr)
@@ -156,10 +147,9 @@ function M.lsp(bufnr)
     -- { 'gr',                vim.lsp.buf.rename,                                                      opts },
 
     -- use trouble.nvim and lspsaga.nvim to enhance it, see trouble() and lspsaga()
-    -- { 'ge',                vim.diagnostic.open_float,                                               opts },
-    -- { 'gk',                vim.diagnostic.goto_prev,                                                opts },
-    -- { 'gj',                vim.diagnostic.goto_next,                                                opts },
-    -- { 'gl',                vim.diagnostic.setloclist,                                               opts },
+    -- { 'gx',                vim.diagnostic.open_float,                                               opts },
+    -- { '[d',                vim.diagnostic.goto_prev,                                                opts },
+    -- { ']d',                vim.diagnostic.goto_next,                                                opts },
 
     { 'gwa', vim.lsp.buf.add_workspace_folder, opts },
     { 'gwd', vim.lsp.buf.remove_workspace_folder, opts },
@@ -174,12 +164,6 @@ function M.lsp(bufnr)
   -- M.vmap {
   -- { 'ga', vim.lsp.buf.range_code_action, opts },
   -- }
-end
-
-function M.trouble()
-  M.nmap({
-    { 'gx', '<cmd>Trouble diagnostics toggle<CR>' },
-  })
 end
 
 function M.lspsaga()
@@ -197,14 +181,14 @@ function M.lspsaga()
     { 'go', '<cmd>Lspsaga outgoing_calls<CR>' },
 
     -- Diagnostic
-    { 'gk', '<cmd>Lspsaga diagnostic_jump_prev<CR>' },
-    { 'gj', '<cmd>Lspsaga diagnostic_jump_next<CR>' },
+    { '[d', '<cmd>Lspsaga diagnostic_jump_prev<CR>' },
+    { ']d', '<cmd>Lspsaga diagnostic_jump_next<CR>' },
     {
-      'gK',
+      '[D',
       function() require('lspsaga.diagnostic'):goto_prev({ severity = vim.diagnostic.severity.ERROR }) end,
     },
     {
-      'gJ',
+      ']D',
       function() require('lspsaga.diagnostic'):goto_next({ severity = vim.diagnostic.severity.ERROR }) end,
     },
 
