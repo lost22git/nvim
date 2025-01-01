@@ -354,4 +354,14 @@ return {
       'radenling/vim-dispatch-neovim',
     },
   },
+
+  ------------
+  -- 滚动条 --
+  ------------
+  {
+    'lewis6991/satellite.nvim',
+    enabled = not vim.g.vscode,
+    event = { 'BufReadPost', 'BufNewFile' },
+    config = function() require('satellite').setup({}) end,
+  },
 }

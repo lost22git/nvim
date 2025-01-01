@@ -1,5 +1,7 @@
 local U = require('core.utils')
 
+vim.cmd.colorscheme('slate')
+
 -----------------------------
 -- custom global variables --
 -----------------------------
@@ -92,7 +94,7 @@ vim.opt.pumblend = 0 -- popup menu 透明度 [0-100]
 vim.opt.background = 'dark' -- 背景
 
 -- 高亮
-vim.opt.cursorcolumn = false -- 高亮当前列
+vim.opt.cursorcolumn = true -- 高亮当前列
 vim.opt.cursorline = false -- 高亮当前行
 vim.opt.cursorlineopt = 'line,number' -- 只高亮行号, 默认 "line,number" 同时高亮行号和行
 -- opt.colorcolumn = '100' -- 高亮第n列
