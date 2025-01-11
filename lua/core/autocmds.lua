@@ -1,7 +1,17 @@
 -- set file format to unix
-vim.cmd([[ au BufNewFile,BufReadPost * set fileformat=unix ]])
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = '*',
+  callback = function()
+    local exclude_ftypes = { 'qf' }
+    local current_ftype = vim.bo.filetype
+    for _, ftype in ipairs(exclude_ftypes) do
+      if current_ftype == ftype then return end
+    end
+    vim.bo.fileformat = 'unix'
+  end,
+})
 
--- filetype register
+-- register filetypes
 vim.cmd([[
   au BufNewFile,BufReadPost *.v set filetype=vlang
   au BufNewFile,BufReadPost *.postcss set filetype=postcss
@@ -13,7 +23,7 @@ vim.cmd([[
   au BufNewFile,BufReadPost *.cljd set filetype=clojure
 ]])
 
--- set commentstring for filetype
+-- register filetypes' commentstring
 vim.cmd([[
   au FileType nim setlocal commentstring=#\ %s
   au FileType crystal setlocal commentstring=#\ %s

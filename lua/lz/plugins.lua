@@ -341,6 +341,7 @@ return {
   {
     'Olical/conjure',
     cmd = { 'ConjureConnect' },
+    ft = { 'lua', 'fennel' },
     init = function()
       vim.g.maplocalleader = ' '
       vim.g['conjure#mapping#doc_word'] = { 'gh' }

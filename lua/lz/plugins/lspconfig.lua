@@ -173,6 +173,10 @@ function M.config()
   lspconfig.gleam.setup({
     on_attach = on_attach,
     capabilities = capabilities,
+    root_dir = function(fname)
+      local patterns = { 'gleam.toml', '.git' }
+      return vim.fs.root(fname, patterns)
+    end,
   })
 
   -- odin language server
@@ -294,6 +298,16 @@ function M.config()
   lspconfig.sourcekit.setup({
     on_attach = on_attach,
     capabilities = capabilities,
+  })
+
+  -- dart language server
+  lspconfig.dartls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    root_dir = function(fname)
+      local patterns = { 'pubspec.yaml', '.git' }
+      return vim.fs.root(fname, patterns)
+    end,
   })
 end
 
