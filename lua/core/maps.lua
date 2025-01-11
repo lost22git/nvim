@@ -44,7 +44,7 @@ M.tmap = map('t')
 
 function M.noice()
   M.nvmap({
-    { '<M-9>', '<cmd>Noice<CR>' },
+    { '<M-9>', '<CMD>Noice<CR>' },
   })
 end
 
@@ -98,7 +98,7 @@ function M.fterm()
   })
 
   M.nmap({
-    { '<M-3>', '<cmd>lua require("FTerm").toggle()<CR>' },
+    { '<M-3>', '<CMD>lua require("FTerm").toggle()<CR>' },
     {
       '<M-4>',
       function() gitui:toggle() end,
@@ -123,7 +123,7 @@ end
 
 function M.trouble()
   M.nmap({
-    { 'gx', '<cmd>Trouble diagnostics toggle<CR>' },
+    { 'gx', '<CMD>Trouble diagnostics toggle<CR>' },
   })
 end
 
@@ -169,20 +169,20 @@ end
 function M.lspsaga()
   M.nvmap({
     -- code action
-    { 'ga', '<cmd>Lspsaga code_action<CR>' },
+    { 'ga', '<CMD>Lspsaga code_action<CR>' },
   })
 
   M.nmap({
-    { 'gf', '<cmd>Lspsaga finder<CR>' },
-    { 'gr', '<cmd>Lspsaga rename<CR>' },
-    { 'gd', '<cmd>Lspsaga peek_definition<CR>' },
-    { 'gO', '<cmd>Lspsaga outline<CR>' },
-    { 'gi', '<cmd>lspsaga incoming_calls<cr>' },
-    { 'go', '<cmd>Lspsaga outgoing_calls<CR>' },
+    { 'gf', '<CMD>Lspsaga finder<CR>' },
+    { 'gr', '<CMD>Lspsaga rename<CR>' },
+    { 'gd', '<CMD>Lspsaga peek_definition<CR>' },
+    { 'gO', '<CMD>Lspsaga outline<CR>' },
+    { 'gi', '<CMD>lspsaga incoming_calls<cr>' },
+    { 'go', '<CMD>Lspsaga outgoing_calls<CR>' },
 
     -- Diagnostic
-    { '[d', '<cmd>Lspsaga diagnostic_jump_prev<CR>' },
-    { ']d', '<cmd>Lspsaga diagnostic_jump_next<CR>' },
+    { '[d', '<CMD>Lspsaga diagnostic_jump_prev<CR>' },
+    { ']d', '<CMD>Lspsaga diagnostic_jump_next<CR>' },
     {
       '[D',
       function() require('lspsaga.diagnostic'):goto_prev({ severity = vim.diagnostic.severity.ERROR }) end,
@@ -193,12 +193,12 @@ function M.lspsaga()
     },
 
     -- float terminal
-    { 'gt', '<cmd>Lspsaga term_toggle<CR>' },
+    { 'gt', '<CMD>Lspsaga term_toggle<CR>' },
   })
 
   M.tmap({
     -- float terminal
-    { 'gt', '<cmd>Lspsaga term_toggle<CR>' },
+    { 'gt', '<CMD>Lspsaga term_toggle<CR>' },
   })
 end
 
@@ -263,14 +263,14 @@ function M.mini_pick()
 
   M.nmap({
     { '<leader>ff', pick_files },
-    { '<leader>fs', ':Pick grep_live<CR>' },
-    { '<leader>fr', ':Pick resume<CR>' },
-    { '<leader>bb', ':Pick buffers<CR>' },
-    { '<leader>fh', ':Pick help<CR>' },
+    { '<leader>fs', '<CMD>Pick grep_live<CR>' },
+    { '<leader>fr', '<CMD>Pick resume<CR>' },
+    { '<leader>bb', '<CMD>Pick buffers<CR>' },
+    { '<leader>fh', '<CMD>Pick help<CR>' },
     -- mini.extras pickers
-    { '<leader>fg', ':Pick git_files<CR>' },
-    { '<leader>fe', ':Pick oldfiles<CR>' },
-    { '<leader>fv', ':Pick visit_paths<CR>' },
+    { '<leader>fg', '<CMD>Pick git_files<CR>' },
+    { '<leader>fe', '<CMD>Pick oldfiles<CR>' },
+    { '<leader>fv', '<CMD>Pick visit_paths<CR>' },
   })
 end
 
@@ -278,22 +278,22 @@ end
 function M.base()
   M.nmap({
     -- 退出
-    { 'qq', ':q<CR>' },
-    { 'Q', ':q!<CR>' },
-    { '<C-x>', ':bd<CR>' },
+    { 'qq', '<CMD>q<CR>' },
+    { 'Q', '<CMD>q!<CR>' },
+    { '<C-x>', '<CMD>bd<CR>' },
 
     -- redo
     { 'U', '<C-r>' },
 
     -- 清除最近一次搜索后的高亮
-    { '<BS><BS>', ':noh<CR>' },
+    { '<BS><BS>', '<CMD>noh<CR>' },
 
     -- 开启/关闭 行号
-    { '<Leader>n', ':set nu!<CR>' },
+    { '<Leader>n', '<CMD>set nu!<CR>' },
 
     -- start lsp client
-    { '<Leader><Enter>', '<cmd>LspStart<CR>' },
-    { 'gl', '<cmd>LspStart<CR>' },
+    { '<Leader><Enter>', '<CMD>LspStart<CR>' },
+    { 'gl', '<CMD>LspStart<CR>' },
 
     -- Increment/decrement
     { '=', '<C-a>' },
@@ -307,10 +307,10 @@ function M.base()
     { '<C-a>', 'gg<S-v>G' },
 
     -- 保存
-    { '<C-s>', ':w<CR>' },
+    { '<C-s>', '<CMD>w<CR>' },
 
     -- Tab edit
-    { 'te', ':tabedit' },
+    { 'te', '<CMD>tabedit' },
 
     -- Window move
     { '<C-h>', '<C-w>h' },
@@ -330,6 +330,10 @@ function M.base()
     { '<C-]>', 'zl' },
 
     { '<C-v>', '"+p' },
+
+    -- quickfix
+    { '[q', '<CMD>cprevious<CR>' },
+    { ']q', '<CMD>cnext<CR>' },
   })
 
   M.vmap({
@@ -353,8 +357,8 @@ function M.base()
     { 'L', '$' },
 
     -- tab
-    { '<Tab>', ':bnext<CR>' },
-    { '<S-Tab>', ':bprev<CR>' },
+    { '<Tab>', '<CMD>bnext<CR>' },
+    { '<S-Tab>', '<CMD>bprev<CR>' },
   })
 
   M.imap({

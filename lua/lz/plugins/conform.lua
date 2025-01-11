@@ -30,6 +30,7 @@ function M.config()
       fennel = { 'fnlfmt' },
       dart = { 'dart_format' },
       just = { 'just' },
+      elixir = { 'mix' },
       -- swift = { "swiftformat" },
     },
     formatters = {

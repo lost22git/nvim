@@ -4,12 +4,17 @@ return {
   dependencies = { 'rafamadriz/friendly-snippets' },
   -- build = [[RUSTC_BOOTSTRAP=1 cargo build --release]],
   version = '*',
-
   opts = {
     keymap = require('core.maps').blink_cmp(),
     completion = {
+      ghost_text = { enabled = false },
       list = {
-        selection = 'manual',
+        selection = {
+          preselect = function(ctx)
+            return ctx.mode ~= 'cmdline' and not require('blink.cmp').snippet_active({ direction = 1 })
+          end,
+          auto_insert = false,
+        },
       },
     },
     appearance = {
@@ -21,5 +26,4 @@ return {
     },
     signature = { enabled = true },
   },
-  opts_extend = { 'sources.default' },
 }

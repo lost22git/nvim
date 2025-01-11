@@ -362,6 +362,7 @@ return {
     'lewis6991/satellite.nvim',
     enabled = not vim.g.vscode,
     event = { 'BufReadPost', 'BufNewFile' },
+    ---@diagnostic disable-next-line: missing-fields
     config = function() require('satellite').setup({}) end,
   },
 }
