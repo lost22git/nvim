@@ -149,13 +149,13 @@ return {
   -- mini.indent --
   -----------------
 
-  {
-    'echasnovski/mini.indentscope',
-    version = false,
-    enabled = not vim.g.vscode,
-    event = { 'BufReadPost', 'BufNewFile' },
-    config = function() require('mini.indentscope').setup({}) end,
-  },
+  -- {
+  --   'echasnovski/mini.indentscope',
+  --   version = false,
+  --   enabled = not vim.g.vscode,
+  --   event = { 'BufReadPost', 'BufNewFile' },
+  --   config = function() require('mini.indentscope').setup({}) end,
+  -- },
 
   -------------------
   -- mini.surround --

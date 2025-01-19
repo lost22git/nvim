@@ -1,4 +1,4 @@
--- set file format to unix
+-- Set file format to unix
 vim.api.nvim_create_autocmd('FileType', {
   pattern = '*',
   callback = function()
@@ -11,7 +11,18 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
--- register filetypes
+-- Highlight yanked text
+vim.api.nvim_create_autocmd('TextYankPost', {
+  pattern = '*',
+  callback = function()
+    vim.highlight.on_yank({
+      higroup = 'Visual',
+      timeout = 200,
+    })
+  end,
+})
+
+-- Register filetypes
 vim.cmd([[
   au BufNewFile,BufReadPost *.v set filetype=vlang
   au BufNewFile,BufReadPost *.postcss set filetype=postcss
@@ -23,7 +34,7 @@ vim.cmd([[
   au BufNewFile,BufReadPost *.cljd set filetype=clojure
 ]])
 
--- register filetypes' commentstring
+-- Register filetypes' commentstring
 vim.cmd([[
   au FileType nim setlocal commentstring=#\ %s
   au FileType crystal setlocal commentstring=#\ %s
@@ -37,7 +48,7 @@ vim.cmd([[
   au FileType dart setlocal commentstring=//\ %s
 ]])
 
--- restore terminal cursor shape when leaving
+-- Restore terminal cursor shape when leaving
 -- \x1b[?12l -> disable cursor blink
 -- \x1b[6 q -> set cursor style to bar
 vim.cmd([[

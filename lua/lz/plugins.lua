@@ -5,14 +5,20 @@ return {
 
   { 'MunifTanjim/nui.nvim' },
 
+  -------------------
   -- cursor effect --
-  {
-    'sphamba/smear-cursor.nvim',
-    event = 'VeryLazy',
-    config = function() require('smear_cursor').setup({}) end,
-  },
+  -------------------
 
+  -- {
+  --   'sphamba/smear-cursor.nvim',
+  --   event = 'VeryLazy',
+  --   config = function() require('smear_cursor').setup({}) end,
+  -- },
+
+  -------------------
   -- mode colorize --
+  -------------------
+
   {
     'mvllow/modes.nvim',
     tag = 'v0.2.0',
@@ -20,7 +26,10 @@ return {
     config = function() require('modes').setup() end,
   },
 
+  ----------------------------
   -- border global settings --
+  ----------------------------
+
   {
     'mikesmithgh/borderline.nvim',
     event = 'VeryLazy',
@@ -87,14 +96,30 @@ return {
     event = { 'InsertEnter', 'CmdlineEnter' },
     config = function()
       require('nvim-autopairs').setup({
-        disable_filetype = { 'TelescopePrompt', 'vim' },
+        disable_filetype = { 'vim' },
       })
     end,
   },
+
   {
     'hrsh7th/nvim-insx',
     event = { 'InsertEnter' },
     config = function() require('insx.preset.standard').setup({}) end,
+  },
+
+  ---------------------------
+  -- highlight block scope --
+  ---------------------------
+
+  {
+    'utilyre/sentiment.nvim',
+    version = '*',
+    event = { 'BufReadPost', 'BufNewFile' },
+    opts = {},
+    init = function()
+      -- `matchparen.vim` needs to be disabled manually in case of lazy loading
+      vim.g.loaded_matchparen = 1
+    end,
   },
 
   --------------------
@@ -268,24 +293,6 @@ return {
     end,
   },
 
-  --------------
-  -- markdown --
-  --------------
-
-  {
-    'MeanderingProgrammer/render-markdown.nvim',
-    enabled = not vim.g.vscode,
-    ft = 'markdown',
-    dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' },
-    opts = {},
-  },
-
-  {
-    'Kicamon/markdown-table-mode.nvim',
-    ft = 'markdown',
-    config = function() require('markdown-table-mode').setup() end,
-  },
-
   ----------
   -- Hurl --
   ----------
@@ -311,28 +318,6 @@ return {
         },
       },
     },
-  },
-
-  ---------------------------
-  -- highlight block scope --
-  ---------------------------
-  {
-    'rareitems/hl_match_area.nvim',
-    event = { 'BufReadPost', 'BufNewFile' },
-    config = function() require('hl_match_area').setup({}) end,
-  },
-
-  {
-    'utilyre/sentiment.nvim',
-    version = '*',
-    event = { 'BufReadPost', 'BufNewFile' },
-    opts = {
-      -- config
-    },
-    init = function()
-      -- `matchparen.vim` needs to be disabled manually in case of lazy loading
-      vim.g.loaded_matchparen = 1
-    end,
   },
 
   ----------
@@ -365,5 +350,66 @@ return {
     event = { 'BufReadPost', 'BufNewFile' },
     ---@diagnostic disable-next-line: missing-fields
     config = function() require('satellite').setup({}) end,
+  },
+
+  --------------------------------
+  -- theme preview and switcher --
+  --------------------------------
+  {
+    'zaldih/themery.nvim',
+    cmd = { 'Themery' },
+    config = function()
+      require('themery').setup({
+        themes = vim.fn.getcompletion('', 'color'),
+        livePreview = true,
+      })
+    end,
+  },
+
+  --------------------
+  -- windows picker --
+  --------------------
+
+  {
+    's1n7ax/nvim-window-picker',
+    enabled = not vim.g.vscode,
+    keys = { '<Leader>w' },
+    config = function()
+      require('window-picker').setup({
+        autoselect_one = true,
+        include_current_win = false,
+        selection_chars = 'FJDKSLA;CMRUEIWOQP',
+        use_winbar = 'never', -- "always" | "never" | "smart"
+        show_prompt = true,
+        filter_func = nil,
+        filter_rules = {
+          bo = {
+            filetype = { 'NvimTree', 'neo-tree', 'notify', 'drex' },
+            buftype = { 'terminal' },
+          },
+          wo = {},
+          file_path_contains = {},
+          file_name_contains = {},
+        },
+        fg_color = '#ededed',
+        current_win_hl_color = '#e35e4f',
+        other_win_hl_color = '#0a7aca',
+        selection_display = function(char) return char end,
+      })
+      require('core.maps').window_picker()
+    end,
+  },
+
+  ------------
+  -- indent --
+  ------------
+
+  {
+    'lukas-reineke/indent-blankline.nvim',
+    main = 'ibl',
+    event = { 'BufReadPost', 'BufNewFile' },
+    ---@module "ibl"
+    ---@type ibl.config
+    opts = {},
   },
 }
