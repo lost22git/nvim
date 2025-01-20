@@ -2,11 +2,10 @@
 vim.api.nvim_create_autocmd('FileType', {
   pattern = '*',
   callback = function()
-    local exclude_ftypes = { 'qf' }
-    local current_ftype = vim.bo.filetype
-    for _, ftype in ipairs(exclude_ftypes) do
-      if current_ftype == ftype then return end
-    end
+    if not vim.bo.modifiable then return end
+    local exclude_ftypes = { 'qf', 'FTerm' }
+    local ft = vim.bo.filetype
+    if vim.tbl_contains(exclude_ftypes, ft) then return end
     vim.bo.fileformat = 'unix'
   end,
 })
