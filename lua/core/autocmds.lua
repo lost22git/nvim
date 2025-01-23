@@ -35,6 +35,7 @@ vim.cmd([[
 
 -- Register filetypes' commentstring
 vim.cmd([[
+  au FileType json setlocal commentstring=//\ %s
   au FileType nim setlocal commentstring=#\ %s
   au FileType crystal setlocal commentstring=#\ %s
   au FileType inko setlocal commentstring=#\ %s

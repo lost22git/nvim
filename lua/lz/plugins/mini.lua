@@ -7,7 +7,6 @@ return {
   {
     'echasnovski/mini.icons',
     opts = {},
-    event = 'VeryLazy',
     specs = {
       { 'nvim-tree/nvim-web-devicons', enabled = false, optional = true },
     },
@@ -255,7 +254,7 @@ return {
             local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 120 })
             local location = MiniStatusline.section_location({ trunc_width = 75 })
 
-            local color_scheme = MiniIcons.get('lsp', 'color') .. ' ' .. (vim.g.colors_name or 'default')
+            local color_scheme = require('mini.icons').get('lsp', 'color') .. ' ' .. (vim.g.colors_name or 'default')
 
             return MiniStatusline.combine_groups({
               { hl = mode_hl, strings = { mode } },

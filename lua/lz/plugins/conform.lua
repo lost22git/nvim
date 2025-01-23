@@ -15,6 +15,7 @@ function M.config()
 
     -- see :help conform-formatters
     formatters_by_ft = {
+      json = { 'jq' },
       lua = { 'stylua' },
       go = { 'goimports', 'gofmt' },
       javascript = { 'deno_fmt' },

@@ -1,0 +1,94 @@
+{
+  "[Lustre] component": {
+    "prefix": "lc",
+    "body": [
+      "",
+      "pub fn register(name: String) -> Result(Nil, lustre.Error) {",
+      "\tlustre.application(init, update, view) |> lustre.register(name)",
+      "}",
+      "",
+      "// model //",
+      "",
+      "pub type Model {",
+      "\tModel(todo)",
+      "}",
+      "",
+      "pub type Msg {",
+      "\ttodo",
+      "}",
+      "",
+      "pub fn init(_) -> #(Model, effect.Effect(Msg)) {",
+      "\t#(Model(todo), effect.none())",
+      "}",
+      "",
+      "// update //",
+      "",
+      "pub fn update(model: Model, msg: Msg) -> #(Model, effect.Effect(Msg)) {",
+      "\tcase msg {",
+      "\t}",
+      "}",
+      "",
+      "// view //",
+      "",
+      "pub fn view(model: Model) -> element.Element(Msg) {",
+      "\thtml.div([], [todo])",
+      "}",
+      ""
+    ]
+  },
+  "[Lustre] register": {
+    "prefix": "lr",
+    "body": [
+      "",
+      "pub fn register(name: String) -> Result(Nil, lustre.Error) {",
+      "\tlustre.application(init, update, view) |> lustre.register(name)",
+      "}",
+      ""
+    ]
+  },
+  "[Lustre] model": {
+    "prefix": "lm",
+    "body": [
+      "",
+      "// model //",
+      "",
+      "pub type Model {",
+      "\tModel(todo)",
+      "}",
+      "",
+      "pub type Msg {",
+      "\ttodo",
+      "}",
+      "",
+      "pub fn init(_) -> #(Model, effect.Effect(Msg)) {",
+      "\t#(Model(todo), effect.none())",
+      "}",
+      ""
+    ]
+  },
+  "[Lustre] update": {
+    "prefix": "lu",
+    "body": [
+      "",
+      "// update //",
+      "",
+      "pub fn update(model: Model, msg: Msg) -> #(Model, effect.Effect(Msg)) {",
+      "\tcase msg {",
+      "\t}",
+      "}",
+      ""
+    ]
+  },
+  "[Lustre] view": {
+    "prefix": "lv",
+    "body": [
+      "",
+      "// view //",
+      "",
+      "pub fn view(model: Model) -> element.Element(Msg) {",
+      "\thtml.div([], [todo])",
+      "}",
+      ""
+    ]
+  }
+}
