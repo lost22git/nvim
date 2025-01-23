@@ -243,55 +243,55 @@
   "[cljd] EdgeInsets all": {
     "prefix": "Edge-all",
     "body": [
-      "m/EdgeInsets.all ${1:0}"
+      "EdgeInsets.all ${1:0}"
     ]
   },
   "[cljd] EdgeInsets symmetric": {
     "prefix": "Edge-symmetric",
     "body": [
-      "m/EdgeInsets.symmertric .horizontal ${1:0} .vertical ${2:0}"
+      "EdgeInsets.symmertric .horizontal ${1:0} .vertical ${2:0}"
     ]
   },
   "[cljd] EdgeInsets horizontal": {
     "prefix": "Edge-horizontal",
     "body": [
-      "m/EdgeInsets.symmertric .horizontal ${1:0}"
+      "EdgeInsets.symmertric .horizontal ${1:0}"
     ]
   },
   "[cljd] EdgeInsets vertical": {
     "prefix": "Edge-vertical",
     "body": [
-      "m/EdgeInsets.symmertric .vertical ${1:0}"
+      "EdgeInsets.symmertric .vertical ${1:0}"
     ]
   },
   "[cljd] Icon widget": {
     "prefix": "Icon",
     "body": [
-      "m/Icon m/Icons.${1:help}"
+      "Icon m/Icons.${1:help}"
     ]
   },
   "[cljd] MainAxisAlignment": {
-    "prefix": "MAA",
+    "prefix": "MainAxisAlignment",
     "body": [
-      "m/MainAxisAlignment.${1:start}"
+      "MainAxisAlignment.${1:start}"
     ]
   },
   "[cljd] CrossAxisAlignment": {
-    "prefix": "CAA",
+    "prefix": "CrossAxisAlignment",
     "body": [
-      "m/CrossAxisAlignment.${1:start}"
+      "CrossAxisAlignment.${1:start}"
     ]
   },
   "[cljd] MainAxisSize": {
-    "prefix": "MAS",
+    "prefix": "MainAxisSize",
     "body": [
-      "m/MainAxisSize.${1:min}"
+      "MainAxisSize.${1:min}"
     ]
   },
   "[cljd] Row": {
     "prefix": "Row",
     "body": [
-      "m/Row",
+      "Row",
       "\t.mainAxisAlignment m/MainAxisAlignment.${1:start}",
       "\t.crossAxisAlignment m/CrossAxisAlignment.${1:start}"
     ]
@@ -299,7 +299,7 @@
   "[cljd] Column": {
     "prefix": "Column",
     "body": [
-      "m/Column",
+      "Column",
       "\t.mainAxisAlignment m/MainAxisAlignment.${1:start}",
       "\t.crossAxisAlignment m/CrossAxisAlignment.${2:start}"
     ]
@@ -307,21 +307,21 @@
   "[cljd] IconButton": {
     "prefix": "IconButton",
     "body": [
-      "m/IconButton",
+      "IconButton",
       "\t.onPressed (fn [])"
     ]
   },
   "[cljd] TextButton": {
     "prefix": "TextButton",
     "body": [
-      "m/TextButton",
+      "TextButton",
       "\t.onPressed (fn [])"
     ]
   },
   "[cljd] SizedBox": {
     "prefix": "SizedBox",
     "body": [
-      "m/SizedBox",
+      "SizedBox",
       "\t.width ${1:0}",
       "\t.height ${2:0}"
     ]
@@ -329,21 +329,21 @@
   "[cljd] SizedBox width": {
     "prefix": "SizedBox-width",
     "body": [
-      "m/SizedBox",
+      "SizedBox",
       "\t.width ${1:0}"
     ]
   },
   "[cljd] SizedBox height": {
     "prefix": "SizedBox-height",
     "body": [
-      "m/SizedBox",
+      "SizedBox",
       "\t.height ${1:0}"
     ]
   },
   "[cljd] ListTile": {
     "prefix": "ListTile",
     "body": [
-      "m/ListTile",
+      "ListTile",
       "\t.onTap (fn [])",
       "\t.leading ${1:leading}",
       "\t.title ${2:title}",
@@ -354,15 +354,24 @@
   "[cljd] GestureDetector": {
     "prefix": "GestureDetector",
     "body": [
-      "m/GestureDetector",
+      "GestureDetector",
       "\t.onTap (fn [])"
     ]
   },
   "[cljd] Hero widget": {
     "prefix": "Hero",
     "body": [
-      "m/Hero",
+      "Hero",
       "\t.tag ${1:tag}"
+    ]
+  },
+  "[cljd] AnimatedSize": {
+    "prefix": "AnimatedSize",
+    "body": [
+      "AnimatedSize",
+      "\t.duration (Duration .milliseconds ${1:400})",
+      "\t.curve m/Curves.fastOutSlowIn",
+      "\t.alignment m/Alignment.topCenter"
     ]
   }
 }
