@@ -1,0 +1,368 @@
+{
+  "keys": {
+    "prefix": "keys",
+    "body": [
+      "{:keys [${1:k}]}"
+    ]
+  },
+  "keys-as": {
+    "prefix": "keys-as",
+    "body": [
+      "{:keys [${1:k}] :as ${2:as}}"
+    ]
+  },
+  "fields": {
+    "prefix": "flds",
+    "body": [
+      "{:flds [${1:f}]}"
+    ]
+  },
+  "fields-as": {
+    "prefix": "flds-as",
+    "body": [
+      "{:flds [$(1:f)] :as ${2:as}}"
+    ]
+  },
+  "let": {
+    "prefix": "let",
+    "body": [
+      "let [${1:a} ${2:b}]",
+      "\t${3:body}"
+    ]
+  },
+  "if": {
+    "prefix": "if",
+    "body": [
+      "if ${1:test} ${2:then-body} ${3:else-body}"
+    ]
+  },
+  "if-not": {
+    "prefix": "if-not",
+    "body": [
+      "if-not ${1:test} ${2:then-body} ${3:else-body}"
+    ]
+  },
+  "if-let": {
+    "prefix": "if-let",
+    "body": [
+      "if-let [${1:a} ${2:b}]",
+      "\t${3:then-body}",
+      "\t${4:else-body}"
+    ]
+  },
+  "if-some": {
+    "prefix": "if-some",
+    "body": [
+      "if-some [${1:a} ${2:b}]",
+      "\t${3:then-body}",
+      "\t${4:else-body}"
+    ]
+  },
+  "when": {
+    "prefix": "when",
+    "body": [
+      "when ${1:a} ${2:body}"
+    ]
+  },
+  "when-not": {
+    "prefix": "when-not",
+    "body": [
+      "when-not ${1:a} ${2:body}"
+    ]
+  },
+  "when-let": {
+    "prefix": "when-let",
+    "body": [
+      "when-let [${1:a} ${2:b}]",
+      "\t${3:body}"
+    ]
+  },
+  "when-some": {
+    "prefix": "when-some",
+    "body": [
+      "when-some [${1:a} ${2:b}]",
+      "\t${3:body}"
+    ]
+  },
+  "when-first": {
+    "prefix": "when-first",
+    "body": [
+      "when-first [${1:a} ${2:b}]",
+      "\t${3:body}"
+    ]
+  },
+  "case-bool": {
+    "prefix": "case-bool",
+    "body": [
+      "case ${1:test}",
+      "true ${2:then-body}",
+      "false ${3:else-body}"
+    ]
+  },
+  "for": {
+    "prefix": "for",
+    "body": [
+      "for [${1:i} ${2:col}]",
+      "\t${3:body}"
+    ]
+  },
+  "for-when": {
+    "prefix": "for-when",
+    "body": [
+      "for [${1:i} ${2:col} :when (${3:f} ${1:i})]",
+      "\t${4:body}"
+    ]
+  },
+  "for-while": {
+    "prefix": "for-while",
+    "body": [
+      "for [${1:i} ${2:col} :while (${3:f} ${1:i})]",
+      "\t${4:body}"
+    ]
+  },
+  "defonce": {
+    "prefix": "defonce",
+    "body": [
+      "defonce ${1:a} ${2:b}"
+    ]
+  },
+  "defrecord": {
+    "prefix": "defrecord",
+    "body": [
+      "defrecord ${1:name} [{$2:props}]"
+    ]
+  },
+  "defn": {
+    "prefix": "defn",
+    "body": [
+      "defn ${1:name}",
+      "\t\"${2:doc}\"",
+      "\t[${3:params}]",
+      "\t${4:body}"
+    ]
+  },
+  "fn": {
+    "prefix": "fn",
+    "body": [
+      "fn [${1:params}]",
+      "\t${2:body}"
+    ]
+  },
+  "println": {
+    "prefix": "p",
+    "body": [
+      "println ${1:v}"
+    ]
+  },
+  "assert-true": {
+    "prefix": "assert-true",
+    "body": [
+      "assert ${1:true-body}"
+    ]
+  },
+  "assert-false": {
+    "prefix": "assert-false",
+    "body": [
+      "assert (not ${1:false-body})"
+    ]
+  },
+  "assert-eq": {
+    "prefix": "assert-eq",
+    "body": [
+      "assert (= ${1:expect}",
+      "\t${2:body})"
+    ]
+  },
+  "assert-ne": {
+    "prefix": "assert-ne",
+    "body": [
+      "assert (not= ${1:expect}",
+      "\t${2:body})"
+    ]
+  },
+  "assert-nil": {
+    "prefix": "assert-nil",
+    "body": [
+      "assert (nil? ${1:body})"
+    ]
+  },
+  "assert-not-nil": {
+    "prefix": "assert-not-nil",
+    "body": [
+      "assert (not (nil? ${1:body}))"
+    ]
+  },
+  "[cljd] generic": {
+    "prefix": "#/",
+    "body": [
+      "#/(${1:t} ${2:t-params})"
+    ]
+  },
+  "[cljd] :bind": {
+    "prefix": ":bind",
+    "body": [
+      "bind {:${1:key} ${2:val}}"
+    ]
+  },
+  "[cljd] :get by key": {
+    "prefix": ":get-by-key",
+    "body": [
+      "get [:${1:key}]"
+    ]
+  },
+  "[cljd] :get by class": {
+    "prefix": ":get-by-class",
+    "body": [
+      "get [m/${1:class}]"
+    ]
+  },
+  "[cljd] :get and destructing": {
+    "prefix": ":get-destructing",
+    "body": [
+      "get {${1:a} m/${2:b}}"
+    ]
+  },
+  "[cljd] :managed state": {
+    "prefix": ":managed-state",
+    "body": [
+      "managed [${1:state} ${2:val} :dispose nil]"
+    ]
+  },
+  "[cljd :managed resources]": {
+    "prefix": ":managed-resources",
+    "body": [
+      "managed [${1:a} ${2:b}]"
+    ]
+  },
+  "[cljd] :watch": {
+    "prefix": ":watch",
+    "body": [
+      "watch [${1:a} ${2:b}]"
+    ]
+  },
+  "[cljd] EdgeInsets all": {
+    "prefix": "Edge-all",
+    "body": [
+      "m/EdgeInsets.all ${1:0}"
+    ]
+  },
+  "[cljd] EdgeInsets symmetric": {
+    "prefix": "Edge-symmetric",
+    "body": [
+      "m/EdgeInsets.symmertric .horizontal ${1:0} .vertical ${2:0}"
+    ]
+  },
+  "[cljd] EdgeInsets horizontal": {
+    "prefix": "Edge-horizontal",
+    "body": [
+      "m/EdgeInsets.symmertric .horizontal ${1:0}"
+    ]
+  },
+  "[cljd] EdgeInsets vertical": {
+    "prefix": "Edge-vertical",
+    "body": [
+      "m/EdgeInsets.symmertric .vertical ${1:0}"
+    ]
+  },
+  "[cljd] Icon widget": {
+    "prefix": "Icon",
+    "body": [
+      "m/Icon m/Icons.${1:help}"
+    ]
+  },
+  "[cljd] MainAxisAlignment": {
+    "prefix": "MAA",
+    "body": [
+      "m/MainAxisAlignment.${1:start}"
+    ]
+  },
+  "[cljd] CrossAxisAlignment": {
+    "prefix": "CAA",
+    "body": [
+      "m/CrossAxisAlignment.${1:start}"
+    ]
+  },
+  "[cljd] MainAxisSize": {
+    "prefix": "MAS",
+    "body": [
+      "m/MainAxisSize.${1:min}"
+    ]
+  },
+  "[cljd] Row": {
+    "prefix": "Row",
+    "body": [
+      "m/Row",
+      "\t.mainAxisAlignment m/MainAxisAlignment.${1:start}",
+      "\t.crossAxisAlignment m/CrossAxisAlignment.${1:start}"
+    ]
+  },
+  "[cljd] Column": {
+    "prefix": "Column",
+    "body": [
+      "m/Column",
+      "\t.mainAxisAlignment m/MainAxisAlignment.${1:start}",
+      "\t.crossAxisAlignment m/CrossAxisAlignment.${2:start}"
+    ]
+  },
+  "[cljd] IconButton": {
+    "prefix": "IconButton",
+    "body": [
+      "m/IconButton",
+      "\t.onPressed (fn [])"
+    ]
+  },
+  "[cljd] TextButton": {
+    "prefix": "TextButton",
+    "body": [
+      "m/TextButton",
+      "\t.onPressed (fn [])"
+    ]
+  },
+  "[cljd] SizedBox": {
+    "prefix": "SizedBox",
+    "body": [
+      "m/SizedBox",
+      "\t.width ${1:0}",
+      "\t.height ${2:0}"
+    ]
+  },
+  "[cljd] SizedBox width": {
+    "prefix": "SizedBox-width",
+    "body": [
+      "m/SizedBox",
+      "\t.width ${1:0}"
+    ]
+  },
+  "[cljd] SizedBox height": {
+    "prefix": "SizedBox-height",
+    "body": [
+      "m/SizedBox",
+      "\t.height ${1:0}"
+    ]
+  },
+  "[cljd] ListTile": {
+    "prefix": "ListTile",
+    "body": [
+      "m/ListTile",
+      "\t.onTap (fn [])",
+      "\t.leading ${1:leading}",
+      "\t.title ${2:title}",
+      "\t.subtitle ${3:subtitle}",
+      "\t.trailing ${4:trailing}"
+    ]
+  },
+  "[cljd] GestureDetector": {
+    "prefix": "GestureDetector",
+    "body": [
+      "m/GestureDetector",
+      "\t.onTap (fn [])"
+    ]
+  },
+  "[cljd] Hero widget": {
+    "prefix": "Hero",
+    "body": [
+      "m/Hero",
+      "\t.tag ${1:tag}"
+    ]
+  }
+}

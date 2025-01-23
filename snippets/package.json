@@ -3,6 +3,10 @@
   "contributes": {
     "snippets": [
       {
+        "language": "clojure",
+        "path": "./clojure.json"
+      },
+      {
         "language": "gleam",
         "path": "./gleam.json"
       }
