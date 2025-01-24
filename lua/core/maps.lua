@@ -121,66 +121,29 @@ function M.blink_cmp()
   }
 end
 
-function M.trouble()
-  M.nmap({
-    { 'gx', '<Cmd>Trouble diagnostics toggle<CR>' },
-  })
-end
-
 function M.lsp(bufnr)
   local opts = { noremap = true, silent = true, buffer = bufnr }
 
   M.nmap({
-    { 'gF', vim.lsp.buf.format, opts },
-    { 'gs', vim.lsp.buf.document_symbol, opts },
-    { 'gS', vim.lsp.buf.workspace_symbol, opts },
-    { 'gT', vim.lsp.buf.type_definition, opts },
     { 'gD', vim.lsp.buf.definition, opts },
-    { 'ge', vim.lsp.buf.declaration, opts },
-    { 'gR', vim.lsp.buf.references, opts },
-    { 'gI', vim.lsp.buf.implementation, opts },
     { 'gh', vim.lsp.buf.hover, opts },
     { 'gH', vim.lsp.buf.signature_help, opts },
-
-    -- use lspsaga.nvim to enhance it. see lspsaga()
-    -- { 'ga',  vim.lsp.buf.code_action,                                                 opts },
-    -- { 'gr',                vim.lsp.buf.rename,                                                      opts },
-
-    -- use trouble.nvim and lspsaga.nvim to enhance it, see trouble() and lspsaga()
-    -- { 'gx',                vim.diagnostic.open_float,                                               opts },
-    -- { '[d',                vim.diagnostic.goto_prev,                                                opts },
-    -- { ']d',                vim.diagnostic.goto_next,                                                opts },
-
-    { 'gwa', vim.lsp.buf.add_workspace_folder, opts },
-    { 'gwd', vim.lsp.buf.remove_workspace_folder, opts },
-    {
-      'gwl',
-      function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end,
-      opts,
-    },
+    { 'gT', vim.lsp.buf.type_definition, opts },
+    { 'gR', vim.lsp.buf.references, opts },
+    { 'gI', vim.lsp.buf.implementation, opts },
   })
-
-  -- use lspsaga.nvim to enhance it. see lspsaga()
-  -- M.vmap {
-  -- { 'ga', vim.lsp.buf.range_code_action, opts },
-  -- }
 end
 
 function M.lspsaga()
-  M.nvmap({
-    -- code action
-    { 'ga', '<Cmd>Lspsaga code_action<CR>' },
-  })
-
   M.nmap({
-    { 'gf', '<Cmd>Lspsaga finder<CR>' },
-    { 'gr', '<Cmd>Lspsaga rename<CR>' },
+    { 'ga', '<Cmd>Lspsaga code_action<CR>' },
     { 'gd', '<Cmd>Lspsaga peek_definition<CR>' },
-    { 'gO', '<Cmd>Lspsaga outline<CR>' },
-    { 'gi', '<Cmd>lspsaga incoming_calls<cr>' },
+    { 'gf', '<Cmd>Lspsaga finder<CR>' },
+    { 'gi', '<Cmd>lspsaga incoming_calls<CR>' },
     { 'go', '<Cmd>Lspsaga outgoing_calls<CR>' },
-
-    -- Diagnostic
+    { 'gO', '<Cmd>Lspsaga outline<CR>' },
+    { 'gr', '<Cmd>Lspsaga rename<CR>' },
+    { 'gt', '<Cmd>Lspsaga peek_type_definition<CR>' },
     { '[d', '<Cmd>Lspsaga diagnostic_jump_prev<CR>' },
     { ']d', '<Cmd>Lspsaga diagnostic_jump_next<CR>' },
     {
@@ -191,14 +154,6 @@ function M.lspsaga()
       ']D',
       function() require('lspsaga.diagnostic'):goto_next({ severity = vim.diagnostic.severity.ERROR }) end,
     },
-
-    -- float terminal
-    { 'gt', '<Cmd>Lspsaga term_toggle<CR>' },
-  })
-
-  M.tmap({
-    -- float terminal
-    { 'gt', '<Cmd>Lspsaga term_toggle<CR>' },
   })
 end
 
@@ -229,14 +184,14 @@ function M.mini_files()
   })
 
   M.nmap({
-    ---@diagnostic disable-next-line: undefined-global
     {
       '<M-1>',
+      ---@diagnostic disable-next-line: undefined-global
       function() MiniFiles.open() end,
     },
-    ---@diagnostic disable-next-line: undefined-global
     {
       '<M-2>',
+      ---@diagnostic disable-next-line: undefined-global
       function() MiniFiles.open(vim.api.nvim_buf_get_name(0), false) end,
     },
   })
@@ -263,13 +218,13 @@ function M.mini_pick()
 
   M.nmap({
     { '<leader>ff', pick_files },
-    { '<leader>fs', '<Cmd>Pick grep_live<CR>' },
-    { '<leader>fr', '<Cmd>Pick resume<CR>' },
-    { '<leader>bb', '<Cmd>Pick buffers<CR>' },
     { '<leader>fh', '<Cmd>Pick help<CR>' },
+    { '<leader>fr', '<Cmd>Pick resume<CR>' },
+    { '<leader>fs', '<Cmd>Pick grep_live<CR>' },
+    { '<leader>bb', '<Cmd>Pick buffers<CR>' },
     -- mini.extras pickers
-    { '<leader>fg', '<Cmd>Pick git_files<CR>' },
     { '<leader>fe', '<Cmd>Pick oldfiles<CR>' },
+    { '<leader>fg', '<Cmd>Pick git_files<CR>' },
     { '<leader>fv', '<Cmd>Pick visit_paths<CR>' },
   })
 end
@@ -281,6 +236,7 @@ function M.base()
     { 'qq', '<Cmd>q<CR>' },
     { 'Q', '<Cmd>q!<CR>' },
     { '<C-x>', '<Cmd>bd<CR>' },
+    { '<C-v>', '"+p' },
 
     -- redo
     { 'U', '<C-r>' },
@@ -292,7 +248,6 @@ function M.base()
     { '<Leader>n', '<Cmd>set nu!<CR>' },
 
     -- start lsp client
-    { '<Leader><Enter>', '<Cmd>LspStart<CR>' },
     { 'gl', '<Cmd>LspStart<CR>' },
 
     -- Increment/decrement
@@ -325,12 +280,6 @@ function M.base()
     -- Zoom move
     { '<C-[>', 'zh' },
     { '<C-]>', 'zl' },
-
-    { '<C-v>', '"+p' },
-
-    -- quickfix
-    { '[q', '<Cmd>cprevious<CR>' },
-    { ']q', '<Cmd>cnext<CR>' },
   })
 
   M.vmap({
@@ -353,9 +302,27 @@ function M.base()
     { 'H', '^' },
     { 'L', '$' },
 
-    -- tab
-    { '<Tab>', '<Cmd>bnext<CR>' },
-    { '<S-Tab>', '<Cmd>bprev<CR>' },
+    -- bufferlist
+    { '[b', '<Cmd>bprev<CR>' },
+    { ']b', '<Cmd>bnext<CR>' },
+    { '[B', '<Cmd>bfirst<CR>' },
+    { ']B', '<Cmd>blast<CR>' },
+
+    -- quickfixlist
+    { '[q', '<Cmd>cprevious<CR>' },
+    { ']q', '<Cmd>cnext<CR>' },
+    { '[Q', '<Cmd>cfirst<CR>' },
+    { ']Q', '<Cmd>clast<CR>' },
+
+    -- locallist
+    { '[l', '<Cmd>lprevious<CR>' },
+    { 'l]', '<Cmd>lnext<CR>' },
+    { '[L', '<Cmd>lfirst<CR>' },
+    { 'L]', '<Cmd>llast<CR>' },
+
+    -- changelist
+    { '[c', 'g;' },
+    { ']c', 'g,' },
   })
 
   M.imap({

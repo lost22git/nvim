@@ -79,25 +79,6 @@ function M.system_open(path)
   end
 end
 
-function M.get_lualine_hl_group(section, mode)
-  local m = mode or vim.fn.mode()
-  local k = string.sub(m, 1, 2)
-  k = string.byte(k) == 22 and 'v' or k -- Ctrl-V asciicode => 22
-  k = string.lower(k)
-  local kv = {
-    n = 'normal',
-    i = 'insert',
-    v = 'visual',
-    c = 'command',
-    t = 'terminal',
-    r = 'replace',
-  }
-  local v = kv[k] or 'normal'
-  local hl_group = string.format('lualine_%s_%s', section, v)
-  -- print(string.format("mode=>%s k=>%s hl_group=>%s", m, k, hl_group))
-  return hl_group
-end
-
 function M.get_flutter_path()
   if M.on_win() then
     return vim.fn.exepath('flutter') .. '.bat'
@@ -108,12 +89,7 @@ end
 
 function M.lsp_cmp_capabilities() return require('blink.cmp').get_lsp_capabilities() end
 
-function M.lsp_on_attach(client, bufnr)
-  require('core.maps').lsp(bufnr)
-  M.lsp_format_on_save(client, bufnr)
-end
-
-function M.lsp_format_on_save(client, bufnr)
+local function lsp_format_on_save(client, bufnr)
   local augroup_format = vim.api.nvim_create_augroup('lsp_format_on_save', {})
   if client.supports_method('textDocument/formatting') then
     vim.api.nvim_clear_autocmds({ group = augroup_format, buffer = bufnr })
@@ -124,11 +100,15 @@ function M.lsp_format_on_save(client, bufnr)
         vim.lsp.buf.format({
           bufnr = bufnr,
           timeout_ms = 1000,
-          -- async = true,
         })
       end,
     })
   end
+end
+
+function M.lsp_on_attach(client, bufnr)
+  require('core.maps').lsp(bufnr)
+  lsp_format_on_save(client, bufnr)
 end
 
 return M

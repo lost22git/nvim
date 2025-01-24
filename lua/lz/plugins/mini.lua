@@ -273,4 +273,14 @@ return {
       })
     end,
   },
+
+  -----------------
+  -- cursor word --
+  -----------------
+  {
+    'echasnovski/mini.cursorword',
+    version = false,
+    event = { 'BufNewFile', 'BufReadPost' },
+    opts = {},
+  },
 }

@@ -19,12 +19,12 @@ return {
   -- mode colorize --
   -------------------
 
-  {
-    'mvllow/modes.nvim',
-    tag = 'v0.2.0',
-    lazy = false,
-    config = function() require('modes').setup() end,
-  },
+  -- {
+  --   'mvllow/modes.nvim',
+  --   tag = 'v0.2.0',
+  --   lazy = false,
+  --   config = function() require('modes').setup() end,
+  -- },
 
   ----------------------------
   -- border global settings --
@@ -161,22 +161,6 @@ return {
         desc = 'Toggle Flash Search',
       },
     },
-  },
-
-  --------------
-  -- 错误列表 --
-  --------------
-
-  {
-    'folke/trouble.nvim',
-    enabled = not vim.g.vscode,
-    cmd = { 'Trouble' },
-    keys = { '<M-8>', 'gx' },
-    config = function()
-      local trouble = require('trouble')
-      trouble.setup({})
-      require('core.maps').trouble()
-    end,
   },
 
   --------------
