@@ -35,7 +35,7 @@ return {
     event = 'VeryLazy',
     config = function()
       require('borderline').setup({})
-      require('borderline.api').borderline('solid')
+      require('borderline.api').borderline('rounded')
     end,
   },
 

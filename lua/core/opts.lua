@@ -1,6 +1,6 @@
 local U = require('core.utils')
 
-vim.cmd.colorscheme('lunaperche')
+vim.cmd.colorscheme('murphy')
 
 -----------------------------
 -- custom global variables --

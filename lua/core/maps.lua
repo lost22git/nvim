@@ -316,9 +316,9 @@ function M.base()
 
     -- locallist
     { '[l', '<Cmd>lprevious<CR>' },
-    { 'l]', '<Cmd>lnext<CR>' },
+    { ']l', '<Cmd>lnext<CR>' },
     { '[L', '<Cmd>lfirst<CR>' },
-    { 'L]', '<Cmd>llast<CR>' },
+    { ']L', '<Cmd>llast<CR>' },
 
     -- changelist
     { '[c', 'g;' },
