@@ -277,10 +277,21 @@ return {
   -----------------
   -- cursor word --
   -----------------
+
   {
     'echasnovski/mini.cursorword',
     version = false,
     event = { 'BufNewFile', 'BufReadPost' },
+    opts = {},
+  },
+
+  ------------
+  -- notify --
+  ------------
+  {
+    'echasnovski/mini.notify',
+    version = false,
+    event = 'VeryLazy',
     opts = {},
   },
 }

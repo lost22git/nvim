@@ -42,12 +42,6 @@ M.nvmap = map('')
 M.imap = map('i')
 M.tmap = map('t')
 
-function M.noice()
-  M.nvmap({
-    { '<M-9>', '<Cmd>Noice<CR>' },
-  })
-end
-
 function M.todo()
   M.nmap({
     {
