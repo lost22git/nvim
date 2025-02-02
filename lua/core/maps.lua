@@ -215,7 +215,7 @@ function M.mini_pick()
     { '<leader>fh', '<Cmd>Pick help<CR>' },
     { '<leader>fr', '<Cmd>Pick resume<CR>' },
     { '<leader>fs', '<Cmd>Pick grep_live<CR>' },
-    { '<leader>bb', '<Cmd>Pick buffers<CR>' },
+    -- { '<leader>bb', '<Cmd>Pick buffers<CR>' },
     -- mini.extras pickers
     { '<leader>fe', '<Cmd>Pick oldfiles<CR>' },
     { '<leader>fg', '<Cmd>Pick git_files<CR>' },
@@ -225,6 +225,17 @@ end
 
 -- 基本按键映射
 function M.base()
+  local create_messages_buf = function()
+    local scratch_buffer = vim.api.nvim_create_buf(false, true)
+    vim.bo[scratch_buffer].filetype = 'messages'
+    local messages = vim.split(vim.fn.execute('messages', 'silent'), '\n')
+    vim.api.nvim_buf_set_text(scratch_buffer, 0, 0, 0, 0, messages)
+    vim.cmd('horizontal sbuffer ' .. scratch_buffer)
+    vim.opt_local.wrap = true
+    vim.bo.buflisted = false
+    vim.bo.bufhidden = 'wipe'
+  end
+
   M.nmap({
     -- 退出
     { 'qq', '<Cmd>q<CR>' },
@@ -317,6 +328,9 @@ function M.base()
     -- changelist
     { '[c', 'g;' },
     { ']c', 'g,' },
+
+    -- messages
+    { '<M-9>', create_messages_buf },
   })
 
   M.imap({

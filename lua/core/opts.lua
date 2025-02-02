@@ -1,12 +1,13 @@
 local U = require('core.utils')
 
-vim.cmd.colorscheme('murphy')
+vim.cmd.colorscheme('default')
 
 -----------------------------
 -- custom global variables --
 -----------------------------
 
 vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
 vim.g.transparent = vim.g.transparent or false
 
 -- terminal shell

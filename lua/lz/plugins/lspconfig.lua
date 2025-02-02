@@ -225,16 +225,17 @@ function M.config()
   )
 
   -- elixir language server
-  lsp_server_found(
-    'elixir-ls',
-    function(server_path)
-      lspconfig.elixirls.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-        cmd = { server_path },
-      })
-    end
-  )
+  lsp_server_found('elixir-ls', function(server_path)
+    lspconfig.elixirls.setup({
+      on_attach = on_attach,
+      capabilities = capabilities,
+      cmd = { server_path },
+      root_dir = function(fname)
+        local patterns = { 'mix.exs', '.git' }
+        return vim.fs.root(fname, patterns)
+      end,
+    })
+  end)
 
   -- java language server
   lsp_server_found(

@@ -9,11 +9,15 @@ return {
   -- cursor effect --
   -------------------
 
-  -- {
-  --   'sphamba/smear-cursor.nvim',
-  --   event = 'VeryLazy',
-  --   config = function() require('smear_cursor').setup({}) end,
-  -- },
+  {
+    'sphamba/smear-cursor.nvim',
+    event = 'VeryLazy',
+    config = function()
+      require('smear_cursor').setup({
+        cursor_color = '#6e6a86',
+      })
+    end,
+  },
 
   -------------------
   -- mode colorize --
@@ -312,7 +316,6 @@ return {
     cmd = { 'ConjureConnect' },
     ft = { 'lua', 'fennel' },
     init = function()
-      vim.g.maplocalleader = ' '
       vim.g['conjure#mapping#doc_word'] = { 'gh' }
       vim.g['conjure#extract#tree_sitter#enabled'] = true
     end,
@@ -395,5 +398,85 @@ return {
     ---@module "ibl"
     ---@type ibl.config
     opts = {},
+  },
+
+  ----------------
+  -- bufferlist --
+  ----------------
+
+  {
+    'EL-MASTOR/bufferlist.nvim',
+    keys = { { '<Leader>b', ':BufferList<CR>', desc = 'Open bufferlist' } },
+    cmd = 'BufferList',
+    config = function()
+      local function close_buffer(listed_bufs, index, force)
+        local bn = listed_bufs[index]
+        if vim.bo[bn].buftype == 'terminal' and not force then return nil end
+        local command = (force and 'bd! ' or 'bd ') .. bn
+        vim.cmd(command)
+        if vim.fn.bufexists(bn) == 1 and vim.bo[bn].buflisted then
+          vim.api.nvim_buf_call(bn, function() vim.cmd(command) end)
+        end
+      end
+
+      require('bufferlist').setup({
+        keymap = {
+          close_buf_prefix = 'd',
+          force_close_buf_prefix = 'D',
+          multi_close_buf = 'md',
+          close_all_saved = 'ad',
+          save_buf = 'w',
+          multi_save_buf = 'mw',
+          save_all_unsaved = 'aw',
+          toggle_path = 'p',
+          close_bufferlist = 'qq',
+        },
+        win_keymaps = {
+          {
+            'o',
+            function(opts)
+              local curpos = vim.fn.line('.')
+              vim.cmd('bwipeout | buffer ' .. opts.buffers[curpos])
+            end,
+            { desc = 'BufferList: open cursorhold buffer' },
+          },
+          {
+            'r', -- refresh the bufferlist window
+            function(opts)
+              vim.cmd('bwipeout')
+              opts.open_bufferlist()
+            end,
+            { desc = 'BufferList: refresh bufferlist' },
+          },
+          {
+            'dd',
+            function(opts)
+              local curpos = vim.fn.line('.')
+              close_buffer(opts.buffers, curpos, false)
+              vim.cmd('bwipeout')
+              opts.open_bufferlist()
+            end,
+            { desc = 'BufferList: delete cursorhold buffer' },
+          },
+          {
+            'DD',
+            function(opts)
+              local curpos = vim.fn.line('.')
+              close_buffer(opts.buffers, curpos, true)
+              vim.cmd('bwipeout')
+              opts.open_bufferlist()
+            end,
+            { desc = 'BufferList: force to delete cursorhold buffer' },
+          },
+        },
+        bufs_keymaps = {
+          {
+            'vs',
+            function(opts) vim.cmd('bwipeout | vs ' .. vim.fn.bufname(opts.buffers[opts.line_number])) end,
+            { desc = 'BufferList: vertical split cursorhold buffer' },
+          },
+        },
+      })
+    end,
   },
 }

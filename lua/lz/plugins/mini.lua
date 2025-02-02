@@ -186,13 +186,13 @@ return {
   -- mini.tabline --
   ------------------
 
-  {
-    'echasnovski/mini.tabline',
-    version = false,
-    enabled = not vim.g.vscode,
-    event = { 'BufAdd', 'TabEnter' },
-    config = function() require('mini.tabline').setup({}) end,
-  },
+  -- {
+  --   'echasnovski/mini.tabline',
+  --   version = false,
+  --   enabled = not vim.g.vscode,
+  --   event = { 'BufAdd', 'TabEnter' },
+  --   config = function() require('mini.tabline').setup({}) end,
+  -- },
 
   ---------------
   -- mini.move --
@@ -292,6 +292,9 @@ return {
     'echasnovski/mini.notify',
     version = false,
     event = 'VeryLazy',
-    opts = {},
+    config = function()
+      require('mini.notify').setup({})
+      vim.notify = require('mini.notify').make_notify()
+    end,
   },
 }
