@@ -58,7 +58,7 @@ end
 function M.treesj()
   M.nmap({
     {
-      '<leader>j',
+      '<Leader>J',
       function() require('treesj').toggle() end,
     },
   })
@@ -211,15 +211,17 @@ function M.mini_pick()
   end
 
   M.nmap({
-    { '<leader>ff', pick_files },
-    { '<leader>fh', '<Cmd>Pick help<CR>' },
-    { '<leader>fr', '<Cmd>Pick resume<CR>' },
-    { '<leader>fs', '<Cmd>Pick grep_live<CR>' },
-    -- { '<leader>bb', '<Cmd>Pick buffers<CR>' },
+    { '<Leader>ff', pick_files },
+    { '<Leader>h', '<Cmd>Pick help<CR>' },
+    { '<Leader>fr', '<Cmd>Pick resume<CR>' },
+    { '<Leader>fs', '<Cmd>Pick grep_live<CR>' },
     -- mini.extras pickers
-    { '<leader>fe', '<Cmd>Pick oldfiles<CR>' },
-    { '<leader>fg', '<Cmd>Pick git_files<CR>' },
-    { '<leader>fv', '<Cmd>Pick visit_paths<CR>' },
+    { '<Leader>c', [[<Cmd>Pick list scope='change'<CR>]] },
+    { '<Leader>j', [[<Cmd>Pick list scope='jump'<CR>]] },
+    { '<Leader>d', '<Cmd>Pick diagnostic<CR>' },
+    { '<Leader>fe', '<Cmd>Pick oldfiles<CR>' },
+    { '<Leader>fg', '<Cmd>Pick git_files<CR>' },
+    { '<Leader>fv', '<Cmd>Pick visit_paths<CR>' },
   })
 end
 

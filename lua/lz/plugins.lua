@@ -234,7 +234,7 @@ return {
 
   {
     'Wansmer/treesj',
-    keys = { '<leader>j' },
+    keys = { '<Leader>J' },
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     config = function()
       require('treesj').setup({
@@ -429,7 +429,7 @@ return {
           multi_save_buf = 'mw',
           save_all_unsaved = 'aw',
           toggle_path = 'p',
-          close_bufferlist = 'qq',
+          close_bufferlist = '<C-c>',
         },
         win_keymaps = {
           {
@@ -468,12 +468,23 @@ return {
             end,
             { desc = 'BufferList: force to delete cursorhold buffer' },
           },
-        },
-        bufs_keymaps = {
           {
             'vs',
-            function(opts) vim.cmd('bwipeout | vs ' .. vim.fn.bufname(opts.buffers[opts.line_number])) end,
-            { desc = 'BufferList: vertical split cursorhold buffer' },
+            function(opts)
+              local curpos = vim.fn.line('.')
+              local bufname = vim.fn.bufname(opts.buffers[curpos])
+              vim.cmd('bwipeout | vs ' .. bufname)
+            end,
+            { desc = 'BufferList: vertically split cursorhold buffer' },
+          },
+          {
+            'sp',
+            function(opts)
+              local curpos = vim.fn.line('.')
+              local bufname = vim.fn.bufname(opts.buffers[curpos])
+              vim.cmd('bwipeout | sp ' .. bufname)
+            end,
+            { desc = 'BufferList: horizontally split cursorhold buffer' },
           },
         },
       })

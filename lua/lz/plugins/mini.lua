@@ -103,14 +103,16 @@ return {
     enabled = not vim.g.vscode,
     dependencies = { 'echasnovski/mini.extra' },
     keys = {
-      '<leader>ff',
-      '<leader>fs',
-      '<leader>bb',
-      '<leader>fr',
-      '<leader>fh',
-      '<leader>fg',
-      '<leader>fe',
-      '<leader>fv',
+      '<Leader>c',
+      '<Leader>d',
+      '<Leader>h',
+      '<Leader>j',
+      '<Leader>fe',
+      '<Leader>ff',
+      '<Leader>fg',
+      '<Leader>fr',
+      '<Leader>fs',
+      '<Leader>fv',
     },
     config = function()
       require('mini.pick').setup({
@@ -121,6 +123,7 @@ return {
           scroll_up = '<C-k>',
           move_down = '<M-j>',
           move_up = '<M-k>',
+          delete_char_right = '<C-d>',
         },
         window = {
           config = { border = 'solid' },
