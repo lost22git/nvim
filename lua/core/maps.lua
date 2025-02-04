@@ -151,6 +151,10 @@ function M.lspsaga()
   })
 end
 
+function M.mini_notify()
+  M.nvmap({ { '<Leader>n', function() MiniNotify.show_history() end } })
+end
+
 function M.mini_files()
   local yank_full_path = function()
     ---@diagnostic disable-next-line: undefined-global
@@ -251,9 +255,6 @@ function M.base()
     -- 清除最近一次搜索后的高亮
     { '<BS><BS>', '<Cmd>noh<CR>' },
 
-    -- 开启/关闭 行号
-    { '<Leader>n', '<Cmd>set nu!<CR>' },
-
     -- start lsp client
     { 'gl', '<Cmd>LspStart<CR>' },
 
@@ -332,7 +333,7 @@ function M.base()
     { ']c', 'g,' },
 
     -- messages
-    { '<M-9>', create_messages_buf },
+    { '<Leader>m', create_messages_buf },
   })
 
   M.imap({

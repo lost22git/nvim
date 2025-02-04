@@ -21,6 +21,20 @@ return {
     end,
   },
 
+  ------------
+  -- notify --
+  ------------
+
+  {
+    'echasnovski/mini.notify',
+    version = false,
+    event = 'VeryLazy',
+    config = function()
+      require('mini.notify').setup({})
+      require('core.maps').mini_notify()
+    end,
+  },
+
   ----------------
   -- mini.files --
   ----------------
@@ -216,7 +230,8 @@ return {
     version = false,
     event = { 'BufReadPost', 'BufNewFile' },
     config = function()
-      require('mini.ai').setup({
+      local ai = require('mini.ai')
+      ai.setup({
         mappings = {
           -- Main textobject prefixes
           around = 'a',
@@ -231,6 +246,14 @@ return {
           -- Move cursor to corresponding edge of `a` textobject
           goto_left = '[',
           goto_right = ']',
+        },
+        custom_textobjects = {
+          F = ai.gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }),
+          c = ai.gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }),
+          o = ai.gen_spec.treesitter({
+            a = { '@conditional.outer', '@loop.outer' },
+            i = { '@conditional.inner', '@loop.inner' },
+          }),
         },
       })
     end,
@@ -256,19 +279,5 @@ return {
     version = false,
     event = { 'BufNewFile', 'BufReadPost' },
     opts = {},
-  },
-
-  ------------
-  -- notify --
-  ------------
-
-  {
-    'echasnovski/mini.notify',
-    version = false,
-    event = 'VeryLazy',
-    config = function()
-      require('mini.notify').setup({})
-      vim.notify = require('mini.notify').make_notify()
-    end,
   },
 }
