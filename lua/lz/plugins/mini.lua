@@ -231,6 +231,7 @@ return {
     event = { 'BufReadPost', 'BufNewFile' },
     config = function()
       local ai = require('mini.ai')
+      local extra = require('mini.extra')
       ai.setup({
         mappings = {
           -- Main textobject prefixes
@@ -256,11 +257,11 @@ return {
             i = { '@conditional.inner', '@loop.inner' },
           }),
           -- Mini.Extra
-          B = MiniExtra.gen_ai_spec.buffer(),
-          D = MiniExtra.gen_ai_spec.diagnostic(),
-          I = MiniExtra.gen_ai_spec.indent(),
-          L = MiniExtra.gen_ai_spec.line(),
-          N = MiniExtra.gen_ai_spec.number(),
+          B = extra.gen_ai_spec.buffer(),
+          D = extra.gen_ai_spec.diagnostic(),
+          I = extra.gen_ai_spec.indent(),
+          L = extra.gen_ai_spec.line(),
+          N = extra.gen_ai_spec.number(),
         },
       })
     end,
