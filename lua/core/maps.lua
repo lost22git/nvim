@@ -264,6 +264,7 @@ function M.base()
 
     -- 删除
     { 'x', '"_x' },
+    { 'D', '"_dd' },
     { 'dw', 'vb"_d' },
 
     -- 选择全部
@@ -291,6 +292,11 @@ function M.base()
   })
 
   M.vmap({
+    -- delete
+    { 'c', '"_c' },
+    { 'd', '"_d' },
+    { 'x', '"_x' },
+
     --缩进
     { '<', '<gv' },
     { '>', '>gv' },
@@ -300,7 +306,6 @@ function M.base()
 
     -- 退出 visual mode
     { '<C-[', '<Esc>' },
-    { 'a', '<Esc>' },
   })
 
   M.nvmap({

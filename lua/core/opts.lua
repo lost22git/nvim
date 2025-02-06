@@ -1,5 +1,6 @@
 local U = require('core.utils')
 
+vim.opt.background = 'light'
 vim.cmd.colorscheme('default')
 
 -----------------------------
@@ -92,7 +93,6 @@ vim.opt.numberwidth = 2
 vim.opt.termguicolors = true -- 终端使用 24-bit rgb
 vim.opt.winblend = 0 -- float window 透明度 [0-100]
 vim.opt.pumblend = 0 -- popup menu 透明度 [0-100]
-vim.opt.background = 'dark' -- 背景
 
 -- 高亮
 vim.opt.cursorcolumn = true -- 高亮当前列

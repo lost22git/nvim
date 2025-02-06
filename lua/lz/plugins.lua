@@ -14,7 +14,7 @@ return {
     event = 'VeryLazy',
     config = function()
       require('smear_cursor').setup({
-        cursor_color = '#6e6a86',
+        -- cursor_color = '#6e6a86',
       })
     end,
   },
@@ -429,7 +429,8 @@ return {
           multi_save_buf = 'mw',
           save_all_unsaved = 'aw',
           toggle_path = 'p',
-          close_bufferlist = '<C-c>',
+          -- close_bufferlist = '<C-c>',
+          close_bufferlist = 'q',
         },
         win_keymaps = {
           {
