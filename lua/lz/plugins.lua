@@ -9,15 +9,15 @@ return {
   -- cursor effect --
   -------------------
 
-  {
-    'sphamba/smear-cursor.nvim',
-    event = 'VeryLazy',
-    config = function()
-      require('smear_cursor').setup({
-        -- cursor_color = '#6e6a86',
-      })
-    end,
-  },
+  -- {
+  --   'sphamba/smear-cursor.nvim',
+  --   event = 'VeryLazy',
+  --   config = function()
+  --     require('smear_cursor').setup({
+  --       -- cursor_color = '#6e6a86',
+  --     })
+  --   end,
+  -- },
 
   -------------------
   -- mode colorize --

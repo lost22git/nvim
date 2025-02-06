@@ -215,15 +215,16 @@ function M.mini_pick()
   end
 
   M.nmap({
+    { '<Leader>fe', '<Cmd>Pick oldfiles<CR>' },
     { '<Leader>ff', pick_files },
-    { '<Leader>h', '<Cmd>Pick help<CR>' },
     { '<Leader>fr', '<Cmd>Pick resume<CR>' },
     { '<Leader>fs', '<Cmd>Pick grep_live<CR>' },
+    { '<Leader>h', '<Cmd>Pick help<CR>' },
+    { '<Leader>r', '<Cmd>Pick registers<CR>' },
     -- mini.extras pickers
     { '<Leader>c', [[<Cmd>Pick list scope='change'<CR>]] },
-    { '<Leader>j', [[<Cmd>Pick list scope='jump'<CR>]] },
     { '<Leader>d', '<Cmd>Pick diagnostic<CR>' },
-    { '<Leader>fe', '<Cmd>Pick oldfiles<CR>' },
+    { '<Leader>j', [[<Cmd>Pick list scope='jump'<CR>]] },
     { '<Leader>fg', '<Cmd>Pick git_files<CR>' },
     { '<Leader>fv', '<Cmd>Pick visit_paths<CR>' },
   })
@@ -264,7 +265,6 @@ function M.base()
 
     -- 删除
     { 'x', '"_x' },
-    { 'D', '"_dd' },
     { 'dw', 'vb"_d' },
 
     -- 选择全部
@@ -292,10 +292,6 @@ function M.base()
   })
 
   M.vmap({
-    -- delete
-    { 'c', '"_c' },
-    { 'd', '"_d' },
-    { 'x', '"_x' },
 
     --缩进
     { '<', '<gv' },
