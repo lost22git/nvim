@@ -5,6 +5,20 @@ return {
 
   { 'MunifTanjim/nui.nvim' },
 
+  -----------
+  -- Theme --
+  -----------
+
+  {
+    'nickkadutskyi/jb.nvim',
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require('jb').setup({ transparent = false })
+      vim.cmd('colorscheme jb')
+    end,
+  },
+
   -------------------
   -- cursor effect --
   -------------------
@@ -167,18 +181,15 @@ return {
         exclude_buftypes = { 'terminal' },
         winopts = {
           offset = {
-            -- NOTE: omit `top`/`left` to center the floating window vertically/horizontally.
             -- top = 0,
             -- left = 0.17,
             width = 150,
             height = 0.85,
           },
-          -- NOTE: check :help nvim_open_win() for possible border values.
           border = 'rounded',
         },
         presets = {
           {
-            -- NOTE: regex pattern can be used here!
             filetypes = { 'dapui_.*', 'dap-repl' },
             winopts = {
               offset = { top = 0.02, left = 0.26, width = 0.74, height = 0.25 },
@@ -214,7 +225,7 @@ return {
   },
 
   --------------------
-  -- split and join --
+  -- split or join --
   --------------------
 
   {
