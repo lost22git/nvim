@@ -1,7 +1,6 @@
 local U = require('core.utils')
 
 vim.opt.background = 'light'
-vim.cmd.colorscheme('default')
 
 -----------------------------
 -- custom global variables --
@@ -158,10 +157,11 @@ vim.opt.virtualedit = 'block' -- allow virtual editing in visual block mode.
 vim.opt.inccommand = 'split'
 vim.opt.timeout = true
 vim.opt.ttimeout = true
-vim.opt.timeoutlen = 500
+vim.opt.timeoutlen = 300
 vim.opt.ttimeoutlen = 10
 vim.opt.updatetime = 100
 vim.opt.redrawtime = 1500
+vim.opt.formatoptions:remove('o')
 
 -- Finding files - Search down into subfolders
 vim.opt.path:append({ '**' })

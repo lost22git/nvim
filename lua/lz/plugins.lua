@@ -126,45 +126,31 @@ return {
     end,
   },
 
-  --------------------
-  -- 可视区域内跳转 --
-  --------------------
+  ------------
+  -- indent --
+  ------------
 
   {
-    'folke/flash.nvim',
+    'lukas-reineke/indent-blankline.nvim',
+    main = 'ibl',
+    event = { 'BufReadPost', 'BufNewFile' },
+    ---@module "ibl"
+    ---@type ibl.config
     opts = {},
-    keys = {
-      {
-        's',
-        mode = { 'n', 'x', 'o' },
-        function() require('flash').jump() end,
-        desc = 'Flash',
-      },
-      {
-        'S',
-        mode = { 'n', 'o', 'x' },
-        function() require('flash').treesitter() end,
-        desc = 'Flash Treesitter',
-      },
-      {
-        'r',
-        mode = 'o',
-        function() require('flash').remote() end,
-        desc = 'Remote Flash',
-      },
-      {
-        'R',
-        mode = { 'o', 'x' },
-        function() require('flash').treesitter_search() end,
-        desc = 'Flash Treesitter Search',
-      },
-      {
-        '<c-s>',
-        mode = { 'c' },
-        function() require('flash').toggle() end,
-        desc = 'Toggle Flash Search',
-      },
-    },
+  },
+
+  ----------
+  -- TODO --
+  ----------
+
+  {
+    'folke/todo-comments.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    event = { 'BufReadPost', 'BufNewFile' },
+    config = function()
+      require('todo-comments').setup({})
+      require('core.maps').todo()
+    end,
   },
 
   --------------
@@ -177,9 +163,8 @@ return {
     keys = { ';' },
     config = function()
       require('neo-zoom').setup({
-        popup = { enabled = true }, -- this is the default.
+        popup = { enabled = true },
         exclude_buftypes = { 'terminal' },
-        -- exclude_filetypes = { 'lspinfo', 'mason', 'lazy', 'fzf', 'qf' },
         winopts = {
           offset = {
             -- NOTE: omit `top`/`left` to center the floating window vertically/horizontally.
@@ -234,7 +219,7 @@ return {
 
   {
     'Wansmer/treesj',
-    keys = { '<Leader>J' },
+    keys = { '<Leader>j' },
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     config = function()
       require('treesj').setup({
@@ -267,64 +252,44 @@ return {
     end,
   },
 
-  ----------
-  -- TODO --
-  ----------
+  --------------------
+  -- 可视区域内跳转 --
+  --------------------
 
   {
-    'folke/todo-comments.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    event = { 'BufReadPost', 'BufNewFile' },
-    config = function()
-      require('todo-comments').setup({})
-      require('core.maps').todo()
-    end,
-  },
-
-  ----------
-  -- Hurl --
-  ----------
-
-  {
-    'jellydn/hurl.nvim',
-    dependencies = {
-      'MunifTanjim/nui.nvim',
-      'nvim-lua/plenary.nvim',
-      'nvim-treesitter/nvim-treesitter',
-    },
-    ft = 'hurl',
-    opts = {
-      debug = false,
-      show_notification = false,
-      mode = 'split',
-      formatters = {
-        json = { 'jq' },
-        html = {
-          'prettier',
-          '--parser',
-          'html',
-        },
+    'folke/flash.nvim',
+    opts = {},
+    keys = {
+      {
+        's',
+        mode = { 'n', 'x', 'o' },
+        function() require('flash').jump() end,
+        desc = 'Flash',
       },
-    },
-  },
-
-  ----------
-  -- REPL --
-  ----------
-  {
-    'Olical/conjure',
-    cmd = { 'ConjureConnect' },
-    ft = { 'lua', 'fennel' },
-    init = function()
-      vim.g['conjure#mapping#doc_word'] = { 'gh' }
-      vim.g['conjure#extract#tree_sitter#enabled'] = true
-    end,
-  },
-  {
-    'clojure-vim/vim-jack-in',
-    cmd = { 'Clj' },
-    dependencies = {
-      'radenling/vim-dispatch-neovim',
+      {
+        'S',
+        mode = { 'n', 'o', 'x' },
+        function() require('flash').treesitter() end,
+        desc = 'Flash Treesitter',
+      },
+      {
+        'r',
+        mode = 'o',
+        function() require('flash').remote() end,
+        desc = 'Remote Flash',
+      },
+      {
+        'R',
+        mode = { 'o', 'x' },
+        function() require('flash').treesitter_search() end,
+        desc = 'Flash Treesitter Search',
+      },
+      {
+        '<c-s>',
+        mode = { 'c' },
+        function() require('flash').toggle() end,
+        desc = 'Toggle Flash Search',
+      },
     },
   },
 
@@ -385,19 +350,6 @@ return {
       })
       require('core.maps').window_picker()
     end,
-  },
-
-  ------------
-  -- indent --
-  ------------
-
-  {
-    'lukas-reineke/indent-blankline.nvim',
-    main = 'ibl',
-    event = { 'BufReadPost', 'BufNewFile' },
-    ---@module "ibl"
-    ---@type ibl.config
-    opts = {},
   },
 
   ----------------
@@ -490,5 +442,32 @@ return {
         },
       })
     end,
+  },
+
+  ----------
+  -- Hurl --
+  ----------
+
+  {
+    'jellydn/hurl.nvim',
+    dependencies = {
+      'MunifTanjim/nui.nvim',
+      'nvim-lua/plenary.nvim',
+      'nvim-treesitter/nvim-treesitter',
+    },
+    ft = 'hurl',
+    opts = {
+      debug = false,
+      show_notification = false,
+      mode = 'split',
+      formatters = {
+        json = { 'jq' },
+        html = {
+          'prettier',
+          '--parser',
+          'html',
+        },
+      },
+    },
   },
 }

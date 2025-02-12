@@ -58,7 +58,7 @@ end
 function M.treesj()
   M.nmap({
     {
-      '<Leader>J',
+      '<Leader>j',
       function() require('treesj').toggle() end,
     },
   })
@@ -197,22 +197,17 @@ end
 
 function M.mini_pick()
   local U = require('core.utils')
-  local pick_files = function()
-    if U.on_win() then
-      return MiniPick.builtin.files()
-    else
-      return MiniPick.builtin.files()
-
-      -- local show_icon = function(buf_id, items, query) MiniPick.default_show(buf_id, items, query, { show_icons = true }) end
-      --
-      -- ---- use bfs
-      -- local default_opts = { source = { name = string.format('Files (%s)', 'bfs'), show = show_icon } }
-      -- local cmd = { 'bfs', '-type', 'f', '-nocolor', '-exclude', '-name', '.git' }
-      --
-      -- local opts = vim.tbl_deep_extend('force', default_opts, {})
-      -- return MiniPick.builtin.cli({ command = cmd }, opts)
-    end
+  local use_bfs = function()
+    local show_icon = function(buf_id, items, query) MiniPick.default_show(buf_id, items, query, { show_icons = true }) end
+    ---- use bfs
+    local default_opts = { source = { name = string.format('Files (%s)', 'bfs'), show = show_icon } }
+    local cmd = { 'bfs', '-type', 'f', '-nocolor', '-exclude', '-name', '.git' }
+    local opts = vim.tbl_deep_extend('force', default_opts, {})
+    return MiniPick.builtin.cli({ command = cmd }, opts)
   end
+  local use_default = function() return MiniPick.builtin.files() end
+
+  local pick_files = U.on_win() and use_default or use_default
 
   M.nmap({
     { '<Leader>fe', '<Cmd>Pick oldfiles<CR>' },
@@ -224,7 +219,7 @@ function M.mini_pick()
     -- mini.extras pickers
     { '<Leader>c', [[<Cmd>Pick list scope='change'<CR>]] },
     { '<Leader>d', '<Cmd>Pick diagnostic<CR>' },
-    { '<Leader>j', [[<Cmd>Pick list scope='jump'<CR>]] },
+    { '<Leader>J', [[<Cmd>Pick list scope='jump'<CR>]] },
     { '<Leader>fg', '<Cmd>Pick git_files<CR>' },
     { '<Leader>fv', '<Cmd>Pick visit_paths<CR>' },
   })
@@ -245,9 +240,13 @@ function M.base()
 
   M.nmap({
     -- 退出
-    { 'qq', '<Cmd>q<CR>' },
-    { 'Q', '<Cmd>q!<CR>' },
+    { 'Q', '<Cmd>q<CR>' },
+    { 'QQ', '<Cmd>q!<CR>' },
+
+    -- delete current buffer
     { '<C-x>', '<Cmd>bd<CR>' },
+
+    -- yank to system clipboard
     { '<C-v>', '"+p' },
 
     -- redo
@@ -292,7 +291,6 @@ function M.base()
   })
 
   M.vmap({
-
     --缩进
     { '<', '<gv' },
     { '>', '>gv' },

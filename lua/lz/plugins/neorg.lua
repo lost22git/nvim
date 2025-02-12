@@ -1,42 +1,38 @@
-local M = {
+return {
   'nvim-neorg/neorg',
-  enabled = false and not vim.g.vscode,
-  build = ':Neorg sync-parsers', -- This is the important bit!
+  version = '*',
+  enabled = not vim.g.vscode,
   ft = 'norg',
+  cmd = 'Neorg',
+  config = function()
+    require('neorg').setup({
+      load = {
+        ['core.defaults'] = {},
+        ['core.clipboard'] = {},
+        -- ['core.completion'] = {}, -- not support blink.cmp
+        ['core.concealer'] = { config = { icon_preset = 'varied' } },
+        ['core.dirman'] = {
+          config = {
+            workspaces = {
+              notes = '~/code/_note/neorg',
+            },
+          },
+        },
+        ['core.export'] = {},
+        ['core.export.markdown'] = {},
+        ['core.highlights'] = {},
+        ['core.keybinds'] = {
+          config = {
+            -- neorg_leader = ',',
+          },
+        },
+        -- ['core.integrations.image'] = {},
+        ['core.integrations.treesitter'] = {},
+        -- ['core.latex.renderer'] = {},
+        ['core.presenter'] = { config = { zen_mode = 'truezen' } },
+        ['core.queries.native'] = {},
+        ['core.summary'] = {},
+      },
+    })
+  end,
 }
-
-function M.config()
-  -- https://github.com/nvim-neorg/neorg
-  local neorg = require('neorg')
-  neorg.setup({
-    load = {
-      ['core.defaults'] = {},
-      ['core.norg.concealer'] = {},
-      ['core.norg.qol.toc'] = {},
-      ['core.presenter'] = {
-        config = {
-          zen_mode = 'zen-mode',
-        },
-      },
-      ['core.norg.completion'] = {
-        config = {
-          engine = 'nvim-cmp',
-        },
-      },
-      ['core.integrations.nvim-cmp'] = {},
-      ['core.export'] = {},
-
-      --
-      ['core.keybinds'] = {
-        config = {
-          default_keybinds = false,
-          hook = function(keybinds)
-            keybinds.remap_event('norg', 'n', 'gtt', 'core.norg.qol.todo_items.todo.task_cycle')
-          end,
-        },
-      },
-    },
-  })
-end
-
-return M
