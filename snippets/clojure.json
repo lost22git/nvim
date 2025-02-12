@@ -1,4 +1,88 @@
 {
+  "clj-string": {
+    "prefix": "clj-string",
+    "body": [
+      "clojure.string"
+    ]
+  },
+  "clj-match": {
+    "prefix": "clj-match",
+    "body": [
+      "clojure.core.match"
+    ]
+  },
+  "clj-async": {
+    "prefix": "clj-async",
+    "body": [
+      "clojure.core.async"
+    ]
+  },
+  "clj-io": {
+    "prefix": "clj-io",
+    "body": [
+      "clojure.java.io"
+    ]
+  },
+  "clj-proc": {
+    "prefix": "clj-proc",
+    "body": [
+      "clojure.core.proc"
+    ]
+  },
+  "clj-log": {
+    "prefix": "clj-log",
+    "body": [
+      "clojure.tools.logging"
+    ]
+  },
+  "json-cheshire": {
+    "prefix": "json-cheshire",
+    "body": [
+      "cheshire.core"
+    ]
+  },
+  "bb-deps": {
+    "prefix": "bb-deps",
+    "body": [
+      "babashka.deps"
+    ]
+  },
+  "bb-add-deps": {
+    "prefix": "bb-add-deps",
+    "body": [
+      "deps/add-deps '{:deps {${1:name} {:mvn/version \"${2:version}\"}}}"
+    ]
+  },
+  "bb-cli": {
+    "prefix": "bb-cli",
+    "body": [
+      "babashka.cli"
+    ]
+  },
+  "bb-fs": {
+    "prefix": "bb-fs",
+    "body": [
+      "babashka.fs"
+    ]
+  },
+  "bb-http": {
+    "prefix": "bb-http",
+    "body": [
+      "babashka.http-client"
+    ]
+  },
+  "ring-core": {
+    "prefix": "ring-core",
+    "body": [
+      "ring.core"
+    ]
+  },
+  "ring-params": {
+    "prefix": "ring-params",
+    "body": [
+      "ring.middleware.params"
+    ]
+  },
   "repl": {
     "prefix": "repl",
     "body": [
@@ -7,7 +91,10 @@
       "  ;; apropos",
       "  (->> \"symbol\"",
       "       (apropos)",
-      "       (filter #(clojure.string/starts-with? % \"clojure\")))",
+      "       (filter (fn [x]",
+      "                 (or",
+      "                  (clojure.string/starts-with? x \"clojure\")",
+      "                  true))))",
       "  ;; doc",
       "  (doc with-open)",
       "  ;; source",
@@ -17,7 +104,12 @@
       "   (dir clojure.string)",
       "   (with-out-str)",
       "   (clojure.string/split-lines)",
-      "   (map symbol)))"
+      "   (map symbol))",
+      "  ;; all ns",
+      "  (->>",
+      "   (all-ns)",
+      "   (map str)",
+      "   sort))"
     ]
   },
   "println": {
