@@ -1,4 +1,178 @@
 {
+  "*assert*": {
+    "prefix": "v*assert*",
+    "body": [
+      "*assert*"
+    ]
+  },
+  "*clojure-version*": {
+    "prefix": "v*clojure-version*",
+    "body": [
+      "*clojure-version*"
+    ]
+  },
+  "*command-line-args*": {
+    "prefix": "v*command-line-args*",
+    "body": [
+      "*command-line-args*"
+    ]
+  },
+  "*compile-files*": {
+    "prefix": "v*compile-files*",
+    "body": [
+      "*compile-files*"
+    ]
+  },
+  "*compile-path*": {
+    "prefix": "v*compile-path*",
+    "body": [
+      "*compile-path*"
+    ]
+  },
+  "*compiler-options*": {
+    "prefix": "v*compiler-options*",
+    "body": [
+      "*compiler-options*"
+    ]
+  },
+  "*data-readers*": {
+    "prefix": "v*data-readers*",
+    "body": [
+      "*data-readers*"
+    ]
+  },
+  "*default-data-reader-fn*": {
+    "prefix": "v*default-data-reader-fn*",
+    "body": [
+      "*default-data-reader-fn*"
+    ]
+  },
+  "*e": {
+    "prefix": "v*e",
+    "body": [
+      "*e"
+    ]
+  },
+  "*err*": {
+    "prefix": "v*err*",
+    "body": [
+      "*err*"
+    ]
+  },
+  "*file*": {
+    "prefix": "v*file*",
+    "body": [
+      "*file*"
+    ]
+  },
+  "*flush-on-newline*": {
+    "prefix": "v*flush-on-newline*",
+    "body": [
+      "*flush-on-newline*"
+    ]
+  },
+  "*in*": {
+    "prefix": "v*in*",
+    "body": [
+      "*in*"
+    ]
+  },
+  "*math-context*": {
+    "prefix": "v*math-context*",
+    "body": [
+      "*math-context*"
+    ]
+  },
+  "*ns*": {
+    "prefix": "v*ns*",
+    "body": [
+      "*ns*"
+    ]
+  },
+  "*out*": {
+    "prefix": "v*out*",
+    "body": [
+      "*out*"
+    ]
+  },
+  "*print-dup*": {
+    "prefix": "v*print-dup*",
+    "body": [
+      "*print-dup*"
+    ]
+  },
+  "*print-length*": {
+    "prefix": "v*print-length*",
+    "body": [
+      "*print-length*"
+    ]
+  },
+  "*print-level*": {
+    "prefix": "v*print-level*",
+    "body": [
+      "*print-level*"
+    ]
+  },
+  "*print-meta*": {
+    "prefix": "v*print-meta*",
+    "body": [
+      "*print-meta*"
+    ]
+  },
+  "*print-namespace-maps*": {
+    "prefix": "v*print-namespace-maps*",
+    "body": [
+      "*print-namespace-maps*"
+    ]
+  },
+  "*print-readably*": {
+    "prefix": "v*print-readably*",
+    "body": [
+      "*print-readably*"
+    ]
+  },
+  "*read-eval*": {
+    "prefix": "v*read-eval*",
+    "body": [
+      "*read-eval*"
+    ]
+  },
+  "*reader-resolver*": {
+    "prefix": "v*reader-resolver*",
+    "body": [
+      "*reader-resolver*"
+    ]
+  },
+  "*repl*": {
+    "prefix": "v*repl*",
+    "body": [
+      "*repl*"
+    ]
+  },
+  "*source-path*": {
+    "prefix": "v*source-path*",
+    "body": [
+      "*source-path*"
+    ]
+  },
+  "*unchecked-math*": {
+    "prefix": "v*unchecked-math*",
+    "body": [
+      "*unchecked-math*"
+    ]
+  },
+  "*warn-on-reflection*": {
+    "prefix": "v*warn-on-reflection*",
+    "body": [
+      "*warn-on-reflection*"
+    ]
+  },
+  "clj-test": {
+    "prefix": "clj-test",
+    "body": [
+      "clojure.test"
+    ]
+  },
   "clj-string": {
     "prefix": "clj-string",
     "body": [
@@ -35,6 +209,24 @@
       "clojure.tools.logging"
     ]
   },
+  "clj-csv": {
+    "prefix": "clj-csv",
+    "body": [
+      "clojure.data.csv"
+    ]
+  },
+  "clj-edn": {
+    "prefix": "clj-edn",
+    "body": [
+      "clojure.edn"
+    ]
+  },
+  "clj-xml": {
+    "prefix": "clj-xml",
+    "body": [
+      "clojure.data.xml"
+    ]
+  },
   "json-cheshire": {
     "prefix": "json-cheshire",
     "body": [
@@ -69,6 +261,12 @@
     "prefix": "bb-http",
     "body": [
       "babashka.http-client"
+    ]
+  },
+  "bb-proc": {
+    "prefix": "bb-proc",
+    "body": [
+      "babashka.process"
     ]
   },
   "ring-core": {
@@ -122,18 +320,6 @@
     "prefix": "pp",
     "body": [
       "clojure.pprint/pprint ${1:v}"
-    ]
-  },
-  "warn-on-reflection": {
-    "prefix": "warn-on-reflection",
-    "body": [
-      "*warn-on-reflection*"
-    ]
-  },
-  "set-warn-on-reflection": {
-    "prefix": "set-warn-on-reflection",
-    "body": [
-      "set! *warn-on-reflection* true"
     ]
   },
   "sleep": {
