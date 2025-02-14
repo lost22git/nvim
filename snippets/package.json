@@ -9,6 +9,14 @@
       {
         "language": "gleam",
         "path": "./gleam.json"
+      },
+      {
+        "language": "http",
+        "path": "./http.json"
+      },
+      {
+        "language": "just",
+        "path": "./just.json"
       }
     ]
   }

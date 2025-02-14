@@ -1,0 +1,74 @@
+{
+  "get": {
+    "prefix": "get",
+    "body": [
+      "# @name ${1:GET_DATA}",
+      "${2:GET} ${3:url} HTTP/${4:1.1}",
+      "Accept: ${5:application/json}",
+      "",
+      "###"
+    ]
+  },
+  "post-json": {
+    "prefix": "post-json",
+    "body": [
+      "# @name ${1:POST_JSON}",
+      "${2:POST} ${3:url} HTTP/${4:1.1}",
+      "Accept: ${5:application/json}",
+      "Content-Type: application/json",
+      "",
+      "{",
+      "\t\"${6:key}\": ${7:val}",
+      "}",
+      "",
+      "###"
+    ]
+  },
+  "post-json-file": {
+    "prefix": "post-json-file",
+    "body": [
+      "# @name ${1:POST_JSON_FILE}",
+      "${2:POST} ${3:url} HTTP/${4:1.1}",
+      "Accept: ${5:application/json}",
+      "Content-Type: application/json",
+      "#file-to-variable JSON_DATA ${6:./data.json}",
+      "",
+      "{{JSON_DATA}}",
+      "",
+      "###"
+    ]
+  },
+  "post-form-data": {
+    "prefix": "post-form-data",
+    "body": [
+      "# @name ${1:POST_FORMDATA}",
+      "${2:POST} ${3:url} HTTP/${4:1.1}",
+      "Accept: ${5:application/json}",
+      "Content-Type: application/x-www-form-urlencoded",
+      "",
+      "${6:k=v}&",
+      "${7:k2=v2}",
+      "",
+      "###"
+    ]
+  },
+  "post-multipart": {
+    "prefix": "post-multipart",
+    "body": [
+      "# @name ${1:POST_MULTIPART}",
+      "${2:POST} ${3:url} HTTP/${4:1.1}",
+      "Accept: ${5:application/json}",
+      "Content-Type: multipart/form-data; boundary=----WebKitFormBoundary{{\\$timestamp}}",
+      "# @file-to-variable ${6:FILE_DATA} ${7:./file.png} binary",
+      "",
+      "------WebKitFormBoundary{{\\$timestamp}}",
+      "Content-Disposition: form-data; name=\"${8:file}\"; filename=\"${9:file.png}\"",
+      "Content-Type: ${10:image/jpeg}",
+      "",
+      "{{${6:FILE_DATA}}}",
+      "------WebKitFormBoundary{{\\$timestamp}}--",
+      "",
+      "###"
+    ]
+  }
+}

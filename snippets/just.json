@@ -1,0 +1,27 @@
+{
+  "default": {
+    "prefix": "default",
+    "body": [
+      "_default:",
+      "\t@just --list --unsorted"
+    ]
+  },
+  "set-windows-powershell": {
+    "prefix": "set-windows-powershell",
+    "body": [
+      "set windows-shell := [\"powershell\", \"-nologo\", \"-noprofile\", \"-c\"]"
+    ]
+  },
+  "set-windows-pwsh": {
+    "prefix": "set-windows-pwsh",
+    "body": [
+      "set windows-shell := [\"pwsh\", \"-nologo\", \"-noprofile\", \"-c\"]"
+    ]
+  },
+  "set-windows-cmd": {
+    "prefix": "set-windows-cmd",
+    "body": [
+      "set windows-shell := [\"cmd\", \"/c\"]"
+    ]
+  }
+}
