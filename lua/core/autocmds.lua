@@ -31,6 +31,7 @@ vim.cmd([[
   au BufNewFile,BufReadPost *.c3 set filetype=c3
   au BufNewFile,BufReadPost *.kk set filetype=koka
   au BufNewFile,BufReadPost *.cljd set filetype=clojure
+  au BufNewFile,BufReadPost *.http set filetype=http
 ]])
 
 -- Register filetypes' commentstring
@@ -46,6 +47,7 @@ vim.cmd([[
   au FileType c3 setlocal commentstring=//\ %s
   au FileType koka setlocal commentstring=//\ %s
   au FileType dart setlocal commentstring=//\ %s
+  au FileType http setlocal commentstring=#\ %s
 ]])
 
 -- Restore terminal cursor shape when leaving

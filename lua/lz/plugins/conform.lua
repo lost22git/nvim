@@ -22,6 +22,7 @@ function M.config()
       fennel = { 'fnlfmt' },
       gleam = { 'gleam' },
       go = { 'goimports', 'gofmt' },
+      http = { 'kulala-fmt' },
       inko = { 'inko' },
       javascript = { 'deno_fmt' },
       json = { 'jq' },

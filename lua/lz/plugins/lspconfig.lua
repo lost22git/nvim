@@ -306,6 +306,12 @@ function M.config()
       return vim.fs.root(fname, patterns)
     end,
   })
+
+  -- kulala language server
+  lspconfig.kulala_ls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+  })
 end
 
 return M

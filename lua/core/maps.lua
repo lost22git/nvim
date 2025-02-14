@@ -36,10 +36,12 @@ local map = function(mod)
 end
 
 -- 按键映射 api
+M.nvmap = map('')
 M.nmap = map('n')
 M.vmap = map('v')
-M.nvmap = map('')
+M.icmap = map({ 'i', 'c' })
 M.imap = map('i')
+M.cmap = map('c')
 M.tmap = map('t')
 
 function M.todo()
