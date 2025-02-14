@@ -21,6 +21,69 @@ return {
     end,
   },
 
+  ---------------------
+  -- mini.statusline --
+  ---------------------
+
+  {
+    'echasnovski/mini.statusline',
+    version = false,
+    event = 'VeryLazy',
+    config = function()
+      local count_buffers = function()
+        local result = 0
+        local b = vim.api.nvim_list_bufs()
+        for i = 1, #b do
+          if vim.bo[b[i]].buflisted then result = result + 1 end
+        end
+        return result
+      end
+
+      require('mini.statusline').setup({
+        content = {
+          active = function()
+            local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
+            local git = MiniStatusline.section_git({ trunc_width = 40 })
+            local diff = MiniStatusline.section_diff({ trunc_width = 75 })
+            local diagnostics = MiniStatusline.section_diagnostics({ trunc_width = 75 })
+            local lsp = MiniStatusline.section_lsp({ trunc_width = 75 })
+            local filename = MiniStatusline.section_filename({ trunc_width = 140 })
+            local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 120 })
+            local location = MiniStatusline.section_location({ trunc_width = 75 })
+            local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
+
+            local buffers = '󱂬 ' .. count_buffers()
+
+            return MiniStatusline.combine_groups({
+              { hl = mode_hl, strings = { mode } },
+              { hl = 'MiniStatuslineDevinfo', strings = { git, diff, diagnostics, lsp } },
+              '%<', -- Mark general truncate point
+              { hl = 'MiniStatuslineFilename', strings = { filename } },
+              '%=', -- End left alignment
+              { hl = 'MiniStatuslineFileinfo', strings = { buffers, fileinfo } },
+              { hl = mode_hl, strings = { search, location } },
+            })
+          end,
+          inactive = nil,
+        },
+
+        use_icons = true,
+        set_vim_settings = true,
+      })
+    end,
+  },
+
+  -----------------
+  -- cursor word --
+  -----------------
+
+  {
+    'echasnovski/mini.cursorword',
+    version = false,
+    event = { 'BufNewFile', 'BufReadPost' },
+    opts = {},
+  },
+
   ------------
   -- notify --
   ------------
@@ -173,32 +236,6 @@ return {
   --   config = function() require('mini.indentscope').setup({}) end,
   -- },
 
-  -------------------
-  -- mini.surround --
-  -------------------
-
-  {
-    'echasnovski/mini.surround',
-    version = false,
-    event = { 'BufReadPost', 'BufNewFile' },
-    config = function()
-      require('mini.surround').setup({
-        mappings = {
-          add = 'ms',
-          delete = 'md',
-          find = 'mf',
-          find_left = 'mF',
-          highlight = 'mh',
-          replace = 'mr',
-          update_n_lines = 'mn',
-
-          suffix_last = 'l',
-          suffix_next = 'n',
-        },
-      })
-    end,
-  },
-
   ------------------
   -- mini.tabline --
   ------------------
@@ -210,16 +247,6 @@ return {
   --   event = { 'BufAdd', 'TabEnter' },
   --   config = function() require('mini.tabline').setup({}) end,
   -- },
-
-  ---------------
-  -- mini.move --
-  ---------------
-  {
-    'echasnovski/mini.move',
-    version = false,
-    keys = { '<M-j>', '<M-k>', '<M-l>', '<M-h>' },
-    config = function() require('mini.move').setup({}) end,
-  },
 
   -------------
   -- mini.ai --
@@ -267,66 +294,39 @@ return {
     end,
   },
 
-  ---------------------
-  -- mini.statusline --
-  ---------------------
-
+  ---------------
+  -- mini.move --
+  ---------------
   {
-    'echasnovski/mini.statusline',
+    'echasnovski/mini.move',
     version = false,
-    event = 'VeryLazy',
-    config = function()
-      local count_buffers = function()
-        local result = 0
-        local b = vim.api.nvim_list_bufs()
-        for i = 1, #b do
-          if vim.bo[b[i]].buflisted then result = result + 1 end
-        end
-        return result
-      end
-
-      require('mini.statusline').setup({
-        content = {
-          active = function()
-            local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
-            local git = MiniStatusline.section_git({ trunc_width = 40 })
-            local diff = MiniStatusline.section_diff({ trunc_width = 75 })
-            local diagnostics = MiniStatusline.section_diagnostics({ trunc_width = 75 })
-            local lsp = MiniStatusline.section_lsp({ trunc_width = 75 })
-            local filename = MiniStatusline.section_filename({ trunc_width = 140 })
-            local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 120 })
-            local location = MiniStatusline.section_location({ trunc_width = 75 })
-            local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
-
-            local buffers = '󱂬 ' .. count_buffers()
-
-            return MiniStatusline.combine_groups({
-              { hl = mode_hl, strings = { mode } },
-              { hl = 'MiniStatuslineDevinfo', strings = { git, diff, diagnostics, lsp } },
-              '%<', -- Mark general truncate point
-              { hl = 'MiniStatuslineFilename', strings = { filename } },
-              '%=', -- End left alignment
-              { hl = 'MiniStatuslineFileinfo', strings = { buffers, fileinfo } },
-              { hl = mode_hl, strings = { search, location } },
-            })
-          end,
-          inactive = nil,
-        },
-
-        use_icons = true,
-        set_vim_settings = true,
-      })
-    end,
+    keys = { '<M-j>', '<M-k>', '<M-l>', '<M-h>' },
+    config = function() require('mini.move').setup({}) end,
   },
 
-  -----------------
-  -- cursor word --
-  -----------------
+  -------------------
+  -- mini.surround --
+  -------------------
 
   {
-    'echasnovski/mini.cursorword',
+    'echasnovski/mini.surround',
     version = false,
-    event = { 'BufNewFile', 'BufReadPost' },
-    opts = {},
+    event = { 'BufReadPost', 'BufNewFile' },
+    config = function()
+      require('mini.surround').setup({
+        mappings = {
+          add = 'ms',
+          delete = 'md',
+          find = 'mf',
+          find_left = 'mF',
+          highlight = 'mh',
+          replace = 'mr',
+          update_n_lines = 'mn',
+
+          suffix_last = 'l',
+          suffix_next = 'n',
+        },
+      })
+    end,
   },
 }
