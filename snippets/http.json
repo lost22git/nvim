@@ -2,16 +2,17 @@
   "get": {
     "prefix": "get",
     "body": [
+      "###",
       "# @name ${1:GET_DATA}",
       "${2:GET} ${3:url} HTTP/${4:1.1}",
       "Accept: ${5:application/json}",
-      "",
-      "###"
+      ""
     ]
   },
   "post-json": {
     "prefix": "post-json",
     "body": [
+      "###",
       "# @name ${1:POST_JSON}",
       "${2:POST} ${3:url} HTTP/${4:1.1}",
       "Accept: ${5:application/json}",
@@ -20,13 +21,13 @@
       "{",
       "\t\"${6:key}\": ${7:val}",
       "}",
-      "",
-      "###"
+      ""
     ]
   },
   "post-json-file": {
     "prefix": "post-json-file",
     "body": [
+      "###",
       "# @name ${1:POST_JSON_FILE}",
       "${2:POST} ${3:url} HTTP/${4:1.1}",
       "Accept: ${5:application/json}",
@@ -34,13 +35,13 @@
       "#file-to-variable JSON_DATA ${6:./data.json}",
       "",
       "{{JSON_DATA}}",
-      "",
-      "###"
+      ""
     ]
   },
   "post-form-data": {
     "prefix": "post-form-data",
     "body": [
+      "###",
       "# @name ${1:POST_FORMDATA}",
       "${2:POST} ${3:url} HTTP/${4:1.1}",
       "Accept: ${5:application/json}",
@@ -48,13 +49,13 @@
       "",
       "${6:k=v}&",
       "${7:k2=v2}",
-      "",
-      "###"
+      ""
     ]
   },
   "post-multipart": {
     "prefix": "post-multipart",
     "body": [
+      "###",
       "# @name ${1:POST_MULTIPART}",
       "${2:POST} ${3:url} HTTP/${4:1.1}",
       "Accept: ${5:application/json}",
@@ -67,8 +68,7 @@
       "",
       "{{${6:FILE_DATA}}}",
       "------WebKitFormBoundary{{\\$timestamp}}--",
-      "",
-      "###"
+      ""
     ]
   }
 }
