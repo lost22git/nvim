@@ -297,6 +297,7 @@ return {
   ---------------
   -- mini.move --
   ---------------
+
   {
     'echasnovski/mini.move',
     version = false,

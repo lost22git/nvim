@@ -302,6 +302,11 @@ function M.base()
 
     -- 退出 visual mode
     { '<C-[', '<Esc>' },
+
+    -- goto and select next word
+    { 'nw', '<Esc>wviw' },
+    -- goto and select prev word
+    { 'lw', '<Esc>bbviw' },
   })
 
   M.nvmap({

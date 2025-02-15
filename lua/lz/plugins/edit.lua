@@ -73,8 +73,13 @@ return {
     'julienvincent/nvim-paredit',
     ft = { 'clojure', 'fennel' },
     config = function()
-      require('nvim-paredit').setup({
+      local paredit = require('nvim-paredit')
+      paredit.setup({
         filetypes = { 'clojure', 'fennel' },
+        keys = {
+          ['du'] = { paredit.api.raise_form, 'Raise form' },
+          ['dU'] = { paredit.api.raise_element, 'Raise element' },
+        },
       })
     end,
   },
