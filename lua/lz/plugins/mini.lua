@@ -224,30 +224,6 @@ return {
     config = function() require('mini.visits').setup({}) end,
   },
 
-  -----------------
-  -- mini.indent --
-  -----------------
-
-  -- {
-  --   'echasnovski/mini.indentscope',
-  --   version = false,
-  --   enabled = not vim.g.vscode,
-  --   event = { 'BufReadPost', 'BufNewFile' },
-  --   config = function() require('mini.indentscope').setup({}) end,
-  -- },
-
-  ------------------
-  -- mini.tabline --
-  ------------------
-
-  -- {
-  --   'echasnovski/mini.tabline',
-  --   version = false,
-  --   enabled = not vim.g.vscode,
-  --   event = { 'BufAdd', 'TabEnter' },
-  --   config = function() require('mini.tabline').setup({}) end,
-  -- },
-
   -------------
   -- mini.ai --
   -------------
