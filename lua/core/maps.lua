@@ -84,7 +84,7 @@ function M.fterm()
   -- gitui
   ---@diagnostic disable-next-line: missing-fields
   local gitui = fterm:new({
-    ft = 'fterm_gitui', -- You can also override the default filetype, if you want
+    ft = 'fterm_gitui',
     cmd = 'gitui',
     ---@diagnostic disable-next-line: missing-fields
     dimensions = {

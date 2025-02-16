@@ -33,17 +33,6 @@ return {
   --   end,
   -- },
 
-  -------------------
-  -- mode colorize --
-  -------------------
-
-  -- {
-  --   'mvllow/modes.nvim',
-  --   tag = 'v0.2.0',
-  --   lazy = false,
-  --   config = function() require('modes').setup() end,
-  -- },
-
   ----------------------------
   -- border global settings --
   ----------------------------
