@@ -19,20 +19,6 @@ return {
     end,
   },
 
-  -------------------
-  -- cursor effect --
-  -------------------
-
-  -- {
-  --   'sphamba/smear-cursor.nvim',
-  --   event = 'VeryLazy',
-  --   config = function()
-  --     require('smear_cursor').setup({
-  --       -- cursor_color = '#6e6a86',
-  --     })
-  --   end,
-  -- },
-
   ----------------------------
   -- border global settings --
   ----------------------------
@@ -51,10 +37,9 @@ return {
   --------------
 
   {
-    -- "Pocco81/true-zen.nvim",
-    'ilan-schemoul/true-zen.nvim',
+    'lost22git/true-zen.nvim',
     enabled = not vim.g.vscode,
-    branch = 'fix-restore-value',
+    branch = 'fix-by-lost',
     cmd = { 'TZNarrow', 'TZFocus', 'TZMinimalist', 'TZAtaraxis' },
     config = function() require('true-zen').setup({}) end,
   },
@@ -236,7 +221,6 @@ return {
           multi_save_buf = 'mw',
           save_all_unsaved = 'aw',
           toggle_path = 'p',
-          -- close_bufferlist = '<C-c>',
           close_bufferlist = 'q',
         },
         win_keymaps = {

@@ -51,7 +51,7 @@ return {
 
   {
     'windwp/nvim-autopairs',
-    event = { 'InsertEnter', 'CmdlineEnter' },
+    event = { 'InsertEnter' },
     config = function()
       require('nvim-autopairs').setup({
         disable_filetype = { 'vim' },

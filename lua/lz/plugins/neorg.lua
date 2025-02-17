@@ -23,13 +23,15 @@ return {
         ['core.highlights'] = {},
         ['core.keybinds'] = {
           config = {
-            -- neorg_leader = ',',
+            -- neorg_leader = ',', -- NOTE: not working?
           },
         },
         -- ['core.integrations.image'] = {},
         ['core.integrations.treesitter'] = {},
         -- ['core.latex.renderer'] = {},
-        ['core.presenter'] = { config = { zen_mode = 'truezen' } },
+        ['core.presenter'] = {
+          config = { zen_mode = 'truezen' },
+        },
         ['core.queries.native'] = {},
         ['core.summary'] = {},
       },

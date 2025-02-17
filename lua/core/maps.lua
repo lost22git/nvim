@@ -241,10 +241,6 @@ function M.base()
   end
 
   M.nmap({
-    -- 退出
-    { 'Q', '<Cmd>q<CR>' },
-    { 'QQ', '<Cmd>q!<CR>' },
-
     -- delete current buffer
     { '<C-x>', '<Cmd>bd<CR>' },
 
@@ -310,6 +306,11 @@ function M.base()
   })
 
   M.nvmap({
+
+    -- 退出
+    { 'Q', '<Cmd>q<CR>' },
+    { 'QQ', '<Cmd>q!<CR>' },
+
     -- 指针移动
     { 'J', '}' },
     { 'K', '{' },
