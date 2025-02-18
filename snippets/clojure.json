@@ -233,6 +233,16 @@
       "cheshire.core"
     ]
   },
+  "bb-main": {
+    "prefix": "bb-main",
+    "body": [
+      "(defn -main [args]",
+      "\t${1})",
+      "",
+      "(when (= *file* (System/getProperty \"babashka.file\"))",
+      "\t(-main *command-line-args*))"
+    ]
+  },
   "bb-deps": {
     "prefix": "bb-deps",
     "body": [
