@@ -2,7 +2,7 @@ local M = {
   'kevinhwang91/nvim-ufo',
   enabled = not vim.g.vscode,
   dependencies = { 'kevinhwang91/promise-async' },
-  keys = { 'zR', 'zM', 'zr', 'zm', 'za' },
+  keys = { 'za' },
 }
 
 local handler = function(virtText, lnum, endLnum, width, truncate)
@@ -35,7 +35,7 @@ function M.config()
   vim.o.foldcolumn = '0'
   vim.o.foldlevel = 99
   vim.o.foldlevelstart = 99
-  vim.o.foldenable = true
+  vim.o.foldenable = false
 
   require('ufo').setup({
     fold_virt_text_handler = handler,
@@ -45,12 +45,12 @@ function M.config()
       mappings = {
         scrollU = '<C-u>',
         scrollD = '<C-d>',
-        switch = 'zk',
+        switch = '<Tab>',
       },
     },
   })
 
-  vim.keymap.set('n', 'zk', function()
+  vim.keymap.set('n', '<Tab>', function()
     local winid = require('ufo').peekFoldedLinesUnderCursor()
     if not winid then vim.lsp.buf.hover() end
   end)
