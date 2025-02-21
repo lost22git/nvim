@@ -60,3 +60,22 @@ vim.cmd([[
 
 -- Turn off paste mode when leaving insert
 vim.cmd([[ au InsertLeave * set nopaste ]])
+
+-- [clojure] Goto prev/next (comment)
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'clojure' },
+  callback = function()
+    vim.keymap.set(
+      { 'n' },
+      '[C',
+      [[<Cmd>call search('^(comment','bw')<CR>]],
+      { silent = true, buffer = true, desc = 'Goto prev (comment)' }
+    )
+    vim.keymap.set(
+      { 'n' },
+      ']C',
+      [[<Cmd>call search('^(comment','w')<CR>]],
+      { silent = true, buffer = true, desc = 'Goto prev (comment)' }
+    )
+  end,
+})

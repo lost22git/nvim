@@ -179,6 +179,7 @@ return {
     version = false,
     enabled = not vim.g.vscode,
     dependencies = { 'echasnovski/mini.extra' },
+    cmd = { 'Pick' },
     keys = {
       '<Leader>c',
       '<Leader>d',

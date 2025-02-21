@@ -10,6 +10,24 @@ return {
       vim.g['conjure#mapping#log_toggle'] = { '<LocalLeader>lk' }
       vim.g['conjure#mapping#eval_previous'] = { '<LocalLeader>el' }
       vim.g['conjure#mapping#eval_replace_form'] = { '<LocalLeader>es' }
+
+      vim.api.nvim_create_autocmd({ 'BufWinEnter' }, {
+        pattern = { 'conjure-log-*' },
+        callback = function()
+          vim.keymap.set(
+            { 'n', 'v' },
+            '[e',
+            [[<Cmd>call search('^; -\+$', 'bw')<CR>]],
+            { silent = true, buffer = true, desc = 'Goto prev log' }
+          )
+          vim.keymap.set(
+            { 'n', 'v' },
+            ']e',
+            [[<Cmd>call search('^; -\+$', 'w')<CR>]],
+            { silent = true, buffer = true, desc = 'Goto next log' }
+          )
+        end,
+      })
     end,
   },
   {

@@ -50,8 +50,10 @@ elseif U.on_wsl() then
       ['*'] = '/mnt/c/Windows/System32/clip.exe',
     },
     paste = {
-      ['+'] = 'powershell.exe -NoLogo -NoProfile -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-      ['*'] = 'powershell.exe -NoLogo -NoProfile -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+      ['+'] =
+      'powershell.exe -NoLogo -NoProfile -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+      ['*'] =
+      'powershell.exe -NoLogo -NoProfile -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
     },
     cache_enabled = 0,
   }
@@ -90,12 +92,12 @@ vim.opt.numberwidth = 2
 
 -- 颜色 & 透明度
 vim.opt.termguicolors = true -- 终端使用 24-bit rgb
-vim.opt.winblend = 0 -- float window 透明度 [0-100]
-vim.opt.pumblend = 0 -- popup menu 透明度 [0-100]
+vim.opt.winblend = 0         -- float window 透明度 [0-100]
+vim.opt.pumblend = 0         -- popup menu 透明度 [0-100]
 
 -- 高亮
-vim.opt.cursorcolumn = true -- 高亮当前列
-vim.opt.cursorline = false -- 高亮当前行
+vim.opt.cursorcolumn = true           -- 高亮当前列
+vim.opt.cursorline = false            -- 高亮当前行
 vim.opt.cursorlineopt = 'line,number' -- 只高亮行号, 默认 "line,number" 同时高亮行号和行
 -- opt.colorcolumn = '100' -- 高亮第n列
 -- opt.textwidth = 100 -- 每行文本最大列数，超过自动换行
@@ -104,7 +106,7 @@ vim.opt.cursorlineopt = 'line,number' -- 只高亮行号, 默认 "line,number" �
 vim.opt.signcolumn = 'yes'
 
 -- 最小可见区域
-vim.opt.scrolloff = 10 -- scroll offset 上下最小可见行数
+vim.opt.scrolloff = 10     -- scroll offset 上下最小可见行数
 vim.opt.wrap = false
 vim.opt.sidescrolloff = 10 -- scroll offset 左右最小可见列数 (wrap=false 下有效)
 -- vim.opt.scrolloff = (999 - vim.o.scrolloff) -- 保持光标一直在中间
