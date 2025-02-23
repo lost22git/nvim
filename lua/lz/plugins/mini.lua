@@ -1,3 +1,12 @@
+local function count_buffers()
+  local result = 0
+  local b = vim.api.nvim_list_bufs()
+  for i = 1, #b do
+    if vim.bo[b[i]].buflisted then result = result + 1 end
+  end
+  return result
+end
+
 return {
 
   ----------------
@@ -29,48 +38,37 @@ return {
     'echasnovski/mini.statusline',
     version = false,
     lazy = false,
-    config = function()
-      local count_buffers = function()
-        local result = 0
-        local b = vim.api.nvim_list_bufs()
-        for i = 1, #b do
-          if vim.bo[b[i]].buflisted then result = result + 1 end
-        end
-        return result
-      end
+    opts = {
+      content = {
+        active = function()
+          local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
+          local git = MiniStatusline.section_git({ trunc_width = 40 })
+          local diff = MiniStatusline.section_diff({ trunc_width = 75 })
+          local diagnostics = MiniStatusline.section_diagnostics({ trunc_width = 75 })
+          local lsp = MiniStatusline.section_lsp({ trunc_width = 75 })
+          local filename = MiniStatusline.section_filename({ trunc_width = 140 })
+          local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 120 })
+          local location = MiniStatusline.section_location({ trunc_width = 75 })
+          local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
 
-      require('mini.statusline').setup({
-        content = {
-          active = function()
-            local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
-            local git = MiniStatusline.section_git({ trunc_width = 40 })
-            local diff = MiniStatusline.section_diff({ trunc_width = 75 })
-            local diagnostics = MiniStatusline.section_diagnostics({ trunc_width = 75 })
-            local lsp = MiniStatusline.section_lsp({ trunc_width = 75 })
-            local filename = MiniStatusline.section_filename({ trunc_width = 140 })
-            local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 120 })
-            local location = MiniStatusline.section_location({ trunc_width = 75 })
-            local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
+          local buffers = '󱂬 ' .. count_buffers()
 
-            local buffers = '󱂬 ' .. count_buffers()
+          return MiniStatusline.combine_groups({
+            { hl = mode_hl, strings = { mode } },
+            { hl = 'MiniStatuslineDevinfo', strings = { git, diff, diagnostics, lsp } },
+            '%<', -- Mark general truncate point
+            { hl = 'MiniStatuslineFilename', strings = { filename } },
+            '%=', -- End left alignment
+            { hl = 'MiniStatuslineFileinfo', strings = { buffers, fileinfo } },
+            { hl = mode_hl, strings = { search, location } },
+          })
+        end,
+        inactive = nil,
+      },
 
-            return MiniStatusline.combine_groups({
-              { hl = mode_hl, strings = { mode } },
-              { hl = 'MiniStatuslineDevinfo', strings = { git, diff, diagnostics, lsp } },
-              '%<', -- Mark general truncate point
-              { hl = 'MiniStatuslineFilename', strings = { filename } },
-              '%=', -- End left alignment
-              { hl = 'MiniStatuslineFileinfo', strings = { buffers, fileinfo } },
-              { hl = mode_hl, strings = { search, location } },
-            })
-          end,
-          inactive = nil,
-        },
-
-        use_icons = true,
-        set_vim_settings = true,
-      })
-    end,
+      use_icons = true,
+      set_vim_settings = true,
+    },
   },
 
   -----------------
@@ -92,10 +90,8 @@ return {
     'echasnovski/mini.notify',
     version = false,
     event = 'VeryLazy',
-    config = function()
-      require('mini.notify').setup({})
-      require('core.maps').mini_notify()
-    end,
+    opts = {},
+    config = function() require('core.maps').mini_notify() end,
   },
 
   ----------------
@@ -153,6 +149,7 @@ return {
           width_preview = 25,
         },
       })
+
       require('core.maps').mini_files()
 
       vim.api.nvim_create_autocmd('User', {
@@ -207,6 +204,7 @@ return {
           config = { border = 'solid' },
         },
       })
+
       require('core.maps').mini_pick()
     end,
   },
@@ -215,14 +213,14 @@ return {
   {
     'echasnovski/mini.extra',
     version = false,
-    config = function() require('mini.extra').setup({}) end,
+    opts = {},
   },
 
   -- mini.visits (由 mini.extra 加载)
   {
     'echasnovski/mini.visits',
     version = false,
-    config = function() require('mini.visits').setup({}) end,
+    opts = {},
   },
 
   -------------
@@ -279,7 +277,7 @@ return {
     'echasnovski/mini.move',
     version = false,
     keys = { '<M-j>', '<M-k>', '<M-l>', '<M-h>' },
-    config = function() require('mini.move').setup({}) end,
+    opts = {},
   },
 
   -------------------
@@ -290,21 +288,19 @@ return {
     'echasnovski/mini.surround',
     version = false,
     event = { 'BufReadPost', 'BufNewFile' },
-    config = function()
-      require('mini.surround').setup({
-        mappings = {
-          add = 'ms',
-          delete = 'md',
-          find = 'mf',
-          find_left = 'mF',
-          highlight = 'mh',
-          replace = 'mr',
-          update_n_lines = 'mn',
+    opts = {
+      mappings = {
+        add = 'ms',
+        delete = 'md',
+        find = 'mf',
+        find_left = 'mF',
+        highlight = 'mh',
+        replace = 'mr',
+        update_n_lines = 'mn',
 
-          suffix_last = 'l',
-          suffix_next = 'n',
-        },
-      })
-    end,
+        suffix_last = 'l',
+        suffix_next = 'n',
+      },
+    },
   },
 }

@@ -34,12 +34,11 @@ return {
   {
     'mistweaverco/kulala.nvim',
     ft = { 'http' },
+    opts = {
+      winbar = true,
+      show_variable_info_text = 'float',
+    },
     config = function()
-      require('kulala').setup({
-        winbar = true,
-        show_variable_info_text = 'float',
-      })
-
       local create_usercmds = function()
         vim.api.nvim_buf_create_user_command(0, 'KulalaRun', function(opts) require('kulala').run() end, { nargs = 0 })
         vim.api.nvim_buf_create_user_command(
@@ -161,6 +160,6 @@ return {
       -- "sindrets/diffview.nvim",
     },
     cmd = { 'Neogit' },
-    config = true,
+    opts = {},
   },
 }

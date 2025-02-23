@@ -7,14 +7,12 @@ return {
   {
     'TheBlob42/houdini.nvim',
     event = { 'InsertEnter', 'CmdLineEnter', 'TermEnter' },
-    config = function()
-      require('houdini').setup({
-        escape_sequences = {
-          ['v'] = false,
-          ['V'] = false,
-        },
-      })
-    end,
+    opts = {
+      escape_sequences = {
+        ['v'] = false,
+        ['V'] = false,
+      },
+    },
   },
 
   ------------------
@@ -24,11 +22,9 @@ return {
   {
     'windwp/nvim-autopairs',
     event = { 'InsertEnter' },
-    config = function()
-      require('nvim-autopairs').setup({
-        disable_filetype = { 'vim' },
-      })
-    end,
+    opts = {
+      disable_filetype = { 'vim' },
+    },
   },
 
   {
@@ -82,35 +78,32 @@ return {
     'Wansmer/treesj',
     keys = { '<Leader>j' },
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
-    config = function()
-      require('treesj').setup({
-        -- Use default keymaps
-        -- (<space>m - toggle, <space>j - join, <space>s - split)
-        use_default_keymaps = false,
+    opts = {
+      -- Use default keymaps
+      -- (<space>m - toggle, <space>j - join, <space>s - split)
+      use_default_keymaps = false,
 
-        -- Node with syntax error will not be formatted
-        check_syntax_error = true,
+      -- Node with syntax error will not be formatted
+      check_syntax_error = true,
 
-        -- If line after join will be longer than max value,
-        -- node will not be formatted
-        max_join_length = 120,
+      -- If line after join will be longer than max value,
+      -- node will not be formatted
+      max_join_length = 120,
 
-        -- hold|start|end:
-        -- hold - cursor follows the node/place on which it was called
-        -- start - cursor jumps to the first symbol of the node being formatted
-        -- end - cursor jumps to the last symbol of the node being formatted
-        cursor_behavior = 'hold',
+      -- hold|start|end:
+      -- hold - cursor follows the node/place on which it was called
+      -- start - cursor jumps to the first symbol of the node being formatted
+      -- end - cursor jumps to the last symbol of the node being formatted
+      cursor_behavior = 'hold',
 
-        -- Notify about possible problems or not
-        notify = true,
-        langs = {},
+      -- Notify about possible problems or not
+      notify = true,
+      langs = {},
 
-        -- Use `dot` for repeat action
-        dot_repeat = true,
-      })
-
-      require('core.maps').treesj()
-    end,
+      -- Use `dot` for repeat action
+      dot_repeat = true,
+    },
+    config = function() require('core.maps').treesj() end,
   },
 
   --------------------

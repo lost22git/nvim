@@ -19,6 +19,7 @@ local function create_user_command_LualsRestart()
         unpack(vim.api.nvim_get_runtime_file('', true)),
       },
     }
+
     local mode, force = unpack(vim.fn.split(input.fargs[1], '-', false))
 
     local new_val = library_map[mode]

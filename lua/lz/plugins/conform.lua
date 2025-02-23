@@ -1,12 +1,8 @@
-local M = {
+return {
   'stevearc/conform.nvim',
   enabled = not vim.g.vscode,
   event = { 'BufWritePre' },
-}
-
-function M.config()
-  local U = require('core.utils')
-  require('conform').setup({
+  opts = {
     format_on_save = {
       timeout_ms = 3000,
       quiet = false,
@@ -38,12 +34,10 @@ function M.config()
     },
     formatters = {
       shfmt = {
-        command = U.get_lsp_server_path('shfmt'),
+        command = require('core.utils').get_lsp_server_path('shfmt'),
         args = { '-l', '-w', '$FILENAME' },
         stdin = false,
       },
     },
-  })
-end
-
-return M
+  },
+}

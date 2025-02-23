@@ -5,32 +5,18 @@ return {
 
   { 'MunifTanjim/nui.nvim' },
 
-  -----------
-  -- Theme --
-  -----------
-
-  {
-    'nickkadutskyi/jb.nvim',
-    lazy = false,
-    priority = 1000,
-    config = function()
-      require('jb').setup({ transparent = false })
-      vim.cmd('colorscheme jb')
-    end,
-  },
-
   ----------------------------
   -- border global settings --
   ----------------------------
 
-  {
-    'mikesmithgh/borderline.nvim',
-    event = 'VeryLazy',
-    config = function()
-      require('borderline').setup({})
-      require('borderline.api').borderline('rounded')
-    end,
-  },
+  -- {
+  --   'mikesmithgh/borderline.nvim',
+  --   lazy = false,
+  --   config = function()
+  --     require('borderline').setup({})
+  --     require('borderline.api').borderline('rounded')
+  --   end,
+  -- },
 
   --------------
   -- True Zen --
@@ -41,7 +27,7 @@ return {
     enabled = not vim.g.vscode,
     branch = 'fix-by-lost',
     cmd = { 'TZNarrow', 'TZFocus', 'TZMinimalist', 'TZAtaraxis' },
-    config = function() require('true-zen').setup({}) end,
+    opts = {},
   },
 
   ------------------
@@ -51,15 +37,13 @@ return {
   {
     'NvChad/nvim-colorizer.lua',
     cmd = { 'ColorizerAttachToBuffer' },
-    config = function()
-      require('colorizer').setup({
-        user_default_options = {
-          tailwind = true,
-          mode = 'virtualtext',
-          virtualtext = '■',
-        },
-      })
-    end,
+    opts = {
+      user_default_options = {
+        tailwind = true,
+        mode = 'virtualtext',
+        virtualtext = '■',
+      },
+    },
   },
 
   ----------
@@ -70,10 +54,8 @@ return {
     'folke/todo-comments.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },
     event = { 'BufReadPost', 'BufNewFile' },
-    config = function()
-      require('todo-comments').setup({})
-      require('core.maps').todo()
-    end,
+    opts = {},
+    config = function() require('core.maps').todo() end,
   },
 
   --------------
@@ -140,8 +122,7 @@ return {
     'lewis6991/satellite.nvim',
     enabled = not vim.g.vscode,
     event = { 'BufReadPost', 'BufNewFile' },
-    ---@diagnostic disable-next-line: missing-fields
-    config = function() require('satellite').setup({}) end,
+    ops = {},
   },
 
   --------------------------------
@@ -150,12 +131,10 @@ return {
   {
     'zaldih/themery.nvim',
     cmd = { 'Themery' },
-    config = function()
-      require('themery').setup({
-        themes = vim.fn.getcompletion('', 'color'),
-        livePreview = true,
-      })
-    end,
+    opts = {
+      themes = vim.fn.getcompletion('', 'color'),
+      livePreview = true,
+    },
   },
 
   --------------------
@@ -166,30 +145,28 @@ return {
     's1n7ax/nvim-window-picker',
     enabled = not vim.g.vscode,
     keys = { '<Leader>w' },
-    config = function()
-      require('window-picker').setup({
-        autoselect_one = true,
-        include_current_win = false,
-        selection_chars = 'FJDKSLA;CMRUEIWOQP',
-        use_winbar = 'never', -- "always" | "never" | "smart"
-        show_prompt = true,
-        filter_func = nil,
-        filter_rules = {
-          bo = {
-            filetype = { 'NvimTree', 'neo-tree', 'notify', 'drex' },
-            buftype = { 'terminal' },
-          },
-          wo = {},
-          file_path_contains = {},
-          file_name_contains = {},
+    opts = {
+      autoselect_one = true,
+      include_current_win = false,
+      selection_chars = 'FJDKSLA;CMRUEIWOQP',
+      use_winbar = 'never', -- "always" | "never" | "smart"
+      show_prompt = true,
+      filter_func = nil,
+      filter_rules = {
+        bo = {
+          filetype = { 'NvimTree', 'neo-tree', 'notify', 'drex' },
+          buftype = { 'terminal' },
         },
-        fg_color = '#ededed',
-        current_win_hl_color = '#e35e4f',
-        other_win_hl_color = '#0a7aca',
-        selection_display = function(char) return char end,
-      })
-      require('core.maps').window_picker()
-    end,
+        wo = {},
+        file_path_contains = {},
+        file_name_contains = {},
+      },
+      fg_color = '#ededed',
+      current_win_hl_color = '#e35e4f',
+      other_win_hl_color = '#0a7aca',
+      selection_display = function(char) return char end,
+    },
+    config = function() require('core.maps').window_picker() end,
   },
 
   ----------------
