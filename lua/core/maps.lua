@@ -117,12 +117,12 @@ function M.lsp(bufnr)
   local opts = { noremap = true, silent = true, buffer = bufnr }
 
   M.nmap({
-    { 'gD', vim.lsp.buf.definition,      opts },
-    { 'gh', vim.lsp.buf.hover,           opts },
-    { 'gH', vim.lsp.buf.signature_help,  opts },
+    { 'gD', vim.lsp.buf.definition, opts },
+    { 'gh', vim.lsp.buf.hover, opts },
+    { 'gH', vim.lsp.buf.signature_help, opts },
     { 'gT', vim.lsp.buf.type_definition, opts },
-    { 'gR', vim.lsp.buf.references,      opts },
-    { 'gI', vim.lsp.buf.implementation,  opts },
+    { 'gR', vim.lsp.buf.references, opts },
+    { 'gI', vim.lsp.buf.implementation, opts },
   })
 end
 
@@ -212,12 +212,12 @@ function M.mini_pick()
     { '<Leader>ff', pick_files },
     { '<Leader>fr', '<Cmd>Pick resume<CR>' },
     { '<Leader>fs', '<Cmd>Pick grep_live<CR>' },
-    { '<Leader>h',  '<Cmd>Pick help<CR>' },
-    { '<Leader>r',  '<Cmd>Pick registers<CR>' },
+    { '<Leader>h', '<Cmd>Pick help<CR>' },
+    { '<Leader>r', '<Cmd>Pick registers<CR>' },
     -- mini.extras pickers
-    { '<Leader>c',  [[<Cmd>Pick list scope='change'<CR>]] },
-    { '<Leader>d',  '<Cmd>Pick diagnostic<CR>' },
-    { '<Leader>J',  [[<Cmd>Pick list scope='jump'<CR>]] },
+    { '<Leader>c', [[<Cmd>Pick list scope='change'<CR>]] },
+    { '<Leader>d', '<Cmd>Pick diagnostic<CR>' },
+    { '<Leader>J', [[<Cmd>Pick list scope='jump'<CR>]] },
     { '<Leader>fg', '<Cmd>Pick git_files<CR>' },
     { '<Leader>fv', '<Cmd>Pick visit_paths<CR>' },
   })
@@ -238,110 +238,110 @@ function M.base()
 
   M.nmap({
     -- delete current buffer
-    { '<C-x>',    '<Cmd>bd<CR>' },
+    { '<C-x>', '<Cmd>bd<CR>' },
 
     -- yank to system clipboard
-    { '<C-v>',    '"+p' },
+    { '<C-v>', '"+p' },
 
     -- redo
-    { 'U',        '<C-r>' },
+    { 'U', '<C-r>' },
 
     -- 清除最近一次搜索后的高亮
     { '<BS><BS>', '<Cmd>noh<CR>' },
 
     -- start lsp client
-    { 'gl',       '<Cmd>LspStart<CR>' },
+    { 'gl', '<Cmd>LspStart<CR>' },
 
     -- Increment/decrement
-    { '=',        '<C-a>' },
-    { '-',        '<C-x>' },
+    { '=', '<C-a>' },
+    { '-', '<C-x>' },
 
     -- 删除
-    { 'x',        '"_x' },
-    { 'dw',       'vb"_d' },
+    { 'x', '"_x' },
+    { 'dw', 'vb"_d' },
 
     -- 选择全部
-    { '<C-a>',    'gg<S-v>G' },
+    { '<C-a>', 'gg<S-v>G' },
 
     -- Window move
-    { '<C-h>',    '<C-w>h' },
-    { '<C-k>',    '<C-w>k' },
-    { '<C-j>',    '<C-w>j' },
-    { '<C-l>',    '<C-w>l' },
+    { '<C-h>', '<C-w>h' },
+    { '<C-k>', '<C-w>k' },
+    { '<C-j>', '<C-w>j' },
+    { '<C-l>', '<C-w>l' },
 
     -- Window resize
-    { '<C-M-h>',  '<C-w><' },
-    { '<C-M-l>',  '<C-w>>' },
-    { '<C-M-j>',  '<C-w>+' },
-    { '<C-M-k>',  '<C-w>-' },
-    { '<C-M-g>',  '<C-w>=' },
+    { '<C-M-h>', '<C-w><' },
+    { '<C-M-l>', '<C-w>>' },
+    { '<C-M-j>', '<C-w>+' },
+    { '<C-M-k>', '<C-w>-' },
+    { '<C-M-g>', '<C-w>=' },
 
     -- Zoom move
-    { '<C-[>',    'zh' },
-    { '<C-]>',    'zl' },
+    { '<C-[>', 'zh' },
+    { '<C-]>', 'zl' },
   })
 
   M.vmap({
     --缩进
-    { '<',     '<gv' },
-    { '>',     '>gv' },
+    { '<', '<gv' },
+    { '>', '>gv' },
 
     -- 复制到剪贴板
     { '<C-c>', '"+y' },
 
     -- 退出 visual mode
-    { '<C-[',  '<Esc>' },
+    { '<C-[', '<Esc>' },
 
     -- goto and select next word
-    { 'nw',    '<Esc>wviw' },
+    { 'nw', '<Esc>wviw' },
     -- goto and select prev word
-    { 'lw',    '<Esc>bbviw' },
+    { 'lw', '<Esc>bbviw' },
   })
 
   M.nvmap({
 
     -- 退出
-    { 'Q',         '<Cmd>q<CR>' },
-    { 'QQ',        '<Cmd>q!<CR>' },
+    { 'Q', '<Cmd>q<CR>' },
+    { 'QQ', '<Cmd>q!<CR>' },
 
     -- 保存
-    { '<C-s>',     '<Cmd>w<CR>' },
+    { '<C-s>', '<Cmd>w<CR>' },
 
     -- 指针移动
-    { 'J',         '}' },
-    { 'K',         '{' },
-    { 'H',         '^' },
-    { 'L',         '$' },
+    { 'J', '}' },
+    { 'K', '{' },
+    { 'H', '^' },
+    { 'L', '$' },
 
     -- bufferlist
-    { '`',         '<Cmd>b #<CR>' },
-    { '[b',        '<Cmd>bprev<CR>' },
-    { ']b',        '<Cmd>bnext<CR>' },
-    { '[B',        '<Cmd>bfirst<CR>' },
-    { ']B',        '<Cmd>blast<CR>' },
+    { '`', '<Cmd>b #<CR>' },
+    { '[b', '<Cmd>bprev<CR>' },
+    { ']b', '<Cmd>bnext<CR>' },
+    { '[B', '<Cmd>bfirst<CR>' },
+    { ']B', '<Cmd>blast<CR>' },
 
     -- quickfixlist
-    { '[q',        '<Cmd>cprevious<CR>' },
-    { ']q',        '<Cmd>cnext<CR>' },
-    { '[Q',        '<Cmd>cfirst<CR>' },
-    { ']Q',        '<Cmd>clast<CR>' },
+    { '[q', '<Cmd>cprevious<CR>' },
+    { ']q', '<Cmd>cnext<CR>' },
+    { '[Q', '<Cmd>cfirst<CR>' },
+    { ']Q', '<Cmd>clast<CR>' },
 
     -- locallist
-    { '[l',        '<Cmd>lprevious<CR>' },
-    { ']l',        '<Cmd>lnext<CR>' },
-    { '[L',        '<Cmd>lfirst<CR>' },
-    { ']L',        '<Cmd>llast<CR>' },
+    { '[l', '<Cmd>lprevious<CR>' },
+    { ']l', '<Cmd>lnext<CR>' },
+    { '[L', '<Cmd>lfirst<CR>' },
+    { ']L', '<Cmd>llast<CR>' },
 
     -- changelist
-    { '[c',        'g;' },
-    { ']c',        'g,' },
+    { '[c', 'g;' },
+    { ']c', 'g,' },
 
     -- messages
     { '<Leader>m', create_messages_buf },
   })
 
   M.imap({
-    { 'jk',    '<Esc>' },
+    { 'jk', '<Esc>' },
     { '<C-v>', '<Esc>"+pa' },
     { '<C-h>', '<Esc>^i' },
     { '<C-l>', '<Esc>$a' },

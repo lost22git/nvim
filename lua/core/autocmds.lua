@@ -68,14 +68,14 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.keymap.set(
       { 'n' },
       '[C',
-      [[<Cmd>call search('^(comment','bw')<CR>]],
-      { silent = true, buffer = true, desc = 'Goto prev (comment)' }
+      [[<Cmd>call search('\(^(comment\|^#_\)','bw')<CR>]],
+      { silent = true, buffer = true, desc = 'Goto prev (comment) or #_' }
     )
     vim.keymap.set(
       { 'n' },
       ']C',
-      [[<Cmd>call search('^(comment','w')<CR>]],
-      { silent = true, buffer = true, desc = 'Goto prev (comment)' }
+      [[<Cmd>call search('\(^(comment\|^#_\)','w')<CR>]],
+      { silent = true, buffer = true, desc = 'Goto prev (comment) or #_' }
     )
   end,
 })

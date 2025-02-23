@@ -282,4 +282,32 @@ return {
       })
     end,
   },
+
+  ---------------------------
+  -- highlight block scope --
+  ---------------------------
+
+  {
+    'utilyre/sentiment.nvim',
+    version = '*',
+    event = { 'BufReadPost', 'BufNewFile' },
+    opts = {},
+    init = function()
+      -- `matchparen.vim` needs to be disabled manually in case of lazy loading
+      vim.g.loaded_matchparen = 1
+    end,
+  },
+
+  ------------
+  -- indent --
+  ------------
+
+  {
+    'lukas-reineke/indent-blankline.nvim',
+    main = 'ibl',
+    event = { 'BufReadPost', 'BufNewFile' },
+    ---@module "ibl"
+    ---@type ibl.config
+    opts = {},
+  },
 }

@@ -16,7 +16,7 @@ return {
         callback = function()
           if vim.diagnostic.enabled then
             local buffer = vim.api.nvim_get_current_buf()
-            pcall(vim.diagnostic.enable(fasle, { bufnr = buffer }))
+            pcall(vim.diagnostic.enable, false, { bufnr = buffer })
           end
 
           vim.keymap.set(
