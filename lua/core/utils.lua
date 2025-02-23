@@ -111,4 +111,29 @@ function M.lsp_on_attach(client, bufnr)
   lsp_format_on_save(client, bufnr)
 end
 
+function M.tbl_includes(a, b)
+  vim.validate({
+    a = { a, 'table' },
+    b = { b, 'table' },
+  })
+
+  if #a < #b then return false end
+
+  local include = true
+  for _, bv in pairs(b) do
+    local found = false
+    for _, av in pairs(a) do
+      if av == bv then
+        found = true
+        break
+      end
+    end
+    if not found then
+      include = false
+      break
+    end
+  end
+  return include
+end
+
 return M

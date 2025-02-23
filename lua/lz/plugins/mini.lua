@@ -28,7 +28,7 @@ return {
   {
     'echasnovski/mini.statusline',
     version = false,
-    event = 'VeryLazy',
+    lazy = false,
     config = function()
       local count_buffers = function()
         local result = 0

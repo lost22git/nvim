@@ -42,11 +42,6 @@ function M.config()
         args = { '-l', '-w', '$FILENAME' },
         stdin = false,
       },
-      nph = {
-        command = 'nph',
-        args = { '$FILENAME' },
-        stdin = false,
-      },
     },
   })
 end

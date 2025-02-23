@@ -7,6 +7,39 @@ local M = {
   },
 }
 
+local function create_user_command_LualsRestart()
+  local callback = function(input)
+    local library_map = {
+      vim = {
+        vim.env.VIMRUNTIME,
+        '${3rd}/luv/library',
+      },
+      all = {
+        '${3rd}/luv/library',
+        unpack(vim.api.nvim_get_runtime_file('', true)),
+      },
+    }
+    local mode, force = unpack(vim.fn.split(input.fargs[1], '-', false))
+
+    local new_val = library_map[mode]
+    local old_val = vim.g.lua_ls_settings_workspace_library
+
+    if force ~= 'force' and require('core.utils').tbl_includes(old_val, new_val) then
+      vim.notify('[LualsRestart] paths included, nothing todo')
+    else
+      vim.g.lua_ls_settings_workspace_library = new_val
+      vim.cmd([[ LspRestart lua_ls ]])
+    end
+  end
+
+  local opts = {
+    nargs = 1,
+    complete = function(_, _, _) return { 'vim', 'all', 'vim-force', 'all-force' } end,
+  }
+
+  vim.api.nvim_create_user_command('LualsRestart', callback, opts)
+end
+
 function M.config()
   local lspconfig = require('lspconfig')
   local U = require('core.utils')
@@ -54,24 +87,22 @@ function M.config()
       -- If in Neovim or single file
       -- Add these settings
       print('lua_ls add Neovim runtime')
+      vim.g.lua_ls_settings_workspace_library = vim.g.lua_ls_settings_workspace_library
+        or {
+          vim.env.VIMRUNTIME,
+          '${3rd}/luv/library',
+        }
       client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
         runtime = {
           version = 'LuaJIT',
         },
         workspace = {
           checkThirdParty = false,
-          library = {
-            vim.env.VIMRUNTIME,
-
-            -- Depending on the usage, you might want to add additional paths here.
-            '${3rd}/luv/library',
-            -- "${3rd}/busted/library",
-
-            -- or pull in all of 'runtimepath'. NOTE: this is a lot slower and will cause issues when working on your own configuration (see https://github.com/neovim/nvim-lspconfig/issues/3189)
-            unpack(vim.api.nvim_get_runtime_file('', true)),
-          },
+          library = vim.g.lua_ls_settings_workspace_library,
         },
       })
+
+      create_user_command_LualsRestart()
       print('lua_ls settings:', vim.inspect(client.config.settings.Lua))
     end,
   })
