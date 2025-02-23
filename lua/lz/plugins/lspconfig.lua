@@ -107,37 +107,23 @@ function M.config()
     end,
   })
 
-  vim.g.markdown_fenced_languages = {
-    'ts=typescript',
-  }
-
-  -- Deno  for js jsx ts tsx
-  --   lspconfig.denols.setup {
-  --     on_attach = on_attach,
-  --     capabilities = capabilities,
-  --     root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
-  --     single_file_support = true
-  --   }
-
-  -- Typescript
-  lspconfig.ts_ls.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-    root_dir = lspconfig.util.root_pattern('package.json'),
-    single_file_support = true,
-  })
-
-  -- SVELTE  (requires typescript-language-server)
-  lspconfig.svelte.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-  })
-
   -- Markdown
   lspconfig.marksman.setup({
     on_attach = on_attach,
     capabilities = capabilities,
   })
+
+  -- Dockerfile
+  lsp_server_found(
+    'docker-langserver',
+    function(server_path)
+      lspconfig.dockerls.setup({
+        on_attach = on_attach,
+        capabilities = capabilities,
+        cmd = { server_path, '--stdio' },
+      })
+    end
+  )
 
   -- TOML
   lspconfig.taplo.setup({
@@ -163,59 +149,11 @@ function M.config()
     capabilities = capabilities,
   })
 
-  -- Julia
-  lspconfig.julials.setup({
+  -- Powershell
+  lspconfig.powershell_es.setup({
     on_attach = on_attach,
     capabilities = capabilities,
-    on_new_config = function(new_config, _)
-      local julia = vim.fn.expand('~/.julia/environments/nvim-lspconfig/bin/julia')
-      -- local julia_found = require('lspconfig').util.path.is_file(julia)
-      local julia_found = (vim.uv.fs_stat(julia) or {}).type == 'file'
-      if julia_found then new_config.cmd[1] = julia end
-    end,
-  })
-
-  -- Gradle
-  lspconfig.gradle_ls.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-  })
-
-  -- Go
-  lspconfig.gopls.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-  })
-
-  -- Zig
-  lspconfig.zls.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-    settings = {
-      zls = {
-        enable_snippets = true,
-        enable_argument_placeholders = false,
-        highlight_global_var_declarations = true,
-      },
-    },
-  })
-
-  -- V
-  lspconfig.vls.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-  })
-
-  -- Nim
-  lspconfig.nim_langserver.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-  })
-
-  -- Crystal
-  lspconfig.crystalline.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
+    bundle_path = get_lsp_server_package_path('powershell-editor-services'),
   })
 
   -- Nushell
@@ -224,45 +162,30 @@ function M.config()
     capabilities = capabilities,
   })
 
+  vim.g.markdown_fenced_languages = {
+    'ts=typescript',
+  }
+
+  -- Deno  for js jsx ts tsx
+  --   lspconfig.denols.setup {
+  --     on_attach = on_attach,
+  --     capabilities = capabilities,
+  --     root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
+  --     single_file_support = true
+  --   }
+
+  -- Typescript
+  lspconfig.ts_ls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    root_dir = lspconfig.util.root_pattern('package.json'),
+    single_file_support = true,
+  })
+
   -- Html
   lspconfig.html.setup({
     on_attach = on_attach,
     capabilities = capabilities,
-  })
-
-  -- Gleam
-  lspconfig.gleam.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-    root_dir = function(fname)
-      local patterns = { 'gleam.toml', '.git' }
-      return vim.fs.root(fname, patterns)
-    end,
-  })
-
-  -- Odin
-  lspconfig.ols.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-  })
-
-  -- Ocaml
-  lspconfig.ocamllsp.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-  })
-
-  -- Koka
-  lspconfig.koka.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-  })
-
-  -- Powershell
-  lspconfig.powershell_es.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-    bundle_path = get_lsp_server_package_path('powershell-editor-services'),
   })
 
   -- Htmx
@@ -289,18 +212,17 @@ function M.config()
     end
   )
 
-  -- Elixir
-  lsp_server_found('elixir-ls', function(server_path)
-    lspconfig.elixirls.setup({
-      on_attach = on_attach,
-      capabilities = capabilities,
-      cmd = { server_path },
-      root_dir = function(fname)
-        local patterns = { 'mix.exs', '.git' }
-        return vim.fs.root(fname, patterns)
-      end,
-    })
-  end)
+  -- SVELTE  (requires typescript-language-server)
+  lspconfig.svelte.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+  })
+
+  -- Crystal
+  lspconfig.crystalline.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+  })
 
   -- Java
   lsp_server_found(
@@ -314,17 +236,83 @@ function M.config()
     end
   )
 
-  -- Dockerfile
-  lsp_server_found(
-    'docker-langserver',
-    function(server_path)
-      lspconfig.dockerls.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-        cmd = { server_path, '--stdio' },
-      })
-    end
-  )
+  -- Gradle
+  lspconfig.gradle_ls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+  })
+
+  -- Go
+  lspconfig.gopls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+  })
+
+  -- Nim
+  lspconfig.nim_langserver.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+  })
+
+  -- Zig
+  lspconfig.zls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    settings = {
+      zls = {
+        enable_snippets = true,
+        enable_argument_placeholders = false,
+        highlight_global_var_declarations = true,
+      },
+    },
+  })
+
+  -- V
+  lspconfig.vls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+  })
+
+  -- Odin
+  lspconfig.ols.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+  })
+
+  -- OCaml
+  lspconfig.ocamllsp.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+  })
+
+  -- Koka
+  lspconfig.koka.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+  })
+
+  -- Gleam
+  lspconfig.gleam.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    root_dir = function(fname)
+      local patterns = { 'gleam.toml', '.git' }
+      return vim.fs.root(fname, patterns)
+    end,
+  })
+
+  -- Elixir
+  lsp_server_found('elixir-ls', function(server_path)
+    lspconfig.elixirls.setup({
+      on_attach = on_attach,
+      capabilities = capabilities,
+      cmd = { server_path },
+      root_dir = function(fname)
+        local patterns = { 'mix.exs', '.git' }
+        return vim.fs.root(fname, patterns)
+      end,
+    })
+  end)
 
   -- Python
   lsp_server_found(
@@ -337,6 +325,18 @@ function M.config()
       })
     end
   )
+
+  -- Julia
+  lspconfig.julials.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    on_new_config = function(new_config, _)
+      local julia = vim.fn.expand('~/.julia/environments/nvim-lspconfig/bin/julia')
+      -- local julia_found = require('lspconfig').util.path.is_file(julia)
+      local julia_found = (vim.uv.fs_stat(julia) or {}).type == 'file'
+      if julia_found then new_config.cmd[1] = julia end
+    end,
+  })
 
   -- Clojure
   lsp_server_found(
