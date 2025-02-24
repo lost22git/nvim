@@ -1,6 +1,5 @@
 local M = {
   'williamboman/mason.nvim',
-  enabled = not vim.g.vscode,
   cmd = { 'Mason' },
 }
 

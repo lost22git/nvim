@@ -24,7 +24,6 @@ return {
 
   {
     'lost22git/true-zen.nvim',
-    enabled = not vim.g.vscode,
     branch = 'fix-by-lost',
     cmd = { 'TZNarrow', 'TZFocus', 'TZMinimalist', 'TZAtaraxis' },
     opts = {},
@@ -64,7 +63,6 @@ return {
 
   {
     'nyngwang/NeoZoom.lua',
-    enabled = not vim.g.vscode,
     keys = { ';' },
     config = function()
       require('neo-zoom').setup({
@@ -120,7 +118,6 @@ return {
   ------------
   {
     'lewis6991/satellite.nvim',
-    enabled = not vim.g.vscode,
     event = { 'BufReadPost', 'BufNewFile' },
     ops = {},
   },
@@ -143,7 +140,6 @@ return {
 
   {
     's1n7ax/nvim-window-picker',
-    enabled = not vim.g.vscode,
     keys = { '<Leader>w' },
     opts = {
       autoselect_one = true,
@@ -187,6 +183,15 @@ return {
           vim.api.nvim_buf_call(bn, function() vim.cmd(command) end)
         end
       end
+      local function close_others(listed_bufs, index, force)
+        for i, _ in pairs(listed_bufs) do
+          if i ~= index then close_buffer(listed_bufs, i, force) end
+        end
+      end
+      local function refresh_bufferlist(open_bufferlist)
+        vim.cmd('bwipeout')
+        open_bufferlist()
+      end
 
       require('bufferlist').setup({
         keymap = {
@@ -211,10 +216,7 @@ return {
           },
           {
             'r', -- refresh the bufferlist window
-            function(opts)
-              vim.cmd('bwipeout')
-              opts.open_bufferlist()
-            end,
+            function(opts) refresh_bufferlist(opts.open_bufferlist) end,
             { desc = 'BufferList: refresh bufferlist' },
           },
           {
@@ -222,8 +224,7 @@ return {
             function(opts)
               local curpos = vim.fn.line('.')
               close_buffer(opts.buffers, curpos, false)
-              vim.cmd('bwipeout')
-              opts.open_bufferlist()
+              refresh_bufferlist(opts.open_bufferlist)
             end,
             { desc = 'BufferList: delete cursorhold buffer' },
           },
@@ -232,10 +233,18 @@ return {
             function(opts)
               local curpos = vim.fn.line('.')
               close_buffer(opts.buffers, curpos, true)
-              vim.cmd('bwipeout')
-              opts.open_bufferlist()
+              refresh_bufferlist(opts.open_bufferlist)
             end,
             { desc = 'BufferList: force to delete cursorhold buffer' },
+          },
+          {
+            'do',
+            function(opts)
+              local curpos = vim.fn.line('.')
+              close_others(opts.buffers, curpos, false)
+              refresh_bufferlist(opts.open_bufferlist)
+            end,
+            { desc = 'BufferList: delete other buffer' },
           },
           {
             'vs',

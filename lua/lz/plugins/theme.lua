@@ -10,17 +10,14 @@ return {
   },
 
   {
-    'rebelot/kanagawa.nvim',
+    'scottmckendry/cyberdream.nvim',
     lazy = false,
     priority = 1000,
     opts = {
-      compile = true,
-      commentStyle = { italic = false },
-      functionStyle = { italic = false },
-      keywordStyle = { italic = false },
-      statementStyle = { bold = true, italic = false },
-      typeStyle = { italic = false },
+      variant = 'light',
+      transparent = false,
+      cache = true,
     },
-    init = function() vim.cmd('colorscheme kanagawa') end,
+    init = function() vim.cmd('colorscheme cyberdream') end,
   },
 }

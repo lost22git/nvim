@@ -1,5 +1,3 @@
-local M = {}
-
 local do_map = function(mode, tbl)
   vim.validate({
     tbl = { tbl, 'table' },
@@ -30,6 +28,8 @@ local map = function(mod)
     end
   end
 end
+
+local M = {}
 
 -- 按键映射 api
 M.nvmap = map('')
@@ -76,29 +76,8 @@ function M.window_picker()
 end
 
 function M.fterm()
-  local fterm = require('FTerm')
-  -- gitui
-  ---@diagnostic disable-next-line: missing-fields
-  local gitui = fterm:new({
-    ft = 'fterm_gitui',
-    cmd = 'gitui',
-    ---@diagnostic disable-next-line: missing-fields
-    dimensions = {
-      height = 0.9,
-      width = 0.9,
-    },
-  })
-
-  M.nmap({
-    { '<M-3>', '<Cmd>lua require("FTerm").toggle()<CR>' },
-    {
-      '<M-4>',
-      function() gitui:toggle() end,
-    },
-  })
-  M.tmap({
-    { '<M-3>', '<C-\\><C-n><Cmd>lua require("FTerm").toggle()<CR>', { noremap = true } },
-  })
+  M.nvmap({ { '<M-3>', '<Cmd>lua require("FTerm").toggle()<CR>' } })
+  M.tmap({ { '<M-3>', '<C-\\><C-n><Cmd>lua require("FTerm").toggle()<CR>', { noremap = true } } })
 end
 
 function M.blink_cmp()
@@ -237,11 +216,6 @@ function M.base()
   end
 
   M.nmap({
-    -- delete current buffer
-    { '<C-x>', '<Cmd>bd<CR>' },
-
-    -- yank to system clipboard
-    { '<C-v>', '"+p' },
 
     -- redo
     { 'U', '<C-r>' },
@@ -259,26 +233,6 @@ function M.base()
     -- 删除
     { 'x', '"_x' },
     { 'dw', 'vb"_d' },
-
-    -- 选择全部
-    { '<C-a>', 'gg<S-v>G' },
-
-    -- Window move
-    { '<C-h>', '<C-w>h' },
-    { '<C-k>', '<C-w>k' },
-    { '<C-j>', '<C-w>j' },
-    { '<C-l>', '<C-w>l' },
-
-    -- Window resize
-    { '<C-M-h>', '<C-w><' },
-    { '<C-M-l>', '<C-w>>' },
-    { '<C-M-j>', '<C-w>+' },
-    { '<C-M-k>', '<C-w>-' },
-    { '<C-M-g>', '<C-w>=' },
-
-    -- Zoom move
-    { '<C-[>', 'zh' },
-    { '<C-]>', 'zl' },
   })
 
   M.vmap({
@@ -306,6 +260,32 @@ function M.base()
 
     -- 保存
     { '<C-s>', '<Cmd>w<CR>' },
+
+    -- delete current buffer
+    { '<C-x>', '<Cmd>bd<CR>' },
+
+    -- yank to system clipboard
+    { '<C-v>', '"+p' },
+
+    -- 选择全部
+    { '<C-a>', 'gg<S-v>G' },
+
+    -- Window move
+    { '<C-h>', '<C-w>h' },
+    { '<C-k>', '<C-w>k' },
+    { '<C-j>', '<C-w>j' },
+    { '<C-l>', '<C-w>l' },
+
+    -- Window resize
+    { '<C-M-h>', '<C-w><' },
+    { '<C-M-l>', '<C-w>>' },
+    { '<C-M-j>', '<C-w>+' },
+    { '<C-M-k>', '<C-w>-' },
+    { '<C-M-g>', '<C-w>=' },
+
+    -- Zoom move
+    { '<C-[>', 'zh' },
+    { '<C-]>', 'zl' },
 
     -- 指针移动
     { 'J', '}' },

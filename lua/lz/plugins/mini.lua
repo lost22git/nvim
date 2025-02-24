@@ -1,41 +1,18 @@
-local function count_buffers()
-  local result = 0
-  local b = vim.api.nvim_list_bufs()
-  for i = 1, #b do
-    if vim.bo[b[i]].buflisted then result = result + 1 end
-  end
-  return result
-end
-
 return {
-
-  ----------------
-  -- mini.icons --
-  ----------------
 
   {
     'echasnovski/mini.icons',
-    opts = {},
-    specs = {
-      { 'nvim-tree/nvim-web-devicons', enabled = false, optional = true },
-    },
-    init = function()
-      ---@diagnostic disable-next-line: duplicate-set-field
-      package.preload['nvim-web-devicons'] = function()
-        -- needed since it will be false when loading and mini will fail
-        package.loaded['nvim-web-devicons'] = {}
-        require('mini.icons').mock_nvim_web_devicons()
-        return package.loaded['nvim-web-devicons']
-      end
+    version = false,
+    lazy = false,
+    config = function()
+      require('mini.icons').setup({})
+      MiniIcons.mock_nvim_web_devicons()
     end,
   },
 
-  ---------------------
-  -- mini.statusline --
-  ---------------------
-
   {
     'echasnovski/mini.statusline',
+
     version = false,
     lazy = false,
     opts = {
@@ -51,7 +28,7 @@ return {
           local location = MiniStatusline.section_location({ trunc_width = 75 })
           local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
 
-          local buffers = '󱂬 ' .. count_buffers()
+          local buffers = '󱂬 ' .. require('core.utils').get_buffer_count()
 
           return MiniStatusline.combine_groups({
             { hl = mode_hl, strings = { mode } },
@@ -71,10 +48,6 @@ return {
     },
   },
 
-  -----------------
-  -- cursor word --
-  -----------------
-
   {
     'echasnovski/mini.cursorword',
     version = false,
@@ -82,25 +55,18 @@ return {
     opts = {},
   },
 
-  ------------
-  -- notify --
-  ------------
-
   {
     'echasnovski/mini.notify',
     version = false,
-    event = 'VeryLazy',
-    opts = {},
-    config = function() require('core.maps').mini_notify() end,
+    lazy = false,
+    config = function()
+      require('mini.notify').setup({})
+      require('core.maps').mini_notify()
+    end,
   },
-
-  ----------------
-  -- mini.files --
-  ----------------
 
   {
     'echasnovski/mini.files',
-    enabled = not vim.g.vscode,
     keys = { '<M-1>', '<M-2>' },
     version = false,
     config = function()
@@ -167,14 +133,9 @@ return {
     end,
   },
 
-  ---------------
-  -- mini.pick --
-  ---------------
-
   {
     'echasnovski/mini.pick',
     version = false,
-    enabled = not vim.g.vscode,
     dependencies = { 'echasnovski/mini.extra' },
     cmd = { 'Pick' },
     keys = {
@@ -209,23 +170,12 @@ return {
     end,
   },
 
-  -- mini.extras (作为 mini.pick 的依赖并由其加载)
+  -- mini.extras (作为 mini.pick/mini.ai 的依赖并由其加载)
   {
     'echasnovski/mini.extra',
     version = false,
     opts = {},
   },
-
-  -- mini.visits (由 mini.extra 加载)
-  {
-    'echasnovski/mini.visits',
-    version = false,
-    opts = {},
-  },
-
-  -------------
-  -- mini.ai --
-  -------------
 
   {
     'echasnovski/mini.ai',
@@ -269,20 +219,12 @@ return {
     end,
   },
 
-  ---------------
-  -- mini.move --
-  ---------------
-
   {
     'echasnovski/mini.move',
     version = false,
     keys = { '<M-j>', '<M-k>', '<M-l>', '<M-h>' },
     opts = {},
   },
-
-  -------------------
-  -- mini.surround --
-  -------------------
 
   {
     'echasnovski/mini.surround',

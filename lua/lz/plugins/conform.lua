@@ -1,6 +1,5 @@
 return {
   'stevearc/conform.nvim',
-  enabled = not vim.g.vscode,
   event = { 'BufWritePre' },
   opts = {
     format_on_save = {

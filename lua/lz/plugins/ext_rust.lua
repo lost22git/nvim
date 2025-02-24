@@ -7,7 +7,6 @@ return {
 
   {
     'saecki/crates.nvim',
-    enabled = not vim.g.vscode,
     event = { 'BufRead Cargo.toml' },
     dependencies = { 'nvim-lua/plenary.nvim' },
     opts = {},

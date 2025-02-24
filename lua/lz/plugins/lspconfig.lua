@@ -1,6 +1,5 @@
 local M = {
   'neovim/nvim-lspconfig',
-  enabled = not vim.g.vscode,
   cmd = { 'LspInfo', 'LspStart', 'LspLog' },
   dependencies = {
     { 'glepnir/lspsaga.nvim' },
@@ -26,7 +25,7 @@ local function create_user_command_LualsRestart()
     local old_val = vim.g.lua_ls_settings_workspace_library
 
     if force ~= 'force' and require('core.utils').tbl_includes(old_val, new_val) then
-      vim.notify('[LualsRestart] paths included, nothing todo')
+      vim.notify('[LualsRestart] modules included, nothing todo')
     else
       vim.g.lua_ls_settings_workspace_library = new_val
       vim.cmd([[ LspRestart lua_ls ]])
@@ -77,17 +76,18 @@ function M.config()
         local nvim_config_real_path =
           vim.uv.fs_realpath(type(nvim_config_path) == 'table' and nvim_config_path[1] or tostring(nvim_config_path))
         print('lua_ls nvim config path:', nvim_config_real_path)
-        if nvim_config_real_path and path ~= nvim_config_real_path:sub(1, #path) then
-          -- If not in Neovim and not single file
+        local normal_lua_project = nvim_config_real_path
+          and nvim_config_real_path ~= path:sub(1, #nvim_config_real_path)
+        if normal_lua_project then
           -- Use `client.config.settings.Lua`
           print('lua_ls settings:', vim.inspect(client.config.settings.Lua))
           return
         end
       end
 
-      -- If in Neovim or single file
+      -- If dev/config Neovim or single file
       -- Add these settings
-      print('lua_ls add Neovim runtime')
+      print('lua_ls load vim modules')
       vim.g.lua_ls_settings_workspace_library = vim.g.lua_ls_settings_workspace_library
         or {
           vim.env.VIMRUNTIME,

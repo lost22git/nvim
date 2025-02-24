@@ -1,7 +1,6 @@
 return {
   'nvim-neorg/neorg',
   version = '*',
-  enabled = not vim.g.vscode,
   ft = 'norg',
   cmd = 'Neorg',
   opts = {

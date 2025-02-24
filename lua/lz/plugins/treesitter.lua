@@ -87,6 +87,7 @@ function M.config()
       --
       'lua',
       'vim',
+      'vimdoc',
       'regex',
       'bash',
       --

@@ -1,6 +1,5 @@
 local M = {
   'akinsho/flutter-tools.nvim',
-  enabled = not vim.g.vscode,
   cmd = { 'FlutterLspRestart' },
   dependencies = {
     'nvim-lua/plenary.nvim',

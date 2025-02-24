@@ -136,4 +136,18 @@ function M.tbl_includes(a, b)
   return include
 end
 
+function M.get_buffer_count()
+  local result = 0
+  local b = vim.api.nvim_list_bufs()
+  for i = 1, #b do
+    if vim.bo[b[i]].buflisted then result = result + 1 end
+  end
+  return result
+end
+
+function M.get_selection_line_range()
+  local a, b = vim.fn.line('v'), vim.fn.line('.')
+  return a <= b and a, b or b, a
+end
+
 return M
