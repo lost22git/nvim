@@ -58,23 +58,18 @@ return {
   },
 
   --------------
-  -- 保护颈椎 --
+  -- neo-zoom --
   --------------
 
   {
     'nyngwang/NeoZoom.lua',
-    keys = { ';' },
+    keys = { { '<Leader>z', '<Cmd>NeoZoomToggle<CR>' } },
     config = function()
       require('neo-zoom').setup({
         popup = { enabled = true },
         exclude_buftypes = { 'terminal' },
         winopts = {
-          offset = {
-            -- top = 0,
-            -- left = 0.17,
-            width = 150,
-            height = 0.85,
-          },
+          offset = { width = 150, height = 0.85 },
           border = 'rounded',
         },
         presets = {
@@ -86,14 +81,10 @@ return {
           },
           {
             filetypes = { 'markdown' },
-            callbacks = {
-              function() vim.wo.wrap = true end,
-            },
+            callbacks = { function() vim.wo.wrap = true end },
           },
         },
       })
-
-      vim.keymap.set('n', ';', function() vim.cmd('NeoZoomToggle') end, { silent = true, nowait = true })
 
       vim.api.nvim_create_autocmd({ 'WinEnter' }, {
         callback = function()
@@ -291,7 +282,7 @@ return {
   {
     'lukas-reineke/indent-blankline.nvim',
     main = 'ibl',
-    event = { 'BufReadPost', 'BufNewFile' },
+    keys = { { '<Leader>i', '<Cmd>IBLToggle<CR>' } },
     ---@module "ibl"
     ---@type ibl.config
     opts = {},
