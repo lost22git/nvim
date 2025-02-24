@@ -162,4 +162,17 @@ return {
     cmd = { 'Neogit' },
     opts = {},
   },
+
+  --------------
+  -- gitsigns --
+  --------------
+
+  {
+    'lewis6991/gitsigns.nvim',
+    event = { 'BufReadPost', 'BufNewFile' },
+    opts = {
+      on_attach = function(_bufnr) require('core.maps').gitsigns() end,
+      numhl = true,
+    },
+  },
 }

@@ -138,18 +138,7 @@ return {
     version = false,
     dependencies = { 'echasnovski/mini.extra' },
     cmd = { 'Pick' },
-    keys = {
-      '<Leader>c',
-      '<Leader>d',
-      '<Leader>h',
-      '<Leader>j',
-      '<Leader>fe',
-      '<Leader>ff',
-      '<Leader>fg',
-      '<Leader>fr',
-      '<Leader>fs',
-      '<Leader>fv',
-    },
+    keys = { '<Leader>f' },
     config = function()
       require('mini.pick').setup({
         mappings = {

@@ -1,7 +1,7 @@
 local M = {
   'kevinhwang91/nvim-ufo',
   dependencies = { 'kevinhwang91/promise-async' },
-  keys = { 'za' },
+  keys = { 'z' },
 }
 
 local handler = function(virtText, lnum, endLnum, width, truncate)
@@ -49,7 +49,7 @@ function M.config()
     },
   })
 
-  vim.keymap.set('n', '<Tab>', function()
+  vim.keymap.set('n', '<Tab>f', function()
     local winid = require('ufo').peekFoldedLinesUnderCursor()
     if not winid then vim.lsp.buf.hover() end
   end)

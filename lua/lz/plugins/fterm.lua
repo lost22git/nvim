@@ -1,6 +1,6 @@
 local M = {
   'numToStr/FTerm.nvim',
-  keys = { '<M-3>', '<M-4>' },
+  keys = { '<M-3>' },
 }
 
 function M.config()

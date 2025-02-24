@@ -66,6 +66,10 @@ function M.config()
         telemetry = {
           enable = false,
         },
+        workspace = {
+          checkThirdParty = false,
+          library = {},
+        },
       },
     },
     on_init = function(client)
@@ -80,6 +84,7 @@ function M.config()
           and nvim_config_real_path ~= path:sub(1, #nvim_config_real_path)
         if normal_lua_project then
           -- Use `client.config.settings.Lua`
+          print('It is a normal lua project')
           print('lua_ls settings:', vim.inspect(client.config.settings.Lua))
           return
         end

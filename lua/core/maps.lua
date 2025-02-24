@@ -80,6 +80,18 @@ function M.fterm()
   M.tmap({ { '<M-3>', '<C-\\><C-n><Cmd>lua require("FTerm").toggle()<CR>', { noremap = true } } })
 end
 
+function M.gitsigns()
+  M.nmap({
+    { '[h', '<Cmd>Gitsigns prev_hunk<CR>' },
+    { ']h', '<Cmd>Gitsigns next_hunk<CR>' },
+    { '<Tab>h', '<Cmd>Gitsigns preview_hunk<CR>' },
+    { '<Leader>hh', '<Cmd>Gitsigns nav_hunk<CR>' },
+    { '<Leader>hr', '<Cmd>Gitsigns reset_hunk<CR>' },
+    { '<Leader>hs', '<Cmd>Gitsigns stage_hunk<CR>' },
+    { '<Leader>hv', '<Cmd>Gitsigns select_hunk<CR>' },
+  })
+end
+
 function M.blink_cmp()
   return {
     preset = 'super-tab',
@@ -189,16 +201,14 @@ function M.mini_pick()
   M.nmap({
     { '<Leader>fe', '<Cmd>Pick oldfiles<CR>' },
     { '<Leader>ff', pick_files },
+    { '<Leader>fh', '<Cmd>Pick help<CR>' },
     { '<Leader>fr', '<Cmd>Pick resume<CR>' },
     { '<Leader>fs', '<Cmd>Pick grep_live<CR>' },
-    { '<Leader>h', '<Cmd>Pick help<CR>' },
-    { '<Leader>r', '<Cmd>Pick registers<CR>' },
     -- mini.extras pickers
-    { '<Leader>c', [[<Cmd>Pick list scope='change'<CR>]] },
-    { '<Leader>d', '<Cmd>Pick diagnostic<CR>' },
-    { '<Leader>J', [[<Cmd>Pick list scope='jump'<CR>]] },
+    { '<Leader>fc', [[<Cmd>Pick list scope='change'<CR>]] },
+    { '<Leader>fd', '<Cmd>Pick diagnostic<CR>' },
+    { '<Leader>fj', [[<Cmd>Pick list scope='jump'<CR>]] },
     { '<Leader>fg', '<Cmd>Pick git_files<CR>' },
-    { '<Leader>fv', '<Cmd>Pick visit_paths<CR>' },
   })
 end
 
