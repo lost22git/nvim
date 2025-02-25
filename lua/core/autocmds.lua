@@ -25,7 +25,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 vim.cmd([[
   au BufNewFile,BufReadPost *.v set filetype=vlang
   au BufNewFile,BufReadPost *.postcss set filetype=postcss
-  au BufNewFile,BufReadPost *.nu set filetype=nu
   au BufNewFile,BufReadPost *.cy set filetype=cyber
   au BufNewFile,BufReadPost *.lobster set filetype=lobster
   au BufNewFile,BufReadPost *.c3 set filetype=c3
@@ -38,7 +37,6 @@ vim.cmd([[
 vim.cmd([[
   au FileType json setlocal commentstring=//\ %s
   au FileType nim setlocal commentstring=#\ %s
-  au FileType crystal setlocal commentstring=#\ %s
   au FileType inko setlocal commentstring=#\ %s
   au FileType cyber setlocal commentstring=--\ %s
   au FileType just setlocal commentstring=#\ %s
