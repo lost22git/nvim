@@ -38,7 +38,9 @@ return {
       winbar = true,
       show_variable_info_text = 'float',
     },
-    config = function()
+    config = function(_, opts)
+      require('kulala').setup(opts)
+
       local create_usercmds = function()
         vim.api.nvim_buf_create_user_command(0, 'KulalaRun', function(opts) require('kulala').run() end, { nargs = 0 })
         vim.api.nvim_buf_create_user_command(

@@ -40,41 +40,6 @@ M.imap = map('i')
 M.cmap = map('c')
 M.tmap = map('t')
 
-function M.todo()
-  M.nmap({
-    {
-      '[t',
-      function() require('todo-comments').jump_prev() end,
-    },
-    {
-      ']t',
-      function() require('todo-comments').jump_next() end,
-    },
-  })
-end
-
-function M.treesj()
-  M.nmap({
-    {
-      '<Leader>j',
-      function() require('treesj').toggle() end,
-    },
-  })
-end
-
-function M.window_picker()
-  local picker = require('window-picker')
-  M.nmap({
-    {
-      '<Leader>w',
-      function()
-        local picked_window_id = picker.pick_window() or vim.api.nvim_get_current_win()
-        vim.api.nvim_set_current_win(picked_window_id)
-      end,
-    },
-  })
-end
-
 function M.fterm()
   M.nvmap({ { '<M-3>', '<Cmd>lua require("FTerm").toggle()<CR>' } })
   M.tmap({ { '<M-3>', '<C-\\><C-n><Cmd>lua require("FTerm").toggle()<CR>', { noremap = true } } })
@@ -122,7 +87,7 @@ function M.lspsaga()
     { 'ga', '<Cmd>Lspsaga code_action<CR>' },
     { 'gd', '<Cmd>Lspsaga peek_definition<CR>' },
     { 'gf', '<Cmd>Lspsaga finder<CR>' },
-    { 'gi', '<Cmd>lspsaga incoming_calls<CR>' },
+    { 'gi', '<Cmd>Lspsaga incoming_calls<CR>' },
     { 'go', '<Cmd>Lspsaga outgoing_calls<CR>' },
     { 'gO', '<Cmd>Lspsaga outline<CR>' },
     { 'gr', '<Cmd>Lspsaga rename<CR>' },
@@ -136,50 +101,6 @@ function M.lspsaga()
     {
       ']D',
       function() require('lspsaga.diagnostic'):goto_next({ severity = vim.diagnostic.severity.ERROR }) end,
-    },
-  })
-end
-
-function M.mini_notify()
-  M.nvmap({ { '<Leader>n', function() MiniNotify.show_history() end } })
-end
-
-function M.mini_files()
-  local yank_full_path = function()
-    ---@diagnostic disable-next-line: undefined-global
-    local path = MiniFiles.get_fs_entry().path
-    vim.fn.setreg('+', path)
-    -- Print path yanked
-    print(path)
-  end
-  local yank_relative_path = function()
-    ---@diagnostic disable-next-line: undefined-global
-    local path = MiniFiles.get_fs_entry().path
-    vim.fn.setreg('+', vim.fn.fnamemodify(path, ':.'))
-    -- Print path yanked
-    print(vim.fn.fnamemodify(path, ':.'))
-  end
-
-  vim.api.nvim_create_autocmd('User', {
-    pattern = 'MiniFilesBufferCreate',
-    callback = function(args)
-      ---@diagnostic disable-next-line: missing-fields
-      vim.keymap.set('n', 'gy', yank_full_path, { buffer = args.data.buf_id })
-      ---@diagnostic disable-next-line: missing-fields
-      vim.keymap.set('n', 'gY', yank_relative_path, { buffer = args.data.buf_id })
-    end,
-  })
-
-  M.nmap({
-    {
-      '<M-1>',
-      ---@diagnostic disable-next-line: undefined-global
-      function() MiniFiles.open() end,
-    },
-    {
-      '<M-2>',
-      ---@diagnostic disable-next-line: undefined-global
-      function() MiniFiles.open(vim.api.nvim_buf_get_name(0), false) end,
     },
   })
 end

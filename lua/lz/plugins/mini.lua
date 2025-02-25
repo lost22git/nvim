@@ -12,7 +12,6 @@ return {
 
   {
     'echasnovski/mini.statusline',
-
     version = false,
     lazy = false,
     opts = {
@@ -59,64 +58,91 @@ return {
     'echasnovski/mini.notify',
     version = false,
     lazy = false,
-    config = function()
-      require('mini.notify').setup({})
-      require('core.maps').mini_notify()
-    end,
+    keys = { { '<Leader>n', function() MiniNotify.show_history() end } },
+    opts = {},
   },
 
   {
     'echasnovski/mini.files',
-    keys = { '<M-1>', '<M-2>' },
     version = false,
-    config = function()
-      require('mini.files').setup({
-        -- Customization of shown content
-        content = {
-          -- Predicate for which file system entries to show
-          filter = nil,
-          -- What prefix to show to the left of file system entry
-          prefix = nil,
-          -- In which order to show file system entries
-          sort = nil,
-        },
-        -- Module mappings created only inside explorer.
-        -- Use `''` (empty string) to not create one.
-        mappings = {
-          close = 'q',
-          go_in = 'l',
-          go_in_plus = 'L',
-          go_out = 'h',
-          go_out_plus = 'H',
-          reset = '<BS>',
-          show_help = 'g?',
-          synchronize = '=',
-          trim_left = '<',
-          trim_right = '>',
-        },
-        -- General options
-        options = {
-          -- Whether to delete permanently or move into module-specific trash
-          permanent_delete = true,
-          -- Whether to use for editing directories
-          use_as_default_explorer = true,
-        },
-        -- Customization of explorer windows
-        windows = {
-          -- Maximum number of windows to show side by side
-          max_number = math.huge,
-          -- Whether to show preview of file/directory under cursor
-          preview = true,
-          -- Width of focused window
-          width_focus = 50,
-          -- Width of non-focused window
-          width_nofocus = 15,
-          -- Width of preview window
-          width_preview = 25,
-        },
-      })
+    keys = {
+      ---@diagnostic disable-next-line: undefined-global
+      { '<M-1>', function() MiniFiles.open() end },
+      ---@diagnostic disable-next-line: undefined-global
+      { '<M-2>', function() MiniFiles.open(vim.api.nvim_buf_get_name(0), false) end },
+    },
+    opts = {
+      -- Customization of shown content
+      content = {
+        -- Predicate for which file system entries to show
+        filter = nil,
+        -- What prefix to show to the left of file system entry
+        prefix = nil,
+        -- In which order to show file system entries
+        sort = nil,
+      },
+      -- Module mappings created only inside explorer.
+      -- Use `''` (empty string) to not create one.
+      mappings = {
+        close = 'q',
+        go_in = 'l',
+        go_in_plus = 'L',
+        go_out = 'h',
+        go_out_plus = 'H',
+        reset = '<BS>',
+        show_help = 'g?',
+        synchronize = '=',
+        trim_left = '<',
+        trim_right = '>',
+      },
+      -- General options
+      options = {
+        -- Whether to delete permanently or move into module-specific trash
+        permanent_delete = true,
+        -- Whether to use for editing directories
+        use_as_default_explorer = true,
+      },
+      -- Customization of explorer windows
+      windows = {
+        -- Maximum number of windows to show side by side
+        max_number = math.huge,
+        -- Whether to show preview of file/directory under cursor
+        preview = true,
+        -- Width of focused window
+        width_focus = 50,
+        -- Width of non-focused window
+        width_nofocus = 15,
+        -- Width of preview window
+        width_preview = 25,
+      },
+    },
+    config = function(_, opts)
+      require('mini.files').setup(opts)
 
-      require('core.maps').mini_files()
+      local yank_full_path = function()
+        ---@diagnostic disable-next-line: undefined-global
+        local path = MiniFiles.get_fs_entry().path
+        vim.fn.setreg('+', path)
+        -- Print path yanked
+        print(path)
+      end
+      local yank_relative_path = function()
+        ---@diagnostic disable-next-line: undefined-global
+        local path = MiniFiles.get_fs_entry().path
+        vim.fn.setreg('+', vim.fn.fnamemodify(path, ':.'))
+        -- Print path yanked
+        print(vim.fn.fnamemodify(path, ':.'))
+      end
+
+      vim.api.nvim_create_autocmd('User', {
+        pattern = 'MiniFilesBufferCreate',
+        callback = function(args)
+          ---@diagnostic disable-next-line: missing-fields
+          vim.keymap.set('n', 'gy', yank_full_path, { buffer = args.data.buf_id })
+          ---@diagnostic disable-next-line: missing-fields
+          vim.keymap.set('n', 'gY', yank_relative_path, { buffer = args.data.buf_id })
+        end,
+      })
 
       vim.api.nvim_create_autocmd('User', {
         pattern = 'MiniFilesWindowOpen',
@@ -171,9 +197,7 @@ return {
     version = false,
     event = { 'BufReadPost', 'BufNewFile' },
     config = function()
-      local ai = require('mini.ai')
-      local extra = require('mini.extra')
-      ai.setup({
+      require('mini.ai').setup({
         mappings = {
           -- Main textobject prefixes
           around = 'a',
@@ -191,18 +215,18 @@ return {
         },
         custom_textobjects = {
           -- treesitter-textobject
-          F = ai.gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }),
-          c = ai.gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }),
-          o = ai.gen_spec.treesitter({
+          F = require('mini.ai').gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }),
+          c = require('mini.ai').gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }),
+          o = require('mini.ai').gen_spec.treesitter({
             a = { '@conditional.outer', '@loop.outer' },
             i = { '@conditional.inner', '@loop.inner' },
           }),
           -- Mini.Extra
-          B = extra.gen_ai_spec.buffer(),
-          D = extra.gen_ai_spec.diagnostic(),
-          I = extra.gen_ai_spec.indent(),
-          L = extra.gen_ai_spec.line(),
-          N = extra.gen_ai_spec.number(),
+          B = require('mini.extra').gen_ai_spec.buffer(),
+          D = require('mini.extra').gen_ai_spec.diagnostic(),
+          I = require('mini.extra').gen_ai_spec.indent(),
+          L = require('mini.extra').gen_ai_spec.line(),
+          N = require('mini.extra').gen_ai_spec.number(),
         },
       })
     end,
@@ -211,7 +235,12 @@ return {
   {
     'echasnovski/mini.move',
     version = false,
-    keys = { '<M-j>', '<M-k>', '<M-l>', '<M-h>' },
+    keys = {
+      { '<M-j>', mode = { 'n', 'v' } },
+      { '<M-k>', mode = { 'n', 'v' } },
+      { '<M-l>', mode = { 'n', 'v' } },
+      { '<M-h>', mode = { 'n', 'v' } },
+    },
     opts = {},
   },
 

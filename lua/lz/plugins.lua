@@ -53,8 +53,11 @@ return {
     'folke/todo-comments.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },
     event = { 'BufReadPost', 'BufNewFile' },
+    keys = {
+      { '[t', function() require('todo-comments').jump_prev() end },
+      { ']t', function() require('todo-comments').jump_next() end },
+    },
     opts = {},
-    config = function() require('core.maps').todo() end,
   },
 
   --------------
@@ -64,27 +67,28 @@ return {
   {
     'nyngwang/NeoZoom.lua',
     keys = { { '<Leader>z', '<Cmd>NeoZoomToggle<CR>' } },
-    config = function()
-      require('neo-zoom').setup({
-        popup = { enabled = true },
-        exclude_buftypes = { 'terminal' },
-        winopts = {
-          offset = { width = 150, height = 0.85 },
-          border = 'rounded',
-        },
-        presets = {
-          {
-            filetypes = { 'dapui_.*', 'dap-repl' },
-            winopts = {
-              offset = { top = 0.02, left = 0.26, width = 0.74, height = 0.25 },
-            },
-          },
-          {
-            filetypes = { 'markdown' },
-            callbacks = { function() vim.wo.wrap = true end },
+    opts = {
+      popup = { enabled = true },
+      exclude_buftypes = { 'terminal' },
+      winopts = {
+        offset = { width = 150, height = 0.85 },
+        border = 'rounded',
+      },
+      presets = {
+        {
+          filetypes = { 'dapui_.*', 'dap-repl' },
+          winopts = {
+            offset = { top = 0.02, left = 0.26, width = 0.74, height = 0.25 },
           },
         },
-      })
+        {
+          filetypes = { 'markdown' },
+          callbacks = { function() vim.wo.wrap = true end },
+        },
+      },
+    },
+    config = function(_, opts)
+      require('neo-zoom').setup(opts)
 
       vim.api.nvim_create_autocmd({ 'WinEnter' }, {
         callback = function()
@@ -131,29 +135,16 @@ return {
 
   {
     's1n7ax/nvim-window-picker',
-    keys = { '<Leader>w' },
-    opts = {
-      autoselect_one = true,
-      include_current_win = false,
-      selection_chars = 'FJDKSLA;CMRUEIWOQP',
-      use_winbar = 'never', -- "always" | "never" | "smart"
-      show_prompt = true,
-      filter_func = nil,
-      filter_rules = {
-        bo = {
-          filetype = { 'NvimTree', 'neo-tree', 'notify', 'drex' },
-          buftype = { 'terminal' },
-        },
-        wo = {},
-        file_path_contains = {},
-        file_name_contains = {},
+    keys = {
+      {
+        '<Leader>w',
+        function()
+          local win_id = require('window-picker').pick_window() or vim.api.nvim_get_current_win()
+          vim.api.nvim_set_current_win(win_id)
+        end,
       },
-      fg_color = '#ededed',
-      current_win_hl_color = '#e35e4f',
-      other_win_hl_color = '#0a7aca',
-      selection_display = function(char) return char end,
     },
-    config = function() require('core.maps').window_picker() end,
+    opts = {},
   },
 
   ----------------
@@ -164,7 +155,7 @@ return {
     'EL-MASTOR/bufferlist.nvim',
     keys = { { '<Leader>b', ':BufferList<CR>', desc = 'Open bufferlist' } },
     cmd = 'BufferList',
-    config = function()
+    opts = function()
       local function close_buffer(listed_bufs, index, force)
         local bn = listed_bufs[index]
         if vim.bo[bn].buftype == 'terminal' and not force then return nil end
@@ -184,7 +175,7 @@ return {
         open_bufferlist()
       end
 
-      require('bufferlist').setup({
+      return {
         keymap = {
           close_buf_prefix = 'd',
           force_close_buf_prefix = 'D',
@@ -256,7 +247,7 @@ return {
             { desc = 'BufferList: horizontally split cursorhold buffer' },
           },
         },
-      })
+      }
     end,
   },
 
@@ -287,4 +278,9 @@ return {
     ---@type ibl.config
     opts = {},
   },
+
+  ---------------------
+  -- better quickfix --
+  ---------------------
+  {},
 }

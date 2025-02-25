@@ -40,34 +40,31 @@ return {
   {
     'julienvincent/nvim-paredit',
     ft = { 'clojure', 'fennel' },
-    config = function()
-      local paredit = require('nvim-paredit')
-      paredit.setup({
-        filetypes = { 'clojure', 'fennel' },
-        keys = {
-          ['du'] = { paredit.api.raise_form, 'Raise form' },
-          ['dU'] = { paredit.api.raise_element, 'Raise element' },
-          ['<s'] = {
-            function()
-              paredit.cursor.place_cursor(
-                paredit.wrap.wrap_enclosing_form_under_cursor('( ', ')'),
-                { placement = 'inner_start', mode = 'insert' }
-              )
-            end,
-            'Wrap form insert head',
-          },
-          ['>s'] = {
-            function()
-              paredit.cursor.place_cursor(
-                paredit.wrap.wrap_enclosing_form_under_cursor('(', ')'),
-                { placement = 'inner_end', mode = 'insert' }
-              )
-            end,
-            'Wrap form insert tail',
-          },
+    opts = {
+      filetypes = { 'clojure', 'fennel' },
+      keys = {
+        ['du'] = { function() require('nvim-paredit').api.raise_form() end, 'Raise form' },
+        ['dU'] = { function() require('nvim-paredit').api.raise_element() end, 'Raise element' },
+        ['<s'] = {
+          function()
+            require('nvim-paredit').cursor.place_cursor(
+              require('nvim-paredit').wrap.wrap_enclosing_form_under_cursor('( ', ')'),
+              { placement = 'inner_start', mode = 'insert' }
+            )
+          end,
+          'Wrap form insert head',
         },
-      })
-    end,
+        ['>s'] = {
+          function()
+            require('nvim-paredit').cursor.place_cursor(
+              require('nvim-paredit').wrap.wrap_enclosing_form_under_cursor('(', ')'),
+              { placement = 'inner_end', mode = 'insert' }
+            )
+          end,
+          'Wrap form insert tail',
+        },
+      },
+    },
   },
 
   --------------------
@@ -76,34 +73,11 @@ return {
 
   {
     'Wansmer/treesj',
-    keys = { '<Leader>j' },
-    dependencies = { 'nvim-treesitter/nvim-treesitter' },
-    opts = {
-      -- Use default keymaps
-      -- (<space>m - toggle, <space>j - join, <space>s - split)
-      use_default_keymaps = false,
-
-      -- Node with syntax error will not be formatted
-      check_syntax_error = true,
-
-      -- If line after join will be longer than max value,
-      -- node will not be formatted
-      max_join_length = 120,
-
-      -- hold|start|end:
-      -- hold - cursor follows the node/place on which it was called
-      -- start - cursor jumps to the first symbol of the node being formatted
-      -- end - cursor jumps to the last symbol of the node being formatted
-      cursor_behavior = 'hold',
-
-      -- Notify about possible problems or not
-      notify = true,
-      langs = {},
-
-      -- Use `dot` for repeat action
-      dot_repeat = true,
+    keys = {
+      { '<Leader>j', function() require('treesj').toggle() end },
     },
-    config = function() require('core.maps').treesj() end,
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    opts = {},
   },
 
   --------------------

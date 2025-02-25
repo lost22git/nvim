@@ -46,7 +46,7 @@ function M.get_mason_path() return M.get_data_path() .. '/mason' end
 local lsp_server_bin_dir = M.get_mason_path() .. '/bin/'
 local lsp_server_package_dir = M.get_mason_path() .. '/packages/'
 
-function M.lsp_server_found(name, fn)
+function M.with_lsp_server(name, fn)
   local path = M.get_lsp_server_path(name)
   if path ~= '' then fn(path) end
 end
@@ -90,18 +90,26 @@ end
 function M.lsp_cmp_capabilities() return require('blink.cmp').get_lsp_capabilities() end
 
 local function lsp_format_on_save(client, bufnr)
-  local augroup_format = vim.api.nvim_create_augroup('lsp_format_on_save', {})
   if client.supports_method('textDocument/formatting') then
-    vim.api.nvim_clear_autocmds({ group = augroup_format, buffer = bufnr })
+    local aug = vim.api.nvim_create_augroup('lsp_format_on_save', {})
+    vim.api.nvim_clear_autocmds({ group = aug, buffer = bufnr })
     vim.api.nvim_create_autocmd('BufWritePre', {
-      group = augroup_format,
+      group = aug,
       buffer = bufnr,
-      callback = function()
-        vim.lsp.buf.format({
-          bufnr = bufnr,
-          timeout_ms = 1000,
-        })
-      end,
+      callback = function() vim.lsp.buf.format({ bufnr = bufnr, timeout_ms = 1000 }) end,
+    })
+  end
+end
+
+local function lsp_codelens_refresh(client, bufnr)
+  if client.supports_method('textDocument/codeLens') then
+    local aug = vim.api.nvim_create_augroup('lsp_codelens_refresh', {})
+    vim.api.nvim_clear_autocmds({ group = aug, buffer = bufnr })
+    vim.lsp.codelens.refresh()
+    vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {
+      group = aug,
+      buffer = bufnr,
+      callback = vim.lsp.codelens.refresh,
     })
   end
 end
@@ -109,6 +117,7 @@ end
 function M.lsp_on_attach(client, bufnr)
   require('core.maps').lsp(bufnr)
   lsp_format_on_save(client, bufnr)
+  lsp_codelens_refresh(client, bufnr)
 end
 
 function M.tbl_includes(a, b)

@@ -1,11 +1,3 @@
-local M = {
-  'neovim/nvim-lspconfig',
-  cmd = { 'LspInfo', 'LspStart', 'LspLog' },
-  dependencies = {
-    { 'glepnir/lspsaga.nvim' },
-  },
-}
-
 local function create_user_command_LualsRestart()
   local callback = function(input)
     local library_map = {
@@ -21,8 +13,7 @@ local function create_user_command_LualsRestart()
 
     local mode, force = unpack(vim.fn.split(input.fargs[1], '-', false))
 
-    local new_val = library_map[mode]
-    local old_val = vim.g.lua_ls_settings_workspace_library
+    local new_val, old_val = library_map[mode], vim.g.lua_ls_settings_workspace_library
 
     if force ~= 'force' and require('core.utils').tbl_includes(old_val, new_val) then
       vim.notify('[LualsRestart] modules included, nothing todo')
@@ -40,14 +31,25 @@ local function create_user_command_LualsRestart()
   vim.api.nvim_create_user_command('LualsRestart', callback, opts)
 end
 
-function M.config()
-  local lspconfig = require('lspconfig')
-  local U = require('core.utils')
+local M = {
+  'neovim/nvim-lspconfig',
+  cmd = { 'LspInfo', 'LspStart', 'LspLog' },
+  dependencies = {
+    { 'glepnir/lspsaga.nvim' },
+  },
+}
 
-  local lsp_server_found = U.lsp_server_found
+function M.config()
+  -- vim.diagnostic.config({ severity_sort = true })
+
+  local lspconfig, U = require('lspconfig'), require('core.utils')
+
+  local with_lsp_server = U.with_lsp_server
   local get_lsp_server_package_path = U.get_lsp_server_package_path
 
-  local capabilities = U.lsp_cmp_capabilities()
+  local capabilities = vim.tbl_deep_extend('force', U.lsp_cmp_capabilities(), {
+    workspace = { fileOperations = { didRename = true, willRename = true } },
+  })
   local on_attach = function(client, bufnr) U.lsp_on_attach(client, bufnr) end
 
   -------- LSP Servers config ----------
@@ -60,28 +62,25 @@ function M.config()
     capabilities = capabilities,
     settings = {
       Lua = {
-        completion = {
-          callSnippet = 'Replace',
-        },
-        telemetry = {
-          enable = false,
-        },
-        workspace = {
-          checkThirdParty = false,
-          library = {},
-        },
+        codeLens = { enable = true },
+        completion = { callSnippet = 'Replace' },
+        telemetry = { enable = false },
+        workspace = { checkThirdParty = false, library = {} },
       },
     },
     on_init = function(client)
       if client.workspace_folders then
         local path = vim.uv.fs_realpath(client.workspace_folders[1].name)
         local nvim_config_path = vim.fn.stdpath('config')
+
         print('lua_ls workspace path:', path)
+
         local nvim_config_real_path =
           vim.uv.fs_realpath(type(nvim_config_path) == 'table' and nvim_config_path[1] or tostring(nvim_config_path))
+
         print('lua_ls nvim config path:', nvim_config_real_path)
-        local normal_lua_project = nvim_config_real_path
-          and nvim_config_real_path ~= path:sub(1, #nvim_config_real_path)
+
+        local normal_lua_project = path and nvim_config_real_path ~= path:sub(1, #nvim_config_real_path)
         if normal_lua_project then
           -- Use `client.config.settings.Lua`
           print('It is a normal lua project')
@@ -99,6 +98,7 @@ function M.config()
           '${3rd}/luv/library',
         }
       client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+        codeLens = { enable = false },
         runtime = {
           version = 'LuaJIT',
         },
@@ -120,7 +120,7 @@ function M.config()
   })
 
   -- Dockerfile
-  lsp_server_found(
+  with_lsp_server(
     'docker-langserver',
     function(server_path)
       lspconfig.dockerls.setup({
@@ -195,7 +195,7 @@ function M.config()
   })
 
   -- Htmx
-  lsp_server_found(
+  with_lsp_server(
     'htmx-lsp',
     function(server_path)
       lspconfig.htmx.setup({
@@ -207,7 +207,7 @@ function M.config()
   )
 
   -- Tailwindcss
-  lsp_server_found(
+  with_lsp_server(
     'tailwindcss-language-server',
     function(server_path)
       lspconfig.tailwindcss.setup({
@@ -231,7 +231,7 @@ function M.config()
   })
 
   -- Java
-  lsp_server_found(
+  with_lsp_server(
     'jdtls',
     function(server_path)
       lspconfig.jdtls.setup({
@@ -308,7 +308,7 @@ function M.config()
   })
 
   -- Elixir
-  lsp_server_found('elixir-ls', function(server_path)
+  with_lsp_server('elixir-ls', function(server_path)
     lspconfig.elixirls.setup({
       on_attach = on_attach,
       capabilities = capabilities,
@@ -321,7 +321,7 @@ function M.config()
   end)
 
   -- Python
-  lsp_server_found(
+  with_lsp_server(
     'pyright-langserver',
     function(server_path)
       lspconfig.pyright.setup({
@@ -345,7 +345,7 @@ function M.config()
   })
 
   -- Clojure
-  lsp_server_found(
+  with_lsp_server(
     'clojure-lsp',
     function(server_path)
       lspconfig.clojure_lsp.setup({
@@ -385,4 +385,30 @@ function M.config()
   })
 end
 
-return M
+return {
+  M,
+
+  {
+    'williamboman/mason.nvim',
+    cmd = { 'Mason' },
+    opts = {
+      install_root_dir = require('core.utils').get_mason_path(),
+      PATH = 'prepend',
+    },
+  },
+
+  {
+    'glepnir/lspsaga.nvim',
+    cmd = { 'Lspsaga' },
+    opts = {
+      scroll_preview = { scroll_down = '<C-d>', scroll_up = '<C-u>' },
+      beacon = { enable = true },
+      finder = { keys = { shuttle = '<Tab>' } },
+      outline = { keys = { toggle_or_jump = '<Tab>', jump = 'o' } },
+    },
+    config = function(_, opts)
+      require('lspsaga').setup(opts)
+      require('core.maps').lspsaga()
+    end,
+  },
+}
