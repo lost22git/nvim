@@ -226,10 +226,6 @@ function M.base()
     { '[L', '<Cmd>lfirst<CR>' },
     { ']L', '<Cmd>llast<CR>' },
 
-    -- changelist
-    { '[c', 'g;' },
-    { ']c', 'g,' },
-
     -- messages
     { '<Leader>m', create_messages_buf },
   })

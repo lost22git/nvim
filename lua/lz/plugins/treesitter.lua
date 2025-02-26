@@ -13,7 +13,7 @@ local function use_helix_source()
       filetype = 'koka',
       install_info = {
         url = helix_treesitter_parsers_sources .. 'koka',
-        files = { 'src/parser.c', 'src/scanner.c' }, -- note that some parsers also require src/scanner.c or src/scanner.cc
+        files = { 'src/parser.c', 'src/scanner.c' },
       },
     }
     ---@diagnostic disable-next-line: inject-field
@@ -21,10 +21,24 @@ local function use_helix_source()
       filetype = 'nu',
       install_info = {
         url = helix_treesitter_parsers_sources .. 'nu',
-        files = { 'src/parser.c' }, -- note that some parsers also require src/scanner.c or src/scanner.cc
+        files = { 'src/parser.c' },
       },
     }
   end
+end
+
+local function use_custom_source()
+  -- parsers --
+  local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
+  ---@diagnostic disable-next-line: inject-field
+  parser_config.crystal = {
+    filetype = 'crystal',
+    install_info = {
+      url = 'https://github.com/crystal-lang-tools/tree-sitter-crystal',
+      branch = 'main',
+      files = { 'src/parser.c', 'src/scanner.c' },
+    },
+  }
 end
 
 local M = {
@@ -33,18 +47,21 @@ local M = {
     local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
     ts_update()
   end,
+  dependencies = {
+    { 'nvim-treesitter/nvim-treesitter-textobjects' },
+  },
   event = { 'BufReadPost', 'BufNewFile' },
   opts = {
     sync_install = false,
     auto_install = false,
     highlight = {
       enable = true,
-      additional_vim_regex_highlighting = { 'ruby', 'crystal' },
+      additional_vim_regex_highlighting = { 'ruby' },
       disable = {},
     },
     indent = {
       enable = true,
-      disable = { 'ruby', 'crystal' },
+      disable = { 'ruby' },
     },
     incremental_selection = {
       enable = true,
@@ -104,8 +121,9 @@ local M = {
     end
 
     use_helix_source()
+    use_custom_source()
 
-    vim.treesitter.language.register('ruby', { 'ruby', 'crystal' })
+    -- vim.treesitter.language.register('ruby', { 'ruby', 'crystal' })
 
     require('nvim-treesitter.configs').setup(opts)
   end,
@@ -113,11 +131,6 @@ local M = {
 
 return {
   M,
-  {
-    'nvim-treesitter/nvim-treesitter-textobjects',
-    event = { 'BufReadPost', 'BufNewFile' },
-    config = function() require('nvim-treesitter.configs').setup({}) end,
-  },
   {
     'nvim-treesitter/nvim-treesitter-context',
     cmd = { 'TSContextEnable' },
