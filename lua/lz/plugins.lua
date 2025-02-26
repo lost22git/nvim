@@ -288,7 +288,7 @@ return {
   {
     'stevearc/quicker.nvim',
     ft = 'qf',
-    kesy = {
+    keys = {
       { '<Leader>q', function() require('quicker').toggle() end, desc = 'Toggle quickfix' },
       { '<Leader>l', function() require('quicker').toggle({ loclist = true }) end, desc = 'Toggle loclist' },
     },
