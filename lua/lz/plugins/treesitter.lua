@@ -1,39 +1,13 @@
-local M = {
-  'nvim-treesitter/nvim-treesitter',
-  build = function()
-    local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
-    ts_update()
-  end,
-  event = { 'BufReadPost', 'BufNewFile' },
-}
-
-function M.config()
-  local U = require('core.utils')
-  -- 从 git 下载，而不是 curl
-  require('nvim-treesitter.install').prefer_git = true
-
-  -- 替换 github 为镜像地址
-  for _, config in pairs(require('nvim-treesitter.parsers').get_parser_configs()) do
-    config.install_info.url = config.install_info.url:gsub('https://github.com/', U.get_github_mirror())
-  end
-
-  -------------------------------
-  -- helix treesitter parsers  --
-  -------------------------------
+local function use_helix_source()
   local helix_runtimepath = vim.env.HELIX_RUNTIMEPATH
   if helix_runtimepath and vim.fn.exists(helix_runtimepath) then
-    -------------
     -- queries --
-    -------------
     -- append helix_runtimepath to help search `queries/*/*.scm`
     vim.opt.runtimepath:append(',' .. helix_runtimepath)
 
-    -------------
     -- parsers --
-    -------------
     local helix_treesitter_parsers_sources = helix_runtimepath .. 'grammars/sources/'
     local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
-    -- koka lang
     ---@diagnostic disable-next-line: inject-field
     parser_config.koka = {
       filetype = 'koka',
@@ -42,7 +16,6 @@ function M.config()
         files = { 'src/parser.c', 'src/scanner.c' }, -- note that some parsers also require src/scanner.c or src/scanner.cc
       },
     }
-    -- nushell
     ---@diagnostic disable-next-line: inject-field
     parser_config.nu = {
       filetype = 'nu',
@@ -52,18 +25,16 @@ function M.config()
       },
     }
   end
+end
 
-  -----------------------------------
-  -- register parser for filetypes --
-  -----------------------------------
-  vim.treesitter.language.register('ruby', { 'ruby', 'crystal' })
-
-  ------------------------------
-  -- nvim treesitter parsers  --
-  ------------------------------
-
-  ---@diagnostic disable-next-line: missing-fields
-  require('nvim-treesitter.configs').setup({
+local M = {
+  'nvim-treesitter/nvim-treesitter',
+  build = function()
+    local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+    ts_update()
+  end,
+  event = { 'BufReadPost', 'BufNewFile' },
+  opts = {
     sync_install = false,
     auto_install = false,
     highlight = {
@@ -83,6 +54,7 @@ function M.config()
         node_decremental = '<BS>',
       },
     },
+    autotag = { enable = true },
     ensure_installed = {
       --
       'lua',
@@ -98,9 +70,9 @@ function M.config()
       'hurl',
       --
       'json',
+      'xml',
       'toml',
       'yaml',
-      'proto',
       --
       'markdown',
       'markdown_inline',
@@ -111,20 +83,33 @@ function M.config()
       'typescript',
       --
       'clojure',
+      'gleam',
       'java',
       'zig',
       'nim',
+      'ruby',
       'rust',
       'go',
       'gomod',
       'dart',
-      'gleam',
     },
-    autotag = {
-      enable = true,
-    },
-  })
-end
+  },
+  config = function(_, opts)
+    local U = require('core.utils')
+
+    -- 替换 github 为镜像地址
+    require('nvim-treesitter.install').prefer_git = true
+    for _, config in pairs(require('nvim-treesitter.parsers').get_parser_configs()) do
+      config.install_info.url = config.install_info.url:gsub('https://github.com/', U.get_github_mirror())
+    end
+
+    use_helix_source()
+
+    vim.treesitter.language.register('ruby', { 'ruby', 'crystal' })
+
+    require('nvim-treesitter.configs').setup(opts)
+  end,
+}
 
 return {
   M,

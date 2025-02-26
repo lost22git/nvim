@@ -47,9 +47,7 @@ function M.config()
   local with_lsp_server = U.with_lsp_server
   local get_lsp_server_package_path = U.get_lsp_server_package_path
 
-  local capabilities = vim.tbl_deep_extend('force', U.lsp_cmp_capabilities(), {
-    workspace = { fileOperations = { didRename = true, willRename = true } },
-  })
+  local capabilities = U.lsp_capabilities()
   local on_attach = function(client, bufnr) U.lsp_on_attach(client, bufnr) end
 
   -------- LSP Servers config ----------

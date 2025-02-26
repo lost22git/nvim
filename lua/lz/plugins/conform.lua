@@ -2,10 +2,12 @@ return {
   'stevearc/conform.nvim',
   event = { 'BufWritePre' },
   opts = {
-    format_on_save = {
-      timeout_ms = 3000,
-      quiet = false,
+    default_format_opts = {
       lsp_format = 'fallback',
+    },
+    format_on_save = {
+      lsp_format = 'fallback',
+      timeout_ms = 3000,
     },
 
     -- see :help conform-formatters

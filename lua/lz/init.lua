@@ -85,4 +85,4 @@ require('lazy').setup('lz.plugins', {
   },
 })
 
-vim.keymap.set({ '', 'i' }, '<M-0>', '<cmd>Lazy<CR>', { silent = true, noremap = true })
+vim.keymap.set({ '', 'i' }, '<M-0>', '<Cmd>Lazy<CR>', { silent = true, noremap = true, desc = 'Lazy' })

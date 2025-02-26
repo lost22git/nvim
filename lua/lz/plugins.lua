@@ -307,4 +307,33 @@ return {
       },
     },
   },
+
+  -----------
+  -- Fterm --
+  -----------
+
+  {
+    'numToStr/FTerm.nvim',
+    keys = {
+      {
+        '<M-3>',
+        '<C-\\><C-n><Cmd>lua require("FTerm").toggle()<CR>',
+        mode = { 'n', 'v', 'i', 't' },
+        noremap = true,
+        desc = 'FTerm',
+      },
+    },
+    opts = {
+      ft = 'FTerm',
+      cmd = vim.g.term_shell or vim.o.shell,
+      border = 'single',
+      auto_close = true,
+      hl = 'Normal',
+      blend = 0,
+      dimensions = { height = 0.8, width = 0.8, x = 0.5, y = 0.5 },
+      on_exit = nil,
+      on_stdout = nil,
+      on_stderr = nil,
+    },
+  },
 }

@@ -40,11 +40,6 @@ M.imap = map('i')
 M.cmap = map('c')
 M.tmap = map('t')
 
-function M.fterm()
-  M.nvmap({ { '<M-3>', '<Cmd>lua require("FTerm").toggle()<CR>' } })
-  M.tmap({ { '<M-3>', '<C-\\><C-n><Cmd>lua require("FTerm").toggle()<CR>', { noremap = true } } })
-end
-
 function M.gitsigns()
   M.nmap({
     { '[h', '<Cmd>Gitsigns prev_hunk<CR>' },
@@ -55,18 +50,6 @@ function M.gitsigns()
     { '<Leader>hs', '<Cmd>Gitsigns stage_hunk<CR>' },
     { '<Leader>hv', '<Cmd>Gitsigns select_hunk<CR>' },
   })
-end
-
-function M.blink_cmp()
-  return {
-    preset = 'super-tab',
-    ['<M-j>'] = { 'select_next', 'fallback' },
-    ['<M-k>'] = { 'select_prev', 'fallback' },
-    ['<C-c>'] = { 'hide', 'fallback' },
-    ['<M-Space>'] = { 'show', 'show_documentation', 'hide_documentation' },
-    ['<C-u>'] = { 'scroll_documentation_up', 'fallback' },
-    ['<C-d>'] = { 'scroll_documentation_down', 'fallback' },
-  }
 end
 
 function M.lsp(bufnr)

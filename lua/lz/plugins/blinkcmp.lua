@@ -7,7 +7,15 @@ return {
     { 'rafamadriz/friendly-snippets' },
   },
   opts = {
-    keymap = require('core.maps').blink_cmp(),
+    keymap = {
+      preset = 'super-tab',
+      ['<M-j>'] = { 'select_next', 'fallback' },
+      ['<M-k>'] = { 'select_prev', 'fallback' },
+      ['<C-c>'] = { 'hide', 'fallback' },
+      ['<M-Space>'] = { 'show', 'show_documentation', 'hide_documentation' },
+      ['<C-u>'] = { 'scroll_documentation_up', 'fallback' },
+      ['<C-d>'] = { 'scroll_documentation_down', 'fallback' },
+    },
     completion = {
       ghost_text = { enabled = false },
       list = {

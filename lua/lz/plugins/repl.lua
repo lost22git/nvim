@@ -23,13 +23,13 @@ return {
             { 'n', 'v' },
             '[e',
             [[<Cmd>call search('^; -\+$', 'bw')<CR>]],
-            { silent = true, buffer = true, desc = 'Goto prev eval log entry' }
+            { silent = true, buffer = true, desc = 'Conjure goto prev log' }
           )
           vim.keymap.set(
             { 'n', 'v' },
             ']e',
             [[<Cmd>call search('^; -\+$', 'w')<CR>]],
-            { silent = true, buffer = true, desc = 'Goto next eval log entry' }
+            { silent = true, buffer = true, desc = 'Conjure goto next log' }
           )
         end,
       })

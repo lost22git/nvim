@@ -87,9 +87,18 @@ function M.get_flutter_path()
   end
 end
 
-function M.lsp_cmp_capabilities() return require('blink.cmp').get_lsp_capabilities() end
+function M.lsp_capabilities()
+  return vim.tbl_deep_extend('force', require('blink.cmp').get_lsp_capabilities(), {
+    workspace = { fileOperations = { didRename = true, willRename = true } },
+  })
+end
 
 local function lsp_format_on_save(client, bufnr)
+  -- Use conform format
+  local has_conform, _ = pcall(require, 'conform')
+  if has_conform then return end
+
+  -- Use lsp format, if conform not exists
   if client.supports_method('textDocument/formatting') then
     local aug = vim.api.nvim_create_augroup('lsp_format_on_save', {})
     vim.api.nvim_clear_autocmds({ group = aug, buffer = bufnr })

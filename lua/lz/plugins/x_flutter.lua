@@ -9,7 +9,7 @@ local M = {
 function M.config()
   local ft = require('flutter-tools')
   local U = require('core.utils')
-  local capabilities = U.lsp_cmp_capabilities()
+  local capabilities = U.lsp_capabilities()
   local on_attach = function(client, bufnr) U.lsp_on_attach(client, bufnr) end
   ft.setup({
     ui = {

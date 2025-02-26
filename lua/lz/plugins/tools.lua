@@ -58,7 +58,7 @@ return {
         vim.api.nvim_buf_create_user_command(
           0,
           'KulalaRelay',
-          function(opts) require('kulala').relay() end,
+          function(_opts) require('kulala').relay() end,
           { nargs = 0 }
         )
         vim.api.nvim_buf_create_user_command(
@@ -136,9 +136,24 @@ return {
       end
 
       local create_keymaps = function()
-        vim.keymap.set({ 'n' }, '[r', '<Cmd>KulalaJumpPrev<CR>', { buffer = true, silent = true })
-        vim.keymap.set({ 'n' }, ']r', '<Cmd>KulalaJumpNext<CR>', { buffer = true, silent = true })
-        vim.keymap.set({ 'n' }, '<Leader>k', '<Cmd>KulalaOpen<CR>', { buffer = true, silent = true })
+        vim.keymap.set(
+          { 'n' },
+          '[r',
+          '<Cmd>KulalaJumpPrev<CR>',
+          { buffer = true, silent = true, desc = 'KulalaJumpPrev' }
+        )
+        vim.keymap.set(
+          { 'n' },
+          ']r',
+          '<Cmd>KulalaJumpNext<CR>',
+          { buffer = true, silent = true, desc = 'KualalaJumpNext' }
+        )
+        vim.keymap.set(
+          { 'n' },
+          '<Leader>k',
+          '<Cmd>KulalaOpen<CR>',
+          { buffer = true, silent = true, desc = 'KulalaOpen' }
+        )
       end
 
       vim.api.nvim_create_autocmd('FileType', {

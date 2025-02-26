@@ -1,9 +1,3 @@
-local M = {
-  'kevinhwang91/nvim-ufo',
-  dependencies = { 'kevinhwang91/promise-async' },
-  keys = { 'z' },
-}
-
 local handler = function(virtText, lnum, endLnum, width, truncate)
   local newVirtText = {}
   local suffix = (' 󰁂 %d '):format(endLnum - lnum)
@@ -30,13 +24,21 @@ local handler = function(virtText, lnum, endLnum, width, truncate)
   return newVirtText
 end
 
-function M.config()
-  vim.o.foldcolumn = '0'
-  vim.o.foldlevel = 99
-  vim.o.foldlevelstart = 99
-  vim.o.foldenable = false
-
-  require('ufo').setup({
+return {
+  'kevinhwang91/nvim-ufo',
+  dependencies = { 'kevinhwang91/promise-async' },
+  keys = {
+    { 'z' },
+    {
+      '<Tab>f',
+      function()
+        local winid = require('ufo').peekFoldedLinesUnderCursor()
+        if not winid then vim.lsp.buf.hover() end
+      end,
+      desc = 'UFO preview code fold',
+    },
+  },
+  opts = {
     fold_virt_text_handler = handler,
     ---@diagnostic disable-next-line: unused-local
     provider_selector = function(bufnr, filetype, buftype) return { 'treesitter', 'indent' } end,
@@ -47,12 +49,11 @@ function M.config()
         switch = '<Tab>',
       },
     },
-  })
-
-  vim.keymap.set('n', '<Tab>f', function()
-    local winid = require('ufo').peekFoldedLinesUnderCursor()
-    if not winid then vim.lsp.buf.hover() end
-  end)
-end
-
-return M
+  },
+  init = function()
+    vim.o.foldcolumn = '0'
+    vim.o.foldlevel = 99
+    vim.o.foldlevelstart = 99
+    vim.o.foldenable = false
+  end,
+}
