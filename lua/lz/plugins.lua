@@ -54,8 +54,8 @@ return {
     dependencies = { 'nvim-lua/plenary.nvim' },
     event = { 'BufReadPost', 'BufNewFile' },
     keys = {
-      { '[t', function() require('todo-comments').jump_prev() end },
-      { ']t', function() require('todo-comments').jump_next() end },
+      { '[t', function() require('todo-comments').jump_prev() end, mode = { 'n', 'v' }, desc = 'Goto prev TODO' },
+      { ']t', function() require('todo-comments').jump_next() end, mode = { 'n', 'v' }, desc = 'Goto next TODO' },
     },
     opts = {},
   },
@@ -66,7 +66,7 @@ return {
 
   {
     'nyngwang/NeoZoom.lua',
-    keys = { { '<Leader>z', '<Cmd>NeoZoomToggle<CR>' } },
+    keys = { { '<Leader>z', '<Cmd>NeoZoomToggle<CR>', mode = { 'n', 'v' }, desc = 'NeoZoom' } },
     opts = {
       popup = { enabled = true },
       exclude_buftypes = { 'terminal' },
@@ -142,6 +142,8 @@ return {
           local win_id = require('window-picker').pick_window() or vim.api.nvim_get_current_win()
           vim.api.nvim_set_current_win(win_id)
         end,
+        mode = { 'n', 'v' },
+        desc = 'WindowPicker',
       },
     },
     opts = {},
@@ -153,7 +155,7 @@ return {
 
   {
     'EL-MASTOR/bufferlist.nvim',
-    keys = { { '<Leader>b', ':BufferList<CR>', desc = 'Open bufferlist' } },
+    keys = { { '<Leader>b', ':BufferList<CR>', desc = 'BufferList' } },
     cmd = 'BufferList',
     opts = function()
       local function close_buffer(listed_bufs, index, force)
@@ -273,7 +275,7 @@ return {
   {
     'lukas-reineke/indent-blankline.nvim',
     main = 'ibl',
-    keys = { { '<Leader>i', '<Cmd>IBLToggle<CR>' } },
+    keys = { { '<Leader>i', '<Cmd>IBLToggle<CR>', mode = { 'n', 'v' }, desc = 'IBL' } },
     ---@module "ibl"
     ---@type ibl.config
     opts = {},

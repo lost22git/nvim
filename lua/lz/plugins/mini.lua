@@ -58,7 +58,9 @@ return {
     'echasnovski/mini.notify',
     version = false,
     lazy = false,
-    keys = { { '<Leader>n', function() MiniNotify.show_history() end } },
+    keys = {
+      { '<Leader>n', function() MiniNotify.show_history() end, mode = { 'n', 'v' }, desc = 'MiniNotify history' },
+    },
     opts = {},
   },
 
@@ -67,9 +69,13 @@ return {
     version = false,
     keys = {
       ---@diagnostic disable-next-line: undefined-global
-      { '<M-1>', function() MiniFiles.open() end },
+      { '<M-1>', function() MiniFiles.open() end, desc = 'MiniFiles open' },
       ---@diagnostic disable-next-line: undefined-global
-      { '<M-2>', function() MiniFiles.open(vim.api.nvim_buf_get_name(0), false) end },
+      {
+        '<M-2>',
+        function() MiniFiles.open(vim.api.nvim_buf_get_name(0), false) end,
+        desc = 'MiniFiles open current directory',
+      },
     },
     opts = {
       -- Customization of shown content
@@ -236,10 +242,10 @@ return {
     'echasnovski/mini.move',
     version = false,
     keys = {
-      { '<M-j>', mode = { 'n', 'v' } },
-      { '<M-k>', mode = { 'n', 'v' } },
-      { '<M-l>', mode = { 'n', 'v' } },
-      { '<M-h>', mode = { 'n', 'v' } },
+      { '<M-j>', mode = { 'n', 'v' }, desc = 'MiniMove Down' },
+      { '<M-k>', mode = { 'n', 'v' }, desc = 'MiniMove Up' },
+      { '<M-l>', mode = { 'n', 'v' }, desc = 'MiniMove Right' },
+      { '<M-h>', mode = { 'n', 'v' }, desc = 'MiniMove Left' },
     },
     opts = {},
   },

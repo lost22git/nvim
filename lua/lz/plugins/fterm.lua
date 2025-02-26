@@ -1,6 +1,14 @@
 local M = {
   'numToStr/FTerm.nvim',
-  keys = { '<M-3>' },
+  keys = {
+    {
+      '<M-3>',
+      '<C-\\><C-n><Cmd>lua require("FTerm").toggle()<CR>',
+      mode = { 'n', 'v', 'i', 't' },
+      noremap = true,
+      desc = 'FTerm',
+    },
+  },
 }
 
 function M.config()

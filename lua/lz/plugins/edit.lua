@@ -74,7 +74,7 @@ return {
   {
     'Wansmer/treesj',
     keys = {
-      { '<Leader>j', function() require('treesj').toggle() end },
+      { '<Leader>j', function() require('treesj').toggle() end, desc = 'Split / Join' },
     },
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     opts = {},
