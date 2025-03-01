@@ -167,6 +167,8 @@ function M.base()
   })
 
   M.nvmap({
+    { '`', 'q' },
+    { 'q', '<Nop>' },
 
     -- 退出
     { 'Q', '<Cmd>q<CR>' },
@@ -208,7 +210,7 @@ function M.base()
     { 'L', '$' },
 
     -- bufferlist
-    { '`', '<Cmd>b #<CR>' },
+    { '<Tab><Tab>', '<Cmd>b #<CR>' },
     { '[b', '<Cmd>bprev<CR>' },
     { ']b', '<Cmd>bnext<CR>' },
     { '[B', '<Cmd>bfirst<CR>' },
