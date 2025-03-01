@@ -77,3 +77,22 @@ vim.api.nvim_create_autocmd('FileType', {
     )
   end,
 })
+
+-- Goto prev/next region
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { '*' },
+  callback = function()
+    vim.keymap.set(
+      { 'n' },
+      '[r',
+      [[<Cmd>call search('[\/;#] === .\+ ===$','bw')<CR>]],
+      { silent = true, buffer = true, desc = 'Goto prev region' }
+    )
+    vim.keymap.set(
+      { 'n' },
+      ']r',
+      [[<Cmd>call search('[\/;#] === .\+ ===$','w')<CR>]],
+      { silent = true, buffer = true, desc = 'Goto next region' }
+    )
+  end,
+})
