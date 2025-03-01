@@ -171,8 +171,8 @@ function M.base()
     { 'q', '<Nop>' },
 
     -- 退出
-    { 'Q', '<Cmd>q<CR>' },
-    { 'QQ', '<Cmd>q!<CR>' },
+    { 'qq', '<Cmd>q<CR>' },
+    { 'Q', '<Cmd>q!<CR>' },
 
     -- 保存
     { '<C-s>', '<Cmd>w<CR>' },

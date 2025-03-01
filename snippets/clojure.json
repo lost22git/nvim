@@ -279,16 +279,15 @@
       "babashka.process"
     ]
   },
-  "ring-core": {
-    "prefix": "ring-core",
+  "ring-request-gen": {
+    "prefix": "ring-request-gen",
     "body": [
-      "ring.core"
-    ]
-  },
-  "ring-params": {
-    "prefix": "ring-params",
-    "body": [
-      "ring.middleware.params"
+      "{:request-method ${1::get}",
+      "\t:uri ${2:/foo}",
+      "\t:query-params {${3}}",
+      "\t:headers {${4}}",
+      "\t:form-params {${5}}",
+      "}"
     ]
   },
   "repl": {
