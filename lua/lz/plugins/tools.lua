@@ -25,6 +25,39 @@ return {
         },
       },
     },
+    init = function()
+      local create_keymaps = function()
+        vim.keymap.set(
+          { 'n' },
+          '[e',
+          [[<Cmd>call search('\v^<(HEAD|GET|POST|PUT|PATCH|DELETE|OPTION)>', 'bw')<CR>]],
+          { buffer = true, silent = true, desc = 'Hurl goto prev entry' }
+        )
+        vim.keymap.set(
+          { 'n' },
+          ']e',
+          [[<Cmd>call search('\v^<(HEAD|GET|POST|PUT|PATCH|DELETE|OPTION)>', 'w')<CR>]],
+          { buffer = true, silent = true, desc = 'Hurl goto next entry' }
+        )
+        vim.keymap.set(
+          { 'n' },
+          '<Leader>ee',
+          '<Cmd>HurlRunnerAt<CR>',
+          { buffer = true, silent = true, desc = 'HurlRunnerAt' }
+        )
+        vim.keymap.set(
+          { 'n' },
+          '<Leader>eb',
+          '<Cmd>HurlRunner<CR>',
+          { buffer = true, silent = true, desc = 'HurlRunner' }
+        )
+      end
+
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = 'hurl',
+        callback = function() create_keymaps() end,
+      })
+    end,
   },
 
   ------------
@@ -88,7 +121,7 @@ return {
         vim.api.nvim_buf_create_user_command(
           0,
           'KulalaFromCurl',
-          function(opts) require('kulala').fom_curl() end,
+          function(opts) require('kulala').from_curl() end,
           { nargs = 0 }
         )
         vim.api.nvim_buf_create_user_command(
@@ -138,19 +171,37 @@ return {
       local create_keymaps = function()
         vim.keymap.set(
           { 'n' },
-          '[r',
+          '<Leader>E',
+          '<Cmd>KulalaSearch<CR>',
+          { buffer = true, silent = true, desc = 'KulalaSearch' }
+        )
+        vim.keymap.set(
+          { 'n' },
+          '<Leader>ee',
+          '<Cmd>KulalaRun<CR>',
+          { buffer = true, silent = true, desc = 'KulalaRun' }
+        )
+        vim.keymap.set(
+          { 'n' },
+          '<Leader>eb',
+          '<Cmd>KulalaRunAll<CR>',
+          { buffer = true, silent = true, desc = 'KulalaRunAll' }
+        )
+        vim.keymap.set(
+          { 'n' },
+          '[e',
           '<Cmd>KulalaJumpPrev<CR>',
           { buffer = true, silent = true, desc = 'KulalaJumpPrev' }
         )
         vim.keymap.set(
           { 'n' },
-          ']r',
+          ']e',
           '<Cmd>KulalaJumpNext<CR>',
           { buffer = true, silent = true, desc = 'KualalaJumpNext' }
         )
         vim.keymap.set(
           { 'n' },
-          '<Leader>k',
+          '<Leader>ls',
           '<Cmd>KulalaOpen<CR>',
           { buffer = true, silent = true, desc = 'KulalaOpen' }
         )

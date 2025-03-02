@@ -2,7 +2,7 @@ return {
   {
     'Olical/conjure',
     cmd = { 'ConjureConnect' },
-    -- ft = { 'lua', 'fennel', 'clojure' },
+    ft = { 'lua', 'fennel', 'clojure' },
     init = function()
       vim.g['conjure#extract#tree_sitter#enabled'] = true
       vim.g['conjure#highlight#enabled'] = true
@@ -37,7 +37,7 @@ return {
   },
   {
     'clojure-vim/vim-jack-in',
-    cmd = { 'Clj' },
+    cmd = { 'Clj', 'Lein' },
     dependencies = {
       'radenling/vim-dispatch-neovim',
     },
