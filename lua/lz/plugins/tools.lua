@@ -1,9 +1,5 @@
 return {
 
-  ----------
-  -- Hurl --
-  ----------
-
   {
     'jellydn/hurl.nvim',
     dependencies = {
@@ -59,10 +55,6 @@ return {
       })
     end,
   },
-
-  ------------
-  -- kulala --
-  ------------
 
   {
     'mistweaverco/kulala.nvim',
@@ -217,10 +209,6 @@ return {
     end,
   },
 
-  ------------
-  -- neogit --
-  ------------
-
   {
     'NeogitOrg/neogit',
     dependencies = {
@@ -231,18 +219,10 @@ return {
     opts = {},
   },
 
-  --------------
-  -- fugitive --
-  --------------
-
   {
     'tpope/vim-fugitive',
     cmd = 'Git',
   },
-
-  --------------
-  -- gitsigns --
-  --------------
 
   {
     'lewis6991/gitsigns.nvim',

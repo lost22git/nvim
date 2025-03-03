@@ -1,13 +1,6 @@
 return {
-  --------
-  -- UI --
-  --------
 
   { 'MunifTanjim/nui.nvim' },
-
-  ----------------------------
-  -- border global settings --
-  ----------------------------
 
   -- {
   --   'mikesmithgh/borderline.nvim',
@@ -18,20 +11,12 @@ return {
   --   end,
   -- },
 
-  --------------
-  -- True Zen --
-  --------------
-
   {
     'lost22git/true-zen.nvim',
     branch = 'fix-by-lost',
     cmd = { 'TZNarrow', 'TZFocus', 'TZMinimalist', 'TZAtaraxis' },
     opts = {},
   },
-
-  ------------------
-  -- 颜色代码高亮 --
-  ------------------
 
   {
     'NvChad/nvim-colorizer.lua',
@@ -45,10 +30,6 @@ return {
     },
   },
 
-  ----------
-  -- TODO --
-  ----------
-
   {
     'folke/todo-comments.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },
@@ -59,10 +40,6 @@ return {
     },
     opts = {},
   },
-
-  --------------
-  -- neo-zoom --
-  --------------
 
   {
     'nyngwang/NeoZoom.lua',
@@ -108,18 +85,12 @@ return {
     end,
   },
 
-  ------------
-  -- 滚动条 --
-  ------------
   {
     'lewis6991/satellite.nvim',
     event = { 'BufReadPost', 'BufNewFile' },
     ops = {},
   },
 
-  --------------------------------
-  -- theme preview and switcher --
-  --------------------------------
   {
     'zaldih/themery.nvim',
     cmd = { 'Themery' },
@@ -128,10 +99,6 @@ return {
       livePreview = true,
     },
   },
-
-  --------------------
-  -- windows picker --
-  --------------------
 
   {
     's1n7ax/nvim-window-picker',
@@ -148,10 +115,6 @@ return {
     },
     opts = {},
   },
-
-  ----------------
-  -- bufferlist --
-  ----------------
 
   {
     'EL-MASTOR/bufferlist.nvim',
@@ -253,10 +216,6 @@ return {
     end,
   },
 
-  ---------------------------
-  -- highlight block scope --
-  ---------------------------
-
   {
     'utilyre/sentiment.nvim',
     version = '*',
@@ -268,10 +227,6 @@ return {
     end,
   },
 
-  ------------
-  -- indent --
-  ------------
-
   {
     'lukas-reineke/indent-blankline.nvim',
     main = 'ibl',
@@ -280,10 +235,6 @@ return {
     ---@type ibl.config
     opts = {},
   },
-
-  ---------------------
-  -- better quickfix --
-  ---------------------
 
   {
     'stevearc/quicker.nvim',
@@ -308,10 +259,6 @@ return {
     },
   },
 
-  -----------
-  -- Fterm --
-  -----------
-
   {
     'numToStr/FTerm.nvim',
     keys = {
@@ -335,5 +282,36 @@ return {
       on_stdout = nil,
       on_stderr = nil,
     },
+  },
+
+  {
+    'skywind3000/asyncrun.vim',
+    cmd = { 'AsyncRun', 'AsyncRunVisual' },
+    config = function()
+      vim.g.asyncrun_bell = 1
+      vim.api.nvim_create_user_command('AsyncRunVisual', function(opts)
+        -- get selection_text in visual mode
+        vim.cmd('normal! gv"xy')
+        local selection_text = vim.fn.getreg('x')
+        selection_text = vim.fn.trim(selection_text)
+
+        -- write selection_text into tempfile
+        local f = vim.fs.dirname(os.tmpname()) .. '/asyncrunvisual'
+        local fd, err = io.open(f, 'w+b')
+        if not fd then
+          vim.notify('AsyncRunVisual: can not create temp file=' .. f .. '\n\tERROR: ' .. err)
+          return
+        end
+        fd:write(selection_text)
+        fd:flush()
+        fd:close()
+
+        -- ensure tempfile accessible
+        if vim.fn.has('unix') then os.execute('chmod 777 ' .. f) end
+
+        -- call asyncrun
+        vim.cmd('AsyncRun ' .. opts.args .. ' ' .. f)
+      end, { nargs = '+', range = true })
+    end,
   },
 }

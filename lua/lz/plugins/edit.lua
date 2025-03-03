@@ -1,9 +1,5 @@
 return {
 
-  --------------
-  -- fast ESC --
-  --------------
-
   {
     'TheBlob42/houdini.nvim',
     event = { 'InsertEnter', 'CmdLineEnter', 'TermEnter' },
@@ -15,10 +11,6 @@ return {
       },
     },
   },
-
-  ---------------
-  -- autopairs --
-  ---------------
 
   {
     'windwp/nvim-autopairs',
@@ -33,10 +25,6 @@ return {
     event = { 'InsertEnter' },
     config = function() require('insx.preset.standard').setup({}) end,
   },
-
-  -------------
-  -- paredit --
-  -------------
 
   {
     'julienvincent/nvim-paredit',
@@ -68,10 +56,6 @@ return {
     },
   },
 
-  --------------------
-  -- split or join --
-  --------------------
-
   {
     'Wansmer/treesj',
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
@@ -82,10 +66,6 @@ return {
       use_default_keymaps = false,
     },
   },
-
-  --------------------
-  -- 可视区域内跳转 --
-  --------------------
 
   {
     'folke/flash.nvim',
