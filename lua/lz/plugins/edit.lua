@@ -1,4 +1,11 @@
 return {
+  {
+    'mbbill/undotree',
+    cmd = { 'UndotreeToggle' },
+    keys = {
+      { '<Leader>u', vim.cmd.UndotreeToggle, desc = 'Undotree toggle' },
+    },
+  },
 
   {
     'TheBlob42/houdini.nvim',
@@ -24,6 +31,17 @@ return {
     'hrsh7th/nvim-insx',
     event = { 'InsertEnter' },
     config = function() require('insx.preset.standard').setup({}) end,
+  },
+
+  {
+    'utilyre/sentiment.nvim',
+    version = '*',
+    event = { 'BufReadPost', 'BufNewFile' },
+    opts = {},
+    init = function()
+      -- `matchparen.vim` needs to be disabled manually in case of lazy loading
+      vim.g.loaded_matchparen = 1
+    end,
   },
 
   {

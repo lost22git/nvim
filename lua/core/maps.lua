@@ -60,7 +60,7 @@ function M.lsp(bufnr)
     { 'gh', vim.lsp.buf.hover, opts },
     { 'gH', vim.lsp.buf.signature_help, opts },
     { 'gT', vim.lsp.buf.type_definition, opts },
-    { 'gR', vim.lsp.buf.references, opts },
+    { 'gr', vim.lsp.buf.references, opts },
     { 'gI', vim.lsp.buf.implementation, opts },
   })
 end
@@ -73,7 +73,7 @@ function M.lspsaga()
     { 'gi', '<Cmd>Lspsaga incoming_calls<CR>' },
     { 'go', '<Cmd>Lspsaga outgoing_calls<CR>' },
     { 'gO', '<Cmd>Lspsaga outline<CR>' },
-    { 'gr', '<Cmd>Lspsaga rename<CR>' },
+    { 'gn', '<Cmd>Lspsaga rename<CR>' },
     { 'gt', '<Cmd>Lspsaga peek_type_definition<CR>' },
     { '[d', '<Cmd>Lspsaga diagnostic_jump_prev<CR>' },
     { ']d', '<Cmd>Lspsaga diagnostic_jump_next<CR>' },
@@ -103,16 +103,21 @@ function M.mini_pick()
   local pick_files = U.on_win() and use_default or use_default
 
   M.nmap({
-    { '<Leader>fe', '<Cmd>Pick oldfiles<CR>' },
+    { '<Leader>fa', '<Cmd>Pick buf_lines<CR>' },
+    { '<Leader>fb', '<Cmd>Pick buffers<CR>' },
     { '<Leader>ff', pick_files },
-    { '<Leader>fh', '<Cmd>Pick help<CR>' },
-    { '<Leader>fr', '<Cmd>Pick resume<CR>' },
+    { '<Leader>F', '<Cmd>Pick resume<CR>' },
     { '<Leader>fs', '<Cmd>Pick grep_live<CR>' },
     -- mini.extras pickers
-    { '<Leader>fc', [[<Cmd>Pick list scope='change'<CR>]] },
+    { '<Leader>fc', '<Cmd>Pick list scope="change"<CR>' },
     { '<Leader>fd', '<Cmd>Pick diagnostic<CR>' },
-    { '<Leader>fj', [[<Cmd>Pick list scope='jump'<CR>]] },
+    { '<Leader>fe', '<Cmd>Pick oldfiles<CR>' },
+    { '<Leader>fI', '<Cmd>Pick lsp scope="implementation"<CR>' },
+    { '<Leader>fj', '<Cmd>Pick list scope="jump"<CR>' },
     { '<Leader>fg', '<Cmd>Pick git_files<CR>' },
+    { '<Leader>fh', '<Cmd>Pick git_hunks<CR>' },
+    { '<Leader>fr', '<Cmd>Pick lsp scope="references"<CR>' },
+    { '<Leader>fS', '<Cmd>Pick lsp scope="document_symbol"<CR>' },
   })
 end
 

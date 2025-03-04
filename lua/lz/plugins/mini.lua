@@ -54,15 +54,15 @@ return {
     opts = {},
   },
 
-  {
-    'echasnovski/mini.notify',
-    version = false,
-    lazy = false,
-    keys = {
-      { '<Leader>n', function() MiniNotify.show_history() end, mode = { 'n', 'v' }, desc = 'MiniNotify history' },
-    },
-    opts = {},
-  },
+  -- {
+  --   'echasnovski/mini.notify',
+  --   version = false,
+  --   lazy = false,
+  --   keys = {
+  --     { '<Leader>n', function() MiniNotify.show_history() end, mode = { 'n', 'v' }, desc = 'MiniNotify history' },
+  --   },
+  --   opts = {},
+  -- },
 
   {
     'echasnovski/mini.files',

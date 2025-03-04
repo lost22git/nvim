@@ -35,7 +35,24 @@ local M = {
   'neovim/nvim-lspconfig',
   cmd = { 'LspInfo', 'LspStart', 'LspLog' },
   dependencies = {
-    { 'glepnir/lspsaga.nvim' },
+    {
+      'deathbeam/lspecho.nvim',
+      opts = {},
+    },
+    {
+      'glepnir/lspsaga.nvim',
+      cmd = { 'Lspsaga' },
+      opts = {
+        scroll_preview = { scroll_down = '<C-d>', scroll_up = '<C-u>' },
+        beacon = { enable = true },
+        finder = { keys = { shuttle = '<Tab>' } },
+        outline = { keys = { toggle_or_jump = '<Tab>', jump = 'o' } },
+      },
+      config = function(_, opts)
+        require('lspsaga').setup(opts)
+        require('core.maps').lspsaga()
+      end,
+    },
   },
 }
 
@@ -393,20 +410,5 @@ return {
       install_root_dir = require('core.utils').get_mason_path(),
       PATH = 'prepend',
     },
-  },
-
-  {
-    'glepnir/lspsaga.nvim',
-    cmd = { 'Lspsaga' },
-    opts = {
-      scroll_preview = { scroll_down = '<C-d>', scroll_up = '<C-u>' },
-      beacon = { enable = true },
-      finder = { keys = { shuttle = '<Tab>' } },
-      outline = { keys = { toggle_or_jump = '<Tab>', jump = 'o' } },
-    },
-    config = function(_, opts)
-      require('lspsaga').setup(opts)
-      require('core.maps').lspsaga()
-    end,
   },
 }

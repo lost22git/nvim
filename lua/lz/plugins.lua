@@ -217,17 +217,6 @@ return {
   },
 
   {
-    'utilyre/sentiment.nvim',
-    version = '*',
-    event = { 'BufReadPost', 'BufNewFile' },
-    opts = {},
-    init = function()
-      -- `matchparen.vim` needs to be disabled manually in case of lazy loading
-      vim.g.loaded_matchparen = 1
-    end,
-  },
-
-  {
     'lukas-reineke/indent-blankline.nvim',
     main = 'ibl',
     keys = { { '<Leader>i', '<Cmd>IBLToggle<CR>', mode = { 'n', 'v' }, desc = 'IBL' } },
@@ -282,36 +271,5 @@ return {
       on_stdout = nil,
       on_stderr = nil,
     },
-  },
-
-  {
-    'skywind3000/asyncrun.vim',
-    cmd = { 'AsyncRun', 'AsyncRunVisual' },
-    config = function()
-      vim.g.asyncrun_bell = 1
-      vim.api.nvim_create_user_command('AsyncRunVisual', function(opts)
-        -- get selection_text in visual mode
-        vim.cmd('normal! gv"xy')
-        local selection_text = vim.fn.getreg('x')
-        selection_text = vim.fn.trim(selection_text)
-
-        -- write selection_text into tempfile
-        local f = vim.fs.dirname(os.tmpname()) .. '/asyncrunvisual'
-        local fd, err = io.open(f, 'w+b')
-        if not fd then
-          vim.notify('AsyncRunVisual: can not create temp file=' .. f .. '\n\tERROR: ' .. err)
-          return
-        end
-        fd:write(selection_text)
-        fd:flush()
-        fd:close()
-
-        -- ensure tempfile accessible
-        if vim.fn.has('unix') then os.execute('chmod 777 ' .. f) end
-
-        -- call asyncrun
-        vim.cmd('AsyncRun ' .. opts.args .. ' ' .. f)
-      end, { nargs = '+', range = true })
-    end,
   },
 }

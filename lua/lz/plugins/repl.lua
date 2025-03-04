@@ -1,5 +1,30 @@
 return {
   {
+    'skywind3000/asyncrun.vim',
+    lazy = false,
+    cmd = { 'AsyncRun', 'AsyncRunVisual' },
+    config = function()
+      vim.g.asyncrun_bell = 10
+      vim.api.nvim_create_user_command('AsyncRunVisual', function(opts)
+        -- get selection_text in visual mode
+        vim.cmd('normal! gv"xy')
+        local selection_text = vim.fn.getreg('x')
+        selection_text = vim.fn.trim(selection_text)
+
+        -- write selection_text into tempfile
+        local f = vim.fs.dirname(os.tmpname()) .. '/asyncrunvisual.tmp'
+        vim.fn.writefile(vim.split(selection_text, '\n'), f)
+
+        -- ensure tempfile accessible
+        if vim.fn.has('unix') then os.execute('chmod 777 ' .. f) end
+
+        -- call asyncrun
+        vim.cmd('AsyncRun ' .. opts.args .. ' ' .. f)
+      end, { nargs = '+', range = true })
+    end,
+  },
+
+  {
     'Olical/conjure',
     cmd = { 'ConjureConnect' },
     ft = { 'lua', 'fennel', 'clojure' },
@@ -34,12 +59,5 @@ return {
         end,
       })
     end,
-  },
-  {
-    'clojure-vim/vim-jack-in',
-    cmd = { 'Clj', 'Lein' },
-    dependencies = {
-      'radenling/vim-dispatch-neovim',
-    },
   },
 }

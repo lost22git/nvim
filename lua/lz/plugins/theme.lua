@@ -18,6 +18,14 @@ return {
       transparent = false,
       cache = true,
     },
-    init = function() vim.cmd('colorscheme cyberdream') end,
+    -- init = function() vim.cmd('colorscheme cyberdream') end,
+  },
+
+  {
+    'EdenEast/nightfox.nvim',
+    lazy = false,
+    priority = 1000,
+    opts = {},
+    init = function() vim.cmd('colorscheme dayfox') end,
   },
 }
