@@ -131,7 +131,7 @@ vim.api.nvim_create_autocmd('FileType', {
 
       local command = string.format('clj -Sdeps %s %s -e %s', deps, clj_opts, cider_opts)
       local call_asyncrun = 'AsyncRun -mode=term -pos=tab -focus=0 ' .. command
-      vim.print('call_asyncrun:', call_asyncrun)
+      -- vim.print('call_asyncrun:', call_asyncrun)
 
       vim.cmd(call_asyncrun)
     end, { nargs = '*' })

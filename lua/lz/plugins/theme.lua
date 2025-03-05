@@ -25,7 +25,13 @@ return {
     'EdenEast/nightfox.nvim',
     lazy = false,
     priority = 1000,
-    opts = {},
+    opts = {
+      groups = {
+        all = {
+          MiniCursorWordCurrent = { style = 'underline' },
+        },
+      },
+    },
     init = function() vim.cmd('colorscheme dayfox') end,
   },
 }

@@ -57,8 +57,8 @@ function M.lsp(bufnr)
 
   M.nmap({
     { 'gD', vim.lsp.buf.definition, opts },
-    { 'gh', vim.lsp.buf.hover, opts },
-    { 'gH', vim.lsp.buf.signature_help, opts },
+    { '<Tab>k', vim.lsp.buf.hover, opts },
+    { '<Tab>K', vim.lsp.buf.signature_help, opts },
     { 'gT', vim.lsp.buf.type_definition, opts },
     { 'gr', vim.lsp.buf.references, opts },
     { 'gI', vim.lsp.buf.implementation, opts },
@@ -114,6 +114,7 @@ function M.mini_pick()
     { '<Leader>fe', '<Cmd>Pick oldfiles<CR>' },
     { '<Leader>fI', '<Cmd>Pick lsp scope="implementation"<CR>' },
     { '<Leader>fj', '<Cmd>Pick list scope="jump"<CR>' },
+    { '<Leader>fk', '<Cmd>Pick keymaps<CR>' },
     { '<Leader>fg', '<Cmd>Pick git_files<CR>' },
     { '<Leader>fh', '<Cmd>Pick git_hunks<CR>' },
     { '<Leader>fr', '<Cmd>Pick lsp scope="references"<CR>' },
@@ -141,9 +142,6 @@ function M.base()
 
     -- 清除最近一次搜索后的高亮
     { '<BS><BS>', '<Cmd>noh<CR>' },
-
-    -- start lsp client
-    { 'gl', '<Cmd>LspStart<CR>' },
 
     -- Increment/decrement
     { '=', '<C-a>' },
