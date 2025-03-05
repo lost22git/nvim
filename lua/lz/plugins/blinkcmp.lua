@@ -19,6 +19,7 @@ return {
       ['<C-c>'] = { 'hide', 'fallback' },
       ['<C-u>'] = { 'scroll_documentation_up', 'fallback' },
       ['<C-d>'] = { 'scroll_documentation_down', 'fallback' },
+      ['<C-k>'] = { 'fallback' }, -- avoid conflicting with other keymaps
     },
     cmdline = {
       completion = {

@@ -3,16 +3,18 @@ local do_map = function(mode, tbl)
     tbl = { tbl, 'table' },
   })
 
-  local len = #tbl
-  if len < 2 then
+  if #tbl < 2 then
     vim.notify('Missing rhs, key="' .. tbl[1] .. '"', vim.log.levels.ERROR)
     return
   end
 
-  local default_opts = { silent = true }
-  local opts = len == 3 and tbl[3] or default_opts
+  local lhs, rhs = tbl[1], tbl[2]
+  tbl[1], tbl[2] = nil, nil
 
-  vim.keymap.set(mode, tbl[1], tbl[2], opts)
+  local default_opts = { silent = true }
+  local opts = vim.tbl_extend('force', default_opts, tbl)
+
+  vim.keymap.set(mode, lhs, rhs, opts)
 end
 
 local map = function(mod)
@@ -136,116 +138,98 @@ function M.base()
   end
 
   M.nmap({
+    { 'U', '<C-r>', desc = 'Redo' },
 
-    -- redo
-    { 'U', '<C-r>' },
+    { '<BS><BS>', '<Cmd>noh<CR>', desc = 'Cancel highlight' },
 
-    -- 清除最近一次搜索后的高亮
-    { '<BS><BS>', '<Cmd>noh<CR>' },
+    { '=', '<C-a>', desc = 'Increment number' },
+    { '-', '<C-x>', desc = 'Decrement number' },
 
-    -- Increment/decrement
-    { '=', '<C-a>' },
-    { '-', '<C-x>' },
-
-    -- 删除
-    { 'x', '"_x' },
-    { 'dw', 'vb"_d' },
+    { 'x', '"_x', desc = 'Delete char to blackhold' },
   })
 
   M.vmap({
-    --缩进
-    { '<', '<gv' },
-    { '>', '>gv' },
+    { '<', '<gv', desc = 'Indent left' },
+    { '>', '>gv', desc = 'Indent right' },
 
-    -- 复制到剪贴板
-    { '<C-c>', '"+y' },
+    { '<C-c>', '"+y', desc = 'Yank to clipboard' },
 
-    -- 退出 visual mode
-    { '<C-[', '<Esc>' },
+    { '<C-[', '<Esc>', desc = 'Escape visual mode' },
 
-    -- goto and select next word
-    { 'nw', '<Esc>wviw' },
-    -- goto and select prev word
-    { 'lw', '<Esc>bbviw' },
+    { 'nw', '<Esc>wviw', desc = 'Select next word' },
+    { 'lw', '<Esc>bbviw', desc = 'Select prev word' },
   })
 
   M.nvmap({
-    { '`', 'q' },
+    { '`', 'q', desc = 'Macro recording' },
     { 'q', '<Nop>' },
 
-    -- 退出
-    { 'qq', '<Cmd>q<CR>' },
-    { 'Q', '<Cmd>q!<CR>' },
+    { 'qq', '<Cmd>q<CR>', desc = 'Quit Neovim' },
+    { 'Q', '<Cmd>q!<CR>', desc = 'Quit Neovim forcely' },
 
-    -- 保存
-    { '<C-s>', '<Cmd>w<CR>' },
+    { '<C-s>', '<Cmd>w<CR>', desc = 'Save buffer' },
 
-    -- delete current buffer
-    { '<C-x>', '<Cmd>bd<CR>' },
+    { '<C-x>', '<Cmd>bd<CR>', desc = 'Delete buffer' },
 
-    -- yank to system clipboard
-    { '<C-v>', '"+p' },
+    { '<C-v>', '"+p', desc = 'Paste from clipboard' },
 
-    -- 选择全部
-    { '<C-a>', 'gg<S-v>G' },
+    { '<C-a>', 'gg<S-v>G', desc = 'Select all' },
 
-    -- Window move
-    { '<C-h>', '<C-w>h' },
-    { '<C-k>', '<C-w>k' },
-    { '<C-j>', '<C-w>j' },
-    { '<C-l>', '<C-w>l' },
+    { '<C-h>', '<C-w>h', desc = 'Left window focused' },
+    { '<C-k>', '<C-w>k', desc = 'Up window focused' },
+    { '<C-j>', '<C-w>j', desc = 'Down window focused' },
+    { '<C-l>', '<C-w>l', desc = 'Right window focused' },
 
-    -- Window resize
     { '<C-M-h>', '<C-w><' },
     { '<C-M-l>', '<C-w>>' },
     { '<C-M-j>', '<C-w>+' },
     { '<C-M-k>', '<C-w>-' },
     { '<C-M-g>', '<C-w>=' },
 
-    -- Zoom move
-    { '<C-[>', 'zh' },
-    { '<C-]>', 'zl' },
+    { '<C-[>', 'zh', desc = 'Zoom move Left' },
+    { '<C-]>', 'zl', desc = 'Zoom move Right' },
 
-    -- 指针移动
-    { 'J', '}' },
-    { 'K', '{' },
-    { 'H', '^' },
-    { 'L', '$' },
+    { 'J', '}', desc = 'Goto next blank line' },
+    { 'K', '{', desc = 'Goto prev blank line' },
+    { 'H', '^', desc = 'Goto line head' },
+    { 'L', '$', desc = 'Goto line tail' },
 
     -- bufferlist
-    { '<Tab><Tab>', '<Cmd>b #<CR>' },
-    { '[b', '<Cmd>bprev<CR>' },
-    { ']b', '<Cmd>bnext<CR>' },
-    { '[B', '<Cmd>bfirst<CR>' },
-    { ']B', '<Cmd>blast<CR>' },
+    { '<Tab><Tab>', '<Cmd>b #<CR>', desc = 'Buffer recent' },
+    { '[b', '<Cmd>bprev<CR>', desc = 'Buffer prev' },
+    { ']b', '<Cmd>bnext<CR>', desc = 'Buffer next' },
+    { '[B', '<Cmd>bfirst<CR>', desc = 'Buffer first' },
+    { ']B', '<Cmd>blast<CR>', desc = 'Buffer last' },
 
     -- quickfixlist
-    { '[q', '<Cmd>cprevious<CR>' },
-    { ']q', '<Cmd>cnext<CR>' },
-    { '[Q', '<Cmd>cfirst<CR>' },
-    { ']Q', '<Cmd>clast<CR>' },
+    { '[q', '<Cmd>cprevious<CR>', desc = 'Quickfix prev' },
+    { ']q', '<Cmd>cnext<CR>', desc = 'Quickfix next' },
+    { '[Q', '<Cmd>cfirst<CR>', desc = 'Quickfix first' },
+    { ']Q', '<Cmd>clast<CR>', desc = 'Quickfix last' },
 
     -- locallist
-    { '[l', '<Cmd>lprevious<CR>' },
-    { ']l', '<Cmd>lnext<CR>' },
-    { '[L', '<Cmd>lfirst<CR>' },
-    { ']L', '<Cmd>llast<CR>' },
+    { '[l', '<Cmd>lprevious<CR>', desc = 'LocalList prev' },
+    { ']l', '<Cmd>lnext<CR>', desc = 'LocalList next' },
+    { '[L', '<Cmd>lfirst<CR>', desc = 'LocalList first' },
+    { ']L', '<Cmd>llast<CR>', desc = 'LocalList last' },
 
-    -- messages
-    { '<Leader>m', create_messages_buf },
+    -- Messages
+    { '<Leader>m', create_messages_buf, desc = 'Messages' },
   })
 
   M.imap({
-    { 'jk', '<Esc>' },
-    { '<C-v>', '<Esc>"+pa' },
-    { '<C-h>', '<Esc>^i' },
-    { '<C-l>', '<Esc>$a' },
-    { '<C-a>', '<Home>' },
-    { '<C-e>', '<End>' },
-    { '<C-d>', '<Del>' },
-    { '<C-b>', '<Left>' },
-    { '<C-f>', '<Right>' },
-    { '<C-k>', '<Esc>ld$a' },
+    { 'jk', '<Esc>', desc = 'Escape insert mode' },
+    { '<C-v>', '<Esc>"+pa', desc = 'Paste from clipboard' },
+
+    -- Readline keymaps in Insert mode
+    { '<C-h>', '<Esc>^i', desc = 'Goto line head' },
+    { '<C-l>', '<Esc>$a', desc = 'Goto line tail' },
+    { '<C-a>', '<Home>', desc = 'Goto line begin' },
+    { '<C-e>', '<End>', desc = 'Goto line end' },
+    { '<C-d>', '<Del>', desc = 'Delete next char' },
+    { '<C-b>', '<Left>', desc = 'Goto prev char' },
+    { '<C-f>', '<Right>', desc = 'Goto next char' },
+    { '<C-k>', '<Esc>ld$a', desc = 'Delete to line end' },
   })
 end
 
