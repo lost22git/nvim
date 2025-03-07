@@ -58,12 +58,12 @@ function M.lsp(bufnr)
   local opts = { noremap = true, silent = true, buffer = bufnr }
 
   M.nmap({
-    { 'gD', vim.lsp.buf.definition, opts },
-    { '<Tab>k', vim.lsp.buf.hover, opts },
-    { '<Tab>K', vim.lsp.buf.signature_help, opts },
-    { 'gT', vim.lsp.buf.type_definition, opts },
-    { 'gr', vim.lsp.buf.references, opts },
-    { 'gI', vim.lsp.buf.implementation, opts },
+    { 'gD', vim.lsp.buf.definition, unpack(opts) },
+    { 'gk', vim.lsp.buf.hover, unpack(opts) },
+    { 'gK', vim.lsp.buf.signature_help, unpack(opts) },
+    { 'gT', vim.lsp.buf.type_definition, unpack(opts) },
+    { 'gr', vim.lsp.buf.references, unpack(opts) },
+    { 'gI', vim.lsp.buf.implementation, unpack(opts) },
   })
 end
 
@@ -196,6 +196,7 @@ function M.base()
 
     -- bufferlist
     { '<Tab><Tab>', '<Cmd>b #<CR>', desc = 'Buffer recent' },
+    { '<Tab>b', '<Cmd>b #<CR>', desc = 'Buffer recent' },
     { '[b', '<Cmd>bprev<CR>', desc = 'Buffer prev' },
     { ']b', '<Cmd>bnext<CR>', desc = 'Buffer next' },
     { '[B', '<Cmd>bfirst<CR>', desc = 'Buffer first' },

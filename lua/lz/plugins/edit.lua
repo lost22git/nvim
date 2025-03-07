@@ -129,15 +129,15 @@ return {
   {
     'aaronik/treewalker.nvim',
     keys = {
-      { 'gh', '<Cmd>Treewalker Left<CR>', mode = { 'n', 'v' }, desc = 'Treewalker Left' },
-      { 'gl', '<Cmd>Treewalker Right<CR>', mode = { 'n', 'v' }, desc = 'Treewalker Right' },
-      { 'gk', '<Cmd>Treewalker Up<CR>', mode = { 'n', 'v' }, desc = 'Treesitter Up' },
-      { 'gj', '<Cmd>Treewalker Down<CR>', mode = { 'n', 'v' }, desc = 'Treewalker Down' },
+      { 'th', '<Cmd>Treewalker Left<CR>', mode = { 'n', 'v' }, desc = 'Treewalker Left' },
+      { 'tl', '<Cmd>Treewalker Right<CR>', mode = { 'n', 'v' }, desc = 'Treewalker Right' },
+      { 'tk', '<Cmd>Treewalker Up<CR>', mode = { 'n', 'v' }, desc = 'Treesitter Up' },
+      { 'tj', '<Cmd>Treewalker Down<CR>', mode = { 'n', 'v' }, desc = 'Treewalker Down' },
 
-      { 'gsh', '<Cmd>Treewalker SwapLeft<CR>', desc = 'Treewalker SwapLeft' },
-      { 'gsl', '<Cmd>Treewalker SwapRight<CR>', desc = 'Treewalker SwapRight' },
-      { 'gsk', '<Cmd>Treewalker SwapUp<CR>', desc = 'Treewalker SwapUp' },
-      { 'gsj', '<Cmd>Treewalker SwapDown<CR>', desc = 'Treewalker SwapDown' },
+      { 'tsh', '<Cmd>Treewalker SwapLeft<CR>', desc = 'Treewalker SwapLeft' },
+      { 'tsl', '<Cmd>Treewalker SwapRight<CR>', desc = 'Treewalker SwapRight' },
+      { 'tsk', '<Cmd>Treewalker SwapUp<CR>', desc = 'Treewalker SwapUp' },
+      { 'tsj', '<Cmd>Treewalker SwapDown<CR>', desc = 'Treewalker SwapDown' },
     },
     opts = {
       highlight = true,
