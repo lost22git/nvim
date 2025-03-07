@@ -208,10 +208,10 @@ function M.base()
     { ']Q', '<Cmd>clast<CR>', desc = 'Quickfix last' },
 
     -- locallist
-    { '[l', '<Cmd>lprevious<CR>', desc = 'LocalList prev' },
-    { ']l', '<Cmd>lnext<CR>', desc = 'LocalList next' },
-    { '[L', '<Cmd>lfirst<CR>', desc = 'LocalList first' },
-    { ']L', '<Cmd>llast<CR>', desc = 'LocalList last' },
+    { '[l', '<Cmd>lprevious<CR>', desc = 'LocationList prev' },
+    { ']l', '<Cmd>lnext<CR>', desc = 'LocationList next' },
+    { '[L', '<Cmd>lfirst<CR>', desc = 'LocationList first' },
+    { ']L', '<Cmd>llast<CR>', desc = 'LocationList last' },
 
     -- Messages
     { '<Leader>m', create_messages_buf, desc = 'Messages' },
