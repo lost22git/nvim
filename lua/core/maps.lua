@@ -91,7 +91,6 @@ function M.lspsaga()
 end
 
 function M.mini_pick()
-  local U = require('core.utils')
   local use_bfs = function()
     local show_icon = function(buf_id, items, query) MiniPick.default_show(buf_id, items, query, { show_icons = true }) end
     ---- use bfs
@@ -102,7 +101,7 @@ function M.mini_pick()
   end
   local use_default = function() return MiniPick.builtin.files() end
 
-  local pick_files = U.on_win() and use_default or use_default
+  local pick_files = vim.fn.has('win32') == 1 and use_default or use_default
 
   M.nmap({
     { '<Leader>fa', '<Cmd>Pick buf_lines<CR>' },

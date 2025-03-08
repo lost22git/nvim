@@ -67,95 +67,80 @@ return {
       require('kulala').setup(opts)
 
       local create_usercmds = function()
-        vim.api.nvim_buf_create_user_command(0, 'KulalaRun', function(opts) require('kulala').run() end, { nargs = 0 })
+        vim.api.nvim_buf_create_user_command(0, 'KulalaRun', function() require('kulala').run() end, { nargs = 0 })
         vim.api.nvim_buf_create_user_command(
           0,
           'KulalaRunAll',
-          function(opts) require('kulala').run_all() end,
+          function() require('kulala').run_all() end,
           { nargs = 0 }
         )
         vim.api.nvim_buf_create_user_command(
           0,
           'KulalaToggleView',
-          function(opts) require('kulala').toggle_view() end,
+          function() require('kulala').toggle_view() end,
           { nargs = 0 }
         )
-        vim.api.nvim_buf_create_user_command(
-          0,
-          'KulalaRelay',
-          function(_opts) require('kulala').relay() end,
-          { nargs = 0 }
-        )
-        vim.api.nvim_buf_create_user_command(
-          0,
-          'KulalaOpen',
-          function(opts) require('kulala').open() end,
-          { nargs = 0 }
-        )
+        vim.api.nvim_buf_create_user_command(0, 'KulalaRelay', function() require('kulala').relay() end, { nargs = 0 })
+        vim.api.nvim_buf_create_user_command(0, 'KulalaOpen', function() require('kulala').open() end, { nargs = 0 })
         vim.api.nvim_buf_create_user_command(
           0,
           'KulalaInspect',
-          function(opts) require('kulala').inspect() end,
+          function() require('kulala').inspect() end,
           { nargs = 0 }
         )
         vim.api.nvim_buf_create_user_command(
           0,
           'KulalaShowStats',
-          function(opts) require('kulala').show_stats() end,
+          function() require('kulala').show_stats() end,
           { nargs = 0 }
         )
-        vim.api.nvim_buf_create_user_command(
-          0,
-          'KulalaCopy',
-          function(opts) require('kulala').copy() end,
-          { nargs = 0 }
-        )
+        vim.api.nvim_buf_create_user_command(0, 'KulalaCopy', function() require('kulala').copy() end, { nargs = 0 })
         vim.api.nvim_buf_create_user_command(
           0,
           'KulalaFromCurl',
-          function(opts) require('kulala').from_curl() end,
+          function() require('kulala').from_curl() end,
           { nargs = 0 }
         )
         vim.api.nvim_buf_create_user_command(
           0,
           'KulalaSearch',
-          function(opts) require('kulala').search() end,
+          function() require('kulala').search() end,
           { nargs = 0 }
         )
         vim.api.nvim_buf_create_user_command(
           0,
           'KulalaJumpPrev',
-          function(opts) require('kulala').jump_prev() end,
+          function() require('kulala').jump_prev() end,
           { nargs = 0 }
         )
         vim.api.nvim_buf_create_user_command(
           0,
           'KulalaJumpNext',
-          function(opts) require('kulala').jump_next() end,
+          function() require('kulala').jump_next() end,
           { nargs = 0 }
         )
         vim.api.nvim_buf_create_user_command(
           0,
           'KulalaScriptsClearGlobal',
-          function(opts) require('kulala').scripts_clear_global(unpack(opts.fargs)) end,
+          function() require('kulala').scripts_clear_global(unpack(opts.fargs)) end,
           { nargs = '*' }
         )
         vim.api.nvim_buf_create_user_command(
           0,
           'KulalaClearCachedFiles',
-          function(opts) require('kulala').clear_cached_files() end,
+          function() require('kulala').clear_cached_files() end,
           { nargs = 0 }
         )
         vim.api.nvim_buf_create_user_command(
           0,
           'KulalaScratchpad',
-          function(opts) require('kulala').scratchpad() end,
+          function() require('kulala').scratchpad() end,
           { nargs = 0 }
         )
         vim.api.nvim_buf_create_user_command(
           0,
           'KulalaDownloadGraphqlSchema',
-          function(opts) require('kulala').download_graphql_schema() end,
+          function() require('kulala').download_graphql_schema() end,
           { nargs = 0 }
         )
       end
@@ -228,7 +213,7 @@ return {
     'lewis6991/gitsigns.nvim',
     event = { 'BufReadPost', 'BufNewFile' },
     opts = {
-      on_attach = function(_bufnr) require('core.maps').gitsigns() end,
+      on_attach = function() require('core.maps').gitsigns() end,
       numhl = true,
     },
   },

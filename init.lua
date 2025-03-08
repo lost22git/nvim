@@ -8,11 +8,8 @@ require('core.maps')
 require('core.hls')
 
 -- 加载 GUI 配置
-local U = require('core.utils')
-if U.on_neovide() then
-  -- 加载 neovide 配置
+if vim.g.neovide then
   require('neovide')
-elseif U.on_fvim() then
-  -- 加载 fvim 配置
+elseif vim.g.fvim_loaded then
   require('fvim')
 end

@@ -112,12 +112,11 @@ local M = {
     },
   },
   config = function(_, opts)
-    local U = require('core.utils')
-
     -- 替换 github 为镜像地址
     require('nvim-treesitter.install').prefer_git = true
     for _, config in pairs(require('nvim-treesitter.parsers').get_parser_configs()) do
-      config.install_info.url = config.install_info.url:gsub('https://github.com/', U.get_github_mirror())
+      config.install_info.url =
+        config.install_info.url:gsub('https://github.com/', require('core.utils').get_github_mirror())
     end
 
     use_helix_source()

@@ -52,7 +52,13 @@ return {
       keys = {
         ['du'] = { function() require('nvim-paredit').api.raise_form() end, 'Raise form' },
         ['dU'] = { function() require('nvim-paredit').api.raise_element() end, 'Raise element' },
-        ['<s'] = {
+        ['>D'] = { function() require('nvim-paredit').api.drag_pair_forwards() end, 'Drag element pairs right' },
+        ['<D'] = { function() require('nvim-paredit').api.drag_pair_backwards() end, 'Drag element pairs left' },
+        ['>E'] = { function() require('nvim-paredit').api.drag_element_forwards() end, 'Drag element right' },
+        ['<E'] = { function() require('nvim-paredit').api.drag_element_backwards() end, 'Drag element left' },
+        ['>F'] = { function() require('nvim-paredit').api.drag_form_forwards() end, 'Drag form right' },
+        ['<F'] = { function() require('nvim-paredit').api.drag_form_backwards() end, 'Drag form left' },
+        ['<A'] = {
           function()
             require('nvim-paredit').cursor.place_cursor(
               require('nvim-paredit').wrap.wrap_enclosing_form_under_cursor('( ', ')'),
@@ -61,7 +67,7 @@ return {
           end,
           'Wrap form insert head',
         },
-        ['>s'] = {
+        ['>A'] = {
           function()
             require('nvim-paredit').cursor.place_cursor(
               require('nvim-paredit').wrap.wrap_enclosing_form_under_cursor('(', ')'),

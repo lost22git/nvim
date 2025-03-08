@@ -1,5 +1,3 @@
-local U = require('core.utils')
-
 vim.opt.background = 'light'
 
 -----------------------------
@@ -11,12 +9,12 @@ vim.g.maplocalleader = ' '
 vim.g.transparent = vim.g.transparent or false
 
 -- terminal shell
-if U.on_win() then vim.g.term_shell = { 'pwsh' } end
+if vim.fn.has('win32') == 1 then vim.g.term_shell = { 'pwsh' } end
 
 -- 剪贴板 :help clipboard
 -- 剪贴板 register 2.0 (提升启动速度)
 -- see https://github.com/neovim/neovim/issues/9570
-if U.on_win() then
+if vim.fn.has('win32') == 1 then
   vim.g.clipboard = {
     name = 'win32yank',
     copy = {
@@ -29,20 +27,7 @@ if U.on_win() then
     },
     cache_enabled = 0,
   }
-elseif U.on_mac() then
-  vim.g.clipboard = {
-    name = 'pbcopy',
-    copy = {
-      ['+'] = 'pbcopy',
-      ['*'] = 'pbcopy',
-    },
-    paste = {
-      ['+'] = 'pbpaste',
-      ['*'] = 'pbpaste',
-    },
-    cache_enabled = 0,
-  }
-elseif U.on_wsl() then
+elseif vim.fn.has('wsl') == 1 then
   vim.g.clipboard = {
     name = 'WslClipboard',
     copy = {
@@ -64,7 +49,7 @@ end
 
 -- gui client 字体
 -- neovide 使用自己的 config.toml, 因为它支持配置 light style
-if not U.on_neovide() then
+if not vim.g.neovide then
   vim.opt.guifont = [[IosevkaTermSlab NFM:h14]]
   vim.opt.guifontwide = [[Maple Mono SC NF:h14]]
 end
@@ -97,8 +82,8 @@ vim.opt.pumblend = 0 -- popup menu 透明度 [0-100]
 vim.opt.cursorcolumn = false -- 高亮当前列
 vim.opt.cursorline = false -- 高亮当前行
 vim.opt.cursorlineopt = 'line,number' -- 只高亮行号, 默认 "line,number" 同时高亮行号和行
--- opt.colorcolumn = '100' -- 高亮第n列
--- opt.textwidth = 100 -- 每行文本最大列数，超过自动换行
+-- vim.opt.colorcolumn = '100' -- 高亮第n列
+-- vim.opt.textwidth = 100 -- 每行文本最大列数，超过自动换行
 
 -- 总是渲染 signcolumn, 避免渲染抖动
 vim.opt.signcolumn = 'yes'
