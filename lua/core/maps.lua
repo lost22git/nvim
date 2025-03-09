@@ -145,6 +145,9 @@ function M.base()
     { '-', '<C-x>', desc = 'Decrement number' },
 
     { 'x', '"_x', desc = 'Delete char to blackhold' },
+
+    { '<Tab><Tab>', '<Cmd>b #<CR>', desc = 'Buffer recent' },
+    { '<Tab>b', '<Cmd>b #<CR>', desc = 'Buffer recent' },
   })
 
   M.vmap({
@@ -194,8 +197,6 @@ function M.base()
     { 'L', '$', desc = 'Goto line tail' },
 
     -- bufferlist
-    { '<Tab><Tab>', '<Cmd>b #<CR>', desc = 'Buffer recent' },
-    { '<Tab>b', '<Cmd>b #<CR>', desc = 'Buffer recent' },
     { '[b', '<Cmd>bprev<CR>', desc = 'Buffer prev' },
     { ']b', '<Cmd>bnext<CR>', desc = 'Buffer next' },
     { '[B', '<Cmd>bfirst<CR>', desc = 'Buffer first' },

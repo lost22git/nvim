@@ -360,16 +360,17 @@ function M.config()
   })
 
   -- Clojure
-  with_lsp_server(
-    'clojure-lsp',
-    function(server_path)
-      lspconfig.clojure_lsp.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-        cmd = { server_path },
-      })
-    end
-  )
+  with_lsp_server('clojure-lsp', function(server_path)
+    lspconfig.clojure_lsp.setup({
+      on_attach = on_attach,
+      capabilities = capabilities,
+      cmd = { server_path },
+      root_dir = function(fname)
+        local patterns = { 'project.clj', 'deps.edn', 'build.boot', 'shadow-cljs.edn', 'bb.edn', '.git' }
+        return vim.fs.root(fname, patterns)
+      end,
+    })
+  end)
 
   -- Fennel
   lspconfig.fennel_ls.setup({
