@@ -48,13 +48,6 @@ return {
     },
   },
 
-  {
-    'echasnovski/mini.cursorword',
-    version = false,
-    event = { 'BufNewFile', 'BufReadPost' },
-    opts = {},
-  },
-
   -- {
   --   'echasnovski/mini.notify',
   --   version = false,
@@ -200,6 +193,25 @@ return {
   },
 
   {
+    'echasnovski/mini.cursorword',
+    version = false,
+    event = { 'BufNewFile', 'BufReadPost' },
+    opts = {},
+  },
+
+  {
+    'echasnovski/mini.move',
+    version = false,
+    keys = {
+      { '<M-j>', mode = { 'n', 'v' }, desc = 'MiniMove Down' },
+      { '<M-k>', mode = { 'n', 'v' }, desc = 'MiniMove Up' },
+      { '<M-l>', mode = { 'n', 'v' }, desc = 'MiniMove Right' },
+      { '<M-h>', mode = { 'n', 'v' }, desc = 'MiniMove Left' },
+    },
+    opts = {},
+  },
+
+  {
     'echasnovski/mini.ai',
     version = false,
     event = { 'BufReadPost', 'BufNewFile' },
@@ -237,18 +249,6 @@ return {
         },
       })
     end,
-  },
-
-  {
-    'echasnovski/mini.move',
-    version = false,
-    keys = {
-      { '<M-j>', mode = { 'n', 'v' }, desc = 'MiniMove Down' },
-      { '<M-k>', mode = { 'n', 'v' }, desc = 'MiniMove Up' },
-      { '<M-l>', mode = { 'n', 'v' }, desc = 'MiniMove Right' },
-      { '<M-h>', mode = { 'n', 'v' }, desc = 'MiniMove Left' },
-    },
-    opts = {},
   },
 
   {

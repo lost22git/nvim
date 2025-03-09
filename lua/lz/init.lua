@@ -24,50 +24,12 @@ require('lazy').setup('lz.plugins', {
     timeout = 120, -- kill processes that take more than 2 minutes
     url_format = 'https://github.com/%s.git',
   },
-  install = {
-    missing = true,
-    -- try to load one of these colorschemes when starting an installation during startup
-    -- colorscheme = { "habamax" },
-  },
-  checker = {
-    enabled = false,
-    concurrency = nil, ---@type number? set to 1 to check for updates very slowly
-    notify = true, -- get a notification when new updates are found
-    frequency = 3600, -- check for updates every hour
-  },
-  change_detection = {
-    enabled = true,
-    notify = true,
-  },
   ui = {
     size = { width = 0.8, height = 0.8 },
-    border = 'single',
-    icons = {
-      cmd = ' ',
-      config = '',
-      event = '',
-      ft = ' ',
-      init = ' ',
-      keys = ' ',
-      plugin = ' ',
-      runtime = ' ',
-      source = ' ',
-      start = '',
-      task = '✔ ',
-    },
+    border = 'rounded',
     throttle = 20, -- how frequently should the ui process render events
   },
   performance = {
-    -- cache = {
-    --   enabled = true,
-    --   path = vim.fn.stdpath("state") .. "/lazy/cache",
-    --   -- Once one of the following events triggers, caching will be disabled.
-    --   -- To cache all modules, set this to `{}`, but that is not recommended.
-    --   -- The default is to disable on:
-    --   --  * VimEnter: not useful to cache anything else beyond startup
-    --   --  * BufReadPre: this will be triggered early when opening a file from the command line directly
-    --   disable_events = { "VimEnter", "BufReadPre" },
-    -- },
     reset_packpath = true, -- reset the package path to improve startup time
     rtp = {
       disabled_plugins = {
@@ -86,3 +48,26 @@ require('lazy').setup('lz.plugins', {
 })
 
 vim.keymap.set({ '', 'i' }, '<M-0>', '<Cmd>Lazy<CR>', { silent = true, noremap = true, desc = 'Lazy' })
+
+-- UserCommand - Plugins
+vim.api.nvim_create_user_command('Plugins', function()
+  local config_path = vim.fn.stdpath('config')
+  local shell = vim.fn.has('win32') == 1
+      and string.format(
+        [[rg -g '*.lua' -U "\{\s+'([\w\._-]+?/[\w\._-]+?)'" %q -INor '$1' | rg '\.c$' -v | sort -uniq]],
+        config_path
+      )
+    or string.format(
+      [[rg -g '*.lua' -U "\{\s+'([\w\._-]+?/[\w\._-]+?)'" %q -INor '$1' | rg '\.c$' -v | sort | uniq]],
+      config_path
+    )
+  local cmd = vim.fn.has('win32') == 1 and { 'powershell', '-nologo', '-noprofile', '-command', shell }
+    or { 'sh', '-c', shell }
+
+  vim.system(cmd, { text = true }, function(result)
+    vim.print('; === Plugins ===')
+    -- vim.print(shell)
+    vim.print(result.stdout)
+    vim.print('')
+  end)
+end, {})

@@ -113,13 +113,13 @@ function M.mini_pick()
     { '<Leader>fc', '<Cmd>Pick list scope="change"<CR>' },
     { '<Leader>fd', '<Cmd>Pick diagnostic<CR>' },
     { '<Leader>fe', '<Cmd>Pick oldfiles<CR>' },
-    { '<Leader>fI', '<Cmd>Pick lsp scope="implementation"<CR>' },
+    { '<Leader>fi', '<Cmd>Pick lsp scope="implementation"<CR>' },
     { '<Leader>fj', '<Cmd>Pick list scope="jump"<CR>' },
     { '<Leader>fk', '<Cmd>Pick keymaps<CR>' },
     { '<Leader>fg', '<Cmd>Pick git_files<CR>' },
     { '<Leader>fh', '<Cmd>Pick git_hunks<CR>' },
+    { '<Leader>fo', '<Cmd>Pick lsp scope="document_symbol"<CR>' },
     { '<Leader>fr', '<Cmd>Pick lsp scope="references"<CR>' },
-    { '<Leader>fS', '<Cmd>Pick lsp scope="document_symbol"<CR>' },
   })
 end
 
