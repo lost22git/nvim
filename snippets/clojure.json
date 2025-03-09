@@ -167,86 +167,42 @@
       "*warn-on-reflection*"
     ]
   },
-  "clj-test": {
-    "prefix": "clj-test",
+  "assert-eq": {
+    "prefix": "assert-eq",
     "body": [
-      "clojure.test"
+      "assert (= ${1:expect}",
+      "\t${2:body})"
     ]
   },
-  "clj-string": {
-    "prefix": "clj-string",
+  "assert-false": {
+    "prefix": "assert-false",
     "body": [
-      "clojure.string"
+      "assert (not ${1:false-body})"
     ]
   },
-  "clj-match": {
-    "prefix": "clj-match",
+  "assert-ne": {
+    "prefix": "assert-ne",
     "body": [
-      "clojure.core.match"
+      "assert (not= ${1:expect}",
+      "\t${2:body})"
     ]
   },
-  "clj-async": {
-    "prefix": "clj-async",
+  "assert-nil": {
+    "prefix": "assert-nil",
     "body": [
-      "clojure.core.async"
+      "assert (nil? ${1:body})"
     ]
   },
-  "clj-io": {
-    "prefix": "clj-io",
+  "assert-not-nil": {
+    "prefix": "assert-not-nil",
     "body": [
-      "clojure.java.io"
+      "assert (not (nil? ${1:body}))"
     ]
   },
-  "clj-proc": {
-    "prefix": "clj-proc",
+  "assert-true": {
+    "prefix": "assert-true",
     "body": [
-      "clojure.core.proc"
-    ]
-  },
-  "clj-log": {
-    "prefix": "clj-log",
-    "body": [
-      "clojure.tools.logging"
-    ]
-  },
-  "clj-csv": {
-    "prefix": "clj-csv",
-    "body": [
-      "clojure.data.csv"
-    ]
-  },
-  "clj-edn": {
-    "prefix": "clj-edn",
-    "body": [
-      "clojure.edn"
-    ]
-  },
-  "clj-xml": {
-    "prefix": "clj-xml",
-    "body": [
-      "clojure.data.xml"
-    ]
-  },
-  "json-cheshire": {
-    "prefix": "json-cheshire",
-    "body": [
-      "cheshire.core"
-    ]
-  },
-  "bb-main": {
-    "prefix": "bb-main",
-    "body": [
-      "(defn -main [args]",
-      "\t${1})",
-      "",
-      "(when (= *file* (System/getProperty \"babashka.file\"))",
-      "\t(-main *command-line-args*))"
-    ]
-  },
-  "bb-deps": {
-    "prefix": "bb-deps",
-    "body": [
-      "babashka.deps"
+      "assert ${1:true-body}"
     ]
   },
   "bb-add-deps": {
@@ -261,6 +217,12 @@
       "babashka.cli"
     ]
   },
+  "bb-deps": {
+    "prefix": "bb-deps",
+    "body": [
+      "babashka.deps"
+    ]
+  },
   "bb-fs": {
     "prefix": "bb-fs",
     "body": [
@@ -273,21 +235,238 @@
       "babashka.http-client"
     ]
   },
+  "bb-main": {
+    "prefix": "bb-main",
+    "body": [
+      "(defn -main [args]",
+      "\t${1})",
+      "",
+      "(when (= *file* (System/getProperty \"babashka.file\"))",
+      "\t(-main *command-line-args*))"
+    ]
+  },
   "bb-proc": {
     "prefix": "bb-proc",
     "body": [
       "babashka.process"
     ]
   },
-  "ring-request-gen": {
-    "prefix": "ring-request-gen",
+  "bean": {
+    "prefix": "bean",
     "body": [
-      "{:request-method ${1::get}",
-      "\t:uri ${2:/foo}",
-      "\t:query-params {${3}}",
-      "\t:headers {${4}}",
-      "\t:form-params {${5}}",
-      "}"
+      "bean ${1:data}"
+    ]
+  },
+  "case-bool": {
+    "prefix": "case-bool",
+    "body": [
+      "case ${1:test}",
+      "true ${2:then-body}",
+      "false ${3:else-body}"
+    ]
+  },
+  "clj-async": {
+    "prefix": "clj-async",
+    "body": [
+      "clojure.core.async"
+    ]
+  },
+  "clj-csv": {
+    "prefix": "clj-csv",
+    "body": [
+      "clojure.data.csv"
+    ]
+  },
+  "clj-edn": {
+    "prefix": "clj-edn",
+    "body": [
+      "clojure.edn"
+    ]
+  },
+  "clj-io": {
+    "prefix": "clj-io",
+    "body": [
+      "clojure.java.io"
+    ]
+  },
+  "clj-log": {
+    "prefix": "clj-log",
+    "body": [
+      "clojure.tools.logging"
+    ]
+  },
+  "clj-match": {
+    "prefix": "clj-match",
+    "body": [
+      "clojure.core.match"
+    ]
+  },
+  "clj-proc": {
+    "prefix": "clj-proc",
+    "body": [
+      "clojure.core.proc"
+    ]
+  },
+  "clj-string": {
+    "prefix": "clj-string",
+    "body": [
+      "clojure.string"
+    ]
+  },
+  "clj-test": {
+    "prefix": "clj-test",
+    "body": [
+      "clojure.test"
+    ]
+  },
+  "clj-xml": {
+    "prefix": "clj-xml",
+    "body": [
+      "clojure.data.xml"
+    ]
+  },
+  "datafy": {
+    "prefix": "datafy",
+    "body": [
+      "clojure.datafy/datafy ${1:data}"
+    ]
+  },
+  "def": {
+    "prefix": "def",
+    "body": [
+      "def ${1:a} ${2:b}"
+    ]
+  },
+  "def-dynamic": {
+    "prefix": "def-dynamic",
+    "body": [
+      "def ^:dynamic ${1:a} ${2:b}"
+    ]
+  },
+  "defmethod": {
+    "prefix": "defmethod",
+    "body": [
+      "defmethod ${1:name} ${2:tag}",
+      "\t\"${3:doc}\"",
+      "\t[${4:params}]",
+      "\t${5:body}"
+    ]
+  },
+  "defmulti": {
+    "prefix": "defmulti",
+    "body": [
+      "defmulti ${1:name} ${2:dispatch-fn}"
+    ]
+  },
+  "defn": {
+    "prefix": "defn",
+    "body": [
+      "defn ${1:name}",
+      "\t\"${2:doc}\"",
+      "\t[${3:params}]",
+      "\t${4:body}"
+    ]
+  },
+  "defonce": {
+    "prefix": "defonce",
+    "body": [
+      "defonce ${1:a} ${2:b}"
+    ]
+  },
+  "defonce-dynamic": {
+    "prefix": "defonce-dynamic",
+    "body": [
+      "defonce ^:dynamic ${1:a} ${2:b}"
+    ]
+  },
+  "defrecord": {
+    "prefix": "defrecord",
+    "body": [
+      "defrecord ${1:name} [{$2:props}]"
+    ]
+  },
+  "fields": {
+    "prefix": "flds",
+    "body": [
+      "{:flds [${1:f}]}"
+    ]
+  },
+  "fields-as": {
+    "prefix": "flds-as",
+    "body": [
+      "{:flds [${1:f}] :as ${2:as}}"
+    ]
+  },
+  "fn": {
+    "prefix": "fn",
+    "body": [
+      "fn [${1:params}]",
+      "\t${2:body}"
+    ]
+  },
+  "for": {
+    "prefix": "for",
+    "body": [
+      "for [${1:i} ${2:col}]",
+      "\t${3:body}"
+    ]
+  },
+  "for-when": {
+    "prefix": "for-when",
+    "body": [
+      "for [${1:i} ${2:col} :when (${3:f} ${1:i})]",
+      "\t${4:body}"
+    ]
+  },
+  "for-while": {
+    "prefix": "for-while",
+    "body": [
+      "for [${1:i} ${2:col} :while (${3:f} ${1:i})]",
+      "\t${4:body}"
+    ]
+  },
+  "if": {
+    "prefix": "if",
+    "body": [
+      "if ${1:test} ${2:then-body} ${3:else-body}"
+    ]
+  },
+  "if-eq": {
+    "prefix": "if-eq",
+    "body": [
+      "if (= ${1:a} ${2:b})",
+      "\t${3:then-body}",
+      "\t${4:else-body}"
+    ]
+  },
+  "if-let": {
+    "prefix": "if-let",
+    "body": [
+      "if-let [${1:a} ${2:b}]",
+      "\t${3:then-body}",
+      "\t${4:else-body}"
+    ]
+  },
+  "if-ne": {
+    "prefix": "if-ne",
+    "body": [
+      "if (not= ${1:a} ${2:b})",
+      "\t${3:then-body}",
+      "\t${4:else-body}"
+    ]
+  },
+  "if-not": {
+    "prefix": "if-not",
+    "body": [
+      "if-not ${1:test} ${2:then-body} ${3:else-body}"
+    ]
+  },
+  "if-some": {
+    "prefix": "if-some",
+    "body": [
+      "if-some [${1:a} ${2:b}]",
+      "\t${3:then-body}",
+      "\t${4:else-body}"
     ]
   },
   "ig-repl": {
@@ -309,6 +488,43 @@
       "  (halt)",
       "  (reset)",
       "  (reset-all))"
+    ]
+  },
+  "json-cheshire": {
+    "prefix": "json-cheshire",
+    "body": [
+      "cheshire.core"
+    ]
+  },
+  "keys": {
+    "prefix": "keys",
+    "body": [
+      "{:keys [${1:k}]}"
+    ]
+  },
+  "keys-as": {
+    "prefix": "keys-as",
+    "body": [
+      "{:keys [${1:k}] :as ${2:as}}"
+    ]
+  },
+  "let": {
+    "prefix": "let",
+    "body": [
+      "let [${1:a} ${2:b}]",
+      "\t${3:body}"
+    ]
+  },
+  "pprint": {
+    "prefix": "pp",
+    "body": [
+      "clojure.pprint/pprint ${1:v}"
+    ]
+  },
+  "println": {
+    "prefix": "p",
+    "body": [
+      "println ${1:v}"
     ]
   },
   "repl": {
@@ -340,16 +556,15 @@
       "   sort))"
     ]
   },
-  "println": {
-    "prefix": "p",
+  "ring-request-gen": {
+    "prefix": "ring-request-gen",
     "body": [
-      "println ${1:v}"
-    ]
-  },
-  "pprint": {
-    "prefix": "pp",
-    "body": [
-      "clojure.pprint/pprint ${1:v}"
+      "{:request-method ${1::get}",
+      "\t:uri ${2:/foo}",
+      "\t:query-params {${3}}",
+      "\t:headers {${4}}",
+      "\t:form-params {${5}}",
+      "}"
     ]
   },
   "sleep": {
@@ -358,130 +573,16 @@
       "Thread/sleep ${1:seconds}"
     ]
   },
-  "datafy": {
-    "prefix": "datafy",
-    "body": [
-      "clojure.datafy/datafy ${1:data}"
-    ]
-  },
-  "bean": {
-    "prefix": "bean",
-    "body": [
-      "bean ${1:data}"
-    ]
-  },
-  "keys": {
-    "prefix": "keys",
-    "body": [
-      "{:keys [${1:k}]}"
-    ]
-  },
-  "keys-as": {
-    "prefix": "keys-as",
-    "body": [
-      "{:keys [${1:k}] :as ${2:as}}"
-    ]
-  },
-  "fields": {
-    "prefix": "flds",
-    "body": [
-      "{:flds [${1:f}]}"
-    ]
-  },
-  "fields-as": {
-    "prefix": "flds-as",
-    "body": [
-      "{:flds [${1:f}] :as ${2:as}}"
-    ]
-  },
-  "let": {
-    "prefix": "let",
-    "body": [
-      "let [${1:a} ${2:b}]",
-      "\t${3:body}"
-    ]
-  },
-  "if": {
-    "prefix": "if",
-    "body": [
-      "if ${1:test} ${2:then-body} ${3:else-body}"
-    ]
-  },
-  "if-not": {
-    "prefix": "if-not",
-    "body": [
-      "if-not ${1:test} ${2:then-body} ${3:else-body}"
-    ]
-  },
-  "if-eq": {
-    "prefix": "if-eq",
-    "body": [
-      "if (= ${1:a} ${2:b})",
-      "\t${3:then-body}",
-      "\t${4:else-body}"
-    ]
-  },
-  "if-ne": {
-    "prefix": "if-ne",
-    "body": [
-      "if (not= ${1:a} ${2:b})",
-      "\t${3:then-body}",
-      "\t${4:else-body}"
-    ]
-  },
-  "if-let": {
-    "prefix": "if-let",
-    "body": [
-      "if-let [${1:a} ${2:b}]",
-      "\t${3:then-body}",
-      "\t${4:else-body}"
-    ]
-  },
-  "if-some": {
-    "prefix": "if-some",
-    "body": [
-      "if-some [${1:a} ${2:b}]",
-      "\t${3:then-body}",
-      "\t${4:else-body}"
-    ]
-  },
   "when": {
     "prefix": "when",
     "body": [
       "when ${1:a} ${2:body}"
     ]
   },
-  "when-not": {
-    "prefix": "when-not",
-    "body": [
-      "when-not ${1:a} ${2:body}"
-    ]
-  },
   "when-eq": {
     "prefix": "when-eq",
     "body": [
       "when (= ${1:a} ${2:b})",
-      "\t${3:body}"
-    ]
-  },
-  "when-ne": {
-    "prefix": "when-ne",
-    "body": [
-      "when (not= ${1:a} ${2:b})",
-      "\t${3:body}"
-    ]
-  },
-  "when-let": {
-    "prefix": "when-let",
-    "body": [
-      "when-let [${1:a} ${2:b}]",
-      "\t${3:body}"
-    ]
-  },
-  "when-some": {
-    "prefix": "when-some",
-    "body": [
-      "when-some [${1:a} ${2:b}]",
       "\t${3:body}"
     ]
   },
@@ -492,314 +593,31 @@
       "\t${3:body}"
     ]
   },
-  "case-bool": {
-    "prefix": "case-bool",
+  "when-let": {
+    "prefix": "when-let",
     "body": [
-      "case ${1:test}",
-      "true ${2:then-body}",
-      "false ${3:else-body}"
-    ]
-  },
-  "for": {
-    "prefix": "for",
-    "body": [
-      "for [${1:i} ${2:col}]",
+      "when-let [${1:a} ${2:b}]",
       "\t${3:body}"
     ]
   },
-  "for-when": {
-    "prefix": "for-when",
+  "when-ne": {
+    "prefix": "when-ne",
     "body": [
-      "for [${1:i} ${2:col} :when (${3:f} ${1:i})]",
-      "\t${4:body}"
+      "when (not= ${1:a} ${2:b})",
+      "\t${3:body}"
     ]
   },
-  "for-while": {
-    "prefix": "for-while",
+  "when-not": {
+    "prefix": "when-not",
     "body": [
-      "for [${1:i} ${2:col} :while (${3:f} ${1:i})]",
-      "\t${4:body}"
+      "when-not ${1:a} ${2:body}"
     ]
   },
-  "def": {
-    "prefix": "def",
+  "when-some": {
+    "prefix": "when-some",
     "body": [
-      "def ${1:a} ${2:b}"
-    ]
-  },
-  "def-dynamic": {
-    "prefix": "def-dynamic",
-    "body": [
-      "def ^:dynamic ${1:a} ${2:b}"
-    ]
-  },
-  "defonce": {
-    "prefix": "defonce",
-    "body": [
-      "defonce ${1:a} ${2:b}"
-    ]
-  },
-  "defonce-dynamic": {
-    "prefix": "defonce-dynamic",
-    "body": [
-      "defonce ^:dynamic ${1:a} ${2:b}"
-    ]
-  },
-  "defrecord": {
-    "prefix": "defrecord",
-    "body": [
-      "defrecord ${1:name} [{$2:props}]"
-    ]
-  },
-  "defmulti": {
-    "prefix": "defmulti",
-    "body": [
-      "defmulti ${1:name} ${2:dispatch-fn}"
-    ]
-  },
-  "defmethod": {
-    "prefix": "defmethod",
-    "body": [
-      "defmethod ${1:name} ${2:tag}",
-      "\t\"${3:doc}\"",
-      "\t[${4:params}]",
-      "\t${5:body}"
-    ]
-  },
-  "defn": {
-    "prefix": "defn",
-    "body": [
-      "defn ${1:name}",
-      "\t\"${2:doc}\"",
-      "\t[${3:params}]",
-      "\t${4:body}"
-    ]
-  },
-  "fn": {
-    "prefix": "fn",
-    "body": [
-      "fn [${1:params}]",
-      "\t${2:body}"
-    ]
-  },
-  "assert-true": {
-    "prefix": "assert-true",
-    "body": [
-      "assert ${1:true-body}"
-    ]
-  },
-  "assert-false": {
-    "prefix": "assert-false",
-    "body": [
-      "assert (not ${1:false-body})"
-    ]
-  },
-  "assert-eq": {
-    "prefix": "assert-eq",
-    "body": [
-      "assert (= ${1:expect}",
-      "\t${2:body})"
-    ]
-  },
-  "assert-ne": {
-    "prefix": "assert-ne",
-    "body": [
-      "assert (not= ${1:expect}",
-      "\t${2:body})"
-    ]
-  },
-  "assert-nil": {
-    "prefix": "assert-nil",
-    "body": [
-      "assert (nil? ${1:body})"
-    ]
-  },
-  "assert-not-nil": {
-    "prefix": "assert-not-nil",
-    "body": [
-      "assert (not (nil? ${1:body}))"
-    ]
-  },
-  "[cljd] generic": {
-    "prefix": "#/",
-    "body": [
-      "#/(${1:t} ${2:t-params})"
-    ]
-  },
-  "[cljd] :bind": {
-    "prefix": ":bind",
-    "body": [
-      "bind {:${1:key} ${2:val}}"
-    ]
-  },
-  "[cljd] :get by key": {
-    "prefix": ":get-by-key",
-    "body": [
-      "get [:${1:key}]"
-    ]
-  },
-  "[cljd] :get by class": {
-    "prefix": ":get-by-class",
-    "body": [
-      "get [m/${1:class}]"
-    ]
-  },
-  "[cljd] :get and destructing": {
-    "prefix": ":get-destructing",
-    "body": [
-      "get {${1:a} m/${2:b}}"
-    ]
-  },
-  "[cljd] :managed state": {
-    "prefix": ":managed-state",
-    "body": [
-      "managed [${1:state} ${2:val} :dispose nil]"
-    ]
-  },
-  "[cljd :managed resources]": {
-    "prefix": ":managed-resources",
-    "body": [
-      "managed [${1:a} ${2:b}]"
-    ]
-  },
-  "[cljd] :watch": {
-    "prefix": ":watch",
-    "body": [
-      "watch [${1:a} ${2:b}]"
-    ]
-  },
-  "[cljd] EdgeInsets all": {
-    "prefix": "Edge-all",
-    "body": [
-      "EdgeInsets.all ${1:0}"
-    ]
-  },
-  "[cljd] EdgeInsets symmetric": {
-    "prefix": "Edge-symmetric",
-    "body": [
-      "EdgeInsets.symmertric .horizontal ${1:0} .vertical ${2:0}"
-    ]
-  },
-  "[cljd] EdgeInsets horizontal": {
-    "prefix": "Edge-horizontal",
-    "body": [
-      "EdgeInsets.symmertric .horizontal ${1:0}"
-    ]
-  },
-  "[cljd] EdgeInsets vertical": {
-    "prefix": "Edge-vertical",
-    "body": [
-      "EdgeInsets.symmertric .vertical ${1:0}"
-    ]
-  },
-  "[cljd] Icon widget": {
-    "prefix": "Icon",
-    "body": [
-      "Icon m/Icons.${1:help}"
-    ]
-  },
-  "[cljd] MainAxisAlignment": {
-    "prefix": "MainAxisAlignment",
-    "body": [
-      "MainAxisAlignment.${1:start}"
-    ]
-  },
-  "[cljd] CrossAxisAlignment": {
-    "prefix": "CrossAxisAlignment",
-    "body": [
-      "CrossAxisAlignment.${1:start}"
-    ]
-  },
-  "[cljd] MainAxisSize": {
-    "prefix": "MainAxisSize",
-    "body": [
-      "MainAxisSize.${1:min}"
-    ]
-  },
-  "[cljd] Row": {
-    "prefix": "Row",
-    "body": [
-      "Row",
-      "\t.mainAxisAlignment m/MainAxisAlignment.${1:start}",
-      "\t.crossAxisAlignment m/CrossAxisAlignment.${1:start}"
-    ]
-  },
-  "[cljd] Column": {
-    "prefix": "Column",
-    "body": [
-      "Column",
-      "\t.mainAxisAlignment m/MainAxisAlignment.${1:start}",
-      "\t.crossAxisAlignment m/CrossAxisAlignment.${2:start}"
-    ]
-  },
-  "[cljd] IconButton": {
-    "prefix": "IconButton",
-    "body": [
-      "IconButton",
-      "\t.onPressed (fn [])"
-    ]
-  },
-  "[cljd] TextButton": {
-    "prefix": "TextButton",
-    "body": [
-      "TextButton",
-      "\t.onPressed (fn [])"
-    ]
-  },
-  "[cljd] SizedBox": {
-    "prefix": "SizedBox",
-    "body": [
-      "SizedBox",
-      "\t.width ${1:0}",
-      "\t.height ${2:0}"
-    ]
-  },
-  "[cljd] SizedBox width": {
-    "prefix": "SizedBox-width",
-    "body": [
-      "SizedBox",
-      "\t.width ${1:0}"
-    ]
-  },
-  "[cljd] SizedBox height": {
-    "prefix": "SizedBox-height",
-    "body": [
-      "SizedBox",
-      "\t.height ${1:0}"
-    ]
-  },
-  "[cljd] ListTile": {
-    "prefix": "ListTile",
-    "body": [
-      "ListTile",
-      "\t.onTap (fn [])",
-      "\t.leading ${1:leading}",
-      "\t.title ${2:title}",
-      "\t.subtitle ${3:subtitle}",
-      "\t.trailing ${4:trailing}"
-    ]
-  },
-  "[cljd] GestureDetector": {
-    "prefix": "GestureDetector",
-    "body": [
-      "GestureDetector",
-      "\t.onTap (fn [])"
-    ]
-  },
-  "[cljd] Hero widget": {
-    "prefix": "Hero",
-    "body": [
-      "Hero",
-      "\t.tag ${1:tag}"
-    ]
-  },
-  "[cljd] AnimatedSize": {
-    "prefix": "AnimatedSize",
-    "body": [
-      "AnimatedSize",
-      "\t.duration (Duration .milliseconds ${1:400})",
-      "\t.curve m/Curves.fastOutSlowIn",
-      "\t.alignment m/Alignment.topCenter"
+      "when-some [${1:a} ${2:b}]",
+      "\t${3:body}"
     ]
   }
 }

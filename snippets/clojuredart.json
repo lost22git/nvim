@@ -1,0 +1,184 @@
+{
+  "[cljd] generic": {
+    "prefix": "#/",
+    "body": [
+      "#/(${1:t} ${2:t-params})"
+    ]
+  },
+  "[cljd] :bind": {
+    "prefix": ":bind",
+    "body": [
+      "bind {:${1:key} ${2:val}}"
+    ]
+  },
+  "[cljd] :get and destructing": {
+    "prefix": ":get-destructing",
+    "body": [
+      "get {${1:a} m/${2:b}}"
+    ]
+  },
+  "[cljd] :get by class": {
+    "prefix": ":get-by-class",
+    "body": [
+      "get [m/${1:class}]"
+    ]
+  },
+  "[cljd] :get by key": {
+    "prefix": ":get-by-key",
+    "body": [
+      "get [:${1:key}]"
+    ]
+  },
+  "[cljd] :managed resources": {
+    "prefix": ":managed-resources",
+    "body": [
+      "managed [${1:a} ${2:b}]"
+    ]
+  },
+  "[cljd] :managed state": {
+    "prefix": ":managed-state",
+    "body": [
+      "managed [${1:state} ${2:val} :dispose nil]"
+    ]
+  },
+  "[cljd] :watch": {
+    "prefix": ":watch",
+    "body": [
+      "watch [${1:a} ${2:b}]"
+    ]
+  },
+  "[cljd] AnimatedSize": {
+    "prefix": "AnimatedSize",
+    "body": [
+      "AnimatedSize",
+      "\t.duration (Duration .milliseconds ${1:400})",
+      "\t.curve m/Curves.fastOutSlowIn",
+      "\t.alignment m/Alignment.topCenter"
+    ]
+  },
+  "[cljd] Column": {
+    "prefix": "Column",
+    "body": [
+      "Column",
+      "\t.mainAxisAlignment m/MainAxisAlignment.${1:start}",
+      "\t.crossAxisAlignment m/CrossAxisAlignment.${2:start}"
+    ]
+  },
+  "[cljd] CrossAxisAlignment": {
+    "prefix": "CrossAxisAlignment",
+    "body": [
+      "CrossAxisAlignment.${1:start}"
+    ]
+  },
+  "[cljd] EdgeInsets all": {
+    "prefix": "Edge-all",
+    "body": [
+      "EdgeInsets.all ${1:0}"
+    ]
+  },
+  "[cljd] EdgeInsets horizontal": {
+    "prefix": "Edge-horizontal",
+    "body": [
+      "EdgeInsets.symmertric .horizontal ${1:0}"
+    ]
+  },
+  "[cljd] EdgeInsets symmetric": {
+    "prefix": "Edge-symmetric",
+    "body": [
+      "EdgeInsets.symmertric .horizontal ${1:0} .vertical ${2:0}"
+    ]
+  },
+  "[cljd] EdgeInsets vertical": {
+    "prefix": "Edge-vertical",
+    "body": [
+      "EdgeInsets.symmertric .vertical ${1:0}"
+    ]
+  },
+  "[cljd] GestureDetector": {
+    "prefix": "GestureDetector",
+    "body": [
+      "GestureDetector",
+      "\t.onTap (fn [])"
+    ]
+  },
+  "[cljd] Hero widget": {
+    "prefix": "Hero",
+    "body": [
+      "Hero",
+      "\t.tag ${1:tag}"
+    ]
+  },
+  "[cljd] Icon widget": {
+    "prefix": "Icon",
+    "body": [
+      "Icon m/Icons.${1:help}"
+    ]
+  },
+  "[cljd] IconButton": {
+    "prefix": "IconButton",
+    "body": [
+      "IconButton",
+      "\t.onPressed (fn [])"
+    ]
+  },
+  "[cljd] ListTile": {
+    "prefix": "ListTile",
+    "body": [
+      "ListTile",
+      "\t.onTap (fn [])",
+      "\t.leading ${1:leading}",
+      "\t.title ${2:title}",
+      "\t.subtitle ${3:subtitle}",
+      "\t.trailing ${4:trailing}"
+    ]
+  },
+  "[cljd] MainAxisAlignment": {
+    "prefix": "MainAxisAlignment",
+    "body": [
+      "MainAxisAlignment.${1:start}"
+    ]
+  },
+  "[cljd] MainAxisSize": {
+    "prefix": "MainAxisSize",
+    "body": [
+      "MainAxisSize.${1:min}"
+    ]
+  },
+  "[cljd] Row": {
+    "prefix": "Row",
+    "body": [
+      "Row",
+      "\t.mainAxisAlignment m/MainAxisAlignment.${1:start}",
+      "\t.crossAxisAlignment m/CrossAxisAlignment.${1:start}"
+    ]
+  },
+  "[cljd] SizedBox": {
+    "prefix": "SizedBox",
+    "body": [
+      "SizedBox",
+      "\t.width ${1:0}",
+      "\t.height ${2:0}"
+    ]
+  },
+  "[cljd] SizedBox height": {
+    "prefix": "SizedBox-height",
+    "body": [
+      "SizedBox",
+      "\t.height ${1:0}"
+    ]
+  },
+  "[cljd] SizedBox width": {
+    "prefix": "SizedBox-width",
+    "body": [
+      "SizedBox",
+      "\t.width ${1:0}"
+    ]
+  },
+  "[cljd] TextButton": {
+    "prefix": "TextButton",
+    "body": [
+      "TextButton",
+      "\t.onPressed (fn [])"
+    ]
+  }
+}

@@ -7,6 +7,10 @@
         "path": "./clojure.json"
       },
       {
+        "language": "clojure",
+        "path": "./clojuredart.json"
+      },
+      {
         "language": "gleam",
         "path": "./gleam.json"
       },
