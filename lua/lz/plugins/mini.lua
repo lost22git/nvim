@@ -27,6 +27,7 @@ return {
           local location = MiniStatusline.section_location({ trunc_width = 75 })
           local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
 
+          -- show buffer count
           local buffers = '󱂬 ' .. require('core.utils').get_buffer_count()
 
           return MiniStatusline.combine_groups({
@@ -183,7 +184,7 @@ return {
           delete_char_right = '<C-d>',
         },
         window = {
-          config = { border = 'solid' },
+          config = { border = 'rounded' },
         },
       })
 

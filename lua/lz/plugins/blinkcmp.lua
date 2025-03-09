@@ -1,16 +1,20 @@
 return {
   'saghen/blink.cmp',
   lazy = false,
-  -- build = [[RUSTC_BOOTSTRAP=1 cargo build --release]],
   version = '*',
   dependencies = {
     { 'rafamadriz/friendly-snippets' },
   },
   opts = {
+    appearance = { nerd_font_variant = 'mono' },
+    sources = { default = { 'lsp', 'path', 'snippets', 'buffer' } },
+    signature = { enabled = true },
+
     completion = {
       ghost_text = { enabled = false },
       list = { selection = { preselect = true, auto_insert = false } },
     },
+
     keymap = {
       preset = 'super-tab',
       ['<M-j>'] = { 'select_next', 'fallback' },
@@ -21,6 +25,7 @@ return {
       ['<C-d>'] = { 'scroll_documentation_down', 'fallback' },
       ['<C-k>'] = { 'fallback' }, -- avoid conflicting with other keymaps
     },
+
     cmdline = {
       completion = {
         menu = { auto_show = true },
@@ -34,12 +39,5 @@ return {
         ['<C-c>'] = { 'hide' },
       },
     },
-    appearance = {
-      nerd_font_variant = 'mono',
-    },
-    sources = {
-      default = { 'lsp', 'path', 'snippets', 'buffer' },
-    },
-    signature = { enabled = true },
   },
 }

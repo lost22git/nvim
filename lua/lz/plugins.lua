@@ -86,12 +86,6 @@ return {
   },
 
   {
-    'lewis6991/satellite.nvim',
-    event = { 'BufReadPost', 'BufNewFile' },
-    ops = {},
-  },
-
-  {
     'zaldih/themery.nvim',
     cmd = { 'Themery' },
     opts = {
@@ -262,7 +256,7 @@ return {
     opts = {
       ft = 'FTerm',
       cmd = vim.g.term_shell or vim.o.shell,
-      border = 'single',
+      border = 'rounded',
       auto_close = true,
       hl = 'Normal',
       blend = 0,
