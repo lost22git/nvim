@@ -86,15 +86,6 @@ return {
   },
 
   {
-    'zaldih/themery.nvim',
-    cmd = { 'Themery' },
-    opts = {
-      themes = vim.fn.getcompletion('', 'color'),
-      livePreview = true,
-    },
-  },
-
-  {
     's1n7ax/nvim-window-picker',
     keys = {
       {

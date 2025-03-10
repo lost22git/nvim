@@ -14,16 +14,7 @@ function M.get_github_mirror()
   return 'https://www.github.com/'
 end
 
-function M.get_name_and_ext(path)
-  path = path or ''
-  return path:match('^.+[\\/]([^\\/]+)(%.%w+)$')
-end
-
-function M.get_data_path() return vim.fn.resolve(vim.fn.stdpath('data')) end
-
-function M.get_config_path() return vim.fn.resolve(vim.fn.stdpath('config')) end
-
-function M.get_mason_path() return M.get_data_path() .. '/mason' end
+function M.get_mason_path() return vim.fn.stdpath('data') .. '/mason' end
 
 local lsp_server_bin_dir = M.get_mason_path() .. '/bin/'
 local lsp_server_package_dir = M.get_mason_path() .. '/packages/'
@@ -34,16 +25,22 @@ function M.with_lsp_server(name, fn)
 end
 
 function M.get_lsp_server_path(name)
+  local on_windows = vim.fn.has('win32') == 1
+
   -- 查找顺序：
   -- 1. mason 目录
   local path = lsp_server_bin_dir .. name
-  if vim.fn.has('win32') == 1 then path = path .. '.cmd' end
+  if on_windows then path = path .. '.cmd' end
   if vim.fn.executable(path) == 1 then return path end
 
   -- 2. 环境变量 PATH
   path = vim.fn.exepath(name) or ''
   -- windows: 如果 path 没有扩展名，添加 .cmd
-  if path ~= '' and vim.fn.has('win32') == 1 and ({ M.get_name_and_ext(path) })[2] == nil then path = path .. '.cmd' end
+  if path ~= '' and on_windows then
+    local path_ext = vim.fn.split(vim.fs.basename(path), '\\.')[2]
+    if not path_ext then path = path .. '.cmd' end
+  end
+
   return path
 end
 
@@ -73,7 +70,13 @@ function M.lsp_capabilities()
   })
 end
 
-local function lsp_format_on_save(client, bufnr)
+function M.lsp_on_attach(client, bufnr)
+  require('core.maps').lsp(bufnr)
+  M.lsp_format_on_save(client, bufnr)
+  M.lsp_codelens_refresh(client, bufnr)
+end
+
+function M.lsp_format_on_save(client, bufnr)
   -- Use conform format
   local has_conform, _ = pcall(require, 'conform')
   if has_conform then return end
@@ -90,7 +93,7 @@ local function lsp_format_on_save(client, bufnr)
   end
 end
 
-local function lsp_codelens_refresh(client, bufnr)
+function M.lsp_codelens_refresh(client, bufnr)
   if client.supports_method('textDocument/codeLens') then
     local aug = vim.api.nvim_create_augroup('lsp_codelens_refresh', {})
     vim.api.nvim_clear_autocmds({ group = aug, buffer = bufnr })
@@ -101,12 +104,6 @@ local function lsp_codelens_refresh(client, bufnr)
       callback = vim.lsp.codelens.refresh,
     })
   end
-end
-
-function M.lsp_on_attach(client, bufnr)
-  require('core.maps').lsp(bufnr)
-  lsp_format_on_save(client, bufnr)
-  lsp_codelens_refresh(client, bufnr)
 end
 
 function M.tbl_includes(a, b)

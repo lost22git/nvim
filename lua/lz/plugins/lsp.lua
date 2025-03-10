@@ -41,11 +41,10 @@ local M = {
     },
     {
       'glepnir/lspsaga.nvim',
-      cmd = { 'Lspsaga' },
       opts = {
         scroll_preview = { scroll_down = '<C-d>', scroll_up = '<C-u>' },
         beacon = { enable = true },
-        finder = { keys = { shuttle = '<Tab>' } },
+        finder = { left_width = 0.3, right_width = 0.5, keys = { shuttle = '<Tab>' } },
         outline = { keys = { toggle_or_jump = '<Tab>', jump = 'o' } },
       },
       config = function(_, opts)
