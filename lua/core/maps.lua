@@ -148,6 +148,11 @@ function M.base()
 
     { '<Tab><Tab>', '<Cmd>b #<CR>', desc = 'Buffer recent' },
     { '<Tab>b', '<Cmd>b #<CR>', desc = 'Buffer recent' },
+
+    { '[<Tab>', '<Cmd>tabprevious<CR>', desc = 'Tab prev' },
+    { ']<Tab>', '<Cmd>tabnext<CR>', desc = 'Tab next' },
+    { '[<S-Tab>', '<Cmd>tabfirst<CR>', desc = 'Tab first' },
+    { ']<S-Tab>', '<Cmd>tablast<CR>', desc = 'Tab last' },
   })
 
   M.vmap({

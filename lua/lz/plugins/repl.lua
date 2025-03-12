@@ -39,21 +39,19 @@ return {
       vim.api.nvim_create_autocmd({ 'BufWinEnter' }, {
         pattern = { 'conjure-log-*' },
         callback = function()
-          if vim.diagnostic.enabled then
-            local buffer = vim.api.nvim_get_current_buf()
-            pcall(vim.diagnostic.enable, false, { bufnr = buffer })
-          end
+          local buffer = vim.api.nvim_get_current_buf()
+          if vim.diagnostic.enabled then pcall(vim.diagnostic.enable, false, { bufnr = buffer }) end
 
           vim.keymap.set(
             { 'n', 'v' },
             '[e',
-            [[<Cmd>call search('^; -\+$', 'bw')<CR>]],
+            [[<Cmd>call search('\v^(;|--) -+$', 'bw')<CR>]],
             { silent = true, buffer = true, desc = 'Conjure goto prev log' }
           )
           vim.keymap.set(
             { 'n', 'v' },
             ']e',
-            [[<Cmd>call search('^; -\+$', 'w')<CR>]],
+            [[<Cmd>call search('\v^(;|--) -+$', 'w')<CR>]],
             { silent = true, buffer = true, desc = 'Conjure goto next log' }
           )
         end,

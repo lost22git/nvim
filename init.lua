@@ -1,13 +1,15 @@
 require('core.opts')
 require('core.autocmds')
 
--- 加载插件
+-- load plugins
 require('lz')
 
+-- load core.maps/hls
+-- after plugins to override them
 require('core.maps')
 require('core.hls')
 
--- 加载 GUI 配置
+-- load GUI
 if vim.g.neovide then
   require('neovide')
 elseif vim.g.fvim_loaded then
