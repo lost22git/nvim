@@ -103,6 +103,18 @@ function M.mini_pick()
 
   local pick_files = vim.fn.has('win32') == 1 and use_default or use_default
 
+  local pick_zoxide = function()
+    local show_icon = function(buf_id, items, query) MiniPick.default_show(buf_id, items, query, { show_icons = true }) end
+    local on_choose = function(item)
+      vim.cmd('cd ' .. item)
+      vim.print('cd ' .. item)
+    end
+    local default_opts = { source = { name = 'Zoxide', show = show_icon, choose = on_choose } }
+    local cmd = { 'zoxide', 'query', '-l' }
+    local opts = vim.tbl_deep_extend('force', default_opts, {})
+    return MiniPick.builtin.cli({ command = cmd }, opts)
+  end
+
   M.nmap({
     { '<Leader>fa', '<Cmd>Pick buf_lines<CR>' },
     { '<Leader>fb', '<Cmd>Pick buffers<CR>' },
@@ -120,6 +132,8 @@ function M.mini_pick()
     { '<Leader>fh', '<Cmd>Pick git_hunks<CR>' },
     { '<Leader>fo', '<Cmd>Pick lsp scope="document_symbol"<CR>' },
     { '<Leader>fr', '<Cmd>Pick lsp scope="references"<CR>' },
+    -- custom pickers
+    { '<Leader>fz', pick_zoxide },
   })
 end
 
@@ -193,9 +207,10 @@ function M.base()
     { '<C-M-k>', '<C-w>-' },
     { '<C-M-g>', '<C-w>=' },
 
-    { '<C-[>', 'zh', desc = 'Zoom move Left' },
-    { '<C-]>', 'zl', desc = 'Zoom move Right' },
+    -- { '<C-[>', 'zh', desc = 'Zoom move Left' },
+    -- { '<C-]>', 'zl', desc = 'Zoom move Right' },
 
+    { '<Leader>J', 'J', desc = 'The old "J"' },
     { 'J', '}', desc = 'Goto next blank line' },
     { 'K', '{', desc = 'Goto prev blank line' },
     { 'H', '^', desc = 'Goto line head' },

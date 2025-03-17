@@ -5,6 +5,7 @@ return {
     cmd = { 'AsyncRun', 'AsyncRunVisual' },
     config = function()
       vim.g.asyncrun_bell = 10
+      -- AsyncRunVisual
       vim.api.nvim_create_user_command('AsyncRunVisual', function(opts)
         -- get selection_text in visual mode
         vim.cmd('normal! gv"xy')

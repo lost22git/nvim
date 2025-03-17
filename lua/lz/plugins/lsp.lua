@@ -221,16 +221,22 @@ function M.config()
   )
 
   -- Tailwindcss
-  with_lsp_server(
-    'tailwindcss-language-server',
-    function(server_path)
-      lspconfig.tailwindcss.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-        cmd = { server_path, '--stdio' },
-      })
-    end
-  )
+  with_lsp_server('tailwindcss-language-server', function(server_path)
+    lspconfig.tailwindcss.setup({
+      root_dir = function(fname)
+        local patterns = {
+          'tailwind.config.js',
+          'tailwind.config.cjs',
+          'tailwind.config.mjs',
+          'tailwind.config.ts',
+        }
+        return vim.fs.root(fname, patterns)
+      end,
+      on_attach = on_attach,
+      capabilities = capabilities,
+      cmd = { server_path, '--stdio' },
+    })
+  end)
 
   -- SVELTE  (requires typescript-language-server)
   lspconfig.svelte.setup({

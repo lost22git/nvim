@@ -98,7 +98,14 @@ return {
         desc = 'WindowPicker',
       },
     },
-    opts = {},
+    opts = {
+      hint = 'floating-big-letter',
+      filter_rules = {
+        bo = {
+          buftype = {},
+        },
+      },
+    },
   },
 
   {
