@@ -125,7 +125,7 @@ vim.opt.wildignorecase = true
 
 -- 搜索
 vim.opt.hlsearch = true
-vim.opt.magic = true -- 默认正则表达式模式 magic, 在正则中使用模式: \m => magic, \m => nomagic, \v => very magic, \v => very nomagic
+vim.opt.magic = true
 
 -- 补全
 vim.opt.completeopt = [[menu,menuone,noselect]]
