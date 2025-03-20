@@ -20,7 +20,7 @@ return {
       inko = { 'inko' },
       javascript = { 'deno_fmt', 'prettier' },
       jsx = { 'prettier' },
-      json = { 'jq' },
+      json = { 'jq', 'prettier' },
       just = { 'just' },
       lua = { 'stylua' },
       nim = { 'nph' },

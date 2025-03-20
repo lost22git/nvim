@@ -109,9 +109,8 @@ function M.mini_pick()
       vim.cmd('cd ' .. item)
       vim.print('cd ' .. item)
     end
-    local default_opts = { source = { name = 'Zoxide', show = show_icon, choose = on_choose } }
+    local opts = { source = { name = 'Zoxide', show = show_icon, choose = on_choose } }
     local cmd = { 'zoxide', 'query', '-l' }
-    local opts = vim.tbl_deep_extend('force', default_opts, {})
     return MiniPick.builtin.cli({ command = cmd }, opts)
   end
 
