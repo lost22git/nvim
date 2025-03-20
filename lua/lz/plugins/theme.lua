@@ -34,11 +34,4 @@ return {
     },
     init = function() vim.cmd('colorscheme dayfox') end,
   },
-
-  -- {
-  --   'Skardyy/makurai-nvim',
-  --   lazy = false,
-  --   priority = 1000,
-  --   init = function() vim.cmd('colorscheme makurai') end,
-  -- },
 }

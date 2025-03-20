@@ -44,19 +44,15 @@ return {
   {
     'nyngwang/NeoZoom.lua',
     keys = { { '<Leader>z', '<Cmd>NeoZoomToggle<CR>', mode = { 'n', 'v' }, desc = 'NeoZoom' } },
+    main = 'neo-zoom',
     opts = {
       popup = { enabled = true },
       exclude_buftypes = { 'terminal' },
-      winopts = {
-        offset = { width = 150, height = 0.85 },
-        border = 'rounded',
-      },
+      winopts = { offset = { width = 150, height = 0.85 }, border = 'rounded' },
       presets = {
         {
           filetypes = { 'dapui_.*', 'dap-repl' },
-          winopts = {
-            offset = { top = 0.02, left = 0.26, width = 0.74, height = 0.25 },
-          },
+          winopts = { offset = { top = 0.02, left = 0.26, width = 0.74, height = 0.25 } },
         },
         {
           filetypes = { 'markdown' },
@@ -64,25 +60,6 @@ return {
         },
       },
     },
-    config = function(_, opts)
-      require('neo-zoom').setup(opts)
-
-      vim.api.nvim_create_autocmd({ 'WinEnter' }, {
-        callback = function()
-          local zoom_book = require('neo-zoom').zoom_book
-
-          if require('neo-zoom').is_neo_zoom_float() then
-            for z, _ in pairs(zoom_book) do
-              vim.wo[z].winbl = 0
-            end
-          else
-            for z, _ in pairs(zoom_book) do
-              vim.wo[z].winbl = 20
-            end
-          end
-        end,
-      })
-    end,
   },
 
   {
@@ -263,5 +240,12 @@ return {
       on_stdout = nil,
       on_stderr = nil,
     },
+  },
+
+  {
+    'nvim-focus/focus.nvim',
+    version = false,
+    lazy = false,
+    opts = { ui = { cursorline = false } },
   },
 }
