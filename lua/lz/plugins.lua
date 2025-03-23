@@ -230,7 +230,7 @@ return {
     },
     opts = {
       ft = 'FTerm',
-      cmd = vim.g.term_shell or vim.o.shell,
+      cmd = vim.g.LC.shell or vim.o.shell,
       border = 'rounded',
       auto_close = true,
       hl = 'Normal',

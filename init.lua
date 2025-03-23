@@ -1,3 +1,4 @@
+require('core.vars')
 require('core.opts')
 require('core.autocmds')
 
