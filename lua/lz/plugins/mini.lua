@@ -152,7 +152,7 @@ return {
           -- Customize window-local settings
           -- vim.wo[win_id].winblend = 50
           local config = vim.api.nvim_win_get_config(win_id)
-          config.border, config.title_pos = 'solid', 'left'
+          config.border, config.title_pos = 'rounded', 'left'
           vim.api.nvim_win_set_config(win_id, config)
         end,
       })

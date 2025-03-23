@@ -128,10 +128,10 @@ function M.config()
   })
 
   -- Markdown
-  lspconfig.marksman.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-  })
+  -- lspconfig.marksman.setup({
+  --   on_attach = on_attach,
+  --   capabilities = capabilities,
+  -- })
 
   -- Dockerfile
   with_lsp_server(
