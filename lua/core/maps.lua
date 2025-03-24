@@ -115,20 +115,21 @@ function M.mini_pick()
   end
 
   M.nmap({
+    { '<Leader>F', '<Cmd>Pick resume<CR>' },
     { '<Leader>fa', '<Cmd>Pick buf_lines<CR>' },
     { '<Leader>fb', '<Cmd>Pick buffers<CR>' },
     { '<Leader>ff', pick_files },
-    { '<Leader>F', '<Cmd>Pick resume<CR>' },
+    { '<Leader>fl', '<Cmd>Pick help<CR>' },
     { '<Leader>fs', '<Cmd>Pick grep_live<CR>' },
     -- mini.extras pickers
     { '<Leader>fc', '<Cmd>Pick list scope="change"<CR>' },
     { '<Leader>fd', '<Cmd>Pick diagnostic<CR>' },
     { '<Leader>fe', '<Cmd>Pick oldfiles<CR>' },
+    { '<Leader>fg', '<Cmd>Pick git_files<CR>' },
+    { '<Leader>fh', '<Cmd>Pick git_hunks<CR>' },
     { '<Leader>fi', '<Cmd>Pick lsp scope="implementation"<CR>' },
     { '<Leader>fj', '<Cmd>Pick list scope="jump"<CR>' },
     { '<Leader>fk', '<Cmd>Pick keymaps<CR>' },
-    { '<Leader>fg', '<Cmd>Pick git_files<CR>' },
-    { '<Leader>fh', '<Cmd>Pick git_hunks<CR>' },
     { '<Leader>fo', '<Cmd>Pick lsp scope="document_symbol"<CR>' },
     { '<Leader>fr', '<Cmd>Pick lsp scope="references"<CR>' },
     -- custom pickers

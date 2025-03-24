@@ -40,7 +40,7 @@ vim.opt.numberwidth = 2
 vim.opt.signcolumn = 'yes' -- always render signcolumn to avoid jitter
 
 -- Column Limitation
-vim.opt.colorcolumn = '120'
+vim.opt.colorcolumn = '80'
 -- vim.opt.textwidth = 100
 
 -- Visable Area Scroll Range

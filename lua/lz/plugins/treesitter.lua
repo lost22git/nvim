@@ -59,10 +59,7 @@ local M = {
       additional_vim_regex_highlighting = { 'ruby' },
       disable = {},
     },
-    indent = {
-      enable = true,
-      disable = { 'ruby' },
-    },
+    indent = { enable = true, disable = { 'ruby' } },
     incremental_selection = {
       enable = true,
       keymaps = {
@@ -74,41 +71,41 @@ local M = {
     autotag = { enable = true },
     ensure_installed = {
       --
+      'bash',
       'lua',
+      'regex',
       'vim',
       'vimdoc',
-      'regex',
-      'bash',
       --
       'dockerfile',
-      'just',
-      'sql',
       'http',
       'hurl',
+      'just',
+      'sql',
       --
       'json',
-      'xml',
       'toml',
+      'xml',
       'yaml',
       --
       'markdown',
       'markdown_inline',
       --
-      'html',
       'css',
+      'html',
       'javascript',
       'typescript',
       --
       'clojure',
+      'crystal',
+      'dart',
       'gleam',
-      'java',
-      'zig',
-      'nim',
-      'ruby',
-      'rust',
       'go',
       'gomod',
-      'dart',
+      'java',
+      'nim',
+      'rust',
+      'zig',
     },
   },
   config = function(_, opts)
@@ -121,8 +118,6 @@ local M = {
 
     use_helix_source()
     use_custom_source()
-
-    -- vim.treesitter.language.register('ruby', { 'ruby', 'crystal' })
 
     require('nvim-treesitter.configs').setup(opts)
   end,
