@@ -1,8 +1,6 @@
 return {
-
   {
     'echasnovski/mini.icons',
-    version = false,
     lazy = false,
     config = function()
       require('mini.icons').setup({})
@@ -12,7 +10,6 @@ return {
 
   {
     'echasnovski/mini.statusline',
-    version = false,
     lazy = false,
     opts = {
       content = {
@@ -50,7 +47,6 @@ return {
 
   -- {
   --   'echasnovski/mini.notify',
-  --   version = false,
   --   lazy = false,
   --   keys = {
   --     { '<Leader>n', function() MiniNotify.show_history() end, mode = { 'n', 'v' }, desc = 'MiniNotify history' },
@@ -60,7 +56,6 @@ return {
 
   {
     'echasnovski/mini.files',
-    version = false,
     keys = {
       ---@diagnostic disable-next-line: undefined-global
       { '<M-1>', function() MiniFiles.open() end, desc = 'MiniFiles open' },
@@ -161,7 +156,6 @@ return {
 
   {
     'echasnovski/mini.pick',
-    version = false,
     dependencies = { 'echasnovski/mini.extra' },
     cmd = { 'Pick' },
     keys = { '<Leader>f' },
@@ -188,20 +182,17 @@ return {
   -- mini.extras (作为 mini.pick/mini.ai 的依赖并由其加载)
   {
     'echasnovski/mini.extra',
-    version = false,
     opts = {},
   },
 
   {
     'echasnovski/mini.cursorword',
-    version = false,
     event = { 'BufNewFile', 'BufReadPost' },
     opts = {},
   },
 
   {
     'echasnovski/mini.move',
-    version = false,
     keys = {
       { '<M-j>', mode = { 'n', 'v' }, desc = 'MiniMove Down' },
       { '<M-k>', mode = { 'n', 'v' }, desc = 'MiniMove Up' },
@@ -213,7 +204,6 @@ return {
 
   {
     'echasnovski/mini.ai',
-    version = false,
     event = { 'BufReadPost', 'BufNewFile' },
     config = function()
       require('mini.ai').setup({
@@ -253,7 +243,6 @@ return {
 
   {
     'echasnovski/mini.surround',
-    version = false,
     event = { 'BufReadPost', 'BufNewFile' },
     opts = {
       mappings = {

@@ -35,7 +35,6 @@ return {
 
   {
     'utilyre/sentiment.nvim',
-    version = '*',
     event = { 'BufReadPost', 'BufNewFile' },
     opts = {},
     init = function()

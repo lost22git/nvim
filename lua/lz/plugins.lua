@@ -244,7 +244,6 @@ return {
 
   {
     'nvim-focus/focus.nvim',
-    version = false,
     cmd = { 'FocusEnable' },
     opts = { ui = { cursorline = false, signcolumn = false } },
   },
