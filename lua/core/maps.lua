@@ -119,8 +119,8 @@ function M.mini_pick()
     { '<Leader>fa', '<Cmd>Pick buf_lines<CR>' },
     { '<Leader>fb', '<Cmd>Pick buffers<CR>' },
     { '<Leader>ff', pick_files },
-    { '<Leader>fl', '<Cmd>Pick help<CR>' },
     { '<Leader>fs', '<Cmd>Pick grep_live<CR>' },
+    { '<Leader>f;', '<Cmd>Pick help<CR>' },
     -- mini.extras pickers
     { '<Leader>fc', '<Cmd>Pick list scope="change"<CR>' },
     { '<Leader>fd', '<Cmd>Pick diagnostic<CR>' },
@@ -130,7 +130,9 @@ function M.mini_pick()
     { '<Leader>fi', '<Cmd>Pick lsp scope="implementation"<CR>' },
     { '<Leader>fj', '<Cmd>Pick list scope="jump"<CR>' },
     { '<Leader>fk', '<Cmd>Pick keymaps<CR>' },
+    { '<Leader>fl', '<Cmd>Pick list scope="location"<CR>' },
     { '<Leader>fo', '<Cmd>Pick lsp scope="document_symbol"<CR>' },
+    { '<Leader>fq', '<Cmd>Pick list scope="quickfix"<CR>' },
     { '<Leader>fr', '<Cmd>Pick lsp scope="references"<CR>' },
     -- custom pickers
     { '<Leader>fz', pick_zoxide },
