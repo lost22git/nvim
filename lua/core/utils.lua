@@ -159,14 +159,14 @@ function M.get_justfile_tasks(justfile)
   return tasks
 end
 
-function M.run_justfile_task(item)
-  local task_name, task_args = unpack(vim.fn.split(item.name, ' ', false))
-  local cmd = 'just -f ' .. item.justfile .. ' ' .. task_name
+function M.run_justfile_task(task)
+  local task_name, task_args = unpack(vim.fn.split(task.name, ' ', false))
+  local cmd = 'just -f ' .. task.justfile .. ' ' .. task_name
   if task_args then
     local on_confirm = function(input)
       if input then vim.cmd('AsyncRun ' .. cmd .. ' ' .. input) end
     end
-    vim.ui.input({ prompt = 'just ' .. item.name .. ': ' }, on_confirm)
+    vim.ui.input({ prompt = 'just ' .. task.name .. ': ' }, on_confirm)
   else
     vim.cmd('AsyncRun ' .. cmd)
   end
