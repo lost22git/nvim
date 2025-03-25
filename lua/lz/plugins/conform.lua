@@ -28,7 +28,7 @@ return {
       python = { 'ruff_format' },
       roc = { 'roc' },
       sh = { 'shfmt' },
-      -- swift = { "swiftformat" },
+      -- swift = { 'swift_format' },
       zig = { 'zigfmt' },
     },
     formatters = {

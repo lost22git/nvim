@@ -146,8 +146,8 @@ return {
     },
     opts = {
       highlight = true,
-      highlight_duration = 250,
-      highlight_group = 'CursorLine',
+      highlight_duration = 300,
+      highlight_group = 'Visual',
     },
   },
 }

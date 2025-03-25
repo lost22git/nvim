@@ -1,21 +1,17 @@
 return {
-
   { 'MunifTanjim/nui.nvim' },
-
-  -- {
-  --   'mikesmithgh/borderline.nvim',
-  --   lazy = false,
-  --   config = function()
-  --     require('borderline').setup({})
-  --     require('borderline.api').borderline('rounded')
-  --   end,
-  -- },
 
   {
     'lost22git/true-zen.nvim',
     branch = 'fix-by-lost',
     cmd = { 'TZNarrow', 'TZFocus', 'TZMinimalist', 'TZAtaraxis' },
     opts = {},
+  },
+
+  {
+    'nvim-focus/focus.nvim',
+    cmd = { 'FocusEnable' },
+    opts = { ui = { cursorline = false, signcolumn = false } },
   },
 
   {
@@ -189,8 +185,6 @@ return {
     'lukas-reineke/indent-blankline.nvim',
     main = 'ibl',
     keys = { { '<Leader>i', '<Cmd>IBLToggle<CR>', mode = { 'n', 'v' }, desc = 'IBL' } },
-    ---@module "ibl"
-    ---@type ibl.config
     opts = {},
   },
 
@@ -240,11 +234,5 @@ return {
       on_stdout = nil,
       on_stderr = nil,
     },
-  },
-
-  {
-    'nvim-focus/focus.nvim',
-    cmd = { 'FocusEnable' },
-    opts = { ui = { cursorline = false, signcolumn = false } },
   },
 }
