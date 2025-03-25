@@ -21,7 +21,7 @@ vim.opt.mouse = 'a'
 vim.opt.laststatus = 3
 
 -- Cursor
-vim.opt.guicursor = [[n-v-sm:block,c-i-ci-ve:ver25,r-cr-o:hor20]] -- Fix Default: use bar style (ver25) on cmd mode
+vim.opt.guicursor:append('c:ver25') -- use bar style (ver25) on cmd mode
 vim.opt.cursorcolumn = false
 vim.opt.cursorline = false
 vim.opt.cursorlineopt = 'line,number'

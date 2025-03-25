@@ -43,6 +43,10 @@ return {
       use_icons = true,
       set_vim_settings = true,
     },
+    config = function(_, opts)
+      require('mini.statusline').setup(opts)
+      vim.cmd([[hi! link MiniStatuslineModeNormal StatusLine]])
+    end,
   },
 
   -- {

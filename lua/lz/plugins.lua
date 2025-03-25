@@ -235,4 +235,15 @@ return {
       on_stderr = nil,
     },
   },
+
+  {
+    'ukyouz/syntax-highlighted-cursor.nvim',
+    lazy = false,
+    config = function()
+      require('syntax-highlighted-cursor').setup({})
+      -- this plugin will override the `guicursor` option value on `../core/opts.lua`
+      -- so we reset here again
+      vim.opt.guicursor:append('c:ver30-Cursor')
+    end,
+  },
 }
