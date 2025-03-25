@@ -145,4 +145,31 @@ function M.get_selection_line_range()
   return a <= b and a, b or b, a
 end
 
+function M.get_justfile_tasks(justfile)
+  local tasks = {}
+  local cmd = { 'just', '-f', justfile, '--list' }
+  local cmd_result = vim.system(cmd, { text = true }):wait()
+  for _, line in pairs(vim.fn.split(cmd_result.stdout, '\n', false)) do
+    if vim.startswith(line, '   ') then
+      local name, desc = unpack(vim.fn.split(line, '#', false))
+      local item = { name = vim.trim(name), desc = desc and vim.trim(desc), justfile = justfile }
+      table.insert(tasks, item)
+    end
+  end
+  return tasks
+end
+
+function M.run_justfile_task(item)
+  local task_name, task_args = unpack(vim.fn.split(item.name, ' ', false))
+  local cmd = 'just -f ' .. item.justfile .. ' ' .. task_name
+  if task_args then
+    local on_confirm = function(input)
+      if input then vim.cmd('AsyncRun ' .. cmd .. ' ' .. input) end
+    end
+    vim.ui.input({ prompt = 'just ' .. item.name .. ': ' }, on_confirm)
+  else
+    vim.cmd('AsyncRun ' .. cmd)
+  end
+end
+
 return M

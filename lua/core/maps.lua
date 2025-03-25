@@ -91,25 +91,13 @@ function M.lspsaga()
 end
 
 function M.mini_pick()
-  local use_bfs = function()
-    local show_icon = function(buf_id, items, query) MiniPick.default_show(buf_id, items, query, { show_icons = true }) end
-    ---- use bfs
-    local default_opts = { source = { name = string.format('Files (%s)', 'bfs'), show = show_icon } }
-    local cmd = { 'bfs', '-type', 'f', '-nocolor', '-exclude', '-name', '.git' }
-    local opts = vim.tbl_deep_extend('force', default_opts, {})
-    return MiniPick.builtin.cli({ command = cmd }, opts)
-  end
-  local use_default = function() return MiniPick.builtin.files() end
-
-  local pick_files = vim.fn.has('win32') == 1 and use_default or use_default
-
   local pick_zoxide = function()
     local show_icon = function(buf_id, items, query) MiniPick.default_show(buf_id, items, query, { show_icons = true }) end
     local on_choose = function(item)
       vim.cmd('cd ' .. item)
       vim.print('cd ' .. item)
     end
-    local opts = { source = { name = 'Zoxide', show = show_icon, choose = on_choose } }
+    local opts = { source = { name = 'Cd (zoxide)', show = show_icon, choose = on_choose } }
     local cmd = { 'zoxide', 'query', '-l' }
     return MiniPick.builtin.cli({ command = cmd }, opts)
   end
@@ -118,7 +106,7 @@ function M.mini_pick()
     { '<Leader>F', '<Cmd>Pick resume<CR>' },
     { '<Leader>fa', '<Cmd>Pick buf_lines<CR>' },
     { '<Leader>fb', '<Cmd>Pick buffers<CR>' },
-    { '<Leader>ff', pick_files },
+    { '<Leader>ff', '<Cmd>Pick files<CR>' },
     { '<Leader>fs', '<Cmd>Pick grep_live<CR>' },
     { '<Leader>f;', '<Cmd>Pick help<CR>' },
     -- mini.extras pickers
@@ -136,6 +124,34 @@ function M.mini_pick()
     { '<Leader>fr', '<Cmd>Pick lsp scope="references"<CR>' },
     -- custom pickers
     { '<Leader>fz', pick_zoxide },
+  })
+
+  -- Pick justfile task
+  local pick_justfile_task = function(justfile)
+    local on_show = function(buf_id, items, query)
+      local show_items = vim.tbl_map(function(item) return 'just ' .. item.name end, items)
+      MiniPick.default_show(buf_id, show_items, query, {})
+    end
+    local opts = {
+      source = {
+        name = 'Tasks (just)',
+        items = require('core.utils').get_justfile_tasks(justfile),
+        show = on_show,
+        choose = require('core.utils').run_justfile_task,
+      },
+    }
+    return MiniPick.start(opts)
+  end
+  vim.api.nvim_create_autocmd('FileType', {
+    pattern = 'just',
+    callback = function()
+      vim.keymap.set(
+        'n',
+        '<Leader>fj',
+        function() pick_justfile_task(vim.fn.expand('%:p')) end,
+        { buffer = true, desc = 'Pick justfile task' }
+      )
+    end,
   })
 end
 
