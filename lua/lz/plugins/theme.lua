@@ -6,7 +6,7 @@ return {
     opts = {
       transparent = false,
     },
-    init = function() vim.cmd('colorscheme jb') end,
+    -- init = function() vim.cmd('colorscheme jb') end,
   },
 
   {

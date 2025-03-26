@@ -45,7 +45,12 @@ return {
     },
     config = function(_, opts)
       require('mini.statusline').setup(opts)
-      vim.cmd([[hi! link MiniStatuslineModeNormal StatusLine]])
+      local reset_hls = function() vim.cmd([[hi! link MiniStatuslineModeNormal StatusLine]]) end
+      vim.api.nvim_create_autocmd('ColorScheme', {
+        pattern = '*',
+        callback = reset_hls,
+      })
+      reset_hls()
     end,
   },
 
