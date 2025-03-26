@@ -13,12 +13,7 @@ vim.api.nvim_create_autocmd('FileType', {
 -- Highlight yanked text
 vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
-  callback = function()
-    vim.highlight.on_yank({
-      higroup = 'Visual',
-      timeout = 200,
-    })
-  end,
+  callback = function() vim.highlight.on_yank({ higroup = 'Visual', timeout = 200 }) end,
 })
 
 -- Register filetypes
@@ -60,7 +55,7 @@ vim.cmd([[
 -- Turn off paste mode when leaving insert
 vim.cmd([[ au InsertLeave * set nopaste ]])
 
--- [clojure] Goto prev/next (comment)
+-- [Clojure] Goto prev/next (comment)
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'clojure' },
   callback = function()
@@ -133,7 +128,6 @@ vim.api.nvim_create_autocmd('FileType', {
       local command = string.format('clj -Sdeps %s %s -e %s', deps, clj_opts, cider_opts)
       local call_asyncrun = 'AsyncRun -mode=term -pos=tab -focus=0 ' .. command
       vim.print('call_asyncrun:', call_asyncrun)
-
       vim.cmd(call_asyncrun)
     end, { nargs = '*' })
   end,
