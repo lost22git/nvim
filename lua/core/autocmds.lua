@@ -18,30 +18,27 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 -- Register filetypes
 vim.cmd([[
-  au BufNewFile,BufReadPost *.v set filetype=vlang
-  au BufNewFile,BufReadPost *.postcss set filetype=postcss
-  au BufNewFile,BufReadPost *.cy set filetype=cyber
-  au BufNewFile,BufReadPost *.lobster set filetype=lobster
-  au BufNewFile,BufReadPost *.c3 set filetype=c3
-  au BufNewFile,BufReadPost *.kk set filetype=koka
-  au BufNewFile,BufReadPost *.cljd set filetype=clojure
   au BufNewFile,BufReadPost *.bb set filetype=clojure
+  au BufNewFile,BufReadPost *.c3 set filetype=c3
+  au BufNewFile,BufReadPost *.cljd set filetype=clojure
+  au BufNewFile,BufReadPost *.cy set filetype=cyber
   au BufNewFile,BufReadPost *.http set filetype=http
+  au BufNewFile,BufReadPost *.kk set filetype=koka
+  au BufNewFile,BufReadPost *.lobster set filetype=lobster
+  au BufNewFile,BufReadPost *.postcss set filetype=postcss
+  au BufNewFile,BufReadPost *.v set filetype=vlang
 ]])
 
 -- Register filetypes' commentstring
 vim.cmd([[
-  au FileType json setlocal commentstring=//\ %s
-  au FileType nim setlocal commentstring=#\ %s
-  au FileType inko setlocal commentstring=#\ %s
-  au FileType cyber setlocal commentstring=--\ %s
-  au FileType just setlocal commentstring=#\ %s
-  au FileType gleam setlocal commentstring=//\ %s
-  au FileType lobster setlocal commentstring=//\ %s
   au FileType c3 setlocal commentstring=//\ %s
-  au FileType koka setlocal commentstring=//\ %s
-  au FileType dart setlocal commentstring=//\ %s
+  au FileType cyber setlocal commentstring=--\ %s
   au FileType http setlocal commentstring=#\ %s
+  au FileType inko setlocal commentstring=#\ %s
+  au FileType json setlocal commentstring=//\ %s
+  au FileType just setlocal commentstring=#\ %s
+  au FileType koka setlocal commentstring=//\ %s
+  au FileType lobster setlocal commentstring=//\ %s
 ]])
 
 -- Restore terminal cursor shape when leaving

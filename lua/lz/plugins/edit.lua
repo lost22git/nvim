@@ -11,6 +11,7 @@ return {
     'TheBlob42/houdini.nvim',
     event = { 'InsertEnter', 'CmdLineEnter', 'TermEnter' },
     opts = {
+      timeout = 100,
       escape_sequences = {
         ['v'] = false,
         ['V'] = false,

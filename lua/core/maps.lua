@@ -235,7 +235,6 @@ function M.base()
   })
 
   M.imap({
-    { 'jk', '<Esc>', desc = 'Escape insert mode' },
     { '<C-v>', '<Esc>"+pa', desc = 'Paste from clipboard' },
 
     -- Readline keymaps in Insert mode
