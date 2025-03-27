@@ -45,7 +45,7 @@ local M = {
         beacon = { enable = true },
         code_action = { show_server_name = true },
         finder = { left_width = 0.3, right_width = 0.5, keys = { shuttle = '<Tab>' } },
-        outline = { keys = { toggle_or_jump = '<Tab>', jump = 'o' } },
+        outline = { layout = 'float', keys = { toggle_or_jump = '<Tab>', jump = 'o' } },
         scroll_preview = { scroll_down = '<C-d>', scroll_up = '<C-u>' },
       },
       config = function(_, opts)
@@ -187,11 +187,10 @@ function M.config()
     capabilities = capabilities,
   })
 
-  vim.g.markdown_fenced_languages = {
-    'ts=typescript',
-  }
-
   -- Deno  for js jsx ts tsx
+  -- vim.g.markdown_fenced_languages = {
+  --   'ts=typescript',
+  -- }
   --   lspconfig.denols.setup {
   --     on_attach = on_attach,
   --     capabilities = capabilities,

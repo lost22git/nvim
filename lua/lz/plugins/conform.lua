@@ -29,6 +29,7 @@ return {
       roc = { 'roc' },
       sh = { 'shfmt' },
       -- swift = { 'swift_format' },
+      toml = { 'taplo' },
       zig = { 'zigfmt' },
     },
     formatters = {

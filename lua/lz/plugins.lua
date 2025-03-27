@@ -4,8 +4,12 @@ return {
   {
     'lost22git/true-zen.nvim',
     branch = 'fix-by-lost',
-    cmd = { 'TZNarrow', 'TZFocus', 'TZMinimalist', 'TZAtaraxis' },
-    keys = { { '<Leader>z', '<Cmd>TZFocus<CR>', desc = 'TZFocus' } },
+    keys = {
+      { '<Leader>za', '<Cmd>TZAtaraxis<CR>', desc = 'TZAtaraxis' },
+      { '<Leader>zf', '<Cmd>TZFocus<CR>', desc = 'TZFocus' },
+      { '<Leader>zm', '<Cmd>TZMinimalist<CR>', desc = 'TZMinimalist' },
+      { '<Leader>zn', '<Cmd>TZNarrow<CR>', desc = 'TZNarrow' },
+    },
     opts = {},
   },
 
@@ -53,11 +57,7 @@ return {
     },
     opts = {
       hint = 'floating-big-letter',
-      filter_rules = {
-        bo = {
-          buftype = {},
-        },
-      },
+      filter_rules = { bo = { buftype = {} } },
     },
   },
 

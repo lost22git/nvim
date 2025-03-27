@@ -11,7 +11,7 @@ return {
     'TheBlob42/houdini.nvim',
     event = { 'InsertEnter', 'CmdLineEnter', 'TermEnter' },
     opts = {
-      timeout = 100,
+      timeout = 200,
       escape_sequences = {
         ['v'] = false,
         ['V'] = false,
@@ -23,9 +23,7 @@ return {
   {
     'windwp/nvim-autopairs',
     event = { 'InsertEnter' },
-    opts = {
-      disable_filetype = { 'vim' },
-    },
+    opts = {},
   },
 
   {
@@ -86,9 +84,7 @@ return {
     keys = {
       { '<Leader>j', function() require('treesj').toggle() end, desc = 'Split/Join' },
     },
-    opts = {
-      use_default_keymaps = false,
-    },
+    opts = { use_default_keymaps = false },
   },
 
   {

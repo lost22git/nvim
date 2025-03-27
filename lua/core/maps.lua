@@ -60,17 +60,17 @@ function M.lsp(bufnr)
     { 'gk', vim.lsp.buf.hover, unpack(opts) },
     { 'gK', vim.lsp.buf.signature_help, unpack(opts) },
     { 'gT', vim.lsp.buf.type_definition, unpack(opts) },
-    { 'gr', vim.lsp.buf.references, unpack(opts) },
-    { 'gI', vim.lsp.buf.implementation, unpack(opts) },
 
-    -- { '[d', vim.diagnostic.goto_prev, unpack(opts) },
-    -- { ']d', vim.diagnostic.goto_next, unpack(opts) },
-    -- { '[D', function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, unpack(opts) },
-    -- { ']D', function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end, unpack(opts) },
-  })
-
-  M.imap({
-    { '<C-s>', vim.lsp.buf.signature_help, unpack(opts) },
+    {
+      '[D',
+      function() vim.diagnostic.jump({ count = -1, float = false, severity = vim.diagnostic.severity.ERROR }) end,
+      unpack(opts),
+    },
+    {
+      ']D',
+      function() vim.diagnostic.jump({ count = 1, float = false, severity = vim.diagnostic.severity.ERROR }) end,
+      unpack(opts),
+    },
   })
 end
 
@@ -82,12 +82,7 @@ function M.lspsaga()
     { 'gi', '<Cmd>Lspsaga incoming_calls<CR>' },
     { 'go', '<Cmd>Lspsaga outgoing_calls<CR>' },
     { 'gO', '<Cmd>Lspsaga outline<CR>' },
-    { 'gn', '<Cmd>Lspsaga rename<CR>' },
     { 'gt', '<Cmd>Lspsaga peek_type_definition<CR>' },
-    -- { '[d', '<Cmd>Lspsaga diagnostic_jump_prev<CR>' },
-    -- { ']d', '<Cmd>Lspsaga diagnostic_jump_next<CR>' },
-    -- { '[D', function() require('lspsaga.diagnostic'):goto_prev({ severity = vim.diagnostic.severity.ERROR }) end },
-    -- { ']D', function() require('lspsaga.diagnostic'):goto_next({ severity = vim.diagnostic.severity.ERROR }) end },
   })
 end
 
@@ -124,7 +119,7 @@ function M.mini_pick()
     { '<Leader>fq', '<Cmd>Pick list scope="quickfix"<CR>' },
     { '<Leader>fr', '<Cmd>Pick lsp scope="references"<CR>' },
     -- custom pickers
-    { '<Leader>fz', pick_zoxide },
+    { '<Leader>fz', pick_zoxide, desc = 'Pick zoxide' },
   })
 
   -- Pick justfile task
@@ -193,15 +188,9 @@ function M.base()
     { '>', '>gv', desc = 'Indent right' },
 
     { '<C-c>', '"+y', desc = 'Yank to clipboard' },
-
-    { 'nw', '<Esc>wviw', desc = 'Select next word' },
-    { 'lw', '<Esc>bbviw', desc = 'Select prev word' },
   })
 
   M.nvmap({
-    { '`', 'q', desc = 'Macro recording' },
-    { 'q', '<Nop>' },
-
     { 'qq', '<Cmd>q<CR>', desc = 'Quit Neovim' },
     { 'Q', '<Cmd>q!<CR>', desc = 'Quit Neovim forcely' },
 
@@ -237,15 +226,21 @@ function M.base()
   M.imap({
     { '<C-v>', '<Esc>"+pa', desc = 'Paste from clipboard' },
 
-    -- Readline keymaps in Insert mode
-    { '<C-h>', '<Esc>^i', desc = 'Goto line head' },
-    { '<C-l>', '<Esc>$a', desc = 'Goto line tail' },
-    { '<C-a>', '<Home>', desc = 'Goto line begin' },
-    { '<C-e>', '<End>', desc = 'Goto line end' },
-    { '<C-d>', '<Del>', desc = 'Delete next char' },
+    -- Readline keymaps on Insert mode
+    { '<C-a>', '<C-o>^', desc = 'Goto line head' },
     { '<C-b>', '<Left>', desc = 'Goto prev char' },
+    { '<C-d>', '<Del>', desc = 'Delete next char' },
+    { '<C-e>', '<C-o>$', desc = 'Goto line tail' },
     { '<C-f>', '<Right>', desc = 'Goto next char' },
-    { '<C-k>', '<Esc>ld$a', desc = 'Delete to line end' },
+    { '<C-k>', '<C-o>d$', desc = 'Delete to line tail' },
+    { '<C-u>', '<C-o>d^', desc = 'Delete to line head' },
+  })
+  -- Readline keymaps on Cmdline mode
+  M.cmap({
+    { '<C-a>', '<Home>', silent = false, desc = 'Goto line begin' },
+    { '<C-b>', '<Left>', silent = false, desc = 'Goto prev char' },
+    { '<C-d>', '<Del>', silent = false, desc = 'Delete next char' },
+    { '<C-f>', '<Right>', silent = false, desc = 'Goto next char' },
   })
 end
 

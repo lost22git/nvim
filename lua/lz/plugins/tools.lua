@@ -13,11 +13,7 @@ return {
       mode = 'split',
       formatters = {
         json = { 'jq' },
-        html = {
-          'prettier',
-          '--parser',
-          'html',
-        },
+        html = { 'prettier', '--parser', 'html' },
       },
     },
     init = function()

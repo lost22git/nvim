@@ -14,7 +14,6 @@ return {
       ghost_text = { enabled = false },
       list = { selection = { preselect = true, auto_insert = false } },
     },
-
     keymap = {
       preset = 'super-tab',
       ['<M-j>'] = { 'select_next', 'fallback' },
@@ -36,7 +35,7 @@ return {
         ['<Tab>'] = { 'accept' },
         ['<M-j>'] = { 'select_next' },
         ['<M-k>'] = { 'select_prev' },
-        ['<C-c>'] = { 'hide' },
+        ['<C-c>'] = { 'hide', 'fallback' },
       },
     },
   },
