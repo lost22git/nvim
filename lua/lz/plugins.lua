@@ -44,7 +44,7 @@ return {
     opts = {
       popup = { enabled = true },
       exclude_buftypes = { 'terminal' },
-      winopts = { offset = { width = 150, height = 0.85 }, border = 'rounded' },
+      winopts = { offset = { width = 150, height = 0.85 } },
       presets = {
         {
           filetypes = { 'dapui_.*', 'dap-repl' },
@@ -225,7 +225,7 @@ return {
     opts = {
       ft = 'FTerm',
       cmd = vim.g.LC.shell or vim.o.shell,
-      border = 'rounded',
+      border = vim.opt.winborder:get(),
       auto_close = true,
       hl = 'Normal',
       blend = 0,

@@ -1,12 +1,5 @@
 local M = {}
 
-function M.version_ge(version_string)
-  local current = vim.version()
-  local min = vim.version.parse(version_string)
-  assert(min ~= nil)
-  return vim.version.cmp(current, min) >= 0
-end
-
 function M.on_gui() return vim.g.neovide or vim.g.fvim_loaded or vim.g.vscode end
 
 function M.get_github_mirror()

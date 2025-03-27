@@ -27,7 +27,7 @@ vim.opt.cursorline = false
 vim.opt.cursorlineopt = 'line,number'
 
 -- Floating Window / Popup Menu
--- vim.opt.winborder = 'rounded'
+vim.opt.winborder = 'rounded'
 vim.opt.winblend = 0 -- floating window transparency [0-100]
 vim.opt.pumblend = 0 -- popup menu transparency [0-100]
 

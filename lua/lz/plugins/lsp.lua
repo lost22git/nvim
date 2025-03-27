@@ -57,7 +57,11 @@ local M = {
 }
 
 function M.config()
-  -- vim.diagnostic.config({ severity_sort = true })
+  vim.diagnostic.config({
+    severity_sort = true,
+    virtual_text = false,
+    virtual_lines = { current_line = true },
+  })
 
   local lspconfig, U = require('lspconfig'), require('core.utils')
 
@@ -409,7 +413,6 @@ end
 
 return {
   M,
-
   {
     'williamboman/mason.nvim',
     cmd = { 'Mason' },
