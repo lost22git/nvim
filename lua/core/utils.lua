@@ -100,10 +100,8 @@ function M.lsp_codelens_refresh(client, bufnr)
 end
 
 function M.tbl_includes(a, b)
-  vim.validate({
-    a = { a, 'table' },
-    b = { b, 'table' },
-  })
+  vim.validate('a', a, 'table')
+  vim.validate('b', b, 'table')
 
   if #a < #b then return false end
 

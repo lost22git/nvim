@@ -1,7 +1,5 @@
 local do_map = function(mode, tbl)
-  vim.validate({
-    tbl = { tbl, 'table' },
-  })
+  vim.validate('tbl', tbl, 'table')
 
   if #tbl < 2 then
     vim.notify('Missing rhs, key="' .. tbl[1] .. '"', vim.log.levels.ERROR)
@@ -19,7 +17,7 @@ end
 
 local map = function(mod)
   return function(tbl)
-    vim.validate({ tbl = { tbl, 'table' } })
+    vim.validate('tbl', tbl, 'table')
 
     if type(tbl[1]) == 'table' then
       for _, v in pairs(tbl) do
@@ -196,8 +194,6 @@ function M.base()
 
     { '<C-c>', '"+y', desc = 'Yank to clipboard' },
 
-    { '<C-[', '<Esc>', desc = 'Escape visual mode' },
-
     { 'nw', '<Esc>wviw', desc = 'Select next word' },
     { 'lw', '<Esc>bbviw', desc = 'Select prev word' },
   })
@@ -209,13 +205,10 @@ function M.base()
     { 'qq', '<Cmd>q<CR>', desc = 'Quit Neovim' },
     { 'Q', '<Cmd>q!<CR>', desc = 'Quit Neovim forcely' },
 
-    { '<C-s>', '<Cmd>w<CR>', desc = 'Save buffer' },
-
-    { '<C-x>', '<Cmd>bd<CR>', desc = 'Delete buffer' },
-
-    { '<C-v>', '"+p', desc = 'Paste from clipboard' },
-
     { '<C-a>', 'gg<S-v>G', desc = 'Select all' },
+    { '<C-s>', '<Cmd>w<CR>', desc = 'Save buffer' },
+    { '<C-v>', '"+p', desc = 'Paste from clipboard' },
+    { '<C-x>', '<Cmd>bd<CR>', desc = 'Delete buffer' },
 
     { '<C-h>', '<C-w>h', desc = 'Left window focused' },
     { '<C-k>', '<C-w>k', desc = 'Up window focused' },
