@@ -12,6 +12,8 @@ return {
     'echasnovski/mini.statusline',
     lazy = false,
     opts = {
+      use_icons = true,
+      set_vim_settings = true,
       content = {
         active = function()
           local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
@@ -37,19 +39,12 @@ return {
             { hl = mode_hl, strings = { search, location } },
           })
         end,
-        inactive = nil,
       },
-
-      use_icons = true,
-      set_vim_settings = true,
     },
     config = function(_, opts)
       require('mini.statusline').setup(opts)
       local reset_hls = function() vim.cmd([[hi! link MiniStatuslineModeNormal StatusLine]]) end
-      vim.api.nvim_create_autocmd('ColorScheme', {
-        pattern = '*',
-        callback = reset_hls,
-      })
+      vim.api.nvim_create_autocmd('ColorScheme', { callback = reset_hls })
       reset_hls()
     end,
   },

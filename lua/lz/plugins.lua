@@ -5,6 +5,7 @@ return {
     'lost22git/true-zen.nvim',
     branch = 'fix-by-lost',
     cmd = { 'TZNarrow', 'TZFocus', 'TZMinimalist', 'TZAtaraxis' },
+    keys = { { '<Leader>z', '<Cmd>TZFocus<CR>', desc = 'TZFocus' } },
     opts = {},
   },
 
@@ -35,27 +36,6 @@ return {
       { ']t', function() require('todo-comments').jump_next() end, mode = { 'n', 'v' }, desc = 'Goto next TODO' },
     },
     opts = {},
-  },
-
-  {
-    'nyngwang/NeoZoom.lua',
-    keys = { { '<Leader>z', '<Cmd>NeoZoomToggle<CR>', mode = { 'n', 'v' }, desc = 'NeoZoom' } },
-    main = 'neo-zoom',
-    opts = {
-      popup = { enabled = true },
-      exclude_buftypes = { 'terminal' },
-      winopts = { offset = { width = 150, height = 0.85 } },
-      presets = {
-        {
-          filetypes = { 'dapui_.*', 'dap-repl' },
-          winopts = { offset = { top = 0.02, left = 0.26, width = 0.74, height = 0.25 } },
-        },
-        {
-          filetypes = { 'markdown' },
-          callbacks = { function() vim.wo.wrap = true end },
-        },
-      },
-    },
   },
 
   {
