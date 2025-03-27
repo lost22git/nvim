@@ -137,7 +137,6 @@ return {
         -- Print path yanked
         print(vim.fn.fnamemodify(path, ':.'))
       end
-
       vim.api.nvim_create_autocmd('User', {
         pattern = 'MiniFilesBufferCreate',
         callback = function(args)
@@ -147,25 +146,12 @@ return {
           vim.keymap.set('n', 'gY', yank_relative_path, { buffer = args.data.buf_id })
         end,
       })
-
-      vim.api.nvim_create_autocmd('User', {
-        pattern = 'MiniFilesWindowOpen',
-        callback = function(args)
-          local win_id = args.data.win_id
-
-          -- Customize window-local settings
-          -- vim.wo[win_id].winblend = 50
-          local config = vim.api.nvim_win_get_config(win_id)
-          config.border, config.title_pos = 'rounded', 'left'
-          vim.api.nvim_win_set_config(win_id, config)
-        end,
-      })
     end,
   },
 
   {
     'echasnovski/mini.pick',
-    dependencies = { 'echasnovski/mini.extra' },
+    dependencies = { { 'echasnovski/mini.extra', opts = {} } },
     cmd = { 'Pick' },
     keys = { '<Leader>f' },
     config = function()
@@ -179,19 +165,10 @@ return {
           move_up = '<M-k>',
           delete_char_right = '<C-d>',
         },
-        window = {
-          config = { border = 'rounded' },
-        },
       })
 
       require('core.maps').mini_pick()
     end,
-  },
-
-  -- mini.extras (作为 mini.pick/mini.ai 的依赖并由其加载)
-  {
-    'echasnovski/mini.extra',
-    opts = {},
   },
 
   {
@@ -213,6 +190,7 @@ return {
 
   {
     'echasnovski/mini.ai',
+    dependencies = { { 'echasnovski/mini.extra', opts = {} } },
     event = { 'BufReadPost', 'BufNewFile' },
     config = function()
       require('mini.ai').setup({
