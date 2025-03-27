@@ -64,6 +64,15 @@ function M.lsp(bufnr)
     { 'gT', vim.lsp.buf.type_definition, unpack(opts) },
     { 'gr', vim.lsp.buf.references, unpack(opts) },
     { 'gI', vim.lsp.buf.implementation, unpack(opts) },
+
+    -- { '[d', vim.diagnostic.goto_prev, unpack(opts) },
+    -- { ']d', vim.diagnostic.goto_next, unpack(opts) },
+    -- { '[D', function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, unpack(opts) },
+    -- { ']D', function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end, unpack(opts) },
+  })
+
+  M.imap({
+    { '<C-s>', vim.lsp.buf.signature_help, unpack(opts) },
   })
 end
 
@@ -77,16 +86,10 @@ function M.lspsaga()
     { 'gO', '<Cmd>Lspsaga outline<CR>' },
     { 'gn', '<Cmd>Lspsaga rename<CR>' },
     { 'gt', '<Cmd>Lspsaga peek_type_definition<CR>' },
-    { '[d', '<Cmd>Lspsaga diagnostic_jump_prev<CR>' },
-    { ']d', '<Cmd>Lspsaga diagnostic_jump_next<CR>' },
-    {
-      '[D',
-      function() require('lspsaga.diagnostic'):goto_prev({ severity = vim.diagnostic.severity.ERROR }) end,
-    },
-    {
-      ']D',
-      function() require('lspsaga.diagnostic'):goto_next({ severity = vim.diagnostic.severity.ERROR }) end,
-    },
+    -- { '[d', '<Cmd>Lspsaga diagnostic_jump_prev<CR>' },
+    -- { ']d', '<Cmd>Lspsaga diagnostic_jump_next<CR>' },
+    -- { '[D', function() require('lspsaga.diagnostic'):goto_prev({ severity = vim.diagnostic.severity.ERROR }) end },
+    -- { ']D', function() require('lspsaga.diagnostic'):goto_next({ severity = vim.diagnostic.severity.ERROR }) end },
   })
 end
 
@@ -233,24 +236,6 @@ function M.base()
     { 'K', '{', desc = 'Goto prev blank line' },
     { 'H', '^', desc = 'Goto line head' },
     { 'L', '$', desc = 'Goto line tail' },
-
-    -- bufferlist
-    { '[b', '<Cmd>bprev<CR>', desc = 'Buffer prev' },
-    { ']b', '<Cmd>bnext<CR>', desc = 'Buffer next' },
-    { '[B', '<Cmd>bfirst<CR>', desc = 'Buffer first' },
-    { ']B', '<Cmd>blast<CR>', desc = 'Buffer last' },
-
-    -- quickfixlist
-    { '[q', '<Cmd>cprevious<CR>', desc = 'Quickfix prev' },
-    { ']q', '<Cmd>cnext<CR>', desc = 'Quickfix next' },
-    { '[Q', '<Cmd>cfirst<CR>', desc = 'Quickfix first' },
-    { ']Q', '<Cmd>clast<CR>', desc = 'Quickfix last' },
-
-    -- locallist
-    { '[l', '<Cmd>lprevious<CR>', desc = 'LocationList prev' },
-    { ']l', '<Cmd>lnext<CR>', desc = 'LocationList next' },
-    { '[L', '<Cmd>lfirst<CR>', desc = 'LocationList first' },
-    { ']L', '<Cmd>llast<CR>', desc = 'LocationList last' },
 
     -- Messages
     { '<Leader>m', create_messages_buf, desc = 'Messages' },
