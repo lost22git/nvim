@@ -28,6 +28,7 @@ return {
     opts = {
       groups = {
         all = {
+          MiniCursorWord = { link = 'Underlined' },
           MiniCursorWordCurrent = { link = 'Underlined' },
         },
       },

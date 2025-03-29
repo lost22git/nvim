@@ -221,8 +221,7 @@ return {
     lazy = false,
     config = function()
       require('syntax-highlighted-cursor').setup({})
-      -- this plugin will override the `guicursor` option value on `../core/opts.lua`
-      -- so we reset here again
+      -- TODO: but there is a bug: cursor style: bar->block when cursor move in cmdline mode
       vim.opt.guicursor:append('c:ver30-Cursor')
     end,
   },
