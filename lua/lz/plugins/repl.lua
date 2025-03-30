@@ -21,13 +21,13 @@ return {
             { 'n', 'v' },
             '[e',
             [[<Cmd>call search('\v^(;|--) -+$', 'bw')<CR>]],
-            { silent = true, buffer = true, desc = 'Conjure goto prev log' }
+            { silent = true, buffer = true, desc = '[conjure] Goto prev log' }
           )
           vim.keymap.set(
             { 'n', 'v' },
             ']e',
             [[<Cmd>call search('\v^(;|--) -+$', 'w')<CR>]],
-            { silent = true, buffer = true, desc = 'Conjure goto next log' }
+            { silent = true, buffer = true, desc = '[conjure] Goto next log' }
           )
         end,
       })

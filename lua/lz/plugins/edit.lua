@@ -3,7 +3,7 @@ return {
     'mbbill/undotree',
     cmd = { 'UndotreeToggle' },
     keys = {
-      { '<Leader>u', vim.cmd.UndotreeToggle, desc = 'Undotree toggle' },
+      { '<Leader>u', vim.cmd.UndotreeToggle, desc = '[undotree] Toggle' },
     },
   },
 
@@ -82,7 +82,7 @@ return {
     'Wansmer/treesj',
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     keys = {
-      { '<Leader>j', function() require('treesj').toggle() end, desc = 'Split/Join' },
+      { '<Leader>j', function() require('treesj').toggle() end, desc = '[treesj] Split/Join' },
     },
     opts = { use_default_keymaps = false },
   },
@@ -99,31 +99,31 @@ return {
         's',
         mode = { 'n', 'x', 'o' },
         function() require('flash').jump() end,
-        desc = 'Flash',
+        desc = '[flash] Flash',
       },
       {
         'S',
         mode = { 'n', 'o', 'x' },
         function() require('flash').treesitter() end,
-        desc = 'Flash Treesitter',
+        desc = '[flash] Treesitter',
       },
       {
         'r',
         mode = 'o',
         function() require('flash').remote() end,
-        desc = 'Remote Flash',
+        desc = '[flash] Remote Flash',
       },
       {
         'R',
         mode = { 'o', 'x' },
         function() require('flash').treesitter_search() end,
-        desc = 'Flash Treesitter Search',
+        desc = '[flash] Treesitter Search',
       },
       {
         '<c-s>',
         mode = { 'c' },
         function() require('flash').toggle() end,
-        desc = 'Toggle Flash Search',
+        desc = '[flash] Toggle Search',
       },
     },
   },
@@ -131,15 +131,15 @@ return {
   {
     'aaronik/treewalker.nvim',
     keys = {
-      { 'th', '<Cmd>Treewalker Left<CR>', mode = { 'n', 'v' }, desc = 'Treewalker Left' },
-      { 'tl', '<Cmd>Treewalker Right<CR>', mode = { 'n', 'v' }, desc = 'Treewalker Right' },
-      { 'tk', '<Cmd>Treewalker Up<CR>', mode = { 'n', 'v' }, desc = 'Treesitter Up' },
-      { 'tj', '<Cmd>Treewalker Down<CR>', mode = { 'n', 'v' }, desc = 'Treewalker Down' },
+      { 'th', '<Cmd>Treewalker Left<CR>', mode = { 'n', 'v' }, desc = '[treewalker] Left' },
+      { 'tl', '<Cmd>Treewalker Right<CR>', mode = { 'n', 'v' }, desc = '[treewalker] Right' },
+      { 'tk', '<Cmd>Treewalker Up<CR>', mode = { 'n', 'v' }, desc = '[treewalker] Up' },
+      { 'tj', '<Cmd>Treewalker Down<CR>', mode = { 'n', 'v' }, desc = '[treewalker] Down' },
 
-      { 'tsh', '<Cmd>Treewalker SwapLeft<CR>', desc = 'Treewalker SwapLeft' },
-      { 'tsl', '<Cmd>Treewalker SwapRight<CR>', desc = 'Treewalker SwapRight' },
-      { 'tsk', '<Cmd>Treewalker SwapUp<CR>', desc = 'Treewalker SwapUp' },
-      { 'tsj', '<Cmd>Treewalker SwapDown<CR>', desc = 'Treewalker SwapDown' },
+      { 'tsh', '<Cmd>Treewalker SwapLeft<CR>', desc = '[treewalker] SwapLeft' },
+      { 'tsl', '<Cmd>Treewalker SwapRight<CR>', desc = '[treewalker] SwapRight' },
+      { 'tsk', '<Cmd>Treewalker SwapUp<CR>', desc = '[treewalker] SwapUp' },
+      { 'tsj', '<Cmd>Treewalker SwapDown<CR>', desc = '[treewalker] SwapDown' },
     },
     opts = {
       highlight = true,

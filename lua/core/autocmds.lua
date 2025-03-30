@@ -60,13 +60,13 @@ vim.api.nvim_create_autocmd('FileType', {
       { 'n' },
       '[C',
       [[<Cmd>call search('\v(^\(comment|^#_)','bw')<CR>]],
-      { silent = true, buffer = true, desc = 'Clojure goto prev (comment) or #_' }
+      { silent = true, buffer = true, desc = '[base] Clojure goto prev (comment) or #_' }
     )
     vim.keymap.set(
       { 'n' },
       ']C',
       [[<Cmd>call search('\v(^\(comment|^#_)','w')<CR>]],
-      { silent = true, buffer = true, desc = 'Clojure goto next (comment) or #_' }
+      { silent = true, buffer = true, desc = '[base] Clojure goto next (comment) or #_' }
     )
   end,
 })
@@ -79,13 +79,13 @@ vim.api.nvim_create_autocmd('FileType', {
       { 'n' },
       '[r',
       [[<Cmd>call search('[\/;#] === .\+ ===$','bw')<CR>]],
-      { silent = true, buffer = true, desc = 'Goto prev region' }
+      { silent = true, buffer = true, desc = '[base] Goto prev region' }
     )
     vim.keymap.set(
       { 'n' },
       ']r',
       [[<Cmd>call search('[\/;#] === .\+ ===$','w')<CR>]],
-      { silent = true, buffer = true, desc = 'Goto next region' }
+      { silent = true, buffer = true, desc = '[base] Goto next region' }
     )
   end,
 })
@@ -98,13 +98,13 @@ vim.api.nvim_create_autocmd('FileType', {
       { 'n' },
       '[e',
       [[<Cmd>call search('\v^\w+.*:$','bw')<CR>]],
-      { silent = true, buffer = true, desc = 'Justfile goto prev task' }
+      { silent = true, buffer = true, desc = '[base] Justfile goto prev task' }
     )
     vim.keymap.set(
       { 'n' },
       ']e',
       [[<Cmd>call search('\v^\w+.*:$','w')<CR>]],
-      { silent = true, buffer = true, desc = 'Justfile goto next task' }
+      { silent = true, buffer = true, desc = '[base] Justfile goto next task' }
     )
   end,
 })

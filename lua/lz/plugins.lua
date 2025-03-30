@@ -5,10 +5,10 @@ return {
     'lost22git/true-zen.nvim',
     branch = 'fix-by-lost',
     keys = {
-      { '<Leader>za', '<Cmd>TZAtaraxis<CR>', desc = 'TZAtaraxis' },
-      { '<Leader>zf', '<Cmd>TZFocus<CR>', desc = 'TZFocus' },
-      { '<Leader>zm', '<Cmd>TZMinimalist<CR>', desc = 'TZMinimalist' },
-      { '<Leader>zn', '<Cmd>TZNarrow<CR>', desc = 'TZNarrow' },
+      { '<Leader>za', '<Cmd>TZAtaraxis<CR>', desc = '[true-zen] TZAtaraxis' },
+      { '<Leader>zf', '<Cmd>TZFocus<CR>', desc = '[true-zen] TZFocus' },
+      { '<Leader>zm', '<Cmd>TZMinimalist<CR>', desc = '[true-zen] TZMinimalist' },
+      { '<Leader>zn', '<Cmd>TZNarrow<CR>', desc = '[true-zen] TZNarrow' },
     },
     opts = {},
   },
@@ -36,8 +36,18 @@ return {
     dependencies = { 'nvim-lua/plenary.nvim' },
     event = { 'BufReadPost', 'BufNewFile' },
     keys = {
-      { '[t', function() require('todo-comments').jump_prev() end, mode = { 'n', 'v' }, desc = 'Goto prev TODO' },
-      { ']t', function() require('todo-comments').jump_next() end, mode = { 'n', 'v' }, desc = 'Goto next TODO' },
+      {
+        '[t',
+        function() require('todo-comments').jump_prev() end,
+        mode = { 'n', 'v' },
+        desc = '[todo-comments] Goto prev TODO',
+      },
+      {
+        ']t',
+        function() require('todo-comments').jump_next() end,
+        mode = { 'n', 'v' },
+        desc = '[todo-comments] Goto next TODO',
+      },
     },
     opts = {},
   },
@@ -52,7 +62,7 @@ return {
           vim.api.nvim_set_current_win(win_id)
         end,
         mode = { 'n', 'v' },
-        desc = 'WindowPicker',
+        desc = '[window-picker] Pick window',
       },
     },
     opts = {
@@ -63,7 +73,7 @@ return {
 
   {
     'EL-MASTOR/bufferlist.nvim',
-    keys = { { '<Leader>b', ':BufferList<CR>', desc = 'BufferList' } },
+    keys = { { '<Leader>b', ':BufferList<CR>', desc = '[bufferlist] Open' } },
     cmd = 'BufferList',
     opts = function()
       local function close_buffer(listed_bufs, index, force)
@@ -104,12 +114,12 @@ return {
               local curpos = vim.fn.line('.')
               vim.cmd('bwipeout | buffer ' .. opts.buffers[curpos])
             end,
-            { desc = 'BufferList: open cursorhold buffer' },
+            { desc = '[bufferlist] Open cursorhold' },
           },
           {
             'r', -- refresh the bufferlist window
             function(opts) refresh_bufferlist(opts.open_bufferlist) end,
-            { desc = 'BufferList: refresh bufferlist' },
+            { desc = '[bufferlist] Refresh' },
           },
           {
             'dd',
@@ -118,7 +128,7 @@ return {
               close_buffer(opts.buffers, curpos, false)
               refresh_bufferlist(opts.open_bufferlist)
             end,
-            { desc = 'BufferList: delete cursorhold buffer' },
+            { desc = '[bufferlist] Delete cursorhold' },
           },
           {
             'DD',
@@ -127,7 +137,7 @@ return {
               close_buffer(opts.buffers, curpos, true)
               refresh_bufferlist(opts.open_bufferlist)
             end,
-            { desc = 'BufferList: force to delete cursorhold buffer' },
+            { desc = '[bufferlist] Force to delete cursorhold' },
           },
           {
             'do',
@@ -136,7 +146,7 @@ return {
               close_others(opts.buffers, curpos, false)
               refresh_bufferlist(opts.open_bufferlist)
             end,
-            { desc = 'BufferList: delete other buffer' },
+            { desc = '[bufferlist] Delete others' },
           },
           {
             'vs',
@@ -145,7 +155,7 @@ return {
               local bufname = vim.fn.bufname(opts.buffers[curpos])
               vim.cmd('bwipeout | vs ' .. bufname)
             end,
-            { desc = 'BufferList: vertically split cursorhold buffer' },
+            { desc = '[bufferlist] Vertically split cursorhold' },
           },
           {
             'sp',
@@ -154,7 +164,7 @@ return {
               local bufname = vim.fn.bufname(opts.buffers[curpos])
               vim.cmd('bwipeout | sp ' .. bufname)
             end,
-            { desc = 'BufferList: horizontally split cursorhold buffer' },
+            { desc = '[bufferlist] Horizontally split cursorhold' },
           },
         },
       }
@@ -164,7 +174,7 @@ return {
   {
     'lukas-reineke/indent-blankline.nvim',
     main = 'ibl',
-    keys = { { '<Leader>i', '<Cmd>IBLToggle<CR>', mode = { 'n', 'v' }, desc = 'IBL' } },
+    keys = { { '<Leader>i', '<Cmd>IBLToggle<CR>', mode = { 'n', 'v' }, desc = '[IBL] Toggle' } },
     opts = {},
   },
 
@@ -172,20 +182,20 @@ return {
     'stevearc/quicker.nvim',
     event = 'FileType qf',
     keys = {
-      { '<Leader>q', function() require('quicker').toggle() end, desc = 'Toggle quickfix' },
-      { '<Leader>l', function() require('quicker').toggle({ loclist = true }) end, desc = 'Toggle loclist' },
+      { '<Leader>q', function() require('quicker').toggle() end, desc = '[quicker] Toggle qflist' },
+      { '<Leader>l', function() require('quicker').toggle({ loclist = true }) end, desc = '[quicker] Toggle loclist' },
     },
     opts = {
       keys = {
         {
           '>',
           function() require('quicker').expand({ before = 2, after = 2, add_to_existing = true }) end,
-          desc = 'Expand quickfix context',
+          desc = '[quicker] Expand context',
         },
         {
           '<',
           function() require('quicker').collapse() end,
-          desc = 'Collapse quickfix context',
+          desc = '[quicker] Collapse context',
         },
       },
     },
@@ -199,7 +209,7 @@ return {
         '<C-\\><C-n><Cmd>lua require("FTerm").toggle()<CR>',
         mode = { 'n', 'v', 'i', 't' },
         noremap = true,
-        desc = 'FTerm',
+        desc = '[FTerm] Toggle',
       },
     },
     opts = {

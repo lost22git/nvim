@@ -145,7 +145,7 @@ function M.mini_pick()
         'n',
         '<Leader>fj',
         function() pick_justfile_task(vim.fn.expand('%:p')) end,
-        { buffer = true, desc = 'Pick justfile task' }
+        { buffer = true, desc = '[mini.pick] Pick justfile task' }
       )
     end,
   })
@@ -165,82 +165,83 @@ function M.base()
   end
 
   M.nmap({
-    { 'U', '<C-r>', desc = 'Redo' },
+    { 'U', '<C-r>', desc = '[base] Redo' },
 
-    { '<BS><BS>', '<Cmd>noh<CR>', desc = 'Cancel highlight' },
+    { '<BS><BS>', '<Cmd>noh<CR>', desc = '[base] Cancel highlight' },
 
-    { '=', '<C-a>', desc = 'Increment number' },
-    { '-', '<C-x>', desc = 'Decrement number' },
+    { '=', '<C-a>', desc = '[base] Increment number' },
+    { '-', '<C-x>', desc = '[base] Decrement number' },
 
-    { 'x', '"_x', desc = 'Delete char to blackhold' },
+    { 'x', '"_x', desc = '[base] Delete char to blackhold' },
 
-    { '<Tab><Tab>', '<Cmd>b #<CR>', desc = 'Buffer recent' },
-    { '<Tab>b', '<Cmd>b #<CR>', desc = 'Buffer recent' },
+    { '<Tab>b', '<Cmd>b #<CR>', desc = '[base] Buffer recent' },
 
-    { '[<Tab>', '<Cmd>tabprevious<CR>', desc = 'Tab prev' },
-    { ']<Tab>', '<Cmd>tabnext<CR>', desc = 'Tab next' },
-    { '[<S-Tab>', '<Cmd>tabfirst<CR>', desc = 'Tab first' },
-    { ']<S-Tab>', '<Cmd>tablast<CR>', desc = 'Tab last' },
+    { '[<Tab>', '<Cmd>tabprevious<CR>', desc = '[base] Tab prev' },
+    { ']<Tab>', '<Cmd>tabnext<CR>', desc = '[base] Tab next' },
+    { '[<S-Tab>', '<Cmd>tabfirst<CR>', desc = '[base] Tab first' },
+    { ']<S-Tab>', '<Cmd>tablast<CR>', desc = '[base] Tab last' },
   })
 
   M.vmap({
-    { '<', '<gv', desc = 'Indent left' },
-    { '>', '>gv', desc = 'Indent right' },
+    { '<', '<gv', desc = '[base] Indent left' },
+    { '>', '>gv', desc = '[base] Indent right' },
 
-    { '<C-c>', '"+y', desc = 'Yank to clipboard' },
+    { '<C-c>', '"+y', desc = '[base] Yank to clipboard' },
   })
 
   M.nvmap({
-    { 'qq', '<Cmd>q<CR>', desc = 'Quit Neovim' },
-    { 'Q', '<Cmd>q!<CR>', desc = 'Quit Neovim forcely' },
+    { '`', 'q', desc = '[base] The old "q"' },
+    { 'q', '<Nop>' },
+    { 'qq', '<Cmd>q<CR>', desc = '[base] Quit Neovim' },
+    { 'Q', '<Cmd>q!<CR>', desc = '[base] Quit Neovim forcely' },
 
-    { '<C-a>', 'gg<S-v>G', desc = 'Select all' },
-    { '<C-s>', '<Cmd>w<CR>', desc = 'Save buffer' },
-    { '<C-v>', '"+p', desc = 'Paste from clipboard' },
-    { '<C-x>', '<Cmd>bd<CR>', desc = 'Delete buffer' },
+    { '<C-a>', 'gg<S-v>G', desc = '[base] Select all' },
+    { '<C-s>', '<Cmd>w<CR>', desc = '[base] Save buffer' },
+    { '<C-v>', '"+p', desc = '[base] Paste from clipboard' },
+    { '<C-x>', '<Cmd>bd<CR>', desc = '[base] Delete buffer' },
 
-    { '<C-h>', '<C-w>h', desc = 'Left window focused' },
-    { '<C-k>', '<C-w>k', desc = 'Up window focused' },
-    { '<C-j>', '<C-w>j', desc = 'Down window focused' },
-    { '<C-l>', '<C-w>l', desc = 'Right window focused' },
+    { '<C-h>', '<C-w>h', desc = '[base] Focus left window' },
+    { '<C-k>', '<C-w>k', desc = '[base] Focus up window' },
+    { '<C-j>', '<C-w>j', desc = '[base] Focus down window' },
+    { '<C-l>', '<C-w>l', desc = '[base] Focus right window' },
 
-    { '<C-M-h>', '<C-w><' },
-    { '<C-M-l>', '<C-w>>' },
-    { '<C-M-j>', '<C-w>+' },
-    { '<C-M-k>', '<C-w>-' },
-    { '<C-M-g>', '<C-w>=' },
+    { '<C-M-h>', '<C-w><', desc = '[base] Resize window' },
+    { '<C-M-l>', '<C-w>>', desc = '[base] Resize window' },
+    { '<C-M-j>', '<C-w>+', desc = '[base] Resize window' },
+    { '<C-M-k>', '<C-w>-', desc = '[base] Resize window' },
+    { '<C-M-g>', '<C-w>=', desc = '[base] Resize window' },
 
-    -- { '<C-[>', 'zh', desc = 'Zoom move Left' },
-    -- { '<C-]>', 'zl', desc = 'Zoom move Right' },
+    -- { '<C-[>', 'zh', desc = '[base] Zoom move Left' },
+    -- { '<C-]>', 'zl', desc = '[base] Zoom move Right' },
 
-    { '<Leader>J', 'J', desc = 'The old "J"' },
-    { 'J', '}', desc = 'Goto next blank line' },
-    { 'K', '{', desc = 'Goto prev blank line' },
-    { 'H', '^', desc = 'Goto line head' },
-    { 'L', '$', desc = 'Goto line tail' },
+    { '<Leader>J', 'J', desc = '[base] The old "J"' },
+    { 'J', '}', desc = '[base] Goto next blank line' },
+    { 'K', '{', desc = '[base] Goto prev blank line' },
+    { 'H', '^', desc = '[base] Goto line head' },
+    { 'L', '$', desc = '[base] Goto line tail' },
 
     -- Messages
-    { '<Leader>m', create_messages_buf, desc = 'Messages' },
+    { '<Leader>m', create_messages_buf, desc = '[base] Messages' },
   })
 
   M.imap({
-    { '<C-v>', '<Esc>"+pa', desc = 'Paste from clipboard' },
+    { '<C-v>', '<Esc>"+pa', desc = '[base] Paste from clipboard' },
 
     -- Readline keymaps on Insert mode
-    { '<C-a>', '<C-o>^', desc = 'Goto line head' },
-    { '<C-b>', '<Left>', desc = 'Goto prev char' },
-    { '<C-d>', '<Del>', desc = 'Delete next char' },
-    { '<C-e>', '<C-o>$', desc = 'Goto line tail' },
-    { '<C-f>', '<Right>', desc = 'Goto next char' },
-    { '<C-k>', '<C-o>d$', desc = 'Delete to line tail' },
-    { '<C-u>', '<C-o>d^', desc = 'Delete to line head' },
+    { '<C-a>', '<C-o>^', desc = '[base] Goto line head' },
+    { '<C-b>', '<Left>', desc = '[base] Goto prev char' },
+    { '<C-d>', '<Del>', desc = '[base] Delete next char' },
+    { '<C-e>', '<C-o>$', desc = '[base] Goto line tail' },
+    { '<C-f>', '<Right>', desc = '[base] Goto next char' },
+    { '<C-k>', '<C-o>d$', desc = '[base] Delete to line tail' },
+    { '<C-u>', '<C-o>d^', desc = '[base] Delete to line head' },
   })
   -- Readline keymaps on Cmdline mode
   M.cmap({
-    { '<C-a>', '<Home>', silent = false, desc = 'Goto line begin' },
-    { '<C-b>', '<Left>', silent = false, desc = 'Goto prev char' },
-    { '<C-d>', '<Del>', silent = false, desc = 'Delete next char' },
-    { '<C-f>', '<Right>', silent = false, desc = 'Goto next char' },
+    { '<C-a>', '<Home>', silent = false, desc = '[base] Goto line begin' },
+    { '<C-b>', '<Left>', silent = false, desc = '[base] Goto prev char' },
+    { '<C-d>', '<Del>', silent = false, desc = '[base] Delete next char' },
+    { '<C-f>', '<Right>', silent = false, desc = '[base] Goto next char' },
   })
 end
 
