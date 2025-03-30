@@ -81,6 +81,12 @@ vim.opt.magic = true
 -- Completion
 vim.opt.completeopt = 'menu,menuone,noselect,noinsert,preview'
 
+-- Fold
+vim.opt.foldenable = true
+vim.opt.foldlevelstart = 99
+vim.opt.foldlevel = 99
+vim.opt.foldmethod = 'indent'
+
 -- Misc
 vim.opt.backup = false
 vim.opt.swapfile = false

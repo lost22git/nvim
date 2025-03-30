@@ -69,6 +69,7 @@ local M = {
       },
     },
     autotag = { enable = true },
+    fold = { enable = true },
     ensure_installed = {
       --
       'bash',
@@ -118,6 +119,20 @@ local M = {
 
     use_helix_source()
     use_custom_source()
+
+    require('nvim-treesitter').define_modules({
+      fold = {
+        attach = function()
+          vim.opt_local.foldmethod = 'expr'
+          vim.opt_local.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+        end,
+        detach = function()
+          vim.opt_local.foldmethod = vim.go.foldmethod
+          vim.opt_local.foldexpr = vim.go.foldexpr
+        end,
+        is_supported = function() return true end,
+      },
+    })
 
     require('nvim-treesitter.configs').setup(opts)
   end,
