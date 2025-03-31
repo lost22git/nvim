@@ -5,6 +5,7 @@ return {
     priority = 1000,
     opts = {
       transparent = false,
+      disable_hl_args = { bold = false, italic = true },
     },
     -- init = function() vim.cmd('colorscheme jb') end,
   },

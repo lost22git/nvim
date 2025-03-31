@@ -20,6 +20,9 @@ vim.opt.mouse = 'a'
 -- Status Line
 vim.opt.laststatus = 3
 
+-- Mode
+vim.opt.showmode = false
+
 -- Cursor
 vim.opt.guicursor:append('c:ver25') -- use bar style (ver25) on cmd mode
 vim.opt.cursorcolumn = false
