@@ -255,16 +255,16 @@ function M.config()
   })
 
   -- Java
-  with_lsp_server(
-    'jdtls',
-    function(server_path)
-      lspconfig.jdtls.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-        cmd = { server_path },
-      })
-    end
-  )
+  -- with_lsp_server(
+  --   'jdtls',
+  --   function(server_path)
+  --     lspconfig.jdtls.setup({
+  --       on_attach = on_attach,
+  --       capabilities = capabilities,
+  --       cmd = { server_path },
+  --     })
+  --   end
+  -- )
 
   -- Gradle
   lspconfig.gradle_ls.setup({

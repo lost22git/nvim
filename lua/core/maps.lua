@@ -59,6 +59,8 @@ function M.lsp(bufnr)
     { 'gD', vim.lsp.buf.definition, unpack(opts) },
     { 'gk', vim.lsp.buf.hover, unpack(opts) },
     { 'gK', vim.lsp.buf.signature_help, unpack(opts) },
+    { 'gs', vim.lsp.buf.document_symbol, unpack(opts) },
+    { 'gS', vim.lsp.buf.workspace_symbol, unpack(opts) },
     { 'gT', vim.lsp.buf.type_definition, unpack(opts) },
 
     {
