@@ -53,7 +53,7 @@ return {
 
   {
     'mistweaverco/kulala.nvim',
-    ft = { 'http' },
+    ft = { 'http', 'rest' },
     opts = {
       winbar = true,
       show_variable_info_text = 'float',

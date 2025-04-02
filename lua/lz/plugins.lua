@@ -231,7 +231,6 @@ return {
     lazy = false,
     config = function()
       require('syntax-highlighted-cursor').setup({})
-      -- TODO: but there is a bug: cursor style: bar->block when cursor move in cmdline mode
       vim.opt.guicursor:append('c:ver30-Cursor')
     end,
   },
