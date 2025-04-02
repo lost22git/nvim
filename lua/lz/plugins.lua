@@ -26,30 +26,9 @@ return {
       user_default_options = {
         tailwind = true,
         mode = 'virtualtext',
-        virtualtext = '■',
+        virtualtext_inline = 'before',
       },
     },
-  },
-
-  {
-    'folke/todo-comments.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    event = { 'BufReadPost', 'BufNewFile' },
-    keys = {
-      {
-        '[t',
-        function() require('todo-comments').jump_prev() end,
-        mode = { 'n', 'v' },
-        desc = '[todo-comments] Goto prev TODO',
-      },
-      {
-        ']t',
-        function() require('todo-comments').jump_next() end,
-        mode = { 'n', 'v' },
-        desc = '[todo-comments] Goto next TODO',
-      },
-    },
-    opts = {},
   },
 
   {

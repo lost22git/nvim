@@ -118,6 +118,7 @@ function M.mini_pick()
     { '<Leader>fk', '<Cmd>Pick keymaps<CR>' },
     { '<Leader>fl', '<Cmd>Pick list scope="location"<CR>' },
     { '<Leader>fo', '<Cmd>Pick lsp scope="document_symbol"<CR>' },
+    { '<Leader>fp', '<Cmd>Pick hipatterns<CR>' },
     { '<Leader>fq', '<Cmd>Pick list scope="quickfix"<CR>' },
     { '<Leader>fr', '<Cmd>Pick lsp scope="references"<CR>' },
     -- custom pickers
