@@ -1,5 +1,9 @@
 return {
-  { 'MunifTanjim/nui.nvim' },
+  {
+    'nvim-focus/focus.nvim',
+    cmd = { 'FocusEnable' },
+    opts = { ui = { cursorline = false, signcolumn = false } },
+  },
 
   {
     'lost22git/true-zen.nvim',
@@ -11,12 +15,6 @@ return {
       { '<Leader>zn', '<Cmd>TZNarrow<CR>', desc = '[true-zen] TZNarrow' },
     },
     opts = {},
-  },
-
-  {
-    'nvim-focus/focus.nvim',
-    cmd = { 'FocusEnable' },
-    opts = { ui = { cursorline = false, signcolumn = false } },
   },
 
   {

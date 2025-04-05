@@ -3,10 +3,10 @@ local function use_helix_source()
   if helix_runtimepath and vim.fn.exists(helix_runtimepath) then
     -- queries --
     -- append helix_runtimepath to help search `queries/*/*.scm`
-    vim.opt.runtimepath:append(',' .. helix_runtimepath)
+    vim.opt.runtimepath:append(helix_runtimepath)
 
     -- parsers --
-    local helix_treesitter_parsers_sources = helix_runtimepath .. 'grammars/sources/'
+    local helix_treesitter_parsers_sources = helix_runtimepath .. '/grammars/sources/'
     local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
     ---@diagnostic disable-next-line: inject-field
     parser_config.koka = {

@@ -56,16 +56,19 @@ vim.cmd([[ au InsertLeave * set nopaste ]])
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'clojure' },
   callback = function()
+    local p = [[\v(^\(comment|^#_)]]
+    local prev = string.format([[<Cmd>call search('%s','bw')<CR>]], p)
+    local next = string.format([[<Cmd>call search('%s','w')<CR>]], p)
     vim.keymap.set(
       { 'n' },
       '[C',
-      [[<Cmd>call search('\v(^\(comment|^#_)','bw')<CR>]],
+      prev,
       { silent = true, buffer = true, desc = '[base] Clojure goto prev (comment) or #_' }
     )
     vim.keymap.set(
       { 'n' },
       ']C',
-      [[<Cmd>call search('\v(^\(comment|^#_)','w')<CR>]],
+      next,
       { silent = true, buffer = true, desc = '[base] Clojure goto next (comment) or #_' }
     )
   end,
@@ -75,18 +78,11 @@ vim.api.nvim_create_autocmd('FileType', {
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { '*' },
   callback = function()
-    vim.keymap.set(
-      { 'n' },
-      '[r',
-      [[<Cmd>call search('[\/;#] === .\+ ===$','bw')<CR>]],
-      { silent = true, buffer = true, desc = '[base] Goto prev region' }
-    )
-    vim.keymap.set(
-      { 'n' },
-      ']r',
-      [[<Cmd>call search('[\/;#] === .\+ ===$','w')<CR>]],
-      { silent = true, buffer = true, desc = '[base] Goto next region' }
-    )
+    local p = [[[-\/;#] === .\+ ===$]]
+    local prev = string.format([[<Cmd>call search('%s','bw')<CR>]], p)
+    local next = string.format([[<Cmd>call search('%s','w')<CR>]], p)
+    vim.keymap.set({ 'n' }, '[r', prev, { silent = true, buffer = true, desc = '[base] Goto prev region' })
+    vim.keymap.set({ 'n' }, ']r', next, { silent = true, buffer = true, desc = '[base] Goto next region' })
   end,
 })
 
@@ -94,18 +90,11 @@ vim.api.nvim_create_autocmd('FileType', {
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'just' },
   callback = function()
-    vim.keymap.set(
-      { 'n' },
-      '[e',
-      [[<Cmd>call search('\v^\w+.*:$','bw')<CR>]],
-      { silent = true, buffer = true, desc = '[base] Justfile goto prev task' }
-    )
-    vim.keymap.set(
-      { 'n' },
-      ']e',
-      [[<Cmd>call search('\v^\w+.*:$','w')<CR>]],
-      { silent = true, buffer = true, desc = '[base] Justfile goto next task' }
-    )
+    local p = [[\v^\w+.*:$]]
+    local prev = string.format([[<Cmd>call search('%s','bw')<CR>]], p)
+    local next = string.format([[<Cmd>call search('%s','w')<CR>]], p)
+    vim.keymap.set({ 'n' }, '[e', prev, { silent = true, buffer = true, desc = '[base] Justfile goto prev task' })
+    vim.keymap.set({ 'n' }, ']e', next, { silent = true, buffer = true, desc = '[base] Justfile goto next task' })
   end,
 })
 

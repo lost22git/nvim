@@ -9,6 +9,23 @@ return {
   },
 
   {
+    'echasnovski/mini.cursorword',
+    event = { 'BufNewFile', 'BufReadPost' },
+    opts = {},
+  },
+
+  {
+    'echasnovski/mini.move',
+    keys = {
+      { '<M-j>', mode = { 'n', 'v' }, desc = '[mini.move] Down' },
+      { '<M-k>', mode = { 'n', 'v' }, desc = '[mini.move] Up' },
+      { '<M-l>', mode = { 'n', 'v' }, desc = '[mini.move] Right' },
+      { '<M-h>', mode = { 'n', 'v' }, desc = '[mini.move] Left' },
+    },
+    opts = {},
+  },
+
+  {
     'echasnovski/mini.hipatterns',
     lazy = false,
     config = function()
@@ -18,6 +35,11 @@ return {
           hack = { pattern = '%f[%w]()HACK()%f[%W]', group = 'MiniHipatternsHack' },
           todo = { pattern = '%f[%w]()TODO()%f[%W]', group = 'MiniHipatternsTodo' },
           note = { pattern = '%f[%w]()NOTE()%f[%W]', group = 'MiniHipatternsNote' },
+
+          warn = { pattern = '%f[%w]()WARN()%f[%W]', group = 'MiniHipatternsHack' },
+          warning = { pattern = '%f[%w]()WARNING()%f[%W]', group = 'MiniHipatternsHack' },
+          err = { pattern = '%f[%w]()ERR()%f[%W]', group = 'MiniHipatternsFixme' },
+          error = { pattern = '%f[%w]()ERROR()%f[%W]', group = 'MiniHipatternsFixme' },
         },
       })
     end,
@@ -63,15 +85,6 @@ return {
       reset_hls()
     end,
   },
-
-  -- {
-  --   'echasnovski/mini.notify',
-  --   lazy = false,
-  --   keys = {
-  --     { '<Leader>n', function() MiniNotify.show_history() end, mode = { 'n', 'v' }, desc = '[mini.notify] History' },
-  --   },
-  --   opts = {},
-  -- },
 
   {
     'echasnovski/mini.files',
@@ -147,6 +160,8 @@ return {
         scroll_up = '<C-k>',
         move_down = '<M-j>',
         move_up = '<M-k>',
+        caret_left = '<C-b>',
+        caret_right = '<C-f>',
         delete_char_right = '<C-d>',
       },
     },
@@ -154,23 +169,6 @@ return {
       require('mini.pick').setup(opts)
       require('core.maps').mini_pick()
     end,
-  },
-
-  {
-    'echasnovski/mini.cursorword',
-    event = { 'BufNewFile', 'BufReadPost' },
-    opts = {},
-  },
-
-  {
-    'echasnovski/mini.move',
-    keys = {
-      { '<M-j>', mode = { 'n', 'v' }, desc = '[mini.move] Down' },
-      { '<M-k>', mode = { 'n', 'v' }, desc = '[mini.move] Up' },
-      { '<M-l>', mode = { 'n', 'v' }, desc = '[mini.move] Right' },
-      { '<M-h>', mode = { 'n', 'v' }, desc = '[mini.move] Left' },
-    },
-    opts = {},
   },
 
   {

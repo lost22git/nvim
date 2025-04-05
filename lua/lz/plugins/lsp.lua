@@ -45,7 +45,7 @@ local M = {
         beacon = { enable = true },
         code_action = { show_server_name = true },
         finder = { left_width = 0.3, right_width = 0.5, keys = { shuttle = '<Tab>' } },
-        outline = { layout = 'float', keys = { toggle_or_jump = '<Tab>', jump = 'o' } },
+        outline = { keys = { toggle_or_jump = '<Tab>', jump = 'o' } },
         scroll_preview = { scroll_down = '<C-d>', scroll_up = '<C-u>' },
       },
       config = function(_, opts)
@@ -150,20 +150,14 @@ function M.config()
     end
   )
 
-  -- TOML
-  lspconfig.taplo.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-  })
-
   -- JSON
   lspconfig.jsonls.setup({
     on_attach = on_attach,
     capabilities = capabilities,
   })
 
-  -- YAML
-  lspconfig.yamlls.setup({
+  -- TOML
+  lspconfig.taplo.setup({
     on_attach = on_attach,
     capabilities = capabilities,
   })
@@ -174,17 +168,23 @@ function M.config()
     capabilities = capabilities,
   })
 
-  -- Powershell
-  lspconfig.powershell_es.setup({
+  -- YAML
+  lspconfig.yamlls.setup({
     on_attach = on_attach,
     capabilities = capabilities,
-    bundle_path = get_lsp_server_package_path('powershell-editor-services'),
   })
 
   -- Nushell
   lspconfig.nushell.setup({
     on_attach = on_attach,
     capabilities = capabilities,
+  })
+
+  -- Powershell
+  lspconfig.powershell_es.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    bundle_path = get_lsp_server_package_path('powershell-editor-services'),
   })
 
   -- Deno  for js jsx ts tsx
@@ -248,85 +248,31 @@ function M.config()
     capabilities = capabilities,
   })
 
+  -- Clojure
+  with_lsp_server('clojure-lsp', function(server_path)
+    lspconfig.clojure_lsp.setup({
+      on_attach = on_attach,
+      capabilities = capabilities,
+      cmd = { server_path },
+      root_dir = function(fname)
+        local patterns = { 'project.clj', 'deps.edn', 'build.boot', 'shadow-cljs.edn', 'bb.edn', '.git' }
+        return vim.fs.root(fname, patterns)
+      end,
+    })
+  end)
+
   -- Crystal
   lspconfig.crystalline.setup({
     on_attach = on_attach,
     capabilities = capabilities,
   })
 
-  -- Java
-  -- with_lsp_server(
-  --   'jdtls',
-  --   function(server_path)
-  --     lspconfig.jdtls.setup({
-  --       on_attach = on_attach,
-  --       capabilities = capabilities,
-  --       cmd = { server_path },
-  --     })
-  --   end
-  -- )
-
-  -- Gradle
-  lspconfig.gradle_ls.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-  })
-
-  -- Go
-  lspconfig.gopls.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-  })
-
-  -- Nim
-  lspconfig.nim_langserver.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-  })
-
-  -- Zig
-  lspconfig.zls.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-    settings = {
-      zls = {
-        enable_snippets = true,
-        enable_argument_placeholders = false,
-        highlight_global_var_declarations = true,
-      },
-    },
-  })
-
-  -- V
-  lspconfig.vls.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-  })
-
-  -- Odin
-  lspconfig.ols.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-  })
-
-  -- OCaml
-  lspconfig.ocamllsp.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-  })
-
-  -- Koka
-  lspconfig.koka.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-  })
-
-  -- Gleam
-  lspconfig.gleam.setup({
+  -- Dart
+  lspconfig.dartls.setup({
     on_attach = on_attach,
     capabilities = capabilities,
     root_dir = function(fname)
-      local patterns = { 'gleam.toml', '.git' }
+      local patterns = { 'pubspec.yaml', '.git' }
       return vim.fs.root(fname, patterns)
     end,
   })
@@ -344,17 +290,33 @@ function M.config()
     })
   end)
 
-  -- Python
-  with_lsp_server(
-    'pyright-langserver',
-    function(server_path)
-      lspconfig.pyright.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-        cmd = { server_path, '--stdio' },
-      })
-    end
-  )
+  -- Fennel
+  lspconfig.fennel_ls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+  })
+
+  -- Gleam
+  lspconfig.gleam.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    root_dir = function(fname)
+      local patterns = { 'gleam.toml', '.git' }
+      return vim.fs.root(fname, patterns)
+    end,
+  })
+
+  -- Gradle
+  lspconfig.gradle_ls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+  })
+
+  -- Go
+  lspconfig.gopls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+  })
 
   -- Julia
   lspconfig.julials.setup({
@@ -368,23 +330,47 @@ function M.config()
     end,
   })
 
-  -- Clojure
-  with_lsp_server('clojure-lsp', function(server_path)
-    lspconfig.clojure_lsp.setup({
-      on_attach = on_attach,
-      capabilities = capabilities,
-      cmd = { server_path },
-      root_dir = function(fname)
-        local patterns = { 'project.clj', 'deps.edn', 'build.boot', 'shadow-cljs.edn', 'bb.edn', '.git' }
-        return vim.fs.root(fname, patterns)
-      end,
-    })
-  end)
-
-  -- Fennel
-  lspconfig.fennel_ls.setup({
+  -- Koka
+  lspconfig.koka.setup({
     on_attach = on_attach,
     capabilities = capabilities,
+  })
+
+  -- Nim
+  lspconfig.nim_langserver.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+  })
+
+  -- OCaml
+  lspconfig.ocamllsp.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+  })
+
+  -- Odin
+  lspconfig.ols.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+  })
+
+  -- Python
+  with_lsp_server(
+    'pyright-langserver',
+    function(server_path)
+      lspconfig.pyright.setup({
+        on_attach = on_attach,
+        capabilities = capabilities,
+        cmd = { server_path, '--stdio' },
+      })
+    end
+  )
+
+  -- Raku
+  lspconfig.raku_navigator.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    cmd = { 'raku-navigator', '--stdio' },
   })
 
   -- Swift
@@ -393,14 +379,23 @@ function M.config()
     capabilities = capabilities,
   })
 
-  -- Dart
-  lspconfig.dartls.setup({
+  -- V
+  lspconfig.vls.setup({
     on_attach = on_attach,
     capabilities = capabilities,
-    root_dir = function(fname)
-      local patterns = { 'pubspec.yaml', '.git' }
-      return vim.fs.root(fname, patterns)
-    end,
+  })
+
+  -- Zig
+  lspconfig.zls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    settings = {
+      zls = {
+        enable_snippets = true,
+        enable_argument_placeholders = false,
+        highlight_global_var_declarations = true,
+      },
+    },
   })
 
   -- Kulala

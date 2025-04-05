@@ -27,7 +27,6 @@ require('lazy').setup('lz.plugins', {
   ui = {
     size = { width = 0.8, height = 0.8 },
     border = vim.opt.winborder:get(),
-    throttle = 20, -- how frequently should the ui process render events
   },
   performance = {
     reset_packpath = true, -- reset the package path to improve startup time

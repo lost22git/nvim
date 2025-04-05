@@ -1,4 +1,25 @@
 return {
+  { 'tpope/vim-fugitive', cmd = 'Git' },
+
+  {
+    'NeogitOrg/neogit',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      -- "sindrets/diffview.nvim",
+    },
+    cmd = { 'Neogit', 'NeogitCommit' },
+    opts = {},
+  },
+
+  {
+    'lewis6991/gitsigns.nvim',
+    event = { 'BufReadPost', 'BufNewFile' },
+    opts = {
+      on_attach = function() require('core.maps').gitsigns() end,
+      numhl = true,
+    },
+  },
+
   {
     'jellydn/hurl.nvim',
     dependencies = {
@@ -18,18 +39,12 @@ return {
     },
     init = function()
       local create_keymaps = function()
-        vim.keymap.set(
-          { 'n' },
-          '[e',
-          [[<Cmd>call search('\v^<(HEAD|GET|POST|PUT|PATCH|DELETE|OPTION)>', 'bw')<CR>]],
-          { buffer = true, silent = true, desc = '[hurl] Goto prev entry' }
-        )
-        vim.keymap.set(
-          { 'n' },
-          ']e',
-          [[<Cmd>call search('\v^<(HEAD|GET|POST|PUT|PATCH|DELETE|OPTION)>', 'w')<CR>]],
-          { buffer = true, silent = true, desc = '[hurl] Goto next entry' }
-        )
+        local p = [[\v^<(HEAD|GET|POST|PUT|PATCH|DELETE|OPTION)>]]
+        local prev = string.format([[<Cmd>call search('%s', 'bw')<CR>]], p)
+        local next = string.format([[<Cmd>call search('%s', 'w')<CR>]], p)
+        vim.keymap.set({ 'n' }, '[e', prev, { buffer = true, silent = true, desc = '[hurl] Goto prev entry' })
+        vim.keymap.set({ 'n' }, ']e', next, { buffer = true, silent = true, desc = '[hurl] Goto next entry' })
+
         vim.keymap.set(
           { 'n' },
           '<Leader>ee',
@@ -54,10 +69,7 @@ return {
   {
     'mistweaverco/kulala.nvim',
     ft = { 'http', 'rest' },
-    opts = {
-      winbar = true,
-      show_variable_info_text = 'float',
-    },
+    opts = { winbar = true, show_variable_info_text = 'float' },
     config = function(_, opts)
       require('kulala').setup(opts)
 
@@ -187,30 +199,6 @@ return {
         end,
       })
     end,
-  },
-
-  {
-    'NeogitOrg/neogit',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      -- "sindrets/diffview.nvim",
-    },
-    cmd = { 'Neogit', 'NeogitCommit' },
-    opts = {},
-  },
-
-  {
-    'tpope/vim-fugitive',
-    cmd = 'Git',
-  },
-
-  {
-    'lewis6991/gitsigns.nvim',
-    event = { 'BufReadPost', 'BufNewFile' },
-    opts = {
-      on_attach = function() require('core.maps').gitsigns() end,
-      numhl = true,
-    },
   },
 
   {

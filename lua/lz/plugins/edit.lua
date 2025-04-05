@@ -1,4 +1,6 @@
 return {
+  { 'windwp/nvim-autopairs', event = { 'InsertEnter' }, opts = {} },
+
   {
     'mbbill/undotree',
     cmd = { 'UndotreeToggle' },
@@ -18,18 +20,6 @@ return {
         ['c'] = '<BS><BS><Esc>',
       },
     },
-  },
-
-  {
-    'windwp/nvim-autopairs',
-    event = { 'InsertEnter' },
-    opts = {},
-  },
-
-  {
-    'hrsh7th/nvim-insx',
-    event = { 'InsertEnter' },
-    config = function() require('insx.preset.standard').setup({}) end,
   },
 
   {
