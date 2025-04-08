@@ -3,6 +3,10 @@
   "contributes": {
     "snippets": [
       {
+        "language": "all",
+        "path": "./symbol.json"
+      },
+      {
         "language": "clojure",
         "path": "./clojure.json"
       },
@@ -21,6 +25,10 @@
       {
         "language": "just",
         "path": "./just.json"
+      },
+      {
+        "language": "raku",
+        "path": "./raku.json"
       }
     ]
   }
