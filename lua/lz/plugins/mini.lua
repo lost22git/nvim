@@ -1,3 +1,43 @@
+local raku_comment_block = function(ai_type, _, _)
+  local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+  local title_start_lines, res = {}, {}
+
+  local process_line = function(i, l)
+    local start_title = l:match('^=begin (.*)$')
+    if start_title ~= nil then
+      title_start_lines[start_title] = i
+      return
+    end
+
+    local end_title = l:match('^=end (.*)$')
+    if end_title == nil or title_start_lines[end_title] == nil then return end
+
+    local from_line = title_start_lines[end_title] + (ai_type == 'i' and 1 or 0)
+    local to_line = i - (ai_type == 'i' and 1 or 0)
+    title_start_lines[end_title] = nil
+
+    if from_line >= to_line then return end
+    local to_col = ai_type == 'i' and vim.fn.getline(to_line):len() or l:len()
+    local from, to = { line = from_line, col = 1 }, { line = to_line, col = to_col }
+    table.insert(res, { from = from, to = to, vis_mode = 'V' })
+  end
+
+  for i, l in ipairs(lines) do
+    process_line(i, l)
+  end
+
+  return res
+end
+
+local comment_block = function(...)
+  local ft = vim.bo.filetype
+  if ft == 'raku' then
+    return raku_comment_block(...)
+  else
+    return
+  end
+end
+
 return {
   {
     'echasnovski/mini.icons',
@@ -206,6 +246,9 @@ return {
           I = require('mini.extra').gen_ai_spec.indent(),
           L = require('mini.extra').gen_ai_spec.line(),
           N = require('mini.extra').gen_ai_spec.number(),
+
+          -- custom
+          C = comment_block,
         },
       })
     end,

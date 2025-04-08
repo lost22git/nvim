@@ -34,6 +34,33 @@ return {
         },
       },
     },
-    init = function() vim.cmd('colorscheme dayfox') end,
+    -- init = function() vim.cmd('colorscheme dayfox') end,
+  },
+
+  {
+    'slugbyte/lackluster.nvim',
+    lazy = false,
+    priority = 1000,
+    opts = {},
+    -- init = function() vim.cmd('colorscheme lackluster') end,
+  },
+
+  {
+    'pappasam/papercolor-theme-slim',
+    lazy = false,
+    priority = 1000,
+    -- init = function() vim.cmd('colorscheme PaperColorSlimLight') end,
+  },
+
+  {
+    'idr4n/github-monochrome.nvim',
+    lazy = false,
+    priority = 1000,
+    opts = {
+      styles = {
+        comments = { italic = false },
+      },
+    },
+    init = function() vim.cmd('colorscheme github-monochrome') end,
   },
 }

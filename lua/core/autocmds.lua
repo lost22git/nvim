@@ -35,6 +35,7 @@ vim.cmd([[
   au FileType cyber setlocal commentstring=--\ %s
   au FileType http setlocal commentstring=#\ %s
   au FileType inko setlocal commentstring=#\ %s
+  au FileType janet setlocal commentstring=#\ %s
   au FileType json setlocal commentstring=//\ %s
   au FileType just setlocal commentstring=#\ %s
   au FileType koka setlocal commentstring=//\ %s
@@ -54,7 +55,7 @@ vim.cmd([[ au InsertLeave * set nopaste ]])
 
 -- [Clojure] Goto prev/next (comment)
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'clojure' },
+  pattern = { 'clojure', 'janet' },
   callback = function()
     local p = [[\v(^\(comment|^#_)]]
     local prev = string.format([[<Cmd>call search('%s','bw')<CR>]], p)

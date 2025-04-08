@@ -18,6 +18,7 @@ return {
       http = { 'kulala-fmt' },
       html = { 'prettier' },
       inko = { 'inko' },
+      janet = { 'janet-format' },
       javascript = { 'deno_fmt', 'prettier' },
       jsx = { 'prettier' },
       json = { 'jq', 'prettier' },
@@ -33,10 +34,9 @@ return {
       zig = { 'zigfmt' },
     },
     formatters = {
-      shfmt = {
-        command = require('core.utils').get_lsp_server_path('shfmt'),
-        args = { '-l', '-w', '$FILENAME' },
-        stdin = false,
+      ['janet-format'] = {
+        command = 'janet-format',
+        stdin = true,
       },
     },
   },
