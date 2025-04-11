@@ -1,4 +1,9 @@
 {
+  "=begin": {
+    "prefix": "=begin",
+    "body": ["=begin ${1:title}", "${2:content}", "=end ${1:title}"],
+    "description": "comment block"
+  },
   "module": {
     "prefix": "unit module",
     "body": [

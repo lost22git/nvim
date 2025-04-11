@@ -1,0 +1,14 @@
+{
+  "inf": {
+    "prefix": "inf ∞ ",
+    "body": ["∞ "]
+  },
+  "pi": {
+    "prefix": "pi π",
+    "body": ["π"]
+  },
+  "shebang #!": {
+    "prefix": "shebang #!",
+    "body": ["#!/usr/bin/env ${1:bash}"]
+  }
+}
