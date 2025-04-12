@@ -53,28 +53,6 @@ vim.cmd([[
 -- Turn off paste mode when leaving insert
 vim.cmd([[ au InsertLeave * set nopaste ]])
 
--- [Clojure] Goto prev/next (comment)
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'clojure', 'janet' },
-  callback = function()
-    local p = [[\v(^\(comment|^#_)]]
-    local prev = string.format([[<Cmd>call search('%s','bw')<CR>]], p)
-    local next = string.format([[<Cmd>call search('%s','w')<CR>]], p)
-    vim.keymap.set(
-      { 'n' },
-      '[C',
-      prev,
-      { silent = true, buffer = true, desc = '[base] Clojure goto prev (comment) or #_' }
-    )
-    vim.keymap.set(
-      { 'n' },
-      ']C',
-      next,
-      { silent = true, buffer = true, desc = '[base] Clojure goto next (comment) or #_' }
-    )
-  end,
-})
-
 -- Goto prev/next region
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { '*' },
@@ -87,35 +65,14 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
--- Justfile goto prev/next task
+-- [Clojure] Goto prev/next (comment)
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'just' },
+  pattern = { 'clojure', 'janet' },
   callback = function()
-    local p = [[\v^\w+.*:$]]
+    local p = [[\v(^\(comment|^#_)]]
     local prev = string.format([[<Cmd>call search('%s','bw')<CR>]], p)
     local next = string.format([[<Cmd>call search('%s','w')<CR>]], p)
-    vim.keymap.set({ 'n' }, '[e', prev, { silent = true, buffer = true, desc = '[base] Justfile goto prev task' })
-    vim.keymap.set({ 'n' }, ']e', next, { silent = true, buffer = true, desc = '[base] Justfile goto next task' })
-  end,
-})
-
--- Clojure start nRepl server
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'clojure' },
-  callback = function()
-    vim.api.nvim_buf_create_user_command(0, 'Clj', function(opts)
-      local clj_opts = string.match(opts.args, '%-M:') and opts.args or (opts.args .. ' ' .. '-M')
-
-      local deps =
-        [['{:deps {nrepl/nrepl {:mvn/version "1.3.0"} refactor-nrepl/refactor-nrepl {:mvn/version "3.10.0"} cider/cider-nrepl {:mvn/version "0.52.0"} }}']]
-
-      local cider_opts =
-        [["(require 'nrepl.cmdline) (nrepl.cmdline/-main \"--interactive\" \"--middleware\" \"[ refactor-nrepl.middleware/wrap-refactor cider.nrepl/cider-middleware]\")"]]
-
-      local command = string.format('clj -Sdeps %s %s -e %s', deps, clj_opts, cider_opts)
-      local call_asyncrun = 'AsyncRun -mode=term -pos=tab -focus=0 ' .. command
-      vim.print('call_asyncrun:', call_asyncrun)
-      vim.cmd(call_asyncrun)
-    end, { nargs = '*' })
+    vim.keymap.set({ 'n' }, '[C', prev, { silent = true, buffer = true, desc = '[base] Clojure goto prev comment' })
+    vim.keymap.set({ 'n' }, ']C', next, { silent = true, buffer = true, desc = '[base] Clojure goto next comment' })
   end,
 })

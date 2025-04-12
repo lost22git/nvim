@@ -23,6 +23,10 @@
         "path": "./http.json"
       },
       {
+        "language": "janet",
+        "path": "./janet.json"
+      },
+      {
         "language": "just",
         "path": "./just.json"
       },

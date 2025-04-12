@@ -214,9 +214,6 @@ function M.base()
     { '<C-M-k>', '<C-w>-', desc = '[base] Resize window' },
     { '<C-M-g>', '<C-w>=', desc = '[base] Resize window' },
 
-    -- { '<C-[>', 'zh', desc = '[base] Zoom move Left' },
-    -- { '<C-]>', 'zl', desc = '[base] Zoom move Right' },
-
     { '<Leader>J', 'J', desc = '[base] The old "J"' },
     { 'J', '}', desc = '[base] Goto next blank line' },
     { 'K', '{', desc = '[base] Goto prev blank line' },

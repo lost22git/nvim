@@ -49,7 +49,7 @@ return {
     'pappasam/papercolor-theme-slim',
     lazy = false,
     priority = 1000,
-    -- init = function() vim.cmd('colorscheme PaperColorSlimLight') end,
+    init = function() vim.cmd('colorscheme PaperColorSlimLight') end,
   },
 
   {
@@ -61,6 +61,6 @@ return {
         comments = { italic = false },
       },
     },
-    init = function() vim.cmd('colorscheme github-monochrome') end,
+    -- init = function() vim.cmd('colorscheme github-monochrome') end,
   },
 }

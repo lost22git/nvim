@@ -1,3 +1,15 @@
+-- [Just] Goto prev/next task
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'just' },
+  callback = function()
+    local p = [[\v^\w+.*:$]]
+    local prev = string.format([[<Cmd>call search('%s','bw')<CR>]], p)
+    local next = string.format([[<Cmd>call search('%s','w')<CR>]], p)
+    vim.keymap.set({ 'n' }, '[e', prev, { silent = true, buffer = true, desc = '[base] Justfile goto prev task' })
+    vim.keymap.set({ 'n' }, ']e', next, { silent = true, buffer = true, desc = '[base] Justfile goto next task' })
+  end,
+})
+
 return {
   { 'tpope/vim-fugitive', cmd = 'Git' },
 

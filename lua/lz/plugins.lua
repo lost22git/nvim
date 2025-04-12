@@ -126,7 +126,7 @@ return {
             { desc = '[bufferlist] Delete others' },
           },
           {
-            'vs',
+            '<C-v>',
             function(opts)
               local curpos = vim.fn.line('.')
               local bufname = vim.fn.bufname(opts.buffers[curpos])
@@ -135,7 +135,7 @@ return {
             { desc = '[bufferlist] Vertically split cursorhold' },
           },
           {
-            'sp',
+            '<C-s>',
             function(opts)
               local curpos = vim.fn.line('.')
               local bufname = vim.fn.bufname(opts.buffers[curpos])

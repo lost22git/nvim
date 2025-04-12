@@ -30,7 +30,6 @@ vim.cmd([[
 
 local map = vim.keymap
 map.set({ '', 'i' }, '<M-Enter>', ':FVimToggleFullScreen<CR>')
-map.set({ '', 'i' }, '<M-9>', ':messages<CR>')
 map.set({ '', 'i' }, '<C-ScrollWheelUp>', ':set guifont=+<CR>')
 map.set({ '', 'i' }, '<C-ScrollWheelDown>', ':set guifont=-<CR>')
 map.set({ '' }, 'zi', ':set guifont=+<CR>')
