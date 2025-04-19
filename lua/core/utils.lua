@@ -75,7 +75,7 @@ function M.lsp_format_on_save(client, bufnr)
   if has_conform then return end
 
   -- Use lsp format, if conform not exists
-  if client.supports_method('textDocument/formatting') then
+  if client:supports_method('textDocument/formatting') then
     local aug = vim.api.nvim_create_augroup('lsp_format_on_save', {})
     vim.api.nvim_clear_autocmds({ group = aug, buffer = bufnr })
     vim.api.nvim_create_autocmd('BufWritePre', {
@@ -87,7 +87,7 @@ function M.lsp_format_on_save(client, bufnr)
 end
 
 function M.lsp_codelens_refresh(client, bufnr)
-  if client.supports_method('textDocument/codeLens') then
+  if client:supports_method('textDocument/codeLens') then
     local aug = vim.api.nvim_create_augroup('lsp_codelens_refresh', {})
     vim.api.nvim_clear_autocmds({ group = aug, buffer = bufnr })
     vim.lsp.codelens.refresh()

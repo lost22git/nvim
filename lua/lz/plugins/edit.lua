@@ -1,6 +1,4 @@
 return {
-  { 'windwp/nvim-autopairs', event = { 'InsertEnter' }, opts = {} },
-
   {
     'mbbill/undotree',
     cmd = { 'UndotreeToggle' },
@@ -20,16 +18,6 @@ return {
         ['c'] = '<BS><BS><Esc>',
       },
     },
-  },
-
-  {
-    'utilyre/sentiment.nvim',
-    event = { 'BufReadPost', 'BufNewFile' },
-    opts = {},
-    init = function()
-      -- `matchparen.vim` needs to be disabled manually in case of lazy loading
-      vim.g.loaded_matchparen = 1
-    end,
   },
 
   {
