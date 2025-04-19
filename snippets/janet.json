@@ -133,31 +133,31 @@
   },
   "loop-down": {
     "prefix": "loop-down",
-    "body": ["(loop ${1:i} :down [${2:start} ${3:stop}] ${4:body})"]
+    "body": ["(loop [${1:i} :down [${2:start} ${3:stop}]] ${4:body})"]
   },
   "loop-down-to": {
     "prefix": "loop-down-to",
-    "body": ["(loop ${1:i} :down-to [${2:start} ${3:stop}] ${4:body})"]
+    "body": ["(loop [${1:i} :down-to [${2:start} ${3:stop}]] ${4:body})"]
   },
   "loop-keys": {
     "prefix": "loop-keys",
-    "body": ["(loop ${1:k} :keys ${2:col} ${3:body})"]
+    "body": ["(loop [${1:k} :keys ${2:col}] ${3:body})"]
   },
   "loop-in": {
     "prefix": "loop-in",
-    "body": ["(loop ${1:v} :in ${2:col} ${3:body})"]
+    "body": ["(loop [${1:v} :in ${2:col}] ${3:body})"]
   },
   "loop-pairs": {
     "prefix": "loop-pairs",
-    "body": ["(loop [${1:k} ${2:v}] :pairs ${3:col} ${4:body})"]
+    "body": ["(loop [[${1:k} ${2:v}] :pairs ${3:col}] ${4:body})"]
   },
   "loop-range": {
     "prefix": "loop-range",
-    "body": ["(loop ${1:i} :range [${2:start} ${3:stop}] ${4:body})"]
+    "body": ["(loop [${1:i} :range [${2:start} ${3:stop}]] ${4:body})"]
   },
   "loop-range-to": {
     "prefix": "loop-range-to",
-    "body": ["(loop ${1:i} :range-to [${2:start} ${3:stop}] ${4:body})"]
+    "body": ["(loop [${1:i} :range-to [${2:start} ${3:stop}]] ${4:body})"]
   },
   "try": {
     "prefix": "try",
