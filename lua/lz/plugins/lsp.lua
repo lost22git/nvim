@@ -413,6 +413,10 @@ return {
     opts = {
       install_root_dir = require('core.utils').get_mason_path(),
       PATH = 'prepend',
+      ui = {
+        border = vim.opt.winborder:get(),
+        backdrop = vim.g.LC.backdrop,
+      },
     },
   },
 }

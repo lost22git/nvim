@@ -1,6 +1,7 @@
 local LC_DEFAULT = {
   transparent = false,
   shell = vim.fn.has('win32') == 1 and 'pwsh',
+  backdrop = 100,
 }
 vim.g.LC = vim.tbl_deep_extend('force', LC_DEFAULT, vim.g.LC or {})
 
