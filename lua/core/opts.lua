@@ -27,7 +27,7 @@ vim.opt.cmdheight = 1
 vim.opt.completeopt = 'menu,menuone,noselect,noinsert,preview'
 
 -- Cursor
-vim.opt.guicursor:append('c:ver25') -- use bar style (ver25) on cmd mode
+vim.opt.guicursor:append('t-c:ver25') -- use bar style (ver25) on terminal and cmd mode
 vim.opt.cursorcolumn = false
 vim.opt.cursorline = true
 vim.opt.cursorlineopt = 'line,number'

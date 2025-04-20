@@ -11,25 +11,41 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 return {
-  { 'tpope/vim-fugitive', cmd = 'Git' },
-
   {
-    'NeogitOrg/neogit',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      -- "sindrets/diffview.nvim",
+    'ibhagwan/fzf-lua',
+    cmd = { 'FzfLua' },
+    opts = {
+      fzf_colors = true,
+      winopts = {
+        preview = { hidden = true },
+      },
     },
-    cmd = { 'Neogit', 'NeogitCommit' },
-    opts = {},
   },
 
   {
-    'lewis6991/gitsigns.nvim',
-    event = { 'BufReadPost', 'BufNewFile' },
-    opts = {
-      on_attach = function() require('core.maps').gitsigns() end,
-      numhl = true,
-    },
+    'skywind3000/asyncrun.vim',
+    lazy = false,
+    cmd = { 'AsyncRun', 'AsyncRunVisual' },
+    config = function()
+      vim.g.asyncrun_bell = 10
+      -- AsyncRunVisual
+      vim.api.nvim_create_user_command('AsyncRunVisual', function(opts)
+        -- get selection_text in visual mode
+        vim.cmd('normal! gv"xy')
+        local selection_text = vim.fn.getreg('x')
+        selection_text = vim.fn.trim(selection_text)
+
+        -- write selection_text into tempfile
+        local f = vim.fs.dirname(os.tmpname()) .. '/asyncrunvisual.tmp'
+        vim.fn.writefile(vim.split(selection_text, '\n'), f)
+
+        -- ensure tempfile accessible
+        if vim.fn.has('unix') then os.execute('chmod 777 ' .. f) end
+
+        -- call asyncrun
+        vim.cmd('AsyncRun ' .. opts.args .. ' ' .. f)
+      end, { nargs = '+', range = true })
+    end,
   },
 
   {
@@ -210,32 +226,6 @@ return {
           create_keymaps()
         end,
       })
-    end,
-  },
-
-  {
-    'skywind3000/asyncrun.vim',
-    lazy = false,
-    cmd = { 'AsyncRun', 'AsyncRunVisual' },
-    config = function()
-      vim.g.asyncrun_bell = 10
-      -- AsyncRunVisual
-      vim.api.nvim_create_user_command('AsyncRunVisual', function(opts)
-        -- get selection_text in visual mode
-        vim.cmd('normal! gv"xy')
-        local selection_text = vim.fn.getreg('x')
-        selection_text = vim.fn.trim(selection_text)
-
-        -- write selection_text into tempfile
-        local f = vim.fs.dirname(os.tmpname()) .. '/asyncrunvisual.tmp'
-        vim.fn.writefile(vim.split(selection_text, '\n'), f)
-
-        -- ensure tempfile accessible
-        if vim.fn.has('unix') then os.execute('chmod 777 ' .. f) end
-
-        -- call asyncrun
-        vim.cmd('AsyncRun ' .. opts.args .. ' ' .. f)
-      end, { nargs = '+', range = true })
     end,
   },
 }

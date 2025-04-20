@@ -208,7 +208,7 @@ return {
     lazy = false,
     config = function()
       require('syntax-highlighted-cursor').setup({})
-      vim.opt.guicursor:append('c:ver30-Cursor')
+      vim.opt.guicursor:append('t-c:ver30-Cursor')
     end,
   },
 }
