@@ -1,7 +1,5 @@
 vim.cmd([[
     highlight Pmenu ctermbg=NONE guibg=NONE
-    "highlight link MiniPickMatchCurrent PmenuSel
-    "highlight link MiniPickNormal CmpItemMenu
 ]])
 
 if vim.g.LC.transparent then

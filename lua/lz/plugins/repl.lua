@@ -42,9 +42,9 @@ return {
       vim.g['conjure#extract#tree_sitter#enabled'] = true
       vim.g['conjure#log#jump_to_latest#enabled'] = true
       vim.g['conjure#mapping#doc_word'] = { '<LocalLeader>k' }
-      vim.g['conjure#mapping#log_toggle'] = { '<LocalLeader>lk' }
-      vim.g['conjure#mapping#eval_previous'] = { '<LocalLeader>el' }
+      vim.g['conjure#mapping#eval_visual'] = { '<LocalLeader>ee' }
       vim.g['conjure#mapping#eval_replace_form'] = { '<LocalLeader>es' }
+      vim.g['conjure#mapping#eval_previous'] = { '<LocalLeader>E' }
 
       vim.api.nvim_create_autocmd({ 'BufWinEnter' }, {
         pattern = { 'conjure-log-*' },
@@ -62,6 +62,42 @@ return {
           vim.keymap.set({ 'n', 'v' }, ']e', next, { silent = true, buffer = true, desc = '[conjure] Goto next log' })
         end,
       })
+    end,
+  },
+
+  {
+    'pappasam/nvim-repl',
+    cmd = { 'Repl' },
+    opts = {
+      filetype_commands = {
+        java = { cmd = 'jshell' },
+        nim = { cmd = 'inim' },
+        nims = { cmd = 'inim' },
+        raku = { cmd = 'raku' },
+      },
+    },
+    config = function(_, opts)
+      require('repl').setup(opts)
+
+      local ftypes = vim.tbl_keys(opts.filetype_commands)
+
+      local create_keymaps = function()
+        vim.keymap.set({ 'n' }, '<Leader>ee', '<Plug>(ReplSendLine)', { buffer = true, desc = '[Repl] Send Line' })
+        vim.keymap.set(
+          { 'v' },
+          '<Leader>ee',
+          '<Plug>(ReplSendVisual)',
+          { buffer = true, desc = '[Repl] Send Visual Selection' }
+        )
+        vim.keymap.set({ 'n' }, '<Leader>er', '<Plug>(ReplSendCell)', { buffer = true, desc = '[Repl] Send Cell' })
+      end
+
+      -- autocmd
+      local callback = function() create_keymaps() end
+      vim.api.nvim_create_autocmd('FileType', { pattern = ftypes, callback = callback })
+
+      -- also run callback if current buffer matches conditions
+      if vim.tbl_contains(ftypes, vim.bo.filetype) then callback() end
     end,
   },
 }
