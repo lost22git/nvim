@@ -119,9 +119,13 @@
     "prefix": "v*task-id*",
     "body": ["*task-id*"]
   },
+  "edefer": {
+    "prefix": "edefer",
+    "body": ["(edefer ${1:form} ${2:body})"]
+  },
   "defer": {
     "prefix": "defer",
-    "body": ["(defer ${1:finally} ${2:body})"]
+    "body": ["(defer ${1:form} ${2:body})"]
   },
   "for-range": {
     "prefix": "for-range",
@@ -161,7 +165,12 @@
   },
   "try": {
     "prefix": "try",
-    "body": ["(try ${1:body} ([e] eprint e))"]
+    "body": [
+      "(try ${1:body}",
+      "\t([err fiber]",
+      "\t\t(debug/stacktrace fiber err \"\")",
+      "\t\t${2:fallback-value}))"
+    ]
   },
   "when-with": {
     "prefix": "when-with",
