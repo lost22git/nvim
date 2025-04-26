@@ -29,7 +29,7 @@ return {
       python = { 'ruff_format' },
       roc = { 'roc' },
       sh = { 'shfmt' },
-      -- swift = { 'swift_format' },
+      swift = { 'swift_format' },
       toml = { 'taplo' },
       zig = { 'zigfmt' },
     },

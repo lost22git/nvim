@@ -1,5 +1,5 @@
--- autocmd: Start Clojure nREPL server
 vim.api.nvim_create_autocmd('FileType', {
+  desc = 'add `Clj` command to start Clojure nREPL server',
   pattern = { 'clojure' },
   callback = function()
     vim.api.nvim_buf_create_user_command(0, 'Clj', function(opts)
@@ -19,11 +19,11 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
--- autocmd: Start Janet netrepl server
 vim.api.nvim_create_autocmd('FileType', {
+  desc = 'add `JanetNetrepl` command to start janet-netrepl server',
   pattern = { 'janet' },
   callback = function()
-    vim.api.nvim_buf_create_user_command(0, 'JanetNetrepl', function(opts)
+    vim.api.nvim_buf_create_user_command(0, 'JanetNetrepl', function()
       local command = 'janet-netrepl'
       local call_asyncrun = 'AsyncRun -mode=term -pos=tab -focus=0 ' .. command
       vim.print(call_asyncrun)
@@ -70,10 +70,12 @@ return {
     cmd = { 'Repl' },
     opts = {
       filetype_commands = {
+        crystal = { cmd = 'crystal i' },
         java = { cmd = 'jshell' },
         nim = { cmd = 'inim' },
         nims = { cmd = 'inim' },
         raku = { cmd = 'raku' },
+        swift = { cmd = 'swift repl' },
       },
     },
     config = function(_, opts)
@@ -82,14 +84,14 @@ return {
       local ftypes = vim.tbl_keys(opts.filetype_commands)
 
       local create_keymaps = function()
-        vim.keymap.set({ 'n' }, '<Leader>ee', '<Plug>(ReplSendLine)', { buffer = true, desc = '[Repl] Send Line' })
+        vim.keymap.set({ 'n' }, '<Leader>ee', '<Plug>(ReplSendLine)', { buffer = true, desc = '[repl] Send Line' })
         vim.keymap.set(
           { 'v' },
           '<Leader>ee',
           '<Plug>(ReplSendVisual)',
-          { buffer = true, desc = '[Repl] Send Visual Selection' }
+          { buffer = true, desc = '[repl] Send Visual Selection' }
         )
-        vim.keymap.set({ 'n' }, '<Leader>er', '<Plug>(ReplSendCell)', { buffer = true, desc = '[Repl] Send Cell' })
+        vim.keymap.set({ 'n' }, '<Leader>er', '<Plug>(ReplSendCell)', { buffer = true, desc = '[repl] Send Cell' })
       end
 
       -- autocmd

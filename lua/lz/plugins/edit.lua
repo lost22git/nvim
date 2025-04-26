@@ -8,19 +8,6 @@ return {
   },
 
   {
-    'TheBlob42/houdini.nvim',
-    event = { 'InsertEnter', 'CmdLineEnter', 'TermEnter' },
-    opts = {
-      timeout = 250,
-      escape_sequences = {
-        ['v'] = false,
-        ['V'] = false,
-        ['c'] = '<BS><BS><Esc>',
-      },
-    },
-  },
-
-  {
     'julienvincent/nvim-paredit',
     ft = { 'clojure', 'fennel' },
     opts = {

@@ -1,5 +1,28 @@
--- Set file format to unix
+GUI_CURSOR_CACHE = nil
+
+vim.api.nvim_create_autocmd({ 'VimLeave', 'VimSuspend' }, {
+  desc = 'restore terminal cursor style',
+  pattern = '*',
+  callback = function()
+    GUI_CURSOR_CACHE = vim.opt.guicursor:get()
+    vim.opt.guicursor = {}
+
+    -- \x1b[?12l -> disable cursor blink
+    -- \x1b[6 q -> set cursor style to bar
+    vim.fn.chansend(vim.v.stderr, '\x1b[6 q \x1b[?12l')
+  end,
+})
+
+vim.api.nvim_create_autocmd('VimResume', {
+  desc = 'restore nvim cursor style',
+  pattern = '*',
+  callback = function()
+    if GUI_CURSOR_CACHE then vim.opt.guicursor = GUI_CURSOR_CACHE end
+  end,
+})
+
 vim.api.nvim_create_autocmd('FileType', {
+  desc = 'set fileformat to unix',
   pattern = '*',
   callback = function()
     if not vim.bo.modifiable then return end
@@ -10,8 +33,8 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
--- Highlight yanked text
 vim.api.nvim_create_autocmd('TextYankPost', {
+  desc = 'highlight yanked text',
   pattern = '*',
   callback = function() vim.highlight.on_yank({ higroup = 'Visual', timeout = 200 }) end,
 })
@@ -42,19 +65,8 @@ vim.cmd([[
   au FileType lobster setlocal commentstring=//\ %s
 ]])
 
--- Restore terminal cursor shape when leaving
--- \x1b[?12l -> disable cursor blink
--- \x1b[6 q -> set cursor style to bar
-vim.cmd([[
-  au VimLeave,VimSuspend * set guicursor= | call chansend(v:stderr, "\x1b[6 q \x1b[?12l")
-  au VimResume * set guicursor=n-v-sm:block,c-i-ci-ve:ver25,r-cr-o:hor20
-]])
-
--- Turn off paste mode when leaving insert
-vim.cmd([[ au InsertLeave * set nopaste ]])
-
--- Goto prev/next region
 vim.api.nvim_create_autocmd('FileType', {
+  desc = 'add keymaps for Goto prev/next region',
   pattern = { '*' },
   callback = function()
     local p = [[[-\/;#] === .\+ ===$]]
@@ -65,8 +77,8 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
--- [Clojure] Goto prev/next (comment)
 vim.api.nvim_create_autocmd('FileType', {
+  desc = '[Clojure] add keymaps for Goto prev/next (comment)',
   pattern = { 'clojure', 'janet' },
   callback = function()
     local p = [[\v(^\(comment|^#_)]]
@@ -74,5 +86,17 @@ vim.api.nvim_create_autocmd('FileType', {
     local next = string.format([[<Cmd>call search('%s','w')<CR>]], p)
     vim.keymap.set({ 'n' }, '[C', prev, { silent = true, buffer = true, desc = '[base] Clojure goto prev comment' })
     vim.keymap.set({ 'n' }, ']C', next, { silent = true, buffer = true, desc = '[base] Clojure goto next comment' })
+  end,
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+  desc = '[Just] add keymaps for Goto prev/next task',
+  pattern = { 'just' },
+  callback = function()
+    local p = [[\v^\w+.*:$]]
+    local prev = string.format([[<Cmd>call search('%s','bw')<CR>]], p)
+    local next = string.format([[<Cmd>call search('%s','w')<CR>]], p)
+    vim.keymap.set({ 'n' }, '[e', prev, { silent = true, buffer = true, desc = '[base] Justfile goto prev task' })
+    vim.keymap.set({ 'n' }, ']e', next, { silent = true, buffer = true, desc = '[base] Justfile goto next task' })
   end,
 })
