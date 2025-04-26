@@ -1,5 +1,35 @@
 return {
   {
+    'lukas-reineke/indent-blankline.nvim',
+    main = 'ibl',
+    keys = { { '<Leader>i', '<Cmd>IBLToggle<CR>', mode = { 'n', 'v' }, desc = '[IBL] Toggle' } },
+    opts = {
+      indent = { char = '▏' },
+    },
+  },
+
+  {
+    'ukyouz/syntax-highlighted-cursor.nvim',
+    lazy = false,
+    config = function()
+      require('syntax-highlighted-cursor').setup({})
+      vim.opt.guicursor:append('t-c:ver30-Cursor')
+    end,
+  },
+
+  {
+    'NvChad/nvim-colorizer.lua',
+    cmd = { 'ColorizerAttachToBuffer' },
+    opts = {
+      user_default_options = {
+        tailwind = true,
+        mode = 'virtualtext',
+        virtualtext_inline = 'before',
+      },
+    },
+  },
+
+  {
     'nvim-focus/focus.nvim',
     cmd = { 'FocusEnable' },
     opts = { ui = { cursorline = false, signcolumn = false } },
@@ -15,18 +45,6 @@ return {
       { '<Leader>zn', '<Cmd>TZNarrow<CR>', desc = '[true-zen] TZNarrow' },
     },
     opts = {},
-  },
-
-  {
-    'NvChad/nvim-colorizer.lua',
-    cmd = { 'ColorizerAttachToBuffer' },
-    opts = {
-      user_default_options = {
-        tailwind = true,
-        mode = 'virtualtext',
-        virtualtext_inline = 'before',
-      },
-    },
   },
 
   {
@@ -149,13 +167,6 @@ return {
   },
 
   {
-    'lukas-reineke/indent-blankline.nvim',
-    main = 'ibl',
-    keys = { { '<Leader>i', '<Cmd>IBLToggle<CR>', mode = { 'n', 'v' }, desc = '[IBL] Toggle' } },
-    opts = {},
-  },
-
-  {
     'stevearc/quicker.nvim',
     event = 'FileType qf',
     keys = {
@@ -194,14 +205,5 @@ return {
       cmd = vim.g.LC.shell or vim.o.shell,
       border = vim.opt.winborder:get(),
     },
-  },
-
-  {
-    'ukyouz/syntax-highlighted-cursor.nvim',
-    lazy = false,
-    config = function()
-      require('syntax-highlighted-cursor').setup({})
-      vim.opt.guicursor:append('t-c:ver30-Cursor')
-    end,
   },
 }

@@ -47,8 +47,6 @@ require('lazy').setup('lz.plugins', {
   },
 })
 
-vim.keymap.set({ '', 'i' }, '<M-0>', '<Cmd>Lazy<CR>', { silent = true, noremap = true, desc = 'Lazy' })
-
 -- UserCommand - Plugins
 vim.api.nvim_create_user_command('Plugins', function()
   local config_path = vim.fn.stdpath('config')
