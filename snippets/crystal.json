@@ -1,0 +1,250 @@
+{
+  "__DIR__": {
+    "prefix": "v-DIR",
+    "body": "__DIR__"
+  },
+  "__END_LINE__": {
+    "prefix": "v-END_LINE",
+    "body": "__END_LINE__"
+  },
+  "__FILE__": {
+    "prefix": "v-FILE",
+    "body": "__FILE__"
+  },
+  "__LINE__": {
+    "prefix": "v-LINE",
+    "body": "__LINE__"
+  },
+  "ARGF": {
+    "prefix": "v-ARGF",
+    "body": "ARGF"
+  },
+  "ARGV": {
+    "prefix": "v-ARGV",
+    "body": "ARGV"
+  },
+  "ENV": {
+    "prefix": "v-ENV",
+    "body": "ENV",
+    "description": "runtime environment variable table"
+  },
+  "EOL": {
+    "prefix": "v-EOL",
+    "body": "EOL"
+  },
+  "PROGRAM_NAME": {
+    "prefix": "v-PROGRAM_NAME",
+    "body": "PROGRAM_NAME"
+  },
+  "STDERR": {
+    "prefix": "v-STDERR",
+    "body": "STDERR"
+  },
+  "STDIN": {
+    "prefix": "v-STDIN",
+    "body": "STDIN"
+  },
+  "STDOUT": {
+    "prefix": "v-STDOUT",
+    "body": "STDOUT"
+  },
+  "begin-rescue-ensure": {
+    "prefix": "begin-rescue-ensure",
+    "body": [
+      "begin",
+      "\t$1",
+      "rescue ex : Exception",
+      "\t$2",
+      "else",
+      "\t$3",
+      "ensure",
+      "\t$4",
+      "end"
+    ]
+  },
+  "bench-ips": {
+    "prefix": "bench-ips",
+    "body": [
+      "Benchmark.ips(warmup: ${1:5}, calculation: ${2:10}) do |b|",
+      "\tb.report \"#1\" do",
+      "\tend",
+      "",
+      "\tb.report \"#2\" do",
+      "\tend",
+      "end"
+    ]
+  },
+  "case-when": {
+    "prefix": "case-when",
+    "body": [
+      "case ${1:v}",
+      "when ${2:p1}, ${3:p2}",
+      "\t$4",
+      "else",
+      "\t$5",
+      "end"
+    ]
+  },
+  "case-in": {
+    "prefix": "case-in",
+    "body": ["case ${1:v}", "in ${2:p1}", "\t$3", "in ${4:p2}", "\t$5", "end"]
+  },
+  "class": {
+    "prefix": "class",
+    "body": ["class ${1:ClassName}", "\tdef initialize()", "\tend", "end"]
+  },
+  "exception-class": {
+    "prefix": "exception-class",
+    "body": ["class ${1:Custom}Error < Exception", "\t$2", "end"],
+    "description": "define a custom exception class"
+  },
+  "extern": {
+    "prefix": "extern",
+    "body": "@[Extern]"
+  },
+  "flag": {
+    "prefix": "flag",
+    "body": [
+      "{% if flag?($1) %}",
+      "\t$2",
+      "{% elsif flag?($3) %}",
+      "\t$4",
+      "{% else %}",
+      "\t$5",
+      "{% end %}"
+    ],
+    "description": "compile-time flag? macro"
+  },
+  "flag-host": {
+    "prefix": "flag-host",
+    "body": [
+      "{% if host_flag?($1) %}",
+      "\t$2",
+      "{% elsif host_flag?($3) %}",
+      "\t$4",
+      "{% else %}",
+      "\t$5",
+      "{% end %}"
+    ],
+    "description": "compile-time host_flag? macro"
+  },
+  "heredoc": {
+    "prefix": "heredoc",
+    "body": ["<<-${1:DOC}", "$2", "$1"]
+  },
+  "inline-always": {
+    "prefix": "inline-always",
+    "body": "@[AlwaysInline]"
+  },
+  "inline-nerver": {
+    "prefix": "inline-nerver",
+    "body": "@[NoInline]"
+  },
+  "lib": {
+    "prefix": "lib",
+    "body": [
+      "@[Link(\"${1:libname}\")]",
+      "lib ${2:LibName}",
+      "\tfun f = lib_f()",
+      "end"
+    ]
+  },
+  "log": {
+    "prefix": "log",
+    "body": "${1:Log}.${2:info} { \"$3\" }",
+    "description": "log"
+  },
+  "log-emit": {
+    "prefix": "log-emit",
+    "body": "${1:Log}.${2:info} &.emit(\"$3\", ${4:k}: ${5:v})",
+    "description": "log emit"
+  },
+  "log-formatter": {
+    "prefix": "log-formatter",
+    "body": [
+      "class ${1:MyLogFormatter}",
+      "\tinclude Log::Formatter",
+      "",
+      "\tdef format(entry : Log::Entry, io : IO)",
+      "\tend",
+      "end"
+    ],
+    "description": "define custom LogFormatter"
+  },
+  "log-exception": {
+    "prefix": "log-exception",
+    "body": "${1:Log}.error(exception: ${2:ex}) { \"$3\" }",
+    "description": "log exception"
+  },
+  "log-for": {
+    "prefix": "log-for",
+    "body": "$1_logger = Log.for \"$1\"",
+    "description": "log for"
+  },
+  "log-setup": {
+    "prefix": "log-setup",
+    "body": [
+      "Log.setup do |c|",
+      "\tconsole = Log::IOBackend.new io: STDOUT, dispatcher: Log::DispatchMode::Sync",
+      "\tc.bind \"*\", :trace, console",
+      "end"
+    ],
+    "description": "log setup"
+  },
+  "log-with-context": {
+    "prefix": "log-with-context",
+    "body": ["Log.with_context(${1:k}: ${2:v}) do", "\t$3", "end"],
+    "description": "log with context"
+  },
+  "loop": {
+    "prefix": "loop",
+    "body": "loop { $1 }"
+  },
+  "packed": {
+    "prefix": "packed",
+    "body": "@[Packed]"
+  },
+  "select": {
+    "prefix": "select",
+    "body": [
+      "result = select",
+      "when v = ch.receive",
+      "\tputs \"got\"",
+      "\tv",
+      "when timeout 1.seconds",
+      "\tputs \"timeout\"",
+      "\t-1",
+      "end"
+    ],
+    "description": "short-circuit select in multiple SelectionAction"
+  },
+  "spawn": {
+    "prefix": "spawn",
+    "body": "spawn { $1 }",
+    "description": "spawn a task"
+  },
+  "spec": {
+    "prefix": "spec",
+    "body": [
+      "describe \"Test\" do",
+      "\tit \"#1\" do",
+      "\tend",
+      "",
+      "\tit \"#2\" do",
+      "\tend",
+      "end"
+    ]
+  },
+  "struct": {
+    "prefix": "struct",
+    "body": ["struct ${1:ClassName}", "\tdef initialize()", "\tend", "end"]
+  },
+  "uninit": {
+    "prefix": "uninit",
+    "body": "uninitialized ${1:Int32}"
+  },
+  "with-yield": {
+    "prefix": "with-yield",
+    "body": "with ${1:self} yield"
+  }
+}

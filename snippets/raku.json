@@ -1,75 +1,248 @@
 {
+  "@*ARGS": {
+    "prefix": "v-ARGS",
+    "body": "@*ARGS"
+  },
+  "$*CWD": {
+    "prefix": "v-CWD",
+    "body": "\\$*CWD"
+  },
+  "$*DISTRO": {
+    "prefix": "v-DISTRO",
+    "body": "\\$*DISTRO"
+  },
+  "%*ENV": {
+    "prefix": "v-ENV",
+    "body": "%*ENV"
+  },
+  "$*EXECUTABLE": {
+    "prefix": "v-EXECUTABLE",
+    "body": "\\$*EXECUTABLE"
+  },
+  "$*EXECUTABLE-NAME": {
+    "prefix": "v-EXECUTABLE-NAME",
+    "body": "\\$*EXECUTABLE-NAME"
+  },
+  "$*EXIT": {
+    "prefix": "v-EXIT",
+    "body": "\\$*EXIT"
+  },
+  "&*EXIT": {
+    "prefix": "v-EXIT-SUB",
+    "body": "&*EXIT"
+  },
+  "$?FILE": {
+    "prefix": "v-FILE",
+    "body": "\\$?FILE"
+  },
+  "$*GROUP": {
+    "prefix": "v-GROUP",
+    "body": "\\$*GROUP"
+  },
+  "$*KERNEL": {
+    "prefix": "v-KERNEL",
+    "body": "\\$*KERNEL"
+  },
+  "$?LINE": {
+    "prefix": "v-LINE",
+    "body": "\\$?LINE"
+  },
+  "$*PID": {
+    "prefix": "v-PID",
+    "body": "\\$*PID"
+  },
+  "$*PROGRAM-NAME": {
+    "prefix": "v-PROGRAM-NAME",
+    "body": "\\$*PROGRAM-NAME"
+  },
+  "$*PROGRAM": {
+    "prefix": "v-PROGRAM",
+    "body": "\\$*PROGRAM"
+  },
+  "$*RAKU": {
+    "prefix": "v-RAKU",
+    "body": "\\$*RAKU"
+  },
+  "$*SCHEDULER": {
+    "prefix": "v-SCHEDULER",
+    "body": "\\$*SCHEDULER"
+  },
+  "$*THREAD": {
+    "prefix": "v-THREAD",
+    "body": "\\$*THREAD"
+  },
+  "$*TMPDIR": {
+    "prefix": "v-TMPDIR",
+    "body": "\\$*TMPDIR"
+  },
+  "$*TZ": {
+    "prefix": "v-TZ",
+    "body": "\\$*TZ"
+  },
+  "$*USER": {
+    "prefix": "v-USER",
+    "body": "\\$*USER"
+  },
+  "$*VM": {
+    "prefix": "v-VM",
+    "body": "\\$*VM"
+  },
+  "$*ERR": {
+    "prefix": "v-ERR",
+    "body": "\\$*ERR"
+  },
+  "$*IN": {
+    "prefix": "v-IN",
+    "body": "\\$*IN"
+  },
+  "$*OUT": {
+    "prefix": "v-OUT",
+    "body": "\\$*OUT"
+  },
   "=begin": {
     "prefix": "=begin",
-    "body": ["=begin ${1:title}", "${2:content}", "=end ${1:title}"],
+    "body": ["=begin ${1:title}", "${2:content}", "=end $1"],
     "description": "comment block"
   },
-  "module": {
-    "prefix": "unit module",
-    "body": [
-      "unit module $TM_FILENAME_BASE;",
-      "=begin overview",
-      "Module",
-      "=end overview"
-    ],
-    "description": "unit module"
+  "attributes": {
+    "prefix": "attributes",
+    "body": "\\$${1:var}.^attributes",
+    "description": "get class attributes of var"
   },
-  "unitClass": {
-    "prefix": "unit class",
-    "body": "unit class $TM_FILENAME_BASE;\n\n$0",
-    "description": "unit class"
+  "catch": {
+    "prefix": "CATCH",
+    "body": [
+      "CATCH {",
+      "\twhen X::IO { say .message }",
+      "\tdefault { .throw }",
+      "}"
+    ],
+    "description": "catch block"
   },
   "class": {
     "prefix": "class",
-    "body": "class ${1:name} {\n    $0\n}\n",
+    "body": [
+      "class ${1:Book} {",
+      "\thas Int \\$.pub-attr = 1;",
+      "\thas Int \\$!pri-attr = 1;",
+      "\thas Int \\$.mut-attr is rw = 1;",
+      "",
+      "\tmethod pub-method() {",
+      "\t\tself!pri-method();",
+      "\t}",
+      "",
+      "\tmethod !pri-method() {",
+      "\t\tsay $!pri-attr;",
+      "\t}",
+      "}"
+    ],
     "description": "class"
   },
-  "grammar": {
-    "prefix": "grammar",
-    "body": "grammar name {\n    token TOP { $0 }\n}\n",
-    "description": "grammar"
+  "dd": {
+    "prefix": "dd",
+    "body": "dd ${1:expr}",
+    "description": "debug print"
   },
   "for": {
     "prefix": "for",
-    "body": "for @items -> \\$item {\n    $0\n}\n",
-    "description": "for loop"
+    "body": "for ${1:@items} -> \\$${2:item} {\n    $3\n}\n",
+    "description": "for"
   },
-  "while": {
-    "prefix": "while",
-    "body": "my \\$count = 0;\nwhile \\$count++ < 10 {\n    say \"\\$count\";\n}",
-    "description": "while loop"
+  "grammar": {
+    "prefix": "grammar",
+    "body": "grammar ${1:Parser} {\n    token TOP { $2 }\n}\n",
+    "description": "grammar"
+  },
+  "given": {
+    "prefix": "given",
+    "body": [
+      "given \\$${1:var} {",
+      "\t when ${2:pattern} { $3 }",
+      "\t when ${4:pattern} { $5 }",
+      "\t default { $6 }",
+      "}"
+    ],
+    "description": "given"
+  },
+  "heredoc": {
+    "prefix": "heredoc",
+    "body": ["q:to/${1:DOC}/", "$2", "$1"]
   },
   "loop": {
     "prefix": "loop",
-    "body": "loop (my \\$i = 1; \\$i <= 3; \\$i++) {\n    say \\$i;\n}",
+    "body": "loop (my ${1:\\$i} = ${2:1}; $1 <= ${3:3}; $1++) {\n    say $1;\n}",
     "description": "C-style for loop"
   },
-  "until": {
-    "prefix": "until",
+  "my": {
+    "prefix": "my",
+    "body": "my \\$${1:i} = ${2:};"
+  },
+  "my2": {
+    "prefix": "my2",
+    "body": "my ${1:Int} \\$${2:i} = ${3:1};"
+  },
+  "methods": {
+    "prefix": "methods",
+    "body": "\\$${1:var}.^methods(:all)",
+    "description": "get class methods of var"
+  },
+  "name": {
+    "prefix": "name",
+    "body": "\\$${1:var}.^name",
+    "description": "get class name of var"
+  },
+  "react": {
+    "prefix": "react",
     "body": [
-      "my \\$j = 0;",
-      "until \\$j == 4 {",
-      "    say \"\\$j: \";",
-      "    \\$j++;",
+      "react {",
+      "\twhenever \\$${1:supply-or-channel} -> ${2:\\$v} {",
+      "\t\tsay $2;",
+      "\t\tdone() if $2;",
+      "\t}",
+      "",
+      "\twhenever \\$${3:supply-or-channel} -> ${4:\\$v} {",
+      "\t\tsay $4;",
+      "\t\tdone() if $4;",
+      "\t}",
       "}"
     ],
-    "description": "until loop"
+    "description": "react block"
   },
-  "if": {
-    "prefix": "if",
-    "body": "if {1:condition} {\n    $0\n}\n",
-    "description": "An if statement"
+  "start": {
+    "prefix": "start",
+    "body": "start {\n\t$1\n}",
+    "description": "start a task"
   },
-  "if/else": {
-    "prefix": "if",
+  "tap": {
+    "prefix": "tap",
     "body": [
-      "if (${1:EXPR}) {",
-      "    ${2:BLOCK}",
-      "}",
-      "else {",
-      "    ${3:BLOCK}",
+      "\\$${1:supply}.tap: { ${2:say \\$_} },",
+      "done => { ${3:say \"done\"} },",
+      "quit => { ${4:say \"error:\", \\$_} };"
+    ],
+    "description": "tap handler to supply"
+  },
+  "try-catch": {
+    "prefix": "try-catch",
+    "body": [
+      "try {",
+      "\tCATCH {",
+      "\t\tdefault { .say }",
+      "\t}",
+      "",
+      "\t$1",
       "}"
     ],
-    "description": "if/else statement"
+    "description": "try catch"
+  },
+  "try-default": {
+    "prefix": "try-default",
+    "body": "try ${1:expr} // ${2:default}",
+    "description": "try default"
+  },
+  "with-try": {
+    "prefix": "with-try",
+    "body": ["with try ${1:expr} {", "\t$2", "else {", "\t$3", "}"],
+    "description": "with try"
   }
 }
