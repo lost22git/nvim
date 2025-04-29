@@ -100,3 +100,62 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.keymap.set({ 'n' }, ']e', next, { silent = true, buffer = true, desc = '[base] Justfile goto next task' })
   end,
 })
+
+local docr = function(info_or_search)
+  local on_v_modes = function()
+    local v_block_mode = vim.api.nvim_replace_termcodes('<C-V>', true, true, true)
+    local v_mode, v_line_mode = 'v', 'V'
+    local v_modes = { v_mode, v_line_mode, v_block_mode }
+    return vim.tbl_contains(v_modes, vim.fn.mode())
+  end
+
+  local open_doc_window = function(obj, title)
+    print('')
+    local text = vim.fn.trim(assert(obj.stdout))
+    local lines = vim.fn.split(text, '\n', true)
+    local max_cols = 0
+    for _, l in ipairs(lines) do
+      max_cols = math.max(max_cols, vim.api.nvim_strwidth(l))
+    end
+    local buf = vim.api.nvim_create_buf(false, true)
+    vim.api.nvim_buf_set_lines(buf, 0, #lines, false, lines)
+    local win = vim.api.nvim_open_win(buf, true, {
+      relative = 'cursor',
+      row = 1,
+      col = 0,
+      width = max_cols,
+      height = math.min(7, #lines),
+      style = 'minimal',
+      title = title,
+    })
+    vim.cmd('Man!')
+    vim.bo[buf].filetype = 'man'
+    vim.bo[buf].readonly = true
+    vim.bo[buf].modifiable = false
+    vim.wo[win].wrap = false
+  end
+
+  -- on visual mode: get current selection text
+  -- on normal mode: get word under current cursor
+  local q = on_v_modes() and require('core.utils').get_current_selection_text() or vim.fn.expand('<cword>')
+
+  local cmd = { 'docr', info_or_search, "'" .. vim.fn.escape(q, "'") .. "'" }
+  local cmd_str = table.concat(cmd, ' ')
+  print(cmd_str, ' ...')
+
+  vim.system(cmd, { text = true }, function(res)
+    if res.code ~= 0 or res.stdout == nil or res.stdout == '' then
+      vim.print(cmd_str, res)
+      return
+    end
+    vim.schedule_wrap(open_doc_window)(res, cmd_str)
+  end)
+end
+vim.api.nvim_create_autocmd('FileType', {
+  desc = '[Crystal] add keymaps for docr',
+  pattern = 'crystal',
+  callback = function(ev)
+    vim.keymap.set({ 'n', 'v' }, '<Leader>k', function() docr('info') end, { buffer = ev.buf, desc = 'docr info' })
+    vim.keymap.set({ 'n', 'v' }, '<Leader>K', function() docr('search') end, { buffer = ev.buf, desc = 'docr search' })
+  end,
+})

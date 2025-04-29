@@ -7,10 +7,7 @@ return {
       vim.g.asyncrun_bell = 10
       -- AsyncRunVisual
       vim.api.nvim_create_user_command('AsyncRunVisual', function(opts)
-        -- get selection_text in visual mode
-        vim.cmd('normal! gv"xy')
-        local selection_text = vim.fn.getreg('x')
-        selection_text = vim.fn.trim(selection_text)
+        local selection_text = require('core.utils').get_last_selection_text()
 
         -- write selection_text into tempfile
         local f = vim.fs.dirname(os.tmpname()) .. '/asyncrunvisual.tmp'

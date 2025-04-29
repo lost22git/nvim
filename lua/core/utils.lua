@@ -136,6 +136,17 @@ function M.get_selection_line_range()
   return a <= b and a, b or b, a
 end
 
+function M.get_last_selection_text()
+  vim.cmd('normal! gv"xy')
+  return vim.fn.trim(vim.fn.getreg('x'))
+end
+
+function M.get_current_selection_text()
+  vim.cmd('exe  "normal \\<Esc>"')
+  vim.cmd('normal! gv"xy')
+  return vim.fn.trim(vim.fn.getreg('x'))
+end
+
 function M.get_justfile_tasks(justfile)
   local tasks = {}
   local cmd = { 'just', '-f', justfile, '--list' }
