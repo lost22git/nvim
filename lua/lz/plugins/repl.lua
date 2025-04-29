@@ -74,7 +74,7 @@ return {
         java = { cmd = 'jshell' },
         nim = { cmd = 'inim' },
         nims = { cmd = 'inim' },
-        raku = { cmd = 'raku' },
+        raku = { cmd = 'rlwrap raku' },
         swift = { cmd = 'swift repl' },
       },
     },
