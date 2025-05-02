@@ -47,6 +47,7 @@ vim.cmd([[
   au BufNewFile,BufReadPost *.cy set filetype=cyber
   au BufNewFile,BufReadPost *.http set filetype=http
   au BufNewFile,BufReadPost *.kk set filetype=koka
+  au BufNewFile,BufReadPost *.lfe set filetype=lfe
   au BufNewFile,BufReadPost *.lobster set filetype=lobster
   au BufNewFile,BufReadPost *.postcss set filetype=postcss
   au BufNewFile,BufReadPost *.v set filetype=vlang
@@ -62,6 +63,7 @@ vim.cmd([[
   au FileType json setlocal commentstring=//\ %s
   au FileType just setlocal commentstring=#\ %s
   au FileType koka setlocal commentstring=//\ %s
+  au FileType lfe setlocal commentstring=;\ %s
   au FileType lobster setlocal commentstring=//\ %s
 ]])
 
@@ -102,13 +104,6 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 local docr = function(info_or_search)
-  local on_v_modes = function()
-    local v_block_mode = vim.api.nvim_replace_termcodes('<C-V>', true, true, true)
-    local v_mode, v_line_mode = 'v', 'V'
-    local v_modes = { v_mode, v_line_mode, v_block_mode }
-    return vim.tbl_contains(v_modes, vim.fn.mode())
-  end
-
   local open_doc_window = function(obj, title)
     print('')
     local text = vim.fn.trim(assert(obj.stdout))
@@ -124,7 +119,7 @@ local docr = function(info_or_search)
       row = 1,
       col = 0,
       width = max_cols,
-      height = math.min(7, #lines),
+      height = math.min(16, #lines),
       style = 'minimal',
       title = title,
     })
@@ -137,7 +132,8 @@ local docr = function(info_or_search)
 
   -- on visual mode: get current selection text
   -- on normal mode: get word under current cursor
-  local q = on_v_modes() and require('core.utils').get_current_selection_text() or vim.fn.expand('<cword>')
+  local U = require('core.utils')
+  local q = U.on_v_modes() and U.get_current_selection_text() or vim.fn.expand('<cword>')
 
   local cmd = { 'docr', info_or_search, "'" .. vim.fn.escape(q, "'") .. "'" }
   local cmd_str = table.concat(cmd, ' ')

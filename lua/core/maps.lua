@@ -198,6 +198,9 @@ function M.base()
     { 'qq', '<Cmd>q<CR>', desc = '[base] Quit Neovim' },
     { 'Q', '<Cmd>q!<CR>', desc = '[base] Quit Neovim forcely' },
 
+    -- inspired by helix
+    { 'mm', '%', desc = '[base] The old "%"' },
+
     { '<C-a>', 'gg<S-v>G', desc = '[base] Select all' },
     { '<C-s>', '<Cmd>w<CR>', desc = '[base] Save buffer' },
     { '<C-v>', '"+p', desc = '[base] Paste from clipboard' },

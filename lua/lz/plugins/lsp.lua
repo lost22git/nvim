@@ -92,7 +92,7 @@ function M.config()
   local get_lsp_server_package_path = U.get_lsp_server_package_path
 
   local capabilities = U.lsp_capabilities()
-  local on_attach = function(client, bufnr) U.lsp_on_attach(client, bufnr) end
+  local on_attach = U.lsp_on_attach
 
   -------- LSP Servers config ----------
 
@@ -365,6 +365,12 @@ function M.config()
       })
     end
   )
+
+  -- Racket
+  lspconfig.racket_langserver.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+  })
 
   -- Raku
   lspconfig.raku_navigator.setup({

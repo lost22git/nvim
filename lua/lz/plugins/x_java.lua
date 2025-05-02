@@ -6,7 +6,7 @@ return {
     -- See `:help vim.lsp.start_client` for an overview of the supported `config` options.
 
     local capabilities = require('core.utils').lsp_capabilities()
-    local on_attach = function(client, bufnr) require('core.utils').lsp_on_attach(client, bufnr) end
+    local on_attach = require('core.utils').lsp_on_attach
 
     local jdtls_root = require('core.utils').get_lsp_server_package_path('jdtls')
     local jdtls_jar = assert(

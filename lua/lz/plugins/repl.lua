@@ -36,7 +36,7 @@ return {
   {
     'Olical/conjure',
     cmd = { 'ConjureConnect' },
-    ft = { 'lua', 'fennel', 'clojure', 'janet' },
+    ft = { 'lua', 'fennel', 'clojure', 'janet', 'racket' },
     init = function()
       vim.g['conjure#highlight#enabled'] = true
       vim.g['conjure#extract#tree_sitter#enabled'] = true
@@ -71,7 +71,9 @@ return {
     opts = {
       filetype_commands = {
         crystal = { cmd = 'crystal i' },
+        elixir = { cmd = 'iex' },
         java = { cmd = 'jshell' },
+        lfe = { cmd = 'lfe' },
         nim = { cmd = 'inim' },
         nims = { cmd = 'inim' },
         raku = { cmd = 'rlwrap raku' },

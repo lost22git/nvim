@@ -2,6 +2,13 @@ local M = {}
 
 function M.on_gui() return vim.g.neovide or vim.g.fvim_loaded or vim.g.vscode end
 
+function M.on_v_modes()
+  local v_block_mode = vim.api.nvim_replace_termcodes('<C-V>', true, true, true)
+  local v_mode, v_line_mode = 'v', 'V'
+  local v_modes = { v_mode, v_line_mode, v_block_mode }
+  return vim.tbl_contains(v_modes, vim.fn.mode())
+end
+
 function M.get_github_mirror()
   -- return "https://hub.fastgit.xyz/"
   return 'https://www.github.com/'
@@ -41,13 +48,13 @@ function M.get_lsp_server_package_path(name) return lsp_server_package_dir .. na
 
 function M.system_open(path)
   if vim.fn.has('macunix') == 1 then
-    vim.notify('mac system_open path=' .. path, vim.log.levels.INFO)
+    vim.notify('system_open path=' .. path, vim.log.levels.INFO)
     vim.fn.jobstart("open -g '" .. path .. "' &", { detach = true })
   elseif vim.fn.has('win32') == 1 then
-    vim.notify('win system_open path=' .. path, vim.log.levels.INFO)
+    vim.notify('system_open path=' .. path, vim.log.levels.INFO)
     vim.fn.jobstart("explorer.exe '" .. path .. "'")
   else
-    vim.notify('linux system_open path=' .. path, vim.log.levels.INFO)
+    vim.notify('system_open path=' .. path, vim.log.levels.INFO)
     vim.fn.jobstart("xdg-open '" .. path .. "' &", { detach = true })
   end
 end

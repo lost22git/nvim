@@ -1,4 +1,5 @@
 return {
+  -- Jetbrains IDEA
   {
     'nickkadutskyi/jb.nvim',
     lazy = false,
@@ -8,6 +9,13 @@ return {
       disable_hl_args = { bold = false, italic = true },
     },
     -- init = function() vim.cmd('colorscheme jb') end,
+  },
+
+  -- Helix
+  {
+    'oneslash/helix-nvim',
+    version = '*',
+    init = function() vim.cmd('colorscheme helix') end,
   },
 
   {
@@ -49,7 +57,7 @@ return {
     'pappasam/papercolor-theme-slim',
     lazy = false,
     priority = 1000,
-    init = function() vim.cmd('colorscheme PaperColorSlimLight') end,
+    -- init = function() vim.cmd('colorscheme PaperColorSlim') end,
   },
 
   {
@@ -61,6 +69,6 @@ return {
         comments = { italic = false },
       },
     },
-    -- init = function() vim.cmd('colorscheme github-monochrome') end,
+    -- init = function() vim.cmd('colorscheme github-monochrome-solarized') end,
   },
 }

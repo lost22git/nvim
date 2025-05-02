@@ -7,8 +7,8 @@ return {
   },
   opts = {
     appearance = { nerd_font_variant = 'mono' },
-    sources = { default = { 'lsp', 'path', 'snippets', 'buffer' } },
     signature = { enabled = true },
+    sources = { default = { 'lsp', 'path', 'snippets', 'buffer' } },
 
     completion = {
       ghost_text = { enabled = false },
