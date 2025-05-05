@@ -35,6 +35,10 @@
         "path": "./just.json"
       },
       {
+        "language": "lfe",
+        "path": "./lfe.json"
+      },
+      {
         "language": "raku",
         "path": "./raku.json"
       }
