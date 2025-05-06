@@ -107,27 +107,10 @@ local docr = function(info_or_search)
   local open_doc_window = function(obj, title)
     print('')
     local text = vim.fn.trim(assert(obj.stdout))
-    local lines = vim.fn.split(text, '\n', true)
-    local max_cols = 0
-    for _, l in ipairs(lines) do
-      max_cols = math.max(max_cols, vim.api.nvim_strwidth(l))
-    end
-    local buf = vim.api.nvim_create_buf(false, true)
-    vim.api.nvim_buf_set_lines(buf, 0, #lines, false, lines)
-    local win = vim.api.nvim_open_win(buf, true, {
-      relative = 'cursor',
-      row = 1,
-      col = 0,
-      width = max_cols,
-      height = math.min(16, #lines),
-      style = 'minimal',
-      title = title,
-    })
-    vim.cmd('Man!')
-    vim.bo[buf].filetype = 'man'
-    vim.bo[buf].readonly = true
-    vim.bo[buf].modifiable = false
-    vim.wo[win].wrap = false
+    require('core.utils').open_hover_window(text, title, function(buf, _)
+      vim.cmd('Man!')
+      vim.bo[buf].filetype = 'man'
+    end)
   end
 
   -- on visual mode: get current selection text
@@ -153,5 +136,66 @@ vim.api.nvim_create_autocmd('FileType', {
   callback = function(ev)
     vim.keymap.set({ 'n', 'v' }, '<Leader>k', function() docr('info') end, { buffer = ev.buf, desc = 'docr info' })
     vim.keymap.set({ 'n', 'v' }, '<Leader>K', function() docr('search') end, { buffer = ev.buf, desc = 'docr search' })
+  end,
+})
+
+local lfe_doc = function(m_or_h)
+  local open_doc_window = function(obj, title)
+    print('')
+    local text = vim.fn.trim(assert(obj.stdout))
+    require('core.utils').open_hover_window(text, title, function(buf, _)
+      vim.cmd('Man!')
+      vim.bo[buf].filetype = 'markdown'
+    end)
+  end
+
+  -- on visual mode: get current selection text
+  -- on normal mode: get word under current cursor
+  local U = require('core.utils')
+  local q = U.on_v_modes() and U.get_current_selection_text() or vim.fn.expand('<cword>')
+
+  local qq = ''
+  if m_or_h == 'm' then
+    qq = "(m '" .. q .. ')' -- (m 'proc_ib)
+  else
+    -- q='proc_lib' => qq="(h 'proc_lib)"
+    -- q='proc_lib:stop' => qq="(h 'proc_lib 'stop)"
+    -- q='proc_lib:stop/3' => qq="(h 'proc_lib 'stop 3)"
+    local m, fa = unpack(vim.split(q, ':'))
+    local f, a = nil, nil
+    if fa then
+      f, a = unpack(vim.split(fa, '/'))
+    end
+    qq = '(h'
+    qq = qq .. (m and " '" .. m or '')
+    qq = qq .. (f and " '" .. f or '')
+    qq = qq .. (a and ' ' .. a or '')
+    qq = qq .. ')'
+    print(qq)
+  end
+
+  local cmd = { 'lfe', '-e', qq }
+  local cmd_str = table.concat(cmd, ' ')
+  print(cmd_str, ' ...')
+
+  vim.system(cmd, { text = true, stdin = string.rep('y\n', 10) }, function(res)
+    if res.code ~= 0 or res.stdout == nil or res.stdout == '' then
+      vim.print(cmd_str, res)
+      return
+    end
+    vim.schedule_wrap(open_doc_window)(res, cmd_str)
+  end)
+end
+vim.api.nvim_create_autocmd('FileType', {
+  desc = '[LFE] add keymaps for (m mode) or (h mod fun arity)',
+  pattern = 'lfe',
+  callback = function(ev)
+    vim.keymap.set(
+      { 'n', 'v' },
+      '<Leader>k',
+      function() lfe_doc('h') end,
+      { buffer = ev.buf, desc = 'lfe (h mod fun arity)' }
+    )
+    vim.keymap.set({ 'n', 'v' }, '<Leader>K', function() lfe_doc('m') end, { buffer = ev.buf, desc = 'lfe (m mod)' })
   end,
 })

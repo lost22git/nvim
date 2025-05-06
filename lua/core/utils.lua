@@ -154,6 +154,33 @@ function M.get_current_selection_text()
   return vim.fn.trim(vim.fn.getreg('x'))
 end
 
+function M.open_hover_window(text_or_lines, title, cb)
+  local lines = type(text_or_lines) == 'string' and vim.fn.split(text_or_lines, '\n', true) or text_or_lines
+  local max_cols = 0
+  for _, l in ipairs(lines) do
+    max_cols = math.max(max_cols, vim.api.nvim_strwidth(l))
+  end
+
+  local buf = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_buf_set_lines(buf, 0, #lines, false, lines)
+
+  local win = vim.api.nvim_open_win(buf, true, {
+    relative = 'cursor',
+    row = 1,
+    col = 0,
+    width = max_cols,
+    height = math.min(16, #lines),
+    style = 'minimal',
+    title = title,
+  })
+
+  if cb then cb(buf, win) end
+
+  vim.bo[buf].readonly = true
+  vim.bo[buf].modifiable = false
+  vim.wo[win].wrap = false
+end
+
 function M.get_justfile_tasks(justfile)
   local tasks = {}
   local cmd = { 'just', '-f', justfile, '--list' }
