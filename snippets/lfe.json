@@ -15,13 +15,13 @@
     "prefix": "case",
     "body": [
       "(case ${1:EXPR}",
-      "\t(${2:PATTERN} ${3:THEN})",
+      "\t(${2:PATTERN} ${3:BODY})",
       "\t(_ ${4:DEFAULT}))"
     ]
   },
   "cond": {
     "prefix": "cond",
-    "body": ["(cond", "\t(${1:COND-1} ${2:THEN})", "\t('true ${3:DEFAULT}))"]
+    "body": ["(cond", "\t(${1:COND-1} ${2:BODY})", "\t('true ${3:DEFAULT}))"]
   },
   "defmodule": {
     "prefix": "defmodule",
@@ -62,7 +62,7 @@
   },
   "lfe_io:format": {
     "prefix": "lfe_io:format",
-    "body": "(lfe_io:format \"$1\" '($2))"
+    "body": "(lfe_io:format \"$1\" ($2))"
   },
   "link": {
     "prefix": "link",
@@ -128,6 +128,10 @@
     "prefix": "maps:get",
     "body": "(maps:get ${1:KEY} ${2:MAP} ${3:DEFAULT})"
   },
+  "maybe": {
+    "prefix": "maybe",
+    "body": ["(maybe", "\t(?= ${1:PATTERN} ${2:EXPR})", "\t${3:BODY})"]
+  },
   "process_flag": {
     "prefix": "process_flag",
     "body": "(process_flag '${1:NAME} '${2:true})"
@@ -156,8 +160,8 @@
     "prefix": "receive",
     "body": [
       "(receive",
-      "\t(${1:PATTERN} ${2:THEN})",
-      "\t(after ${3:1000} ${4:TIMEOUT_ACTION}))"
+      "\t(${1:PATTERN} ${2:BODY})",
+      "\t(after ${3:1000} ${4:TIMEOUT_BODY}))"
     ]
   },
   "register": {
