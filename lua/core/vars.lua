@@ -1,12 +1,15 @@
-local LC_DEFAULT = {
+local ZZ_DEFAULT = {
   transparent = false,
   shell = vim.fn.has('win32') == 1 and 'pwsh',
   backdrop = 100,
 }
-vim.g.LC = vim.tbl_deep_extend('force', LC_DEFAULT, vim.g.LC or {})
+vim.g.ZZ = vim.tbl_deep_extend('force', ZZ_DEFAULT, vim.g.ZZ or {})
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+
+vim.g.markdown_fenced_languages = { 'ts=typescript' }
+vim.g.markdown_recommended_style = 0
 
 -- :help clipboard
 -- see https://github.com/neovim/neovim/issues/9570

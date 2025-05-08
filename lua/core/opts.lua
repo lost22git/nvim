@@ -39,10 +39,17 @@ vim.opt.fileencoding = 'utf-8'
 
 -- Floating Window / Popup Menu
 vim.opt.winborder = 'rounded'
-vim.opt.winblend = 0 -- floating window transparency [0-100]
-vim.opt.pumblend = 0 -- popup menu transparency [0-100]
+vim.opt.winblend = 0
+vim.opt.pumblend = 0
 
 -- Fold
+vim.opt.fillchars:append({
+  eob = ' ',
+  foldsep = ' ',
+  foldopen = '',
+  foldclose = '',
+})
+vim.opt.foldcolumn = '1'
 vim.opt.foldenable = true
 vim.opt.foldlevelstart = 99
 vim.opt.foldlevel = 99
@@ -65,9 +72,6 @@ vim.opt.showmode = false
 -- Mouse Support
 vim.opt.mouse = 'a'
 
--- Sign Column
-vim.opt.signcolumn = 'yes' -- always render signcolumn to avoid jitter
-
 -- Split
 vim.opt.splitright = true
 vim.opt.splitbelow = true
@@ -80,17 +84,19 @@ vim.opt.tabstop = 2 -- <tab> spacecount
 vim.opt.expandtab = true
 vim.opt.smarttab = true
 
--- Visable Area Scroll Range
-vim.opt.scrolloff = 10 -- scroll offset lines
-vim.opt.wrap = false
-vim.opt.sidescrolloff = 10 -- scroll offset columns (works with wrap=false)
+-- Scroll Offset
+vim.opt.scrolloff = 10
 -- vim.opt.scrolloff = (999 - vim.o.scrolloff) -- keep cursor centered
+vim.opt.sidescrolloff = 10
 
 -- Search
 vim.opt.hlsearch = true
 vim.opt.magic = true
 
 -- Misc
+vim.opt.signcolumn = 'yes' -- always render signcolumn to avoid jitter
+vim.opt.list = true
+vim.opt.wrap = false
 vim.opt.backup = false
 vim.opt.swapfile = false
 vim.opt.undofile = false

@@ -31,13 +31,8 @@ return {
       sh = { 'shfmt' },
       swift = { 'swift_format' },
       toml = { 'taplo' },
+      typescript = { 'deno_fmt', 'prettier' },
       zig = { 'zigfmt' },
-    },
-    formatters = {
-      ['janet-format'] = {
-        command = 'janet-format',
-        stdin = true,
-      },
     },
   },
 }

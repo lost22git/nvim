@@ -66,17 +66,19 @@ end
 
 function M.lsp_capabilities()
   return vim.tbl_deep_extend('force', require('blink.cmp').get_lsp_capabilities(), {
+    textDocument = { semanticTokens = { multilineTokenSupport = true } },
     workspace = { fileOperations = { didRename = true, willRename = true } },
   })
 end
 
-function M.lsp_on_attach(client, bufnr)
-  require('core.maps').lsp(bufnr)
-  M.lsp_format_on_save(client, bufnr)
-  M.lsp_codelens_refresh(client, bufnr)
+function M.lsp_on_attach(client, buf)
+  vim.bo[buf].omnifunc = nil -- Unset 'omnifunc'
+  require('core.maps').lsp(buf)
+  M.lsp_format_on_save(client, buf)
+  M.lsp_codelens_refresh(client, buf)
 end
 
-function M.lsp_format_on_save(client, bufnr)
+function M.lsp_format_on_save(client, buf)
   -- Use conform format
   local has_conform, _ = pcall(require, 'conform')
   if has_conform then return end
@@ -84,23 +86,23 @@ function M.lsp_format_on_save(client, bufnr)
   -- Use lsp format, if conform not exists
   if client:supports_method('textDocument/formatting') then
     local aug = vim.api.nvim_create_augroup('lsp_format_on_save', {})
-    vim.api.nvim_clear_autocmds({ group = aug, buffer = bufnr })
+    vim.api.nvim_clear_autocmds({ group = aug, buffer = buf })
     vim.api.nvim_create_autocmd('BufWritePre', {
       group = aug,
-      buffer = bufnr,
-      callback = function() vim.lsp.buf.format({ bufnr = bufnr, timeout_ms = 1000 }) end,
+      buffer = buf,
+      callback = function() vim.lsp.buf.format({ bufnr = buf, timeout_ms = 1000 }) end,
     })
   end
 end
 
-function M.lsp_codelens_refresh(client, bufnr)
+function M.lsp_codelens_refresh(client, buf)
   if client:supports_method('textDocument/codeLens') then
     local aug = vim.api.nvim_create_augroup('lsp_codelens_refresh', {})
-    vim.api.nvim_clear_autocmds({ group = aug, buffer = bufnr })
+    vim.api.nvim_clear_autocmds({ group = aug, buffer = buf })
     vim.lsp.codelens.refresh()
     vim.api.nvim_create_autocmd({ 'BufEnter', 'InsertLeave' }, {
       group = aug,
-      buffer = bufnr,
+      buffer = buf,
       callback = vim.lsp.codelens.refresh,
     })
   end
@@ -174,6 +176,7 @@ function M.open_hover_window(text_or_lines, title, cb)
     title = title,
   })
 
+  vim.bo[buf].modifiable = true
   if cb then cb(buf, win) end
 
   vim.bo[buf].readonly = true

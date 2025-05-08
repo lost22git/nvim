@@ -5,7 +5,6 @@ require('core.autocmds')
 -- load plugins
 require('lz')
 
--- load core.maps core.hls
 -- after plugins to override them
 require('core.maps')
 require('core.hls')

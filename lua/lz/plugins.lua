@@ -238,7 +238,7 @@ return {
     },
     opts = {
       ft = 'FTerm',
-      cmd = vim.g.LC.shell or vim.o.shell,
+      cmd = vim.g.ZZ.shell or vim.o.shell,
       border = vim.opt.winborder:get(),
     },
   },

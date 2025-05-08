@@ -101,7 +101,6 @@ return {
           local filename = MiniStatusline.section_filename({ trunc_width = 140 })
           local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 120 })
           local location = MiniStatusline.section_location({ trunc_width = 75 })
-          local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
 
           -- show buffer count
           local buffers = '󱂬 ' .. require('core.utils').get_buffer_count()
@@ -113,7 +112,7 @@ return {
             { hl = 'MiniStatuslineFilename', strings = { filename } },
             '%=', -- End left alignment
             { hl = 'MiniStatuslineFileinfo', strings = { buffers, fileinfo } },
-            { hl = mode_hl, strings = { search, location } },
+            { hl = mode_hl, strings = { location } },
           })
         end,
       },
@@ -194,10 +193,10 @@ return {
     keys = { '<Leader>f' },
     opts = {
       mappings = {
+        scroll_up = '<C-k>',
         scroll_down = '<C-j>',
         scroll_left = '<C-h>',
         scroll_right = '<C-l>',
-        scroll_up = '<C-k>',
         move_down = '<M-j>',
         move_up = '<M-k>',
         caret_left = '<C-b>',

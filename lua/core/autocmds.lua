@@ -103,22 +103,35 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
-local docr = function(info_or_search)
+local nvim_help = function()
+  local U = require('core.utils')
+  local q = U.on_v_modes() and U.get_current_selection_text() or vim.fn.expand('<cword>')
+  vim.cmd('help ' .. q)
+end
+vim.api.nvim_create_autocmd('FileType', {
+  desc = 'Add keymaps for nvim help',
+  pattern = { 'lua' },
+  callback = function(ev)
+    local cb = function() vim.keymap.set({ 'n', 'v' }, '<Leader>k', nvim_help, { buffer = ev.buf, desc = 'nvim help' }) end
+    vim.defer_fn(cb, 1000)
+  end,
+})
+
+local add_keymaps_for_docr = function(_) end
+local docr = function(subcmd)
   local open_doc_window = function(obj, title)
     print('')
     local text = vim.fn.trim(assert(obj.stdout))
     require('core.utils').open_hover_window(text, title, function(buf, _)
-      vim.cmd('Man!')
-      vim.bo[buf].filetype = 'man'
+      vim.bo[buf].filetype = 'markdown'
+      add_keymaps_for_docr(buf)
     end)
   end
 
-  -- on visual mode: get current selection text
-  -- on normal mode: get word under current cursor
   local U = require('core.utils')
   local q = U.on_v_modes() and U.get_current_selection_text() or vim.fn.expand('<cword>')
 
-  local cmd = { 'docr', info_or_search, "'" .. vim.fn.escape(q, "'") .. "'" }
+  local cmd = { 'docr', subcmd, "'" .. vim.fn.escape(q, "'") .. "'" }
   local cmd_str = table.concat(cmd, ' ')
   print(cmd_str, ' ...')
 
@@ -130,27 +143,24 @@ local docr = function(info_or_search)
     vim.schedule_wrap(open_doc_window)(res, cmd_str)
   end)
 end
+add_keymaps_for_docr = function(buf)
+  vim.keymap.set({ 'n', 'v' }, '<Leader>k', function() docr('info') end, { buffer = buf, desc = 'docr info' })
+  vim.keymap.set({ 'n', 'v' }, '<Leader>K', function() docr('search') end, { buffer = buf, desc = 'docr search' })
+  vim.keymap.set({ 'n', 'v' }, '<Leader>kk', function() docr('tree') end, { buffer = buf, desc = 'docr tree' })
+end
 vim.api.nvim_create_autocmd('FileType', {
   desc = '[Crystal] add keymaps for docr',
   pattern = 'crystal',
-  callback = function(ev)
-    vim.keymap.set({ 'n', 'v' }, '<Leader>k', function() docr('info') end, { buffer = ev.buf, desc = 'docr info' })
-    vim.keymap.set({ 'n', 'v' }, '<Leader>K', function() docr('search') end, { buffer = ev.buf, desc = 'docr search' })
-  end,
+  callback = function(ev) add_keymaps_for_docr(ev.buf) end,
 })
 
 local lfe_doc = function(m_or_h)
   local open_doc_window = function(obj, title)
     print('')
     local text = vim.fn.trim(assert(obj.stdout))
-    require('core.utils').open_hover_window(text, title, function(buf, _)
-      vim.cmd('Man!')
-      vim.bo[buf].filetype = 'markdown'
-    end)
+    require('core.utils').open_hover_window(text, title, function(buf, _) vim.bo[buf].filetype = 'markdown' end)
   end
 
-  -- on visual mode: get current selection text
-  -- on normal mode: get word under current cursor
   local U = require('core.utils')
   local q = U.on_v_modes() and U.get_current_selection_text() or vim.fn.expand('<cword>')
 
