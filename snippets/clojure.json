@@ -1,209 +1,139 @@
 {
   "*assert*": {
     "prefix": "v*assert*",
-    "body": [
-      "*assert*"
-    ]
+    "body": ["*assert*"]
   },
   "*clojure-version*": {
     "prefix": "v*clojure-version*",
-    "body": [
-      "*clojure-version*"
-    ]
+    "body": ["*clojure-version*"]
   },
   "*command-line-args*": {
     "prefix": "v*command-line-args*",
-    "body": [
-      "*command-line-args*"
-    ]
+    "body": ["*command-line-args*"]
   },
   "*compile-files*": {
     "prefix": "v*compile-files*",
-    "body": [
-      "*compile-files*"
-    ]
+    "body": ["*compile-files*"]
   },
   "*compile-path*": {
     "prefix": "v*compile-path*",
-    "body": [
-      "*compile-path*"
-    ]
+    "body": ["*compile-path*"]
   },
   "*compiler-options*": {
     "prefix": "v*compiler-options*",
-    "body": [
-      "*compiler-options*"
-    ]
+    "body": ["*compiler-options*"]
   },
   "*data-readers*": {
     "prefix": "v*data-readers*",
-    "body": [
-      "*data-readers*"
-    ]
+    "body": ["*data-readers*"]
   },
   "*default-data-reader-fn*": {
     "prefix": "v*default-data-reader-fn*",
-    "body": [
-      "*default-data-reader-fn*"
-    ]
+    "body": ["*default-data-reader-fn*"]
   },
   "*e": {
     "prefix": "v*e",
-    "body": [
-      "*e"
-    ]
+    "body": ["*e"]
   },
   "*err*": {
     "prefix": "v*err*",
-    "body": [
-      "*err*"
-    ]
+    "body": ["*err*"]
   },
   "*file*": {
     "prefix": "v*file*",
-    "body": [
-      "*file*"
-    ]
+    "body": ["*file*"]
   },
   "*flush-on-newline*": {
     "prefix": "v*flush-on-newline*",
-    "body": [
-      "*flush-on-newline*"
-    ]
+    "body": ["*flush-on-newline*"]
   },
   "*in*": {
     "prefix": "v*in*",
-    "body": [
-      "*in*"
-    ]
+    "body": ["*in*"]
   },
   "*math-context*": {
     "prefix": "v*math-context*",
-    "body": [
-      "*math-context*"
-    ]
+    "body": ["*math-context*"]
   },
   "*ns*": {
     "prefix": "v*ns*",
-    "body": [
-      "*ns*"
-    ]
+    "body": ["*ns*"]
   },
   "*out*": {
     "prefix": "v*out*",
-    "body": [
-      "*out*"
-    ]
+    "body": ["*out*"]
   },
   "*print-dup*": {
     "prefix": "v*print-dup*",
-    "body": [
-      "*print-dup*"
-    ]
+    "body": ["*print-dup*"]
   },
   "*print-length*": {
     "prefix": "v*print-length*",
-    "body": [
-      "*print-length*"
-    ]
+    "body": ["*print-length*"]
   },
   "*print-level*": {
     "prefix": "v*print-level*",
-    "body": [
-      "*print-level*"
-    ]
+    "body": ["*print-level*"]
   },
   "*print-meta*": {
     "prefix": "v*print-meta*",
-    "body": [
-      "*print-meta*"
-    ]
+    "body": ["*print-meta*"]
   },
   "*print-namespace-maps*": {
     "prefix": "v*print-namespace-maps*",
-    "body": [
-      "*print-namespace-maps*"
-    ]
+    "body": ["*print-namespace-maps*"]
   },
   "*print-readably*": {
     "prefix": "v*print-readably*",
-    "body": [
-      "*print-readably*"
-    ]
+    "body": ["*print-readably*"]
   },
   "*read-eval*": {
     "prefix": "v*read-eval*",
-    "body": [
-      "*read-eval*"
-    ]
+    "body": ["*read-eval*"]
   },
   "*reader-resolver*": {
     "prefix": "v*reader-resolver*",
-    "body": [
-      "*reader-resolver*"
-    ]
+    "body": ["*reader-resolver*"]
   },
   "*repl*": {
     "prefix": "v*repl*",
-    "body": [
-      "*repl*"
-    ]
+    "body": ["*repl*"]
   },
   "*source-path*": {
     "prefix": "v*source-path*",
-    "body": [
-      "*source-path*"
-    ]
+    "body": ["*source-path*"]
   },
   "*unchecked-math*": {
     "prefix": "v*unchecked-math*",
-    "body": [
-      "*unchecked-math*"
-    ]
+    "body": ["*unchecked-math*"]
   },
   "*warn-on-reflection*": {
     "prefix": "v*warn-on-reflection*",
-    "body": [
-      "*warn-on-reflection*"
-    ]
+    "body": ["*warn-on-reflection*"]
   },
   "assert-eq": {
     "prefix": "assert-eq",
-    "body": [
-      "assert (= ${1:expect}",
-      "\t${2:body})"
-    ]
+    "body": ["assert (= ${1:expect}", "\t${2:body})"]
   },
   "assert-false": {
     "prefix": "assert-false",
-    "body": [
-      "assert (not ${1:false-body})"
-    ]
+    "body": ["assert (not ${1:false-body})"]
   },
   "assert-ne": {
     "prefix": "assert-ne",
-    "body": [
-      "assert (not= ${1:expect}",
-      "\t${2:body})"
-    ]
+    "body": ["assert (not= ${1:expect}", "\t${2:body})"]
   },
   "assert-nil": {
     "prefix": "assert-nil",
-    "body": [
-      "assert (nil? ${1:body})"
-    ]
+    "body": ["assert (nil? ${1:body})"]
   },
   "assert-not-nil": {
     "prefix": "assert-not-nil",
-    "body": [
-      "assert (not (nil? ${1:body}))"
-    ]
+    "body": ["assert (not (nil? ${1:body}))"]
   },
   "assert-true": {
     "prefix": "assert-true",
-    "body": [
-      "assert ${1:true-body}"
-    ]
+    "body": ["assert ${1:true-body}"]
   },
   "bb-add-deps": {
     "prefix": "bb-add-deps",
@@ -213,27 +143,19 @@
   },
   "bb-cli": {
     "prefix": "bb-cli",
-    "body": [
-      "babashka.cli"
-    ]
+    "body": ["babashka.cli"]
   },
   "bb-deps": {
     "prefix": "bb-deps",
-    "body": [
-      "babashka.deps"
-    ]
+    "body": ["babashka.deps"]
   },
   "bb-fs": {
     "prefix": "bb-fs",
-    "body": [
-      "babashka.fs"
-    ]
+    "body": ["babashka.fs"]
   },
   "bb-http": {
     "prefix": "bb-http",
-    "body": [
-      "babashka.http-client"
-    ]
+    "body": ["babashka.http-client"]
   },
   "bb-main": {
     "prefix": "bb-main",
@@ -247,101 +169,67 @@
   },
   "bb-proc": {
     "prefix": "bb-proc",
-    "body": [
-      "babashka.process"
-    ]
+    "body": ["babashka.process"]
   },
   "bean": {
     "prefix": "bean",
-    "body": [
-      "bean ${1:data}"
-    ]
+    "body": ["bean ${1:data}"]
   },
   "case-bool": {
     "prefix": "case-bool",
-    "body": [
-      "case ${1:test}",
-      "true ${2:then-body}",
-      "false ${3:else-body}"
-    ]
+    "body": ["case ${1:test}", "true ${2:then-body}", "false ${3:else-body}"]
   },
   "clj-async": {
     "prefix": "clj-async",
-    "body": [
-      "clojure.core.async"
-    ]
+    "body": ["clojure.core.async"]
   },
   "clj-csv": {
     "prefix": "clj-csv",
-    "body": [
-      "clojure.data.csv"
-    ]
+    "body": ["clojure.data.csv"]
   },
   "clj-edn": {
     "prefix": "clj-edn",
-    "body": [
-      "clojure.edn"
-    ]
+    "body": ["clojure.edn"]
   },
   "clj-io": {
     "prefix": "clj-io",
-    "body": [
-      "clojure.java.io"
-    ]
+    "body": ["clojure.java.io"]
   },
   "clj-log": {
     "prefix": "clj-log",
-    "body": [
-      "clojure.tools.logging"
-    ]
+    "body": ["clojure.tools.logging"]
   },
   "clj-match": {
     "prefix": "clj-match",
-    "body": [
-      "clojure.core.match"
-    ]
+    "body": ["clojure.core.match"]
   },
   "clj-proc": {
     "prefix": "clj-proc",
-    "body": [
-      "clojure.core.proc"
-    ]
+    "body": ["clojure.core.proc"]
   },
   "clj-string": {
     "prefix": "clj-string",
-    "body": [
-      "clojure.string"
-    ]
+    "body": ["clojure.string"]
   },
   "clj-test": {
     "prefix": "clj-test",
-    "body": [
-      "clojure.test"
-    ]
+    "body": ["clojure.test"]
   },
   "clj-xml": {
     "prefix": "clj-xml",
-    "body": [
-      "clojure.data.xml"
-    ]
+    "body": ["clojure.data.xml"]
   },
   "datafy": {
     "prefix": "datafy",
-    "body": [
-      "clojure.datafy/datafy ${1:data}"
-    ]
+    "body": ["clojure.datafy/datafy ${1:data}"]
   },
   "def": {
     "prefix": "def",
-    "body": [
-      "def ${1:a} ${2:b}"
-    ]
+    "body": ["def ${1:a} ${2:b}"]
   },
   "def-dynamic": {
     "prefix": "def-dynamic",
-    "body": [
-      "def ^:dynamic ${1:a} ${2:b}"
-    ]
+    "body": ["def ^:dynamic ${1:a} ${2:b}"]
   },
   "defmethod": {
     "prefix": "defmethod",
@@ -354,9 +242,7 @@
   },
   "defmulti": {
     "prefix": "defmulti",
-    "body": [
-      "defmulti ${1:name} ${2:dispatch-fn}"
-    ]
+    "body": ["defmulti ${1:name} ${2:dispatch-fn}"]
   },
   "defn": {
     "prefix": "defn",
@@ -369,105 +255,63 @@
   },
   "defonce": {
     "prefix": "defonce",
-    "body": [
-      "defonce ${1:a} ${2:b}"
-    ]
+    "body": ["defonce ${1:a} ${2:b}"]
   },
   "defonce-dynamic": {
     "prefix": "defonce-dynamic",
-    "body": [
-      "defonce ^:dynamic ${1:a} ${2:b}"
-    ]
+    "body": ["defonce ^:dynamic ${1:a} ${2:b}"]
   },
   "defrecord": {
     "prefix": "defrecord",
-    "body": [
-      "defrecord ${1:name} [{$2:props}]"
-    ]
+    "body": ["defrecord ${1:name} [{$2:props}]"]
   },
   "fields": {
     "prefix": "flds",
-    "body": [
-      "{:flds [${1:f}]}"
-    ]
+    "body": ["{:flds [${1:f}]}"]
   },
   "fields-as": {
     "prefix": "flds-as",
-    "body": [
-      "{:flds [${1:f}] :as ${2:as}}"
-    ]
+    "body": ["{:flds [${1:f}] :as ${2:as}}"]
   },
   "fn": {
     "prefix": "fn",
-    "body": [
-      "fn [${1:params}]",
-      "\t${2:body}"
-    ]
+    "body": ["fn [${1:params}]", "\t${2:body}"]
   },
   "for": {
     "prefix": "for",
-    "body": [
-      "for [${1:i} ${2:col}]",
-      "\t${3:body}"
-    ]
+    "body": ["for [${1:i} ${2:col}]", "\t${3:body}"]
   },
   "for-when": {
     "prefix": "for-when",
-    "body": [
-      "for [${1:i} ${2:col} :when (${3:f} ${1:i})]",
-      "\t${4:body}"
-    ]
+    "body": ["for [${1:i} ${2:col} :when (${3:f} ${1:i})]", "\t${4:body}"]
   },
   "for-while": {
     "prefix": "for-while",
-    "body": [
-      "for [${1:i} ${2:col} :while (${3:f} ${1:i})]",
-      "\t${4:body}"
-    ]
+    "body": ["for [${1:i} ${2:col} :while (${3:f} ${1:i})]", "\t${4:body}"]
   },
   "if": {
     "prefix": "if",
-    "body": [
-      "if ${1:test} ${2:then-body} ${3:else-body}"
-    ]
+    "body": ["if ${1:test} ${2:then-body} ${3:else-body}"]
   },
   "if-eq": {
     "prefix": "if-eq",
-    "body": [
-      "if (= ${1:a} ${2:b})",
-      "\t${3:then-body}",
-      "\t${4:else-body}"
-    ]
+    "body": ["if (= ${1:a} ${2:b})", "\t${3:then-body}", "\t${4:else-body}"]
   },
   "if-let": {
     "prefix": "if-let",
-    "body": [
-      "if-let [${1:a} ${2:b}]",
-      "\t${3:then-body}",
-      "\t${4:else-body}"
-    ]
+    "body": ["if-let [${1:k} ${2:v}]", "\t${3:then-body}", "\t${4:else-body}"]
   },
   "if-ne": {
     "prefix": "if-ne",
-    "body": [
-      "if (not= ${1:a} ${2:b})",
-      "\t${3:then-body}",
-      "\t${4:else-body}"
-    ]
+    "body": ["if (not= ${1:a} ${2:b})", "\t${3:then-body}", "\t${4:else-body}"]
   },
   "if-not": {
     "prefix": "if-not",
-    "body": [
-      "if-not ${1:test} ${2:then-body} ${3:else-body}"
-    ]
+    "body": ["if-not ${1:test} ${2:then-body} ${3:else-body}"]
   },
   "if-some": {
     "prefix": "if-some",
-    "body": [
-      "if-some [${1:a} ${2:b}]",
-      "\t${3:then-body}",
-      "\t${4:else-body}"
-    ]
+    "body": ["if-some [${1:a} ${2:b}]", "\t${3:then-body}", "\t${4:else-body}"]
   },
   "ig-repl": {
     "prefix": "ig-repl",
@@ -492,40 +336,27 @@
   },
   "json-cheshire": {
     "prefix": "json-cheshire",
-    "body": [
-      "cheshire.core"
-    ]
+    "body": ["cheshire.core"]
   },
   "keys": {
     "prefix": "keys",
-    "body": [
-      "{:keys [${1:k}]}"
-    ]
+    "body": ["{:keys [${1:k}]}"]
   },
   "keys-as": {
     "prefix": "keys-as",
-    "body": [
-      "{:keys [${1:k}] :as ${2:as}}"
-    ]
+    "body": ["{:keys [${1:k}] :as ${2:as}}"]
   },
   "let": {
     "prefix": "let",
-    "body": [
-      "let [${1:a} ${2:b}]",
-      "\t${3:body}"
-    ]
+    "body": ["let [${1:k} ${2:v}]", "\t${3:body}"]
   },
   "pprint": {
     "prefix": "pp",
-    "body": [
-      "clojure.pprint/pprint ${1:v}"
-    ]
+    "body": ["clojure.pprint/pprint ${1:v}"]
   },
   "println": {
     "prefix": "p",
-    "body": [
-      "println ${1:v}"
-    ]
+    "body": ["println ${1:v}"]
   },
   "repl": {
     "prefix": "repl",
@@ -569,55 +400,34 @@
   },
   "sleep": {
     "prefix": "sleep",
-    "body": [
-      "Thread/sleep ${1:seconds}"
-    ]
+    "body": ["Thread/sleep ${1:seconds}"]
   },
   "when": {
     "prefix": "when",
-    "body": [
-      "when ${1:a} ${2:body}"
-    ]
+    "body": ["when ${1:a} ${2:body}"]
   },
   "when-eq": {
     "prefix": "when-eq",
-    "body": [
-      "when (= ${1:a} ${2:b})",
-      "\t${3:body}"
-    ]
+    "body": ["when (= ${1:a} ${2:b})", "\t${3:body}"]
   },
   "when-first": {
     "prefix": "when-first",
-    "body": [
-      "when-first [${1:a} ${2:b}]",
-      "\t${3:body}"
-    ]
+    "body": ["when-first [${1:a} ${2:b}]", "\t${3:body}"]
   },
   "when-let": {
     "prefix": "when-let",
-    "body": [
-      "when-let [${1:a} ${2:b}]",
-      "\t${3:body}"
-    ]
+    "body": ["when-let [${1:a} ${2:b}]", "\t${3:body}"]
   },
   "when-ne": {
     "prefix": "when-ne",
-    "body": [
-      "when (not= ${1:a} ${2:b})",
-      "\t${3:body}"
-    ]
+    "body": ["when (not= ${1:a} ${2:b})", "\t${3:body}"]
   },
   "when-not": {
     "prefix": "when-not",
-    "body": [
-      "when-not ${1:a} ${2:body}"
-    ]
+    "body": ["when-not ${1:a} ${2:body}"]
   },
   "when-some": {
     "prefix": "when-some",
-    "body": [
-      "when-some [${1:a} ${2:b}]",
-      "\t${3:body}"
-    ]
+    "body": ["when-some [${1:a} ${2:b}]", "\t${3:body}"]
   }
 }

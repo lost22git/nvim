@@ -121,71 +121,83 @@
   },
   "edefer": {
     "prefix": "edefer",
-    "body": ["(edefer ${1:form} ${2:body})"]
+    "body": ["edefer ${1:form} ${2:body}"]
   },
   "defer": {
     "prefix": "defer",
-    "body": ["(defer ${1:form} ${2:body})"]
+    "body": ["defer ${1:form} ${2:body}"]
   },
   "for-range": {
     "prefix": "for-range",
-    "body": ["(for ${1:i} ${2:start} ${3:stop} ${4:body})"]
+    "body": ["for ${1:i} ${2:start} ${3:stop} ${4:body}"]
+  },
+  "if-let": {
+    "prefix": "if-let",
+    "body": ["if-let [${1:k} ${2:v}]", "\t${3:then-body}", "\t${4:else-body}"]
   },
   "if-with": {
     "prefix": "if-with",
-    "body": ["(if-with [${1:bindings}] ${2:body})"]
+    "body": ["if-with [${1:v} ${2:ctor} ${3:dtor}] ${4:body}"]
+  },
+  "let": {
+    "prefix": "let",
+    "body": ["let [${1:k} ${2:v}]", "\t${3:body}"]
   },
   "loop-down": {
     "prefix": "loop-down",
-    "body": ["(loop [${1:i} :down [${2:start} ${3:stop}]] ${4:body})"]
+    "body": ["loop [${1:i} :down [${2:start} ${3:stop}]] ${4:body}"]
   },
   "loop-down-to": {
     "prefix": "loop-down-to",
-    "body": ["(loop [${1:i} :down-to [${2:start} ${3:stop}]] ${4:body})"]
+    "body": ["loop [${1:i} :down-to [${2:start} ${3:stop}]] ${4:body}"]
   },
   "loop-keys": {
     "prefix": "loop-keys",
-    "body": ["(loop [${1:k} :keys ${2:col}] ${3:body})"]
+    "body": ["loop [${1:k} :keys ${2:col}] ${3:body}"]
   },
   "loop-in": {
     "prefix": "loop-in",
-    "body": ["(loop [${1:v} :in ${2:col}] ${3:body})"]
+    "body": ["loop [${1:v} :in ${2:col}] ${3:body}"]
   },
   "loop-pairs": {
     "prefix": "loop-pairs",
-    "body": ["(loop [[${1:k} ${2:v}] :pairs ${3:col}] ${4:body})"]
+    "body": ["loop [[${1:k} ${2:v}] :pairs ${3:col}] ${4:body}"]
   },
   "loop-range": {
     "prefix": "loop-range",
-    "body": ["(loop [${1:i} :range [${2:start} ${3:stop}]] ${4:body})"]
+    "body": ["loop [${1:i} :range [${2:start} ${3:stop}]] ${4:body}"]
   },
   "loop-range-to": {
     "prefix": "loop-range-to",
-    "body": ["(loop [${1:i} :range-to [${2:start} ${3:stop}]] ${4:body})"]
+    "body": ["loop [${1:i} :range-to [${2:start} ${3:stop}]] ${4:body}"]
   },
   "try": {
     "prefix": "try",
     "body": [
-      "(try ${1:body}",
+      "try ${1:body}",
       "\t([err fiber]",
       "\t\t(debug/stacktrace fiber err \"\")",
-      "\t\t${2:fallback-value}))"
+      "\t\t${2:fallback-value})"
     ]
   },
   "when-with": {
     "prefix": "when-with",
-    "body": ["(when-with [${1:bindings}] ${2:body})"]
+    "body": ["when-with [${1:v} ${2:ctor} ${3:dtor}] ${4:body}"]
   },
   "with": {
     "prefix": "with",
-    "body": ["(with [${1:bindings}] ${2:body})"]
+    "body": ["with [${1:v} ${2:ctor} ${3:dtor}] ${4:body}"]
   },
   "with-dyns": {
     "prefix": "with-dyns",
-    "body": ["(with-dyns [${1:bindings}] ${2:body})"]
+    "body": ["with-dyns [${1:bindings}] ${2:body}"]
   },
   "with-syms": {
     "prefix": "with-syms",
-    "body": ["(with-syms [${1:bindings}] ${2:body})"]
+    "body": ["with-syms [${1:syms}] ${2:body}"]
+  },
+  "with-vars": {
+    "prefix": "with-vars",
+    "body": ["with-vars [${1:bindings}] ${2:body}"]
   }
 }

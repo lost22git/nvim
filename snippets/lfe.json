@@ -1,76 +1,75 @@
 {
   "binary": {
     "prefix": "binary",
-    "body": "(binary $1)"
+    "body": "binary $1"
   },
   "call": {
     "prefix": "call",
-    "body": "(call '${1:MOD} '${2:FUNC} $3)"
+    "body": "call '${1:MOD} '${2:FUNC} $3"
   },
   "funcall": {
     "prefix": "funcall",
-    "body": "(funcall '${1:FUNC} $2)"
+    "body": "funcall '${1:FUNC} $2"
   },
   "case": {
     "prefix": "case",
     "body": [
-      "(case ${1:EXPR}",
+      "case ${1:EXPR}",
       "\t(${2:PATTERN} ${3:BODY})",
-      "\t(_ ${4:DEFAULT}))"
+      "\t(_ ${4:DEFAULT})"
     ]
   },
   "cond": {
     "prefix": "cond",
-    "body": ["(cond", "\t(${1:COND-1} ${2:BODY})", "\t('true ${3:DEFAULT}))"]
+    "body": ["cond", "\t(${1:COND-1} ${2:BODY})", "\t('true ${3:DEFAULT})"]
   },
   "defmodule": {
     "prefix": "defmodule",
-    "body": "(defmodule ${1:NAME} (export all))"
+    "body": "defmodule ${1:NAME} (export all)"
   },
   "defun": {
     "prefix": "defun",
-    "body": "(defun ${1:NAME} ($2) $3)"
+    "body": "defun ${1:NAME} ($2) $3"
   },
   "defmacro": {
     "prefix": "defmacro",
-    "body": "(defmacro ${1:NAME} ($2) $3)"
+    "body": "defmacro ${1:NAME} ($2) $3"
   },
   "defrecord": {
     "prefix": "defrecord",
     "body": [
-      "(defrecord ${1:NAME}",
-      "\t(${2:FIELD} ${3:DEFAULT_VALUE} ${4:TYPE})",
-      ")"
+      "defrecord ${1:NAME}",
+      "\t(${2:FIELD} ${3:DEFAULT_VALUE} ${4:TYPE})"
     ]
   },
   "exit": {
     "prefix": "exit",
-    "body": "(exit ${1:'normal})"
+    "body": "exit ${1:'normal}"
   },
   "function": {
     "prefix": "function",
-    "body": "(function '${1:MOD} '${2:FUNC} ${3:ARITY})",
+    "body": "function '${1:MOD} '${2:FUNC} ${3:ARITY}",
     "description": "Function reference, like #'mod:func/arity but runtime"
   },
   "if": {
     "prefix": "if",
-    "body": "(if ${1:TEST} ${2:TRUELY} ${3:FALSEY})"
+    "body": "if ${1:TEST} ${2:TRUELY} ${3:FALSEY}"
   },
   "lambda": {
     "prefix": "lambda",
-    "body": "(lambda ($1) $2)"
+    "body": "lambda ($1) $2"
   },
   "lfe_io:format": {
     "prefix": "lfe_io:format",
-    "body": "(lfe_io:format \"$1\" ($2))"
+    "body": "lfe_io:format \"$1\" ($2)"
   },
   "link": {
     "prefix": "link",
-    "body": "(link ${1:PID})"
+    "body": "link ${1:PID}"
   },
   "list": {
     "prefix": "list",
-    "body": "(list $1)"
+    "body": "list $1"
   },
   "list-literal": {
     "prefix": "list-literal",
@@ -86,63 +85,63 @@
   },
   "msiz": {
     "prefix": "msiz",
-    "body": "(msiz ${1:MAP})"
+    "body": "msiz ${1:MAP}"
   },
   "mref": {
     "prefix": "mref",
-    "body": "(mref ${1:MAP} ${2:KEY})"
+    "body": "mref ${1:MAP} ${2:KEY}"
   },
   "mset": {
     "prefix": "mset",
-    "body": "(mset ${1:MAP} ${2:KEY} ${3:VALUE})"
+    "body": "mset ${1:MAP} ${2:KEY} ${3:VALUE}"
   },
   "mupd": {
     "prefix": "mupd",
-    "body": "(mupd ${1:MAP} ${2:KEY} ${3:VALUE})"
+    "body": "mupd ${1:MAP} ${2:KEY} ${3:VALUE}"
   },
   "mrem": {
     "prefix": "mrem",
-    "body": "(mrem ${1:MAP} ${2:KEY})"
+    "body": "mrem ${1:MAP} ${2:KEY}"
   },
   "map-size": {
     "prefix": "map-size",
-    "body": "(map-size ${1:MAP})"
+    "body": "map-size ${1:MAP}"
   },
   "map-get": {
     "prefix": "map-get",
-    "body": "(map-get ${1:MAP} ${2:KEY})"
+    "body": "map-get ${1:MAP} ${2:KEY}"
   },
   "map-set": {
     "prefix": "map-set",
-    "body": "(map-set ${1:MAP} ${2:KEY} ${3:VALUE})"
+    "body": "map-set ${1:MAP} ${2:KEY} ${3:VALUE}"
   },
   "map-update": {
     "prefix": "map-update",
-    "body": "(map-update ${1:MAP} ${2:KEY} ${3:VALUE})"
+    "body": "map-update ${1:MAP} ${2:KEY} ${3:VALUE}"
   },
   "map-remove": {
     "prefix": "map-remove",
-    "body": "(map-remove ${1:MAP} ${2:KEY} ${3:VALUE})"
+    "body": "map-remove ${1:MAP} ${2:KEY} ${3:VALUE}"
   },
   "maps:get": {
     "prefix": "maps:get",
-    "body": "(maps:get ${1:KEY} ${2:MAP} ${3:DEFAULT})"
+    "body": "maps:get ${1:KEY} ${2:MAP} ${3:DEFAULT}"
   },
   "maybe": {
     "prefix": "maybe",
-    "body": ["(maybe", "\t(?= ${1:PATTERN} ${2:EXPR})", "\t${3:BODY})"]
+    "body": ["maybe", "\t(?= ${1:PATTERN} ${2:EXPR})", "\t${3:BODY}"]
   },
   "process_flag": {
     "prefix": "process_flag",
-    "body": "(process_flag '${1:NAME} '${2:true})"
+    "body": "process_flag '${1:NAME} '${2:true}"
   },
   "p": {
     "prefix": "p",
-    "body": "(p $1)"
+    "body": "p $1"
   },
   "pp": {
     "prefix": "pp",
-    "body": "(pp $1)"
+    "body": "pp $1"
   },
   "proplist": {
     "prefix": "proplist",
@@ -154,55 +153,55 @@
   },
   "proplists:get_value": {
     "prefix": "proplists:get_value",
-    "body": "(proplists:get_value ${1:KEY} ${2:PROPLIST} ${3:DEFAULT})"
+    "body": "proplists:get_value ${1:KEY} ${2:PROPLIST} ${3:DEFAULT}"
   },
   "receive": {
     "prefix": "receive",
     "body": [
-      "(receive",
+      "receive",
       "\t(${1:PATTERN} ${2:BODY})",
-      "\t(after ${3:1000} ${4:TIMEOUT_BODY}))"
+      "\t(after ${3:1000} ${4:TIMEOUT_BODY})"
     ]
   },
   "register": {
     "prefix": "register",
-    "body": "(register '${1:NAME} ${2:PID})"
+    "body": "register '${1:NAME} ${2:PID}"
   },
   "record-fields": {
     "prefix": "record-fields",
-    "body": "(fields-${1:NAME})"
+    "body": "fields-${1:NAME}"
   },
   "record-is": {
     "prefix": "record-is",
-    "body": "(is-${1:NAME} $2)"
+    "body": "is-${1:NAME} $2"
   },
   "record-make": {
     "prefix": "record-make",
-    "body": "(make-${1:NAME} ${2:FIELD} ${3:VALUE})"
+    "body": "make-${1:NAME} ${2:FIELD} ${3:VALUE}"
   },
   "record-match": {
     "prefix": "record-match",
-    "body": "(match-${1:NAME} ${2:FIELD} ${3:VALUE})"
+    "body": "match-${1:NAME} ${2:FIELD} ${3:VALUE}"
   },
   "record-size": {
     "prefix": "record-size",
-    "body": "(size-${1:NAME})"
+    "body": "size-${1:NAME}"
   },
   "record-get": {
     "prefix": "record-get",
-    "body": "(${1:NAME}-${2:FIELD} $3)"
+    "body": "${1:NAME}-${2:FIELD} $3"
   },
   "record-get-index": {
     "prefix": "record-get-index",
-    "body": "(${1:NAME}-${2:FIELD})"
+    "body": "${1:NAME}-${2:FIELD}"
   },
   "record-update": {
     "prefix": "record-update",
-    "body": "(update-${1:NAME} ${2:RECORD} ${3:FIELD} ${4:VALUE})"
+    "body": "update-${1:NAME} ${2:RECORD} ${3:FIELD} ${4:VALUE}"
   },
   "record-update-field": {
     "prefix": "record-update-field",
-    "body": "(update-${1:NAME}-${2:FIELD} ${3:RECORD} ${4:VALUE})"
+    "body": "update-${1:NAME}-${2:FIELD} ${3:RECORD} ${4:VALUE}"
   },
   "self": {
     "prefix": "self",
@@ -210,15 +209,15 @@
   },
   "sleep": {
     "prefix": "sleep",
-    "body": "(timer:sleep ${1:1000})"
+    "body": "timer:sleep ${1:1000}"
   },
   "send": {
     "prefix": "send",
-    "body": "(! ${1:TO_PID} ${2:MSG})"
+    "body": "! ${1:TO_PID} ${2:MSG}"
   },
   "spawn": {
     "prefix": "spawn",
-    "body": "(spawn '${1:MOD} '${2:FUNC} '(${3:ARGS}))"
+    "body": "spawn '${1:MOD} '${2:FUNC} '(${3:ARGS})"
   },
   "tuple": {
     "prefix": "tuple",
@@ -230,21 +229,21 @@
   },
   "tref": {
     "prefix": "tref",
-    "body": "(tref ${1:TUPLE} ${2:INDEX})"
+    "body": "tref ${1:TUPLE} ${2:INDEX}"
   },
   "tset": {
     "prefix": "tset",
-    "body": "(tset ${1:TUPLE} ${2:INDEX} ${3:VALUE})"
+    "body": "tset ${1:TUPLE} ${2:INDEX} ${3:VALUE}"
   },
   "try": {
     "prefix": "try",
     "body": [
-      "(try",
+      "try",
       "\t$1",
       "\t(catch",
       "\t\t((tuple type value stacktrace) $2)",
       "\t\t(_ $3))",
-      "\t(after $4))"
+      "\t(after $4)"
     ]
   }
 }
