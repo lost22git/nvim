@@ -5,10 +5,10 @@ return {
   config = function()
     -- See `:help vim.lsp.start_client` for an overview of the supported `config` options.
 
-    local capabilities = require('core.utils').lsp_capabilities()
-    local on_attach = require('core.utils').lsp_on_attach
+    local U = require('core.utils')
+    local capabilities, on_attach = U.lsp_capabilities(), U.lsp_on_attach
 
-    local jdtls_root = require('core.utils').get_lsp_server_package_path('jdtls')
+    local jdtls_root = U.lsp_server_package_path('jdtls')
     local jdtls_jar = assert(
       vim.fn.globpath(jdtls_root .. '/plugins', 'org.eclipse.equinox.launcher_*.jar'),
       '[nvim-jdtls] jdtls jar not found'

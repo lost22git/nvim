@@ -1,6 +1,6 @@
 return {
   'ibhagwan/fzf-lua',
-  cmd = { 'FzfLua' },
+  cmd = 'FzfLua',
   opts = {
     fzf_colors = true,
     winopts = {

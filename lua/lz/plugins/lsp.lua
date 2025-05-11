@@ -12,9 +12,7 @@ local function create_LualsReloadNvim_command()
     }
 
     local mode, force = unpack(vim.fn.split(input.fargs[1], '-', false))
-
     local new_val, old_val = nvim_library_map[mode], vim.g.lua_ls_reload_nvim
-
     if force ~= 'force' and require('core.utils').tbl_includes(old_val, new_val) then
       vim.notify('[LualsReloadNvim] modules have already loaded, nothing todo')
     else
@@ -48,7 +46,6 @@ local lua_conditional_settings = {
         runtime = { version = 'LuaJIT' },
         workspace = { checkThirdParty = false, library = vim.g.lua_ls_reload_nvim },
       })
-
       create_LualsReloadNvim_command()
     end,
   },
@@ -99,10 +96,10 @@ function M.config()
     end,
   })
 
-  -- `:help lspconfig-all`
+  -- :help lspconfig-all
 
   local lspconfig = require('lspconfig')
-  local with_lsp_server = require('core.utils').with_lsp_server
+  local lsp_with_server = require('core.utils').lsp_with_server
 
   -- Lua
   lspconfig.lua_ls.setup({
@@ -144,13 +141,9 @@ function M.config()
   -- })
 
   -- Dockerfile
-  with_lsp_server(
+  lsp_with_server(
     'docker-langserver',
-    function(server_path)
-      lspconfig.dockerls.setup({
-        cmd = { server_path, '--stdio' },
-      })
-    end
+    function(server_path) lspconfig.dockerls.setup({ cmd = { server_path, '--stdio' } }) end
   )
 
   -- JSON
@@ -170,7 +163,7 @@ function M.config()
 
   -- Powershell
   lspconfig.powershell_es.setup({
-    bundle_path = require('core.utils').get_lsp_server_package_path('powershell-editor-services'),
+    bundle_path = require('core.utils').lsp_server_package_path('powershell-editor-services'),
   })
 
   -- Deno  for js jsx ts tsx
@@ -183,18 +176,12 @@ function M.config()
   lspconfig.html.setup({})
 
   -- Htmx
-  with_lsp_server(
-    'htmx-lsp',
-    function(server_path)
-      lspconfig.htmx.setup({
-        cmd = { server_path },
-      })
-    end
-  )
+  lsp_with_server('htmx-lsp', function(server_path) lspconfig.htmx.setup({ cmd = { server_path } }) end)
 
   -- Tailwindcss
-  with_lsp_server('tailwindcss-language-server', function(server_path)
+  lsp_with_server('tailwindcss-language-server', function(server_path)
     lspconfig.tailwindcss.setup({
+      cmd = { server_path, '--stdio' },
       root_dir = function(fname)
         local patterns = {
           'tailwind.config.js',
@@ -204,7 +191,6 @@ function M.config()
         }
         return vim.fs.root(fname, patterns)
       end,
-      cmd = { server_path, '--stdio' },
     })
   end)
 
@@ -212,11 +198,17 @@ function M.config()
   lspconfig.svelte.setup({})
 
   -- Clojure
-  with_lsp_server('clojure-lsp', function(server_path)
+  lsp_with_server('clojure-lsp', function(server_path)
     lspconfig.clojure_lsp.setup({
       cmd = { server_path },
       root_dir = function(fname)
-        local patterns = { 'project.clj', 'deps.edn', 'build.boot', 'shadow-cljs.edn', 'bb.edn', '.git' }
+        local patterns = {
+          'project.clj',
+          'deps.edn',
+          'build.boot',
+          'shadow-cljs.edn',
+          'bb.edn',
+        }
         return vim.fs.root(fname, patterns)
       end,
     })
@@ -234,14 +226,7 @@ function M.config()
   })
 
   -- Elixir
-  with_lsp_server(
-    'elixir-ls',
-    function(server_path)
-      lspconfig.elixirls.setup({
-        cmd = { server_path },
-      })
-    end
-  )
+  lsp_with_server('elixir-ls', function(server_path) lspconfig.elixirls.setup({ cmd = { server_path } }) end)
 
   -- Fennel
   lspconfig.fennel_ls.setup({})
@@ -285,9 +270,7 @@ function M.config()
   lspconfig.racket_langserver.setup({})
 
   -- Raku
-  lspconfig.raku_navigator.setup({
-    cmd = { 'raku-navigator', '--stdio' },
-  })
+  lspconfig.raku_navigator.setup({ cmd = { 'raku-navigator', '--stdio' } })
 
   -- Swift
   lspconfig.sourcekit.setup({})
@@ -311,13 +294,11 @@ return {
   M,
   {
     'williamboman/mason.nvim',
-    cmd = { 'Mason' },
+    cmd = 'Mason',
     opts = {
       install_root_dir = require('core.utils').get_mason_path(),
       PATH = 'prepend',
-      ui = {
-        backdrop = vim.g.ZZ.backdrop,
-      },
+      ui = { backdrop = vim.g.ZZ.backdrop },
     },
   },
 }

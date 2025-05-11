@@ -1,120 +1,125 @@
-vim.opt.termguicolors = true
-vim.opt.background = 'light'
+local o = vim.opt
+
+o.termguicolors = true
+o.background = 'light'
 
 -- GUI Font
 -- Neovide respect it's config.toml which supports light style
 -- Others use this
 if not vim.g.neovide then
-  vim.opt.guifont = [[IosevkaTermSlab NFM:h14]]
-  vim.opt.guifontwide = [[Maple Mono SC NF:h14]]
+  o.guifont = [[IosevkaTermSlab NFM:h14]]
+  o.guifontwide = [[Maple Mono SC NF:h14]]
 end
 
 -- Case
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-vim.opt.infercase = true
-vim.opt.wildignorecase = true
+o.ignorecase = true
+o.smartcase = true
+o.infercase = true
+o.wildignorecase = true
 
 -- Cmdline
-vim.opt.showcmd = true
-vim.opt.cmdheight = 1
+o.showcmd = true
+o.cmdheight = 1
 
 -- Column Limitation
--- vim.opt.colorcolumn = '80'
--- vim.opt.textwidth = 100
+-- o.colorcolumn = '80'
+-- o.textwidth = 100
 
 -- Completion
-vim.opt.completeopt = 'menu,menuone,noselect,noinsert,preview'
+o.completeopt = 'menu,menuone,noselect,noinsert,preview'
 
 -- Cursor
-vim.opt.guicursor:append('t-c:ver25') -- use bar style (ver25) on terminal and cmd mode
-vim.opt.cursorcolumn = false
-vim.opt.cursorline = true
-vim.opt.cursorlineopt = 'line,number'
+o.guicursor:append('t-c:ver25') -- use bar style (ver25) on terminal and cmd mode
+o.cursorcolumn = false
+o.cursorline = false
+o.cursorlineopt = 'line,number'
 
 -- Encoding
 vim.scriptencoding = 'utf-8'
-vim.opt.encoding = 'utf-8'
-vim.opt.fileencoding = 'utf-8'
+o.encoding = 'utf-8'
+o.fileencoding = 'utf-8'
 
 -- Floating Window / Popup Menu
-vim.opt.winborder = 'rounded'
-vim.opt.winblend = 0
-vim.opt.pumblend = 0
+o.winborder = 'rounded'
+o.winblend = 0
+o.pumblend = 0
 
 -- Fold
-vim.opt.fillchars:append({
+o.fillchars:append({
   eob = ' ',
   foldsep = ' ',
   foldopen = '',
   foldclose = '',
 })
-vim.opt.foldcolumn = '1'
-vim.opt.foldenable = true
-vim.opt.foldlevelstart = 99
-vim.opt.foldlevel = 99
-vim.opt.foldmethod = 'indent'
+o.foldcolumn = '1'
+o.foldenable = true
+o.foldlevelstart = 99
+o.foldlevel = 99
+o.foldmethod = 'indent'
 
 -- Indentation
-vim.opt.breakindent = true
-vim.opt.autoindent = true
-vim.opt.smartindent = true
-vim.opt.shiftwidth = 2
+o.breakindent = true
+o.autoindent = true
+o.smartindent = true
+o.shiftwidth = 2
 
 -- Line Number
-vim.opt.number = true
-vim.opt.relativenumber = false
-vim.opt.numberwidth = 2
+o.number = true
+o.relativenumber = false
+o.numberwidth = 2
 
 -- Mode
-vim.opt.showmode = false
+o.showmode = false
 
 -- Mouse Support
-vim.opt.mouse = 'a'
+o.mouse = 'a'
 
 -- Split
-vim.opt.splitright = true
-vim.opt.splitbelow = true
+o.splitright = true
+o.splitbelow = true
+
+-- Status Column
+o.signcolumn = 'yes'
 
 -- Status Line
-vim.opt.laststatus = 3
+o.laststatus = 3
 
 -- <Tab> key
-vim.opt.tabstop = 2 -- <tab> spacecount
-vim.opt.expandtab = true
-vim.opt.smarttab = true
+o.tabstop = 2 -- <tab> spacecount
+o.expandtab = true
+o.smarttab = true
 
--- Scroll Offset
-vim.opt.scrolloff = 10
--- vim.opt.scrolloff = (999 - vim.o.scrolloff) -- keep cursor centered
-vim.opt.sidescrolloff = 10
+-- Scroll
+o.smoothscroll = true
+o.scrolloff = 10
+-- o.scrolloff = (999 - vim.o.scrolloff) -- keep cursor centered
+o.sidescrolloff = 10
 
 -- Search
-vim.opt.hlsearch = true
-vim.opt.magic = true
+o.hlsearch = true
+o.magic = true
 
 -- Misc
-vim.opt.signcolumn = 'yes' -- always render signcolumn to avoid jitter
-vim.opt.list = true
-vim.opt.wrap = false
-vim.opt.backup = false
-vim.opt.swapfile = false
-vim.opt.undofile = false
-vim.opt.hidden = true
-vim.opt.ruler = false
-vim.opt.history = 2000
-vim.opt.virtualedit = 'block'
-vim.opt.inccommand = 'split'
-vim.opt.timeout = true
-vim.opt.ttimeout = true
-vim.opt.timeoutlen = 500
-vim.opt.ttimeoutlen = 20
-vim.opt.updatetime = 500
+o.list = true
+o.wrap = false
+o.backup = false
+o.swapfile = false
+o.undofile = false
+o.hidden = true
+o.ruler = false
+o.history = 2000
+o.virtualedit = 'block'
+o.inccommand = 'split'
+o.timeout = true
+o.ttimeout = true
+o.timeoutlen = 500
+o.ttimeoutlen = 20
+o.updatetime = 500
 
 -- Finding files - Search down into subfolders
-vim.opt.path:append({ '**' })
-vim.opt.wildignore:append({ '*/node_modules/*' })
+o.path:append({ '**' })
+o.wildignore:append({ '*/node_modules/*' })
 
 -- Replace `vimgrep` with `ripgrep`
-vim.opt.grepformat = [[%f:%l:%c:%m,%f:%l:%m]]
-vim.opt.grepprg = [[rg --vimgrep --no-heading --smart-case]]
+o.grepformat = [[%f:%l:%c:%m,%f:%l:%m]]
+o.grepprg = [[rg --vimgrep --no-heading --smart-case]]

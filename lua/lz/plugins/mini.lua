@@ -189,7 +189,7 @@ return {
   {
     'echasnovski/mini.pick',
     dependencies = { { 'echasnovski/mini.extra', opts = {} } },
-    cmd = { 'Pick' },
+    cmd = 'Pick',
     keys = { '<Leader>f' },
     opts = {
       mappings = {

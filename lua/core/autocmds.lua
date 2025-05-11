@@ -1,44 +1,3 @@
-GUI_CURSOR_CACHE = nil
-
-vim.api.nvim_create_autocmd({ 'VimLeave', 'VimSuspend' }, {
-  desc = 'restore terminal cursor style',
-  pattern = '*',
-  callback = function()
-    GUI_CURSOR_CACHE = vim.opt.guicursor:get()
-    vim.opt.guicursor = {}
-
-    -- \x1b[?12l -> disable cursor blink
-    -- \x1b[6 q -> set cursor style to bar
-    vim.fn.chansend(vim.v.stderr, '\x1b[6 q \x1b[?12l')
-  end,
-})
-
-vim.api.nvim_create_autocmd('VimResume', {
-  desc = 'restore nvim cursor style',
-  pattern = '*',
-  callback = function()
-    if GUI_CURSOR_CACHE then vim.opt.guicursor = GUI_CURSOR_CACHE end
-  end,
-})
-
-vim.api.nvim_create_autocmd('FileType', {
-  desc = 'set fileformat to unix',
-  pattern = '*',
-  callback = function()
-    if not vim.bo.modifiable then return end
-    local exclude_ftypes = { 'qf', 'FTerm' }
-    local ft = vim.bo.filetype
-    if vim.tbl_contains(exclude_ftypes, ft) then return end
-    vim.bo.fileformat = 'unix'
-  end,
-})
-
-vim.api.nvim_create_autocmd('TextYankPost', {
-  desc = 'highlight yanked text',
-  pattern = '*',
-  callback = function() vim.highlight.on_yank({ higroup = 'Visual', timeout = 200 }) end,
-})
-
 -- Register filetypes
 vim.cmd([[
   au BufNewFile,BufReadPost *.bb set filetype=clojure
@@ -53,7 +12,7 @@ vim.cmd([[
   au BufNewFile,BufReadPost *.v set filetype=vlang
 ]])
 
--- Register filetypes' commentstring
+-- Register commentstring
 vim.cmd([[
   au FileType c3 setlocal commentstring=//\ %s
   au FileType cyber setlocal commentstring=--\ %s
@@ -67,7 +26,57 @@ vim.cmd([[
   au FileType lobster setlocal commentstring=//\ %s
 ]])
 
-vim.api.nvim_create_autocmd('FileType', {
+if vim.env.TMUX then
+  vim.cmd([[ 
+  augroup tmux_status_bar_toggle
+    autocmd VimEnter,VimResume  * call system('tmux set status off')
+    autocmd VimLeave,VimSuspend * call system('tmux set status on')
+  augroup END
+ ]])
+end
+
+local autocmd = vim.api.nvim_create_autocmd
+
+GUI_CURSOR_CACHE = nil
+
+autocmd({ 'VimLeave', 'VimSuspend' }, {
+  desc = 'restore terminal cursor style',
+  pattern = '*',
+  callback = function()
+    GUI_CURSOR_CACHE = vim.opt.guicursor:get()
+    vim.opt.guicursor = {}
+    -- \x1b[?12l -> disable cursor blink
+    -- \x1b[6 q -> set cursor style to bar
+    vim.fn.chansend(vim.v.stderr, '\x1b[6 q \x1b[?12l')
+  end,
+})
+
+autocmd('VimResume', {
+  desc = 'restore nvim cursor style',
+  pattern = '*',
+  callback = function()
+    if GUI_CURSOR_CACHE then vim.opt.guicursor = GUI_CURSOR_CACHE end
+  end,
+})
+
+autocmd('FileType', {
+  desc = 'set fileformat to unix',
+  pattern = '*',
+  callback = function()
+    if not vim.bo.modifiable then return end
+    local ex_ftypes = { 'qf', 'FTerm' }
+    if vim.tbl_contains(ex_ftypes, vim.bo.filetype) then return end
+    vim.bo.fileformat = 'unix'
+  end,
+})
+
+autocmd('TextYankPost', {
+  desc = 'highlight yanked text',
+  pattern = '*',
+  callback = function() vim.hl.on_yank({ higroup = 'Visual', timeout = 200 }) end,
+})
+
+autocmd('FileType', {
   desc = 'add keymaps for Goto prev/next region',
   pattern = { '*' },
   callback = function()
@@ -79,7 +88,7 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
-vim.api.nvim_create_autocmd('FileType', {
+autocmd('FileType', {
   desc = '[Clojure] add keymaps for Goto prev/next (comment)',
   pattern = { 'clojure', 'janet' },
   callback = function()
@@ -91,7 +100,7 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
-vim.api.nvim_create_autocmd('FileType', {
+autocmd('FileType', {
   desc = '[Just] add keymaps for Goto prev/next task',
   pattern = { 'just' },
   callback = function()
@@ -108,11 +117,16 @@ local nvim_help = function()
   local q = U.on_v_modes() and U.get_current_selection_text() or vim.fn.expand('<cword>')
   vim.cmd('help ' .. q)
 end
-vim.api.nvim_create_autocmd('FileType', {
-  desc = 'Add keymaps for nvim help',
+autocmd('FileType', {
+  desc = 'add keymaps for nvim help',
   pattern = { 'lua' },
   callback = function(ev)
-    local cb = function() vim.keymap.set({ 'n', 'v' }, '<Leader>k', nvim_help, { buffer = ev.buf, desc = 'nvim help' }) end
+    local cb = function()
+      local buf = ev.buf
+      if vim.fn.bufexists(buf) == 1 then
+        vim.keymap.set({ 'n', 'v' }, '<Leader>k', nvim_help, { buffer = buf, desc = '[base] Nvim help' })
+      end
+    end
     vim.defer_fn(cb, 1000)
   end,
 })
@@ -144,11 +158,16 @@ local docr = function(subcmd)
   end)
 end
 add_keymaps_for_docr = function(buf)
-  vim.keymap.set({ 'n', 'v' }, '<Leader>k', function() docr('info') end, { buffer = buf, desc = 'docr info' })
-  vim.keymap.set({ 'n', 'v' }, '<Leader>K', function() docr('search') end, { buffer = buf, desc = 'docr search' })
-  vim.keymap.set({ 'n', 'v' }, '<Leader>kk', function() docr('tree') end, { buffer = buf, desc = 'docr tree' })
+  vim.keymap.set({ 'n', 'v' }, '<Leader>k', function() docr('info') end, { buffer = buf, desc = '[base] docr info' })
+  vim.keymap.set(
+    { 'n', 'v' },
+    '<Leader>K',
+    function() docr('search') end,
+    { buffer = buf, desc = '[base] docr search' }
+  )
+  vim.keymap.set({ 'n', 'v' }, '<Leader>kk', function() docr('tree') end, { buffer = buf, desc = '[base] docr tree' })
 end
-vim.api.nvim_create_autocmd('FileType', {
+autocmd('FileType', {
   desc = '[Crystal] add keymaps for docr',
   pattern = 'crystal',
   callback = function(ev) add_keymaps_for_docr(ev.buf) end,
@@ -161,30 +180,32 @@ local lfe_doc = function(m_or_h)
     require('core.utils').open_hover_window(text, title, function(buf, _) vim.bo[buf].filetype = 'markdown' end)
   end
 
+  local make_cmd = function(q)
+    local qq = ''
+    if m_or_h == 'm' then
+      qq = "(m '" .. q .. ')' -- (m 'proc_ib)
+    else
+      -- q='proc_lib' => qq="(h 'proc_lib)"
+      -- q='proc_lib:stop' => qq="(h 'proc_lib 'stop)"
+      -- q='proc_lib:stop/3' => qq="(h 'proc_lib 'stop 3)"
+      local m, fa = unpack(vim.split(q, ':'))
+      local f, a = nil, nil
+      if fa then
+        f, a = unpack(vim.split(fa, '/'))
+      end
+      qq = '(h'
+      qq = qq .. (m and " '" .. m or '')
+      qq = qq .. (f and " '" .. f or '')
+      qq = qq .. (a and ' ' .. a or '')
+      qq = qq .. ')'
+    end
+    return { 'lfe', '-e', qq }
+  end
+
   local U = require('core.utils')
   local q = U.on_v_modes() and U.get_current_selection_text() or vim.fn.expand('<cword>')
 
-  local qq = ''
-  if m_or_h == 'm' then
-    qq = "(m '" .. q .. ')' -- (m 'proc_ib)
-  else
-    -- q='proc_lib' => qq="(h 'proc_lib)"
-    -- q='proc_lib:stop' => qq="(h 'proc_lib 'stop)"
-    -- q='proc_lib:stop/3' => qq="(h 'proc_lib 'stop 3)"
-    local m, fa = unpack(vim.split(q, ':'))
-    local f, a = nil, nil
-    if fa then
-      f, a = unpack(vim.split(fa, '/'))
-    end
-    qq = '(h'
-    qq = qq .. (m and " '" .. m or '')
-    qq = qq .. (f and " '" .. f or '')
-    qq = qq .. (a and ' ' .. a or '')
-    qq = qq .. ')'
-    print(qq)
-  end
-
-  local cmd = { 'lfe', '-e', qq }
+  local cmd = make_cmd(q)
   local cmd_str = table.concat(cmd, ' ')
   print(cmd_str, ' ...')
 
@@ -196,7 +217,7 @@ local lfe_doc = function(m_or_h)
     vim.schedule_wrap(open_doc_window)(res, cmd_str)
   end)
 end
-vim.api.nvim_create_autocmd('FileType', {
+autocmd('FileType', {
   desc = '[LFE] add keymaps for (m mode) or (h mod fun arity)',
   pattern = 'lfe',
   callback = function(ev)
@@ -204,8 +225,13 @@ vim.api.nvim_create_autocmd('FileType', {
       { 'n', 'v' },
       '<Leader>k',
       function() lfe_doc('h') end,
-      { buffer = ev.buf, desc = 'lfe (h mod fun arity)' }
+      { buffer = ev.buf, desc = '[base] lfe (h mod fun arity)' }
     )
-    vim.keymap.set({ 'n', 'v' }, '<Leader>K', function() lfe_doc('m') end, { buffer = ev.buf, desc = 'lfe (m mod)' })
+    vim.keymap.set(
+      { 'n', 'v' },
+      '<Leader>K',
+      function() lfe_doc('m') end,
+      { buffer = ev.buf, desc = '[base] lfe (m mod)' }
+    )
   end,
 })

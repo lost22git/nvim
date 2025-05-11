@@ -111,16 +111,8 @@ local M = {
     },
   },
   config = function(_, opts)
-    -- 替换 github 为镜像地址
-    require('nvim-treesitter.install').prefer_git = true
-    for _, config in pairs(require('nvim-treesitter.parsers').get_parser_configs()) do
-      config.install_info.url =
-        config.install_info.url:gsub('https://github.com/', require('core.utils').get_github_mirror())
-    end
-
     use_helix_source()
     use_custom_source()
-
     require('nvim-treesitter').define_modules({
       fold = {
         attach = function()
@@ -134,16 +126,11 @@ local M = {
         is_supported = function() return true end,
       },
     })
-
     require('nvim-treesitter.configs').setup(opts)
   end,
 }
 
 return {
   M,
-  {
-    'nvim-treesitter/nvim-treesitter-context',
-    cmd = { 'TSContextEnable' },
-    opts = {},
-  },
+  { 'nvim-treesitter/nvim-treesitter-context', cmd = 'TSContextEnable', opts = {} },
 }

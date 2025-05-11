@@ -31,11 +31,9 @@ end
 
 local M = {}
 
--- 按键映射 api
-M.nvmap = map('')
+M.nvomap = map({ 'n', 'v', 'o' })
 M.nmap = map('n')
 M.vmap = map('v')
-M.icmap = map({ 'i', 'c' })
 M.imap = map('i')
 M.cmap = map('c')
 M.tmap = map('t')
@@ -154,19 +152,7 @@ function M.mini_pick()
   })
 end
 
--- 基本按键映射
-function M.base()
-  local create_messages_buf = function()
-    local scratch_buffer = vim.api.nvim_create_buf(false, true)
-    vim.bo[scratch_buffer].filetype = 'messages'
-    local messages = vim.split(vim.fn.execute('messages', 'silent'), '\n')
-    vim.api.nvim_buf_set_text(scratch_buffer, 0, 0, 0, 0, messages)
-    vim.cmd('horizontal sbuffer ' .. scratch_buffer)
-    vim.opt_local.wrap = true
-    vim.bo.buflisted = false
-    vim.bo.bufhidden = 'wipe'
-  end
-
+local function base()
   M.nmap({
     { 'U', '<C-r>', desc = '[base] Redo' },
 
@@ -192,14 +178,11 @@ function M.base()
     { '<C-c>', '"+y', desc = '[base] Yank to clipboard' },
   })
 
-  M.nvmap({
+  M.nvomap({
     { '`', 'q', desc = '[base] The old "q"' },
     { 'q', '<Nop>' },
     { 'qq', '<Cmd>q<CR>', desc = '[base] Quit Neovim' },
     { 'Q', '<Cmd>q!<CR>', desc = '[base] Quit Neovim forcely' },
-
-    -- inspired by helix
-    { 'mm', '%', desc = '[base] The old "%"' },
 
     { '<C-a>', 'gg<S-v>G', desc = '[base] Select all' },
     { '<C-s>', '<Cmd>w<CR>', desc = '[base] Save buffer' },
@@ -223,31 +206,78 @@ function M.base()
     { 'H', '^', desc = '[base] Goto line head' },
     { 'L', '$', desc = '[base] Goto line tail' },
 
-    -- Messages
-    { '<Leader>m', create_messages_buf, desc = '[base] Messages' },
+    -- inspired by helix
+    { 'mm', '%', desc = '[base] The old "%"' },
   })
 
+  M.imap({ { '<C-v>', '<Esc>"+pa', desc = '[base] Paste from clipboard' } })
+end
+
+local function readline()
   M.imap({
-    { '<C-v>', '<Esc>"+pa', desc = '[base] Paste from clipboard' },
-
-    -- Readline keymaps on Insert mode
-    { '<C-a>', '<C-o>^', desc = '[base] Goto line head' },
-    { '<C-b>', '<Left>', desc = '[base] Goto prev char' },
-    { '<C-d>', '<Del>', desc = '[base] Delete next char' },
-    { '<C-e>', '<C-o>$', desc = '[base] Goto line tail' },
-    { '<C-f>', '<Right>', desc = '[base] Goto next char' },
-    { '<C-k>', '<C-o>d$', desc = '[base] Delete to line tail' },
-    { '<C-u>', '<C-o>d^', desc = '[base] Delete to line head' },
+    { '<C-a>', '<C-o>^', desc = '[readline] Goto line head' },
+    { '<C-b>', '<Left>', desc = '[readline] Goto prev char' },
+    { '<C-d>', '<Del>', desc = '[readline] Delete next char' },
+    { '<C-e>', '<C-o>$', desc = '[readline] Goto line tail' },
+    { '<C-f>', '<Right>', desc = '[readline] Goto next char' },
+    { '<C-k>', '<C-o>d$', desc = '[readline] Delete to line tail' },
+    { '<C-u>', '<C-o>d^', desc = '[readline] Delete to line head' },
   })
-  -- Readline keymaps on Cmdline mode
   M.cmap({
-    { '<C-a>', '<Home>', silent = false, desc = '[base] Goto line begin' },
-    { '<C-b>', '<Left>', silent = false, desc = '[base] Goto prev char' },
-    { '<C-d>', '<Del>', silent = false, desc = '[base] Delete next char' },
-    { '<C-f>', '<Right>', silent = false, desc = '[base] Goto next char' },
+    { '<C-a>', '<Home>', silent = false, desc = '[readline] Goto line begin' },
+    { '<C-b>', '<Left>', silent = false, desc = '[readline] Goto prev char' },
+    { '<C-d>', '<Del>', silent = false, desc = '[readline] Delete next char' },
+    { '<C-f>', '<Right>', silent = false, desc = '[readline] Goto next char' },
   })
 end
 
-M.base()
+local function highlight_visual()
+  local ns = vim.api.nvim_create_namespace('zz_highlight_visual')
+  local highlight_visual_fn = function()
+    vim.api.nvim_buf_clear_namespace(0, ns, 0, -1)
+    local mode = vim.fn.mode()
+    if mode == 'n' then return end -- N mode
+    local begin, finish -- range to highlight
+    if mode == 'V' then -- V_LINE mode
+      local lc = vim.fn.line('.')
+      local lp = vim.fn.line('v')
+      begin, finish = { lc - 1, 0 }, { lp - 1, vim.v.maxcol }
+      if lc > lp then
+        begin, finish = { lp - 1, 0 }, { lc - 1, vim.v.maxcol }
+      end
+    else -- V or V_BLOCK mode
+      local pc = vim.fn.getpos('.')
+      local pp = vim.fn.getpos('v')
+      begin, finish = { pc[2] - 1, pc[3] - 1 }, { pp[2] - 1, pp[3] }
+      if pc[2] > pp[2] or (pc[2] == pp[2] and pc[3] > pp[3]) then
+        begin, finish = { pp[2] - 1, pp[3] - 1 }, { pc[2] - 1, pc[3] }
+      end
+    end
+    vim.hl.range(0, ns, 'Visual', begin, finish)
+    vim.cmd('exe  "normal \\<Esc>"')
+  end
+
+  M.nvomap({ '<Leader>v', highlight_visual_fn, desc = '[base] Highlight Visual' })
+end
+
+local function messages()
+  local create_messages_buf = function()
+    local scratch_buffer = vim.api.nvim_create_buf(false, true)
+    vim.bo[scratch_buffer].filetype = 'messages'
+    local messages_text = vim.split(vim.fn.execute('messages', 'silent'), '\n')
+    vim.api.nvim_buf_set_text(scratch_buffer, 0, 0, 0, 0, messages_text)
+    vim.cmd('horizontal sbuffer ' .. scratch_buffer)
+    vim.opt_local.wrap = true
+    vim.bo.buflisted = false
+    vim.bo.bufhidden = 'wipe'
+  end
+
+  M.nvomap({ '<Leader>m', create_messages_buf, desc = '[base] Messages' })
+end
+
+base()
+readline()
+highlight_visual()
+messages()
 
 return M

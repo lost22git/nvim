@@ -5,19 +5,12 @@ return {
     cmd = { 'AsyncRun', 'AsyncRunVisual' },
     config = function()
       vim.g.asyncrun_bell = 10
-      -- AsyncRunVisual
       vim.api.nvim_create_user_command('AsyncRunVisual', function(opts)
         local selection_text = require('core.utils').get_last_selection_text()
-
-        -- write selection_text into tempfile
-        local f = vim.fs.dirname(os.tmpname()) .. '/asyncrunvisual.tmp'
-        vim.fn.writefile(vim.split(selection_text, '\n'), f)
-
-        -- ensure tempfile accessible
-        if vim.fn.has('unix') then os.execute('chmod 777 ' .. f) end
-
-        -- call asyncrun
-        vim.cmd('AsyncRun ' .. opts.args .. ' ' .. f)
+        local tmp_file = vim.fs.dirname(os.tmpname()) .. '/asyncrunvisual.tmp'
+        vim.fn.writefile(vim.split(selection_text, '\n'), tmp_file)
+        if vim.fn.has('unix') then os.execute('chmod 777 ' .. tmp_file) end
+        vim.cmd('AsyncRun ' .. opts.args .. ' ' .. tmp_file)
       end, { nargs = '+', range = true })
     end,
   },
@@ -27,11 +20,7 @@ return {
     event = { 'InsertEnter', 'CmdLineEnter', 'TermEnter' },
     opts = {
       timeout = 250,
-      escape_sequences = {
-        ['v'] = false,
-        ['V'] = false,
-        ['c'] = '<BS><BS><Esc>',
-      },
+      escape_sequences = { ['v'] = false, ['V'] = false, ['c'] = '<BS><BS><Esc>' },
     },
   },
 
@@ -39,9 +28,7 @@ return {
     'lukas-reineke/indent-blankline.nvim',
     main = 'ibl',
     keys = { { '<Leader>i', '<Cmd>IBLToggle<CR>', mode = { 'n', 'v' }, desc = '[IBL] Toggle' } },
-    opts = {
-      indent = { char = '▏' },
-    },
+    opts = { indent = { char = '▏' } },
   },
 
   {
@@ -55,7 +42,7 @@ return {
 
   {
     'NvChad/nvim-colorizer.lua',
-    cmd = { 'ColorizerAttachToBuffer' },
+    cmd = 'ColorizerAttachToBuffer',
     opts = {
       user_default_options = {
         tailwind = true,
@@ -89,8 +76,8 @@ return {
       {
         '<Leader>w',
         function()
-          local win_id = require('window-picker').pick_window() or vim.api.nvim_get_current_win()
-          vim.api.nvim_set_current_win(win_id)
+          local win = require('window-picker').pick_window()
+          if win then vim.api.nvim_set_current_win(win) end
         end,
         mode = { 'n', 'v' },
         desc = '[window-picker] Pick window',
@@ -239,7 +226,25 @@ return {
     opts = {
       ft = 'FTerm',
       cmd = vim.g.ZZ.shell or vim.o.shell,
-      border = vim.opt.winborder:get(),
+      border = vim.o.winborder,
+    },
+  },
+
+  {
+    'bassamsdata/namu.nvim',
+    cmd = { 'Namu' },
+    opts = {
+      namu_symbols = {
+        enable = true,
+        options = {
+          movement = {
+            next = { '<M-j>' },
+            previous = { '<M-k>' },
+            close = { '<C-c>', '<Esc>' },
+          },
+        },
+      },
+      ui_select = { enable = false },
     },
   },
 }

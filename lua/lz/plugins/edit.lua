@@ -1,17 +1,29 @@
 return {
   {
     'mbbill/undotree',
-    cmd = { 'UndotreeToggle' },
+    keys = { { '<Leader>u', vim.cmd.UndotreeToggle, desc = '[undotree] Toggle' } },
+  },
+
+  {
+    'MagicDuck/grug-far.nvim',
+    cmd = { 'GrugFar', 'GrugFarWithin' },
+    opts = {},
+  },
+
+  {
+    'Wansmer/treesj',
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
     keys = {
-      { '<Leader>u', vim.cmd.UndotreeToggle, desc = '[undotree] Toggle' },
+      { '<Leader>j', function() require('treesj').toggle() end, desc = '[treesj] Split/Join' },
     },
+    opts = { use_default_keymaps = false },
   },
 
   {
     'julienvincent/nvim-paredit',
-    ft = { 'clojure', 'fennel' },
+    ft = { 'clojure', 'fennel', 'janet' },
     opts = {
-      filetypes = { 'clojure', 'fennel' },
+      filetypes = { 'clojure', 'fennel', 'janet' },
       keys = {
         ['du'] = { function() require('nvim-paredit').api.raise_form() end, 'Raise form' },
         ['dU'] = { function() require('nvim-paredit').api.raise_element() end, 'Raise element' },
@@ -44,21 +56,8 @@ return {
   },
 
   {
-    'Wansmer/treesj',
-    dependencies = { 'nvim-treesitter/nvim-treesitter' },
-    keys = {
-      { '<Leader>j', function() require('treesj').toggle() end, desc = '[treesj] Split/Join' },
-    },
-    opts = { use_default_keymaps = false },
-  },
-
-  {
     'folke/flash.nvim',
-    opts = {
-      modes = {
-        char = { enabled = false },
-      },
-    },
+    opts = { modes = { char = { enabled = false } } },
     keys = {
       {
         's',
@@ -68,7 +67,7 @@ return {
       },
       {
         'S',
-        mode = { 'n', 'o', 'x' },
+        mode = { 'n', 'x', 'o' },
         function() require('flash').treesitter() end,
         desc = '[flash] Treesitter',
       },
