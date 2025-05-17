@@ -4,7 +4,7 @@ return {
   opts = {
     fzf_colors = true,
     winopts = {
-      backdrop = vim.g.ZZ.backdrop,
+      backdrop = vim.g.zz.backdrop,
       preview = { hidden = true },
     },
   },

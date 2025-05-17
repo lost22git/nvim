@@ -1,11 +1,11 @@
 local g = vim.g
 
-local ZZ_DEFAULT = {
+local zz_default = {
   transparent = false,
   shell = vim.fn.has('win32') == 1 and 'pwsh',
   backdrop = 100,
 }
-g.ZZ = vim.tbl_deep_extend('force', ZZ_DEFAULT, g.ZZ or {})
+g.zz = vim.tbl_deep_extend('force', zz_default, g.zz or {})
 
 g.mapleader = ' '
 g.maplocalleader = ' '

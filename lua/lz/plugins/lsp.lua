@@ -281,7 +281,7 @@ return {
     opts = {
       install_root_dir = require('core.utils').get_mason_path(),
       PATH = 'prepend',
-      ui = { backdrop = vim.g.ZZ.backdrop },
+      ui = { backdrop = vim.g.zz.backdrop },
     },
   },
 }
