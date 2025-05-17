@@ -55,24 +55,7 @@ local M = {
   'neovim/nvim-lspconfig',
   cmd = { 'LspInfo', 'LspStart', 'LspLog' },
   dependencies = {
-    {
-      'deathbeam/lspecho.nvim',
-      opts = {},
-    },
-    {
-      'glepnir/lspsaga.nvim',
-      opts = {
-        beacon = { enable = true },
-        code_action = { show_server_name = true },
-        finder = { left_width = 0.3, right_width = 0.5, keys = { shuttle = '<Tab>' } },
-        outline = { keys = { toggle_or_jump = '<Tab>', jump = 'o' } },
-        scroll_preview = { scroll_down = '<C-d>', scroll_up = '<C-u>' },
-      },
-      config = function(_, opts)
-        require('lspsaga').setup(opts)
-        require('core.maps').lspsaga()
-      end,
-    },
+    { 'deathbeam/lspecho.nvim', opts = {} },
   },
 }
 

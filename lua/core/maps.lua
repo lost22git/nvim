@@ -74,18 +74,6 @@ function M.lsp(bufnr)
   })
 end
 
-function M.lspsaga()
-  M.nmap({
-    { 'ga', '<Cmd>Lspsaga code_action<CR>' },
-    { 'gd', '<Cmd>Lspsaga peek_definition<CR>' },
-    { 'gf', '<Cmd>Lspsaga finder<CR>' },
-    { 'gi', '<Cmd>Lspsaga incoming_calls<CR>' },
-    { 'go', '<Cmd>Lspsaga outgoing_calls<CR>' },
-    { 'gO', '<Cmd>Lspsaga outline<CR>' },
-    { 'gt', '<Cmd>Lspsaga peek_type_definition<CR>' },
-  })
-end
-
 function M.mini_pick()
   local pick_zoxide = function()
     local show_icon = function(buf_id, items, query) MiniPick.default_show(buf_id, items, query, { show_icons = true }) end
