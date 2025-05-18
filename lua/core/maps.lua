@@ -43,10 +43,9 @@ function M.gitsigns()
     { '[h', '<Cmd>Gitsigns prev_hunk<CR>' },
     { ']h', '<Cmd>Gitsigns next_hunk<CR>' },
     { '<Tab>h', '<Cmd>Gitsigns preview_hunk<CR>' },
-    { '<Leader>hh', '<Cmd>Gitsigns nav_hunk<CR>' },
-    { '<Leader>hr', '<Cmd>Gitsigns reset_hunk<CR>' },
-    { '<Leader>hs', '<Cmd>Gitsigns stage_hunk<CR>' },
-    { '<Leader>hv', '<Cmd>Gitsigns select_hunk<CR>' },
+    { 'hr', '<Cmd>Gitsigns reset_hunk<CR>' },
+    { 'hs', '<Cmd>Gitsigns stage_hunk<CR>' },
+    { 'hv', '<Cmd>Gitsigns select_hunk<CR>' },
   })
 end
 
@@ -54,12 +53,12 @@ function M.lsp(bufnr)
   local opts = { noremap = true, silent = true, buffer = bufnr }
 
   M.nmap({
-    { 'gD', vim.lsp.buf.definition, unpack(opts) },
+    { 'gd', vim.lsp.buf.definition, unpack(opts) },
     { 'gk', vim.lsp.buf.hover, unpack(opts) },
     { 'gK', vim.lsp.buf.signature_help, unpack(opts) },
     { 'gs', vim.lsp.buf.document_symbol, unpack(opts) },
     { 'gS', vim.lsp.buf.workspace_symbol, unpack(opts) },
-    { 'gT', vim.lsp.buf.type_definition, unpack(opts) },
+    { 'gt', vim.lsp.buf.type_definition, unpack(opts) },
 
     {
       '[D',

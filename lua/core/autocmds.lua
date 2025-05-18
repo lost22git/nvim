@@ -76,9 +76,8 @@ autocmd('TextYankPost', {
   callback = function() vim.hl.on_yank({ higroup = 'Visual', timeout = 200 }) end,
 })
 
-autocmd('FileType', {
+autocmd('BufWinEnter', {
   desc = 'add keymaps for Goto prev/next region',
-  pattern = { '*' },
   callback = function()
     local p = [[[-\/;#] === .\+ ===$]]
     local prev = string.format([[<Cmd>call search('%s','bw')<CR>]], p)
