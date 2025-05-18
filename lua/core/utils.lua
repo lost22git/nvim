@@ -32,42 +32,41 @@ end
 local function find_lsp_server_from_mason(name)
   local path = (M.get_mason_path() .. "/bin/" .. name)
   if (vim.fn.has("win32") == 1) then
-    return (path .. ".cmd")
+    path = (path .. ".cmd")
   else
+  end
+  if (1 == vim.fn.executable(path)) then
     return path
+  else
+    return nil
   end
 end
 local function find_lsp_server_from_env_path(name)
   local path = vim.fn.exepath(name)
-  local and_4_ = path and ("" ~= path)
-  if and_4_ then
-    and_4_ = (vim.fn.has("win32") == 1)
+  local and_5_ = path and ("" ~= path)
+  if and_5_ then
+    and_5_ = (vim.fn.has("win32") == 1)
   end
-  if and_4_ then
-    local _6_
+  if and_5_ then
+    local _7_
     do
-      local t_5_ = vim.fn.split(vim.fs.basename(path), "\\.")
-      if (nil ~= t_5_) then
-        t_5_ = t_5_[2]
+      local t_6_ = vim.fn.split(vim.fs.basename(path), "\\.")
+      if (nil ~= t_6_) then
+        t_6_ = t_6_[2]
       else
       end
-      _6_ = t_5_
+      _7_ = t_6_
     end
-    and_4_ = not _6_
+    and_5_ = not _7_
   end
-  if and_4_ then
+  if and_5_ then
     return (path .. ".cmd")
   else
     return path
   end
 end
 M.lsp_server_path = function(name)
-  local path = (find_lsp_server_from_mason(name) or find_lsp_server_from_env_path(name))
-  if (1 == vim.fn.executable(path)) then
-    return path
-  else
-    return nil
-  end
+  return (find_lsp_server_from_mason(name) or find_lsp_server_from_env_path(name))
 end
 M.lsp_with_server = function(name, f)
   local path = M.lsp_server_path(name)

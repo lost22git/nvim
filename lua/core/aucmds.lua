@@ -237,18 +237,17 @@ local function _50_()
     else
       clj_opts = (opts.args .. " " .. "-M")
     end
-    local deps = "{:deps {nrepl/nrepl {:mvn/version \"1.3.0\"} refactor-nrepl/refactor-nrepl {:mvn/version \"3.10.0\"} cider/cider-nrepl {:mvn/version \"0.52.0\"} }}"
-    local cider_opts = "(require 'nrepl.cmdline) (nrepl.cmdline/-main \"--interactive\" \"--middleware\" \"[ refactor-nrepl.middleware/wrap-refactor cider.nrepl/cider-middleware]\")"
+    local deps = "'{:deps {nrepl/nrepl {:mvn/version \"1.3.0\"} refactor-nrepl/refactor-nrepl {:mvn/version \"3.10.0\"} cider/cider-nrepl {:mvn/version \"0.52.0\"} }}'"
+    local cider_opts = "\"(require 'nrepl.cmdline) (nrepl.cmdline/-main \\\"--interactive\\\" \\\"--middleware\\\" \\\"[refactor-nrepl.middleware/wrap-refactor cider.nrepl/cider-middleware]\\\")\""
     local command = string.format("clj -Sdeps %s %s -e %s", deps, clj_opts, cider_opts)
-    return vim.cmd(("tapnew | term " .. command))
+    return vim.cmd(("tabnew | term " .. command))
   end
   return vim.api.nvim_buf_create_user_command(0, "Clj", _51_, {nargs = "*"})
 end
 vim.api.nvim_create_autocmd("FileType", {desc = "[Clojure] add `Clj` usercommand for starting Clojure nREPL server", pattern = "clojure", callback = _50_})
 local function _53_(_241)
   local function _54_()
-    local command = ("tabnew | term " .. "janet-netrepl")
-    return vim.cmd(command)
+    return vim.cmd(("tabnew | term " .. "janet-netrepl"))
   end
   return vim.api.nvim_buf_create_user_command(_241.buf, "JanetNetrepl", _54_, {nargs = "*"})
 end

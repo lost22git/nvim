@@ -11,8 +11,8 @@
                   (require :core.utils))
            (local jdtls_root (lsp_server_package_path :jdtls))
            (local jdtls_jar
-                  (assert (vim.fn.globpath (.. jdtls_root "/plugins"
-                                               "org.eclipse.equinox.launcher_*.jar"))
+                  (assert (vim.fn.globpath (.. jdtls_root "/plugins")
+                                           "org.eclipse.equinox.launcher_*.jar")
                           "[nvim-jdtls] jdtls jar not found"))
            (local lombok_jar (.. jdtls_root "/lombok.jar"))
            (local jdtls_config_dir

@@ -6,34 +6,34 @@ local lsp_server_package_path = _local_1_["lsp_server_package_path"]
 local lsp_with_server = _local_1_["lsp_with_server"]
 local lsp_on_attach = _local_1_["lsp_on_attach"]
 local lsp_capabilities = _local_1_["lsp_capabilities"]
-local function create_LualsNvimDev()
+local function create_LuaLibsReload()
   local function callback(input)
     local libs = {vim = {vim.env.VIMRUNTIME, "${3rd}/luv/library"}, all = {"${3rd}/luv/library", unpack(vim.api.nvim_get_runtime_file("", true))}}
     local _local_2_ = vim.fn.split(input.fargs[1], "-", false)
     local mode = _local_2_[1]
     local force = _local_2_[2]
-    local new_val, old_val = libs[mode], vim.g.lua_ls_nvim_dev
-    if ((force ~= "force") and tbl_includes(old_val, new_val)) then
-      return vim.notify("[LualsNvimDev] modules have already loaded, nothing todo")
+    local new_libs, old_libs = libs[mode], vim.g.nvim_lua_libs
+    if ((force ~= "force") and tbl_includes(old_libs, new_libs)) then
+      return vim.notify("[LuaLibsReload] libs have already loaded.")
     else
-      vim.g.lua_ls_nvim_dev = new_val
+      vim.g.nvim_lua_libs = new_libs
       return vim.cmd("LspRestart lua_ls")
     end
   end
   local function _4_()
     return {"vim", "all", "vim-force", "all-force"}
   end
-  return vim.api.nvim_create_user_command("LualsNvimDev", callback, {nargs = 1, complete = _4_})
+  return vim.api.nvim_create_user_command("LuaLibsReload", callback, {nargs = 1, complete = _4_})
 end
 local lua_conditional_settings
 local function _5_(nvim_config_path, workspace_path)
   return (not workspace_path or (nvim_config_path == workspace_path:sub(1, #nvim_config_path)) or not (vim.uv.fs_stat((workspace_path .. "/.luarc.json")) or vim.uv.fs_stat((workspace_path .. "/.luarc.jsonc"))))
 end
 local function _6_(client)
-  print("lua_ls load nvim modules")
-  vim.g.lua_ls_nvim_dev = (vim.g.lua_ls_nvim_dev or {vim.env.VIMRUNTIME, "${3rd}/luv/library"})
-  client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {codeLens = {enable = false}, runtime = {version = "LuaJIT"}, workspace = {library = vim.g.lua_ls_nvim_dev, checkThirdParty = false}})
-  return create_LualsNvimDev()
+  print("lua_ls load nvim lua libs.")
+  vim.g.nvim_lua_libs = (vim.g.nvim_lua_libs or {vim.env.VIMRUNTIME, "${3rd}/luv/library"})
+  client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {codeLens = {enable = false}, runtime = {version = "LuaJIT"}, workspace = {library = vim.g.nvim_lua_libs, checkThirdParty = false}})
+  return create_LuaLibsReload()
 end
 lua_conditional_settings = {{match = _5_, config = _6_}}
 local function _7_()

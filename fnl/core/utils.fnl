@@ -25,8 +25,9 @@
   (.. (M.get_mason_path) "/packages/" name))
 
 (fn find_lsp_server_from_mason [name]
-  (let [path (.. (M.get_mason_path) "/bin/" name)]
-    (if (has :win32) (.. path ".cmd") path)))
+  (var path (.. (M.get_mason_path) "/bin/" name))
+  (when (has :win32) (set path (.. path ".cmd")))
+  (when (= 1 (vim.fn.executable path)) path))
 
 (fn find_lsp_server_from_env_path [name]
   (let [path (vim.fn.exepath name)]
@@ -36,9 +37,7 @@
         path)))
 
 (fn M.lsp_server_path [name]
-  (let [path (or (find_lsp_server_from_mason name)
-                 (find_lsp_server_from_env_path name))]
-    (when (= 1 (vim.fn.executable path)) path)))
+  (or (find_lsp_server_from_mason name) (find_lsp_server_from_env_path name)))
 
 (fn M.lsp_with_server [name f]
   (let [path (M.lsp_server_path name)]

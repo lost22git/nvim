@@ -7,21 +7,21 @@
         : lsp_on_attach
         : lsp_capabilities} (require :core.utils))
 
-(fn create_LualsNvimDev []
+(fn create_LuaLibsReload []
   (fn callback [input]
     (local libs
            {:vim [vim.env.VIMRUNTIME "${3rd}/luv/library"]
             :all ["${3rd}/luv/library"
                   (unpack (vim.api.nvim_get_runtime_file "" true))]})
     (local [mode force] (vim.fn.split (. input.fargs 1) "-" false))
-    (local (new_val old_val) (values (. libs mode) vim.g.lua_ls_nvim_dev))
-    (if (and (not= force :force) (tbl_includes old_val new_val))
-        (vim.notify "[LualsNvimDev] modules have already loaded, nothing todo")
+    (local (new_libs old_libs) (values (. libs mode) vim.g.nvim_lua_libs))
+    (if (and (not= force :force) (tbl_includes old_libs new_libs))
+        (vim.notify "[LuaLibsReload] libs have already loaded.")
         (do
-          (set vim.g.lua_ls_nvim_dev new_val)
+          (set vim.g.nvim_lua_libs new_libs)
           (vim.cmd "LspRestart lua_ls"))))
 
-  (usercmd :LualsNvimDev callback
+  (usercmd :LuaLibsReload callback
            {:nargs 1 :complete (fn [] [:vim :all :vim-force :all-force])}))
 
 (local lua_conditional_settings
@@ -34,17 +34,17 @@
                                (vim.uv.fs_stat (.. workspace_path
                                                    "/.luarc.jsonc"))))))
          :config (fn [client]
-                   (print "lua_ls load nvim modules")
-                   (set vim.g.lua_ls_nvim_dev
-                        (or vim.g.lua_ls_nvim_dev
+                   (print "lua_ls load nvim lua libs.")
+                   (set vim.g.nvim_lua_libs
+                        (or vim.g.nvim_lua_libs
                             [vim.env.VIMRUNTIME "${3rd}/luv/library"]))
                    (set client.config.settings.Lua
                         (vim.tbl_deep_extend :force client.config.settings.Lua
                                              {:codeLens {:enable false}
                                               :runtime {:version :LuaJIT}
                                               :workspace {:checkThirdParty false
-                                                          :library vim.g.lua_ls_nvim_dev}}))
-                   (create_LualsNvimDev))}])
+                                                          :library vim.g.nvim_lua_libs}}))
+                   (create_LuaLibsReload))}])
 
 [{1 "neovim/nvim-lspconfig"
   :cmd [:LspInfo :LspStart :LspLog]
@@ -168,7 +168,7 @@
             (lsp_with_server "elixir-ls"
                              (fn [server_path]
                                (lspconfig.elixirls.setup {:cmd [server_path]})))
-            ;; Fennel
+            ;; Fennel 
             (lspconfig.fennel_ls.setup {})
             ;; Gleam
             (lspconfig.gleam.setup {:root_dir (fn [fname]
