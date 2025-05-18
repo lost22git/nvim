@@ -1,0 +1,6 @@
+(require :core.vars)
+(require :core.opts)
+(require :core.aucmds)
+(require :lz)
+(require :core.hls)
+(require :core.maps)

@@ -1,7 +1,2 @@
-return {
-  { 'windwp/nvim-autopairs', event = { 'InsertEnter' }, opts = {} },
-
-  { 'HiPhish/rainbow-delimiters.nvim', submodules = false, event = { 'BufReadPost', 'BufNewFile' } },
-
-  { 'utilyre/sentiment.nvim', event = { 'BufReadPost', 'BufNewFile' }, opts = {} },
-}
+-- [nfnl] fnl/lz/plugins/pair.fnl
+return {{"windwp/nvim-autopairs", event = "InsertEnter", opts = {}}, {"HiPhish/rainbow-delimiters.nvim", event = {"BufReadPost", "BufNewFile"}, submodules = false}, {"utilyre/sentiment.nvim", event = {"BufReadPost", "BufNewFile"}, opts = {}}}

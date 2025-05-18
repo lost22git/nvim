@@ -1,114 +1,84 @@
-return {
-  {
-    'mbbill/undotree',
-    keys = { { '<Leader>u', vim.cmd.UndotreeToggle, desc = '[undotree] Toggle' } },
-  },
-
-  {
-    'MagicDuck/grug-far.nvim',
-    cmd = { 'GrugFar', 'GrugFarWithin' },
-    opts = {},
-  },
-
-  {
-    'Wansmer/treesj',
-    dependencies = { 'nvim-treesitter/nvim-treesitter' },
-    keys = {
-      { '<Leader>j', function() require('treesj').toggle() end, desc = '[treesj] Split/Join' },
-    },
-    opts = { use_default_keymaps = false },
-  },
-
-  {
-    'julienvincent/nvim-paredit',
-    ft = { 'clojure', 'fennel', 'janet' },
-    opts = {
-      filetypes = { 'clojure', 'fennel', 'janet' },
-      keys = {
-        ['du'] = { function() require('nvim-paredit').api.raise_form() end, 'Raise form' },
-        ['dU'] = { function() require('nvim-paredit').api.raise_element() end, 'Raise element' },
-        ['>D'] = { function() require('nvim-paredit').api.drag_pair_forwards() end, 'Drag element pairs right' },
-        ['<D'] = { function() require('nvim-paredit').api.drag_pair_backwards() end, 'Drag element pairs left' },
-        ['>E'] = { function() require('nvim-paredit').api.drag_element_forwards() end, 'Drag element right' },
-        ['<E'] = { function() require('nvim-paredit').api.drag_element_backwards() end, 'Drag element left' },
-        ['>F'] = { function() require('nvim-paredit').api.drag_form_forwards() end, 'Drag form right' },
-        ['<F'] = { function() require('nvim-paredit').api.drag_form_backwards() end, 'Drag form left' },
-        ['<A'] = {
-          function()
-            require('nvim-paredit').cursor.place_cursor(
-              require('nvim-paredit').wrap.wrap_enclosing_form_under_cursor('( ', ')'),
-              { placement = 'inner_start', mode = 'insert' }
-            )
-          end,
-          'Wrap form insert head',
-        },
-        ['>A'] = {
-          function()
-            require('nvim-paredit').cursor.place_cursor(
-              require('nvim-paredit').wrap.wrap_enclosing_form_under_cursor('(', ')'),
-              { placement = 'inner_end', mode = 'insert' }
-            )
-          end,
-          'Wrap form insert tail',
-        },
-      },
-    },
-  },
-
-  {
-    'folke/flash.nvim',
-    opts = { modes = { char = { enabled = false } } },
-    keys = {
-      {
-        's',
-        mode = { 'n', 'x', 'o' },
-        function() require('flash').jump() end,
-        desc = '[flash] Flash',
-      },
-      {
-        'S',
-        mode = { 'n', 'x', 'o' },
-        function() require('flash').treesitter() end,
-        desc = '[flash] Treesitter',
-      },
-      {
-        'r',
-        mode = 'o',
-        function() require('flash').remote() end,
-        desc = '[flash] Remote Flash',
-      },
-      {
-        'R',
-        mode = { 'o', 'x' },
-        function() require('flash').treesitter_search() end,
-        desc = '[flash] Treesitter Search',
-      },
-      {
-        '<c-s>',
-        mode = { 'c' },
-        function() require('flash').toggle() end,
-        desc = '[flash] Toggle Search',
-      },
-    },
-  },
-
-  {
-    'aaronik/treewalker.nvim',
-    keys = {
-      { 'th', '<Cmd>Treewalker Left<CR>', mode = { 'n', 'v' }, desc = '[treewalker] Left' },
-      { 'tl', '<Cmd>Treewalker Right<CR>', mode = { 'n', 'v' }, desc = '[treewalker] Right' },
-      { 'tk', '<Cmd>Treewalker Up<CR>', mode = { 'n', 'v' }, desc = '[treewalker] Up' },
-      { 'tj', '<Cmd>Treewalker Down<CR>', mode = { 'n', 'v' }, desc = '[treewalker] Down' },
-
-      { 'tsh', '<Cmd>Treewalker SwapLeft<CR>', desc = '[treewalker] SwapLeft' },
-      { 'tsl', '<Cmd>Treewalker SwapRight<CR>', desc = '[treewalker] SwapRight' },
-      { 'tsk', '<Cmd>Treewalker SwapUp<CR>', desc = '[treewalker] SwapUp' },
-      { 'tsj', '<Cmd>Treewalker SwapDown<CR>', desc = '[treewalker] SwapDown' },
-    },
-    opts = {
-      highlight = true,
-      highlight_duration = 300,
-      highlight_group = 'Visual',
-    },
-  },
-}
+-- [nfnl] fnl/lz/plugins/edit.fnl
+local _1_
+do
+  local tbl_16_ = {}
+  for _, _2_ in ipairs({{"du", "raise_form"}, {"dU", "raise_element"}, {">D", "drag_pair_forwards"}, {"<D", "drag_pair_backwards"}, {">E", "drag_element_forwards"}, {"<E", "drag_element_backwards"}, {">F", "drag_form_forwards"}, {"<F", "drag_form_backwards"}}) do
+    local k = _2_[1]
+    local v = _2_[2]
+    local k_17_, v_18_ = nil, nil
+    local function _3_()
+      return require("nvim-paredit").api[v]()
+    end
+    k_17_, v_18_ = k, {_3_, v}
+    if ((k_17_ ~= nil) and (v_18_ ~= nil)) then
+      tbl_16_[k_17_] = v_18_
+    else
+    end
+  end
+  _1_ = tbl_16_
+end
+local function _5_(...)
+  local tbl_16_ = {}
+  for _, _6_ in ipairs({{"<A", "inner_start"}, {">A", "inner_end"}}) do
+    local k = _6_[1]
+    local v = _6_[2]
+    local k_17_, v_18_ = nil, nil
+    local function _7_()
+      local par = require("nvim-paredit")
+      return par.cursor.place_cursor(par.wrap.wrap_enclosing_form_under_cursor("(", ")"), {placement = v, mode = "insert"})
+    end
+    k_17_, v_18_ = k, {_7_, ("Wrap form " .. v)}
+    if ((k_17_ ~= nil) and (v_18_ ~= nil)) then
+      tbl_16_[k_17_] = v_18_
+    else
+    end
+  end
+  return tbl_16_
+end
+local _9_
+do
+  local data = {{"th", "Left"}, {"tl", "Right"}, {"tk", "Up"}, {"tj", "Down"}, {"tsh", "SwapLeft"}, {"tsl", "SwapRight"}, {"tsk", "SwapUp"}, {"tsj", "SwapDown"}}
+  local tbl_21_ = {}
+  local i_22_ = 0
+  for _, _11_ in ipairs(data) do
+    local k = _11_[1]
+    local v = _11_[2]
+    local val_23_
+    local _12_
+    if vim.startswith(v, "Swap") then
+      _12_ = "n"
+    else
+      _12_ = {"n", "v"}
+    end
+    val_23_ = {k, ("<Cmd>Treewalker " .. v .. "<CR>"), mode = _12_, desc = ("[treewalker] " .. v)}
+    if (nil ~= val_23_) then
+      i_22_ = (i_22_ + 1)
+      tbl_21_[i_22_] = val_23_
+    else
+    end
+  end
+  _9_ = tbl_21_
+end
+local _15_
+do
+  local data = {{"s", "jump", {"n", "x", "o"}}, {"S", "treesitter", {"n", "x", "o"}}, {"r", "remote", "o"}, {"R", "treesitter_search", {"x", "o"}}, {"<c-s>", "toggle", "c"}}
+  local tbl_21_ = {}
+  local i_22_ = 0
+  for _, _17_ in ipairs(data) do
+    local k = _17_[1]
+    local v = _17_[2]
+    local m = _17_[3]
+    local val_23_
+    local function _18_()
+      return require("flash")[v]()
+    end
+    val_23_ = {k, _18_, mode = m}
+    if (nil ~= val_23_) then
+      i_22_ = (i_22_ + 1)
+      tbl_21_[i_22_] = val_23_
+    else
+    end
+  end
+  _15_ = tbl_21_
+end
+return {{"TheBlob42/houdini.nvim", event = {"InsertEnter", "CmdLineEnter", "TermEnter"}, opts = {timeout = 250, escape_sequences = {c = "<BS><BS><Esc>", V = false, v = false}}}, {"mbbill/undotree", keys = {{"<Leader>u", "<CMD>UndotreeToggle<CR>", desc = "[undotree] Toggle"}}}, {"MagicDuck/grug-far.nvim", cmd = {"GrugFar", "GrugFarWithin"}, opts = {}}, {"Wansmer/treesj", dependencies = {"nvim-treesitter/nvim-treesitter"}, opts = {use_default_keymaps = false}, keys = {{"<Leader>j", "<Cmd>TSJToggle<CR>", desc = "[treesj] Split/Join"}}}, {"julienvincent/nvim-paredit", ft = {"clojure", "fennel"}, opts = {filetypes = {"clojure", "fennel"}, keys = vim.tbl_extend("error", _1_, _5_(...))}}, {"aaronik/treewalker.nvim", opts = {highlight = true, highlight_duration = 300, highlight_group = "Visual"}, keys = _9_}, {"folke/flash.nvim", opts = {modes = {char = {enabled = false}}}, keys = _15_}}

@@ -1,0 +1,217 @@
+(import-macros {: usercmd : autocmd} :config.macros)
+
+(local {: tbl_includes
+        : get_mason_path
+        : lsp_server_package_path
+        : lsp_with_server
+        : lsp_on_attach
+        : lsp_capabilities} (require :core.utils))
+
+(fn create_LualsNvimDev []
+  (fn callback [input]
+    (local libs
+           {:vim [vim.env.VIMRUNTIME "${3rd}/luv/library"]
+            :all ["${3rd}/luv/library"
+                  (unpack (vim.api.nvim_get_runtime_file "" true))]})
+    (local [mode force] (vim.fn.split (. input.fargs 1) "-" false))
+    (local (new_val old_val) (values (. libs mode) vim.g.lua_ls_nvim_dev))
+    (if (and (not= force :force) (tbl_includes old_val new_val))
+        (vim.notify "[LualsNvimDev] modules have already loaded, nothing todo")
+        (do
+          (set vim.g.lua_ls_nvim_dev new_val)
+          (vim.cmd "LspRestart lua_ls"))))
+
+  (usercmd :LualsNvimDev callback
+           {:nargs 1 :complete (fn [] [:vim :all :vim-force :all-force])}))
+
+(local lua_conditional_settings
+       [{:match (fn [nvim_config_path workspace_path]
+                  (or (not workspace_path)
+                      (= nvim_config_path
+                         (workspace_path:sub 1 (length nvim_config_path)))
+                      (not (or (vim.uv.fs_stat (.. workspace_path
+                                                   "/.luarc.json"))
+                               (vim.uv.fs_stat (.. workspace_path
+                                                   "/.luarc.jsonc"))))))
+         :config (fn [client]
+                   (print "lua_ls load nvim modules")
+                   (set vim.g.lua_ls_nvim_dev
+                        (or vim.g.lua_ls_nvim_dev
+                            [vim.env.VIMRUNTIME "${3rd}/luv/library"]))
+                   (set client.config.settings.Lua
+                        (vim.tbl_deep_extend :force client.config.settings.Lua
+                                             {:codeLens {:enable false}
+                                              :runtime {:version :LuaJIT}
+                                              :workspace {:checkThirdParty false
+                                                          :library vim.g.lua_ls_nvim_dev}}))
+                   (create_LualsNvimDev))}])
+
+[{1 "neovim/nvim-lspconfig"
+  :cmd [:LspInfo :LspStart :LspLog]
+  :dependencies [{1 "deathbeam/lspecho.nvim" :opts {}}]
+  :config (fn []
+            (vim.diagnostic.config {:severity_sort true
+                                    :virtual_text false
+                                    :virtual_lines {:current_line true}})
+            (vim.lsp.config "*"
+                            {:root_markers [".git"]
+                             :capabilities (lsp_capabilities)})
+            (autocmd :LspAttach
+                     {:callback (fn [args]
+                                  (local client
+                                         (assert (vim.lsp.get_client_by_id args.data.client_id)))
+                                  (local bufid args.buf)
+                                  (lsp_on_attach client bufid))})
+            ;; :help lspconfig-all
+            (local lspconfig (require :lspconfig))
+            ;; Lua
+            (lspconfig.lua_ls.setup {:on_init (fn [client]
+                                                ;; nvim_config_path
+                                                (local nvim_config_path
+                                                       (let [path (vim.fn.stdpath :config)
+                                                             path1 (if (= :table
+                                                                          (type path))
+                                                                       (. path
+                                                                          1)
+                                                                       (tostring path))]
+                                                         (vim.uv.fs_realpath path1)))
+                                                (print "lua_ls nvim config path:"
+                                                       nvim_config_path)
+                                                ;; workspace_path
+                                                (local workspace_path
+                                                       (when client.workspace_folders
+                                                         (vim.uv.fs_realpath (. client.workspace_folders
+                                                                                1
+                                                                                :name))))
+                                                (print "lua_ls workspace path:"
+                                                       workspace_path)
+                                                ;; default settings
+                                                (set client.config.settings.Lua
+                                                     {:codeLens {:enable true}
+                                                      :completion {:callSnippet :Replace}
+                                                      :telemetry {:enable false}
+                                                      :workspace {:checkThirdParty false
+                                                                  :library {}}})
+                                                ;; conditional settings
+                                                (each [_ s (ipairs lua_conditional_settings)]
+                                                  (when (s.match nvim_config_path
+                                                                 workspace_path)
+                                                    (s.config client)
+                                                    (lua "break")))
+                                                (print "lua_ls settings:"
+                                                       (vim.inspect client.config.settings.Lua)))})
+            ;; Kulala 
+            (lspconfig.kulala_ls.setup {})
+            ;; Markdown ; (lspconfig.marksman.setup {})
+            ;; Dockerfile
+            (lsp_with_server "docker-langserver"
+                             (fn [server_path]
+                               (lspconfig.dockerls.setup {:cmd [server_path
+                                                                "--stdio"]})))
+            ;; JSON
+            (lspconfig.jsonls.setup {})
+            ;; TOML
+            (lspconfig.taplo.setup {})
+            ;; XML
+            (lspconfig.lemminx.setup {})
+            ;; YAML
+            (lspconfig.yamlls.setup {})
+            ;; Nushell
+            (lspconfig.nushell.setup {})
+            ;; Powershell
+            (lspconfig.powershell_es.setup {:bundle_path (lsp_server_package_path "powershell-editor-services")})
+            ;; Deno  for js jsx ts tsx ; (lspconfig.denols.setup {})
+            ;; Typescript
+            (lspconfig.ts_ls.setup {})
+            ;; Html
+            (lspconfig.html.setup {})
+            ;; Htmx
+            (lsp_with_server "htmx-lsp"
+                             (fn [server_path]
+                               (lspconfig.htmx.setup {:cmd [server_path]})))
+            ;; Tailwindcss
+            (lsp_with_server "tailwindcss-language-server"
+                             (fn [server_path]
+                               (lspconfig.tailwindcss.setup {:cmd [server_path
+                                                                   "--stdio"]
+                                                             :root_dir (fn [fname]
+                                                                         (local patterns
+                                                                                ["tailwind.config.js"
+                                                                                 "tailwind.config.cjs"
+                                                                                 "tailwind.config.mjs"
+                                                                                 "tailwind.config.ts"])
+                                                                         (vim.fs.root fname
+                                                                                      patterns))})))
+            ;; SVELTE  (requires typescript-language-server)
+            (lspconfig.svelte.setup {})
+            ;; Clojure
+            (lsp_with_server "clojure-lsp"
+                             (fn [server_path]
+                               (lspconfig.clojure_lsp.setup {:cmd [server_path]
+                                                             :root_dir (fn [fname]
+                                                                         (local patterns
+                                                                                ["project.clj"
+                                                                                 "deps.edn"
+                                                                                 "build.boot"
+                                                                                 "shadow-cljs.edn"
+                                                                                 "bb.edn"])
+                                                                         (vim.fs.root fname
+                                                                                      patterns))})))
+            ;; Crystal
+            (lspconfig.crystalline.setup {})
+            ;; Dart
+            (lspconfig.dartls.setup {:root_dir (fn [fname]
+                                                 (local patterns
+                                                        ["pubspec.yaml" ".git"])
+                                                 (vim.fs.root fname patterns))})
+            ;; Elixir
+            (lsp_with_server "elixir-ls"
+                             (fn [server_path]
+                               (lspconfig.elixirls.setup {:cmd [server_path]})))
+            ;; Fennel
+            (lspconfig.fennel_ls.setup {})
+            ;; Gleam
+            (lspconfig.gleam.setup {:root_dir (fn [fname]
+                                                (local patterns
+                                                       ["gleam.toml" ".git"])
+                                                (vim.fs.root fname patterns))})
+            ;; Gradle
+            (lspconfig.gradle_ls.setup {})
+            ;; Go
+            (lspconfig.gopls.setup {})
+            ;; Julia
+            (lspconfig.julials.setup {:on_new_config (fn [new_config _]
+                                                       (local julia
+                                                              (vim.fn.expand "~/.julia/environments/nvim-lspconfig/bin/julia"))
+                                                       (local julia_found
+                                                              (= (?. (vim.uv.fs_stat julia)
+                                                                     :type)
+                                                                 :file))
+                                                       (when julia_found
+                                                         (tset new_config.cmd 1
+                                                               julia)))})
+            ;; Koka
+            (lspconfig.koka.setup {})
+            ;; Nim
+            (lspconfig.nim_langserver.setup {})
+            ;; OCaml
+            (lspconfig.ocamllsp.setup {})
+            ;; Odin
+            (lspconfig.ols.setup {})
+            ;; Racket
+            (lspconfig.racket_langserver.setup {})
+            ;; Raku
+            (lspconfig.raku_navigator.setup {:cmd ["raku-navigator" "--stdio"]})
+            ;; Swift
+            (lspconfig.sourcekit.setup {})
+            ;; V
+            (lspconfig.vls.setup {})
+            ;; Zig
+            (lspconfig.zls.setup {:settings {:zls {:enable_snippets true
+                                                   :enable_argument_placeholders false
+                                                   :highlight_global_var_declarations true}}}))}
+ {1 "williamboman/mason.nvim"
+  :cmd :Mason
+  :opts {:install_root_dir (get_mason_path)
+         :PATH :prepend
+         :ui {:backdrop vim.g.zz.backdrop}}}]

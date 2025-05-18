@@ -1,17 +1,7 @@
-require('core.vars')
-require('core.opts')
-require('core.autocmds')
-
--- load plugins
-require('lz')
-
--- after plugins to override them
-require('core.maps')
-require('core.hls')
-
--- load GUI
-if vim.g.neovide then
-  require('neovide')
-elseif vim.g.fvim_loaded then
-  require('fvim')
-end
+-- [nfnl] init.fnl
+require("core.vars")
+require("core.opts")
+require("core.aucmds")
+require("lz")
+require("core.hls")
+return require("core.maps")

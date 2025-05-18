@@ -1,125 +1,72 @@
-local o = vim.opt
-
-o.termguicolors = true
-o.background = 'light'
-
--- GUI Font
--- Neovide respect it's config.toml which supports light style
--- Others use this
+-- [nfnl] fnl/core/opts.fnl
+vim.o.termguicolors = true
+vim.o.background = "light"
 if not vim.g.neovide then
-  o.guifont = [[IosevkaTermSlab NFM:h14]]
-  o.guifontwide = [[Maple Mono SC NF:h14]]
+  vim.o.guifont = "IosevkaTermSlab NFM:h14"
+  vim.o.guifontwide = "Maple Mono SC NF:h14"
+else
 end
-
--- Case
-o.ignorecase = true
-o.smartcase = true
-o.infercase = true
-o.wildignorecase = true
-
--- Cmdline
-o.showcmd = true
-o.cmdheight = 1
-
--- Column Limitation
--- o.colorcolumn = '80'
--- o.textwidth = 100
-
--- Completion
-o.completeopt = 'menu,menuone,noselect,noinsert,preview'
-
--- Cursor
-o.guicursor:append('t-c:ver25') -- use bar style (ver25) on terminal and cmd mode
-o.cursorcolumn = false
-o.cursorline = false
-o.cursorlineopt = 'line,number'
-
--- Encoding
-vim.scriptencoding = 'utf-8'
-o.encoding = 'utf-8'
-o.fileencoding = 'utf-8'
-
--- Floating Window / Popup Menu
-o.winborder = 'rounded'
-o.winblend = 0
-o.pumblend = 0
-
--- Fold
-o.fillchars:append({
-  eob = ' ',
-  foldsep = ' ',
-  foldopen = '',
-  foldclose = '',
-})
-o.foldcolumn = '1'
-o.foldenable = true
-o.foldlevelstart = 99
-o.foldlevel = 99
-o.foldmethod = 'indent'
-
--- Indentation
-o.breakindent = true
-o.autoindent = true
-o.smartindent = true
-o.shiftwidth = 2
-
--- Line Number
-o.number = true
-o.relativenumber = false
-o.numberwidth = 2
-
--- Mode
-o.showmode = false
-
--- Mouse Support
-o.mouse = 'a'
-
--- Split
-o.splitright = true
-o.splitbelow = true
-
--- Status Column
-o.signcolumn = 'yes'
-
--- Status Line
-o.laststatus = 3
-
--- <Tab> key
-o.tabstop = 2 -- <tab> spacecount
-o.expandtab = true
-o.smarttab = true
-
--- Scroll
-o.smoothscroll = true
-o.scrolloff = 10
--- o.scrolloff = (999 - vim.o.scrolloff) -- keep cursor centered
-o.sidescrolloff = 10
-
--- Search
-o.hlsearch = true
-o.magic = true
-
--- Misc
-o.list = true
-o.wrap = false
-o.backup = false
-o.swapfile = false
-o.undofile = false
-o.hidden = true
-o.ruler = false
-o.history = 2000
-o.virtualedit = 'block'
-o.inccommand = 'split'
-o.timeout = true
-o.ttimeout = true
-o.timeoutlen = 500
-o.ttimeoutlen = 20
-o.updatetime = 500
-
--- Finding files - Search down into subfolders
-o.path:append({ '**' })
-o.wildignore:append({ '*/node_modules/*' })
-
--- Replace `vimgrep` with `ripgrep`
-o.grepformat = [[%f:%l:%c:%m,%f:%l:%m]]
-o.grepprg = [[rg --vimgrep --no-heading --smart-case]]
+vim.o.ignorecase = true
+vim.o.smartcase = true
+vim.o.infercase = true
+vim.o.wildignorecase = true
+vim.o.showcmd = true
+vim.o.cmdheight = 1
+vim.o.completeopt = "menu,menuone,noselect,noinsert,preview"
+vim.opt.guicursor:append("t-c:ver25")
+vim.o.cursorcolumn = false
+vim.o.cursorline = false
+vim.o.cursorlineopt = "line,number"
+vim.scriptencoding = "utf-8"
+vim.o.encoding = "utf-8"
+vim.o.fileencoding = "utf-8"
+vim.o.winborder = "rounded"
+vim.o.winblend = 0
+vim.o.pumblend = 0
+vim.opt.fillchars:append({eob = " ", foldsep = " ", foldopen = "\239\145\188", foldclose = "\239\145\160"})
+vim.o.foldcolumn = "1"
+vim.o.foldenable = true
+vim.o.foldlevelstart = 99
+vim.o.foldlevel = 99
+vim.o.foldmethod = "indent"
+vim.o.breakindent = true
+vim.o.autoindent = true
+vim.o.smartindent = true
+vim.o.shiftwidth = 2
+vim.o.number = true
+vim.o.relativenumber = false
+vim.o.numberwidth = 2
+vim.o.showmode = false
+vim.o.mouse = "a"
+vim.o.splitright = true
+vim.o.splitbelow = true
+vim.o.signcolumn = "yes"
+vim.o.laststatus = 3
+vim.o.tabstop = 2
+vim.o.expandtab = true
+vim.o.smarttab = true
+vim.o.smoothscroll = true
+vim.o.scrolloff = 10
+vim.o.sidescrolloff = 10
+vim.o.hlsearch = true
+vim.o.magic = true
+vim.o.grepformat = "%f:%l:%c:%m,%f:%l:%m"
+vim.o.grepprg = "rg --vimgrep --no-heading --smart-case"
+vim.opt.path:append({"**"})
+vim.opt.wildignore:append({"*/node_modules/*"})
+vim.o.list = true
+vim.o.wrap = false
+vim.o.backup = false
+vim.o.swapfile = false
+vim.o.undofile = false
+vim.o.hidden = true
+vim.o.ruler = false
+vim.o.history = 2000
+vim.o.virtualedit = "block"
+vim.o.inccommand = "split"
+vim.o.timeout = true
+vim.o.ttimeout = true
+vim.o.timeoutlen = 500
+vim.o.ttimeoutlen = 20
+vim.o.updatetime = 500
+return nil

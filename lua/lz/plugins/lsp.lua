@@ -1,287 +1,163 @@
-local function create_LualsReloadNvim_command()
-  local callback = function(input)
-    local nvim_library_map = {
-      vim = {
-        vim.env.VIMRUNTIME,
-        '${3rd}/luv/library',
-      },
-      all = {
-        '${3rd}/luv/library',
-        unpack(vim.api.nvim_get_runtime_file('', true)),
-      },
-    }
-
-    local mode, force = unpack(vim.fn.split(input.fargs[1], '-', false))
-    local new_val, old_val = nvim_library_map[mode], vim.g.lua_ls_reload_nvim
-    if force ~= 'force' and require('core.utils').tbl_includes(old_val, new_val) then
-      vim.notify('[LualsReloadNvim] modules have already loaded, nothing todo')
+-- [nfnl] fnl/lz/plugins/lsp.fnl
+local _local_1_ = require("core.utils")
+local tbl_includes = _local_1_["tbl_includes"]
+local get_mason_path = _local_1_["get_mason_path"]
+local lsp_server_package_path = _local_1_["lsp_server_package_path"]
+local lsp_with_server = _local_1_["lsp_with_server"]
+local lsp_on_attach = _local_1_["lsp_on_attach"]
+local lsp_capabilities = _local_1_["lsp_capabilities"]
+local function create_LualsNvimDev()
+  local function callback(input)
+    local libs = {vim = {vim.env.VIMRUNTIME, "${3rd}/luv/library"}, all = {"${3rd}/luv/library", unpack(vim.api.nvim_get_runtime_file("", true))}}
+    local _local_2_ = vim.fn.split(input.fargs[1], "-", false)
+    local mode = _local_2_[1]
+    local force = _local_2_[2]
+    local new_val, old_val = libs[mode], vim.g.lua_ls_nvim_dev
+    if ((force ~= "force") and tbl_includes(old_val, new_val)) then
+      return vim.notify("[LualsNvimDev] modules have already loaded, nothing todo")
     else
-      vim.g.lua_ls_reload_nvim = new_val
-      vim.cmd([[ LspRestart lua_ls ]])
+      vim.g.lua_ls_nvim_dev = new_val
+      return vim.cmd("LspRestart lua_ls")
     end
   end
-
-  vim.api.nvim_create_user_command('LualsReloadNvim', callback, {
-    nargs = 1,
-    complete = function() return { 'vim', 'all', 'vim-force', 'all-force' } end,
-  })
+  local function _4_()
+    return {"vim", "all", "vim-force", "all-force"}
+  end
+  return vim.api.nvim_create_user_command("LualsNvimDev", callback, {nargs = 1, complete = _4_})
 end
-
-local lua_conditional_settings = {
-  {
-    cond = function(nvim_config_path, workspace_path)
-      return not workspace_path
-        or nvim_config_path == workspace_path:sub(1, #nvim_config_path)
-        or not (vim.uv.fs_stat(workspace_path .. '/.luarc.json') or vim.uv.fs_stat(workspace_path .. '/.luarc.jsonc'))
-    end,
-    config = function(client)
-      print('lua_ls load nvim modules')
-      vim.g.lua_ls_reload_nvim = vim.g.lua_ls_reload_nvim
-        or {
-          vim.env.VIMRUNTIME,
-          '${3rd}/luv/library',
-        }
-      client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
-        codeLens = { enable = false },
-        runtime = { version = 'LuaJIT' },
-        workspace = { checkThirdParty = false, library = vim.g.lua_ls_reload_nvim },
-      })
-      create_LualsReloadNvim_command()
-    end,
-  },
-}
-
-local M = {
-  'neovim/nvim-lspconfig',
-  cmd = { 'LspInfo', 'LspStart', 'LspLog' },
-  dependencies = {
-    { 'deathbeam/lspecho.nvim', opts = {} },
-  },
-}
-
-function M.config()
-  vim.diagnostic.config({
-    severity_sort = true,
-    virtual_text = false,
-    virtual_lines = { current_line = true },
-  })
-
-  vim.lsp.config('*', {
-    root_markers = { '.git' },
-    capabilities = require('core.utils').lsp_capabilities(),
-  })
-
-  vim.api.nvim_create_autocmd('LspAttach', {
-    callback = function(args)
-      local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
-      local buf = args.buf
-      require('core.utils').lsp_on_attach(client, buf)
-    end,
-  })
-
-  -- :help lspconfig-all
-
-  local lspconfig = require('lspconfig')
-  local lsp_with_server = require('core.utils').lsp_with_server
-
-  -- Lua
-  lspconfig.lua_ls.setup({
-    on_init = function(client)
-      local nvim_config_path = vim.fn.stdpath('config')
-      local nvim_config_real_path =
-        vim.uv.fs_realpath(type(nvim_config_path) == 'table' and nvim_config_path[1] or tostring(nvim_config_path))
-      print('lua_ls nvim config path:', nvim_config_real_path)
-
-      local workspace_path = nil
-      if client.workspace_folders then workspace_path = vim.uv.fs_realpath(client.workspace_folders[1].name) end
-      print('lua_ls workspace path:', workspace_path)
-
-      -- default settings
-      client.config.settings.Lua = {
-        codeLens = { enable = true },
-        completion = { callSnippet = 'Replace' },
-        telemetry = { enable = false },
-        workspace = { checkThirdParty = false, library = {} },
-      }
-
-      -- conditional settings
-      for _, s in ipairs(lua_conditional_settings) do
-        if s.cond(nvim_config_real_path, workspace_path) then
-          s.config(client)
-          break
-        end
+local lua_conditional_settings
+local function _5_(nvim_config_path, workspace_path)
+  return (not workspace_path or (nvim_config_path == workspace_path:sub(1, #nvim_config_path)) or not (vim.uv.fs_stat((workspace_path .. "/.luarc.json")) or vim.uv.fs_stat((workspace_path .. "/.luarc.jsonc"))))
+end
+local function _6_(client)
+  print("lua_ls load nvim modules")
+  vim.g.lua_ls_nvim_dev = (vim.g.lua_ls_nvim_dev or {vim.env.VIMRUNTIME, "${3rd}/luv/library"})
+  client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {codeLens = {enable = false}, runtime = {version = "LuaJIT"}, workspace = {library = vim.g.lua_ls_nvim_dev, checkThirdParty = false}})
+  return create_LualsNvimDev()
+end
+lua_conditional_settings = {{match = _5_, config = _6_}}
+local function _7_()
+  vim.diagnostic.config({severity_sort = true, virtual_lines = {current_line = true}, virtual_text = false})
+  vim.lsp.config("*", {root_markers = {".git"}, capabilities = lsp_capabilities()})
+  local function _8_(args)
+    local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+    local bufid = args.buf
+    return lsp_on_attach(client, bufid)
+  end
+  vim.api.nvim_create_autocmd("LspAttach", {callback = _8_})
+  local lspconfig = require("lspconfig")
+  local function _9_(client)
+    local nvim_config_path
+    do
+      local path = vim.fn.stdpath("config")
+      local path1
+      if ("table" == type(path)) then
+        path1 = path[1]
+      else
+        path1 = tostring(path)
       end
-
-      print('lua_ls settings:', vim.inspect(client.config.settings.Lua))
-    end,
-  })
-
-  -- Kulala
+      nvim_config_path = vim.uv.fs_realpath(path1)
+    end
+    print("lua_ls nvim config path:", nvim_config_path)
+    local workspace_path
+    if client.workspace_folders then
+      workspace_path = vim.uv.fs_realpath(client.workspace_folders[1].name)
+    else
+      workspace_path = nil
+    end
+    print("lua_ls workspace path:", workspace_path)
+    client.config.settings.Lua = {codeLens = {enable = true}, completion = {callSnippet = "Replace"}, telemetry = {enable = false}, workspace = {library = {}, checkThirdParty = false}}
+    for _, s in ipairs(lua_conditional_settings) do
+      if s.match(nvim_config_path, workspace_path) then
+        s.config(client)
+        break
+      else
+      end
+    end
+    return print("lua_ls settings:", vim.inspect(client.config.settings.Lua))
+  end
+  lspconfig.lua_ls.setup({on_init = _9_})
   lspconfig.kulala_ls.setup({})
-
-  -- Markdown
-  -- lspconfig.marksman.setup({
-  -- })
-
-  -- Dockerfile
-  lsp_with_server(
-    'docker-langserver',
-    function(server_path) lspconfig.dockerls.setup({ cmd = { server_path, '--stdio' } }) end
-  )
-
-  -- JSON
+  local function _13_(server_path)
+    return lspconfig.dockerls.setup({cmd = {server_path, "--stdio"}})
+  end
+  lsp_with_server("docker-langserver", _13_)
   lspconfig.jsonls.setup({})
-
-  -- TOML
   lspconfig.taplo.setup({})
-
-  -- XML
   lspconfig.lemminx.setup({})
-
-  -- YAML
   lspconfig.yamlls.setup({})
-
-  -- Nushell
   lspconfig.nushell.setup({})
-
-  -- Powershell
-  lspconfig.powershell_es.setup({
-    bundle_path = require('core.utils').lsp_server_package_path('powershell-editor-services'),
-  })
-
-  -- Deno  for js jsx ts tsx
-  -- lspconfig.denols.setup({})
-
-  -- Typescript
+  lspconfig.powershell_es.setup({bundle_path = lsp_server_package_path("powershell-editor-services")})
   lspconfig.ts_ls.setup({})
-
-  -- Html
   lspconfig.html.setup({})
-
-  -- Htmx
-  lsp_with_server('htmx-lsp', function(server_path) lspconfig.htmx.setup({ cmd = { server_path } }) end)
-
-  -- Tailwindcss
-  lsp_with_server('tailwindcss-language-server', function(server_path)
-    lspconfig.tailwindcss.setup({
-      cmd = { server_path, '--stdio' },
-      root_dir = function(fname)
-        local patterns = {
-          'tailwind.config.js',
-          'tailwind.config.cjs',
-          'tailwind.config.mjs',
-          'tailwind.config.ts',
-        }
-        return vim.fs.root(fname, patterns)
-      end,
-    })
-  end)
-
-  -- SVELTE  (requires typescript-language-server)
+  local function _14_(server_path)
+    return lspconfig.htmx.setup({cmd = {server_path}})
+  end
+  lsp_with_server("htmx-lsp", _14_)
+  local function _15_(server_path)
+    local function _16_(fname)
+      local patterns = {"tailwind.config.js", "tailwind.config.cjs", "tailwind.config.mjs", "tailwind.config.ts"}
+      return vim.fs.root(fname, patterns)
+    end
+    return lspconfig.tailwindcss.setup({cmd = {server_path, "--stdio"}, root_dir = _16_})
+  end
+  lsp_with_server("tailwindcss-language-server", _15_)
   lspconfig.svelte.setup({})
-
-  -- Clojure
-  lsp_with_server('clojure-lsp', function(server_path)
-    lspconfig.clojure_lsp.setup({
-      cmd = { server_path },
-      root_dir = function(fname)
-        local patterns = {
-          'project.clj',
-          'deps.edn',
-          'build.boot',
-          'shadow-cljs.edn',
-          'bb.edn',
-        }
-        return vim.fs.root(fname, patterns)
-      end,
-    })
-  end)
-
-  -- Crystal
+  local function _17_(server_path)
+    local function _18_(fname)
+      local patterns = {"project.clj", "deps.edn", "build.boot", "shadow-cljs.edn", "bb.edn"}
+      return vim.fs.root(fname, patterns)
+    end
+    return lspconfig.clojure_lsp.setup({cmd = {server_path}, root_dir = _18_})
+  end
+  lsp_with_server("clojure-lsp", _17_)
   lspconfig.crystalline.setup({})
-
-  -- Dart
-  lspconfig.dartls.setup({
-    root_dir = function(fname)
-      local patterns = { 'pubspec.yaml', '.git' }
-      return vim.fs.root(fname, patterns)
-    end,
-  })
-
-  -- Elixir
-  lsp_with_server('elixir-ls', function(server_path) lspconfig.elixirls.setup({ cmd = { server_path } }) end)
-
-  -- Fennel
+  local function _19_(fname)
+    local patterns = {"pubspec.yaml", ".git"}
+    return vim.fs.root(fname, patterns)
+  end
+  lspconfig.dartls.setup({root_dir = _19_})
+  local function _20_(server_path)
+    return lspconfig.elixirls.setup({cmd = {server_path}})
+  end
+  lsp_with_server("elixir-ls", _20_)
   lspconfig.fennel_ls.setup({})
-
-  -- Gleam
-  lspconfig.gleam.setup({
-    root_dir = function(fname)
-      local patterns = { 'gleam.toml', '.git' }
-      return vim.fs.root(fname, patterns)
-    end,
-  })
-
-  -- Gradle
+  local function _21_(fname)
+    local patterns = {"gleam.toml", ".git"}
+    return vim.fs.root(fname, patterns)
+  end
+  lspconfig.gleam.setup({root_dir = _21_})
   lspconfig.gradle_ls.setup({})
-
-  -- Go
   lspconfig.gopls.setup({})
-
-  -- Julia
-  lspconfig.julials.setup({
-    on_new_config = function(new_config, _)
-      local julia = vim.fn.expand('~/.julia/environments/nvim-lspconfig/bin/julia')
-      local julia_found = (vim.uv.fs_stat(julia) or {}).type == 'file'
-      if julia_found then new_config.cmd[1] = julia end
-    end,
-  })
-
-  -- Koka
+  local function _22_(new_config, _)
+    local julia = vim.fn.expand("~/.julia/environments/nvim-lspconfig/bin/julia")
+    local julia_found
+    local _24_
+    do
+      local t_23_ = vim.uv.fs_stat(julia)
+      if (nil ~= t_23_) then
+        t_23_ = t_23_.type
+      else
+      end
+      _24_ = t_23_
+    end
+    julia_found = (_24_ == "file")
+    if julia_found then
+      new_config.cmd[1] = julia
+      return nil
+    else
+      return nil
+    end
+  end
+  lspconfig.julials.setup({on_new_config = _22_})
   lspconfig.koka.setup({})
-
-  -- Nim
   lspconfig.nim_langserver.setup({})
-
-  -- OCaml
   lspconfig.ocamllsp.setup({})
-
-  -- Odin
   lspconfig.ols.setup({})
-
-  -- Racket
   lspconfig.racket_langserver.setup({})
-
-  -- Raku
-  lspconfig.raku_navigator.setup({ cmd = { 'raku-navigator', '--stdio' } })
-
-  -- Swift
+  lspconfig.raku_navigator.setup({cmd = {"raku-navigator", "--stdio"}})
   lspconfig.sourcekit.setup({})
-
-  -- V
   lspconfig.vls.setup({})
-
-  -- Zig
-  lspconfig.zls.setup({
-    settings = {
-      zls = {
-        enable_snippets = true,
-        enable_argument_placeholders = false,
-        highlight_global_var_declarations = true,
-      },
-    },
-  })
+  return lspconfig.zls.setup({settings = {zls = {enable_snippets = true, highlight_global_var_declarations = true, enable_argument_placeholders = false}}})
 end
-
-return {
-  M,
-  {
-    'williamboman/mason.nvim',
-    cmd = 'Mason',
-    opts = {
-      install_root_dir = require('core.utils').get_mason_path(),
-      PATH = 'prepend',
-      ui = { backdrop = vim.g.zz.backdrop },
-    },
-  },
-}
+return {{"neovim/nvim-lspconfig", cmd = {"LspInfo", "LspStart", "LspLog"}, dependencies = {{"deathbeam/lspecho.nvim", opts = {}}}, config = _7_}, {"williamboman/mason.nvim", cmd = "Mason", opts = {install_root_dir = get_mason_path(), PATH = "prepend", ui = {backdrop = vim.g.zz.backdrop}}}}
