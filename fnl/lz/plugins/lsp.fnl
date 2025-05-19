@@ -22,7 +22,7 @@
           (vim.cmd "LspRestart lua_ls"))))
 
   (usercmd :LuaLibsReload callback
-           {:nargs 1 :complete (fn [] [:vim :all :vim-force :all-force])}))
+           {:nargs 1 :complete #[:vim :all :vim-force :all-force]}))
 
 (local lua_conditional_settings
        [{:match (fn [nvim_config_path workspace_path]

@@ -129,8 +129,8 @@
   (nmap "[h" "<Cmd>Gitsigns prev_hunk<CR>" opts)
   (nmap "]h" "<Cmd>Gitsigns next_hunk<CR>" opts)
   (nmap "<Tab>h" "<Cmd>Gitsigns preview_hunk<CR>" opts)
-  (nmap "hr" "<Cmd>Gitsigns reset_hunk<CR>" opts)
-  (nmap "hs" "<Cmd>Gitsigns stage_hunk<CR>" opts)
-  (nmap "hv" "<Cmd>Gitsigns select_hunk<CR>" opts))
+  (nmap "<Leader>hr" "<Cmd>Gitsigns reset_hunk<CR>" opts)
+  (nmap "<Leader>hs" "<Cmd>Gitsigns stage_hunk<CR>" opts)
+  (nmap "<Leader>hv" "<Cmd>Gitsigns select_hunk<CR>" opts))
 
 M

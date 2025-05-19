@@ -30,11 +30,14 @@
   (when (= 1 (vim.fn.executable path)) path))
 
 (fn find_lsp_server_from_env_path [name]
-  (let [path (vim.fn.exepath name)]
-    (if (and path (not= "" path) (has :win32)
-             (not (?. (vim.fn.split (vim.fs.basename path) "\\.") 2)))
-        (.. path ".cmd")
-        path)))
+  (var path (vim.fn.exepath name))
+  (when (= path "") (set path nil))
+  (when (and path (has :win32) (not (-> path
+                                        (vim.fs.basename)
+                                        (vim.fn.split "\\.")
+                                        (?. 2))))
+    (set path (.. path ".cmd")))
+  path)
 
 (fn M.lsp_server_path [name]
   (or (find_lsp_server_from_mason name) (find_lsp_server_from_env_path name)))
@@ -76,11 +79,9 @@
 
 (fn M.system_open [path]
   (vim.notify (.. "system_open path=" path) vim.log.levels.INFO)
-  (local cmd (if (has :win32)
-                 (.. "explorer.exe '" path "'")
-                 (if (has :macunix)
-                     (.. "open -g '" path "' &")
-                     (.. "xdg-open '" path "' &"))))
+  (local cmd (if (has :win32) (.. "explorer.exe '" path "'")
+                 (has :macunix) (.. "open -g '" path "' &")
+                 (.. "xdg-open '" path "' &")))
   (vim.fn.jobstart cmd {:detach true}))
 
 (fn M.tbl_includes [a b]
@@ -126,7 +127,7 @@
   (each [_ l (ipairs lines)]
     (set max_cols (math.max max_cols (vim.api.nvim_strwidth l))))
   (local bufid (vim.api.nvim_create_buf false true))
-  (vim.api.nvim_buf_set_lines bufid 0 (length lines) false lines)
+  (vim.api.nvim_buf_set_lines bufid 0 -1 false lines)
   (local winid (vim.api.nvim_open_win bufid true
                                       {:relative :cursor
                                        :row 1
@@ -140,23 +141,5 @@
   (tset vim.bo bufid :modifiable false)
   (tset vim.wo winid :wrap false)
   (when callback (callback bufid winid)))
-
-(fn M.get_justfile_tasks [justfile]
-  (local cmd ["just" "-f" justfile "--list"])
-  (local cmd_result (: (vim.system cmd {:text true}) :wait))
-  (icollect [_ line (ipairs (vim.fn.split (. cmd_result :stdout) "\n" false))]
-    (when (vim.startswith line "   ")
-      (local [name desc] (vim.fn.split line "#" false))
-      {:name (vim.trim name)
-       :desc (when desc (vim.trim desc))
-       :justfile justfile})))
-
-(fn M.run_justfile_task [task]
-  (local [task_name task_args] (vim.fn.split (. task :name) " " false))
-  (local cmd (.. "just -f " (. task :justfile) " " task_name))
-  (if task_args
-      (vim.ui.input {:prompt (.. "just " (. task :name) ": ")}
-                    #(when $1 (vim.cmd (.. "AsyncRun " cmd " " $1))))
-      (vim.cmd (.. "AsyncRun " cmd))))
 
 M

@@ -18,7 +18,8 @@
            (local jdtls_config_dir
                   (.. jdtls_root
                       (if (has :win32) "/config_win"
-                          (if (has :mac) "/config_mac" "/config_linux"))))
+                          (has :mac) "/config_mac"
+                          "/config_linux")))
            (local workspace_root (vim.fs.normalize "~/.cache/jdtls/workspace"))
 
            (fn start_or_attach []

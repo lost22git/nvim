@@ -43,27 +43,31 @@ local function find_lsp_server_from_mason(name)
 end
 local function find_lsp_server_from_env_path(name)
   local path = vim.fn.exepath(name)
-  local and_5_ = path and ("" ~= path)
-  if and_5_ then
-    and_5_ = (vim.fn.has("win32") == 1)
+  if (path == "") then
+    path = nil
+  else
   end
-  if and_5_ then
-    local _7_
+  local and_6_ = path
+  if and_6_ then
+    and_6_ = (vim.fn.has("win32") == 1)
+  end
+  if and_6_ then
+    local _8_
     do
-      local t_6_ = vim.fn.split(vim.fs.basename(path), "\\.")
-      if (nil ~= t_6_) then
-        t_6_ = t_6_[2]
+      local t_7_ = vim.fn.split(vim.fs.basename(path), "\\.")
+      if (nil ~= t_7_) then
+        t_7_ = t_7_[2]
       else
       end
-      _7_ = t_6_
+      _8_ = t_7_
     end
-    and_5_ = not _7_
+    and_6_ = not _8_
   end
-  if and_5_ then
-    return (path .. ".cmd")
+  if and_6_ then
+    path = (path .. ".cmd")
   else
-    return path
   end
+  return path
 end
 M.lsp_server_path = function(name)
   return (find_lsp_server_from_mason(name) or find_lsp_server_from_env_path(name))
@@ -87,11 +91,11 @@ local function lsp_format_on_save(client, bufid)
     local grp = vim.api.nvim_create_augroup("lsp_format_on_save", {})
     local cb
     do
-      local _11_ = {buffer = bufid, timeout_ms = 1000}
-      local function _12_(...)
-        return vim.lsp.buf.format(_11_, ...)
+      local _12_ = {buffer = bufid, timeout_ms = 1000}
+      local function _13_(...)
+        return vim.lsp.buf.format(_12_, ...)
       end
-      cb = _12_
+      cb = _13_
     end
     vim.api.nvim_clear_autocmds({group = grp, buffer = bufid})
     return vim.api.nvim_create_autocmd("BufWritePre", {group = grp, buffer = bufid, callback = cb})
@@ -122,12 +126,10 @@ M.system_open = function(path)
   local cmd
   if (vim.fn.has("win32") == 1) then
     cmd = ("explorer.exe '" .. path .. "'")
+  elseif (vim.fn.has("macunix") == 1) then
+    cmd = ("open -g '" .. path .. "' &")
   else
-    if (vim.fn.has("macunix") == 1) then
-      cmd = ("open -g '" .. path .. "' &")
-    else
-      cmd = ("xdg-open '" .. path .. "' &")
-    end
+    cmd = ("xdg-open '" .. path .. "' &")
   end
   return vim.fn.jobstart(cmd, {detach = true})
 end
@@ -195,7 +197,7 @@ M.open_hover_window = function(text_or_lines, title, callback)
     max_cols = math.max(max_cols, vim.api.nvim_strwidth(l))
   end
   local bufid = vim.api.nvim_create_buf(false, true)
-  vim.api.nvim_buf_set_lines(bufid, 0, #lines, false, lines)
+  vim.api.nvim_buf_set_lines(bufid, 0, -1, false, lines)
   local winid = vim.api.nvim_open_win(bufid, true, {relative = "cursor", row = 1, col = 0, width = max_cols, height = math.min(16, #lines), style = "minimal", title = title})
   M.disable_diagnostic(bufid)
   vim.bo[bufid]["readonly"] = true
@@ -205,53 +207,6 @@ M.open_hover_window = function(text_or_lines, title, callback)
     return callback(bufid, winid)
   else
     return nil
-  end
-end
-M.get_justfile_tasks = function(justfile)
-  local cmd = {"just", "-f", justfile, "--list"}
-  local cmd_result = vim.system(cmd, {text = true}):wait()
-  local tbl_21_ = {}
-  local i_22_ = 0
-  for _, line in ipairs(vim.fn.split(cmd_result.stdout, "\n", false)) do
-    local val_23_
-    if vim.startswith(line, "   ") then
-      local _local_24_ = vim.fn.split(line, "#", false)
-      local name = _local_24_[1]
-      local desc = _local_24_[2]
-      local _25_
-      if desc then
-        _25_ = vim.trim(desc)
-      else
-        _25_ = nil
-      end
-      val_23_ = {name = vim.trim(name), desc = _25_, justfile = justfile}
-    else
-      val_23_ = nil
-    end
-    if (nil ~= val_23_) then
-      i_22_ = (i_22_ + 1)
-      tbl_21_[i_22_] = val_23_
-    else
-    end
-  end
-  return tbl_21_
-end
-M.run_justfile_task = function(task)
-  local _local_29_ = vim.fn.split(task.name, " ", false)
-  local task_name = _local_29_[1]
-  local task_args = _local_29_[2]
-  local cmd = ("just -f " .. task.justfile .. " " .. task_name)
-  if task_args then
-    local function _30_(_241)
-      if _241 then
-        return vim.cmd(("AsyncRun " .. cmd .. " " .. _241))
-      else
-        return nil
-      end
-    end
-    return vim.ui.input({prompt = ("just " .. task.name .. ": ")}, _30_)
-  else
-    return vim.cmd(("AsyncRun " .. cmd))
   end
 end
 return M

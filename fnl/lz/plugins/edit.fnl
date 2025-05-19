@@ -1,9 +1,6 @@
 [{1 "TheBlob42/houdini.nvim"
   :event [:InsertEnter :CmdLineEnter :TermEnter]
   :opts {:timeout 250 :escape_sequences {:v false :V false :c :<BS><BS><Esc>}}}
- {1 "mbbill/undotree"
-  :keys [{1 :<Leader>u 2 "<CMD>UndotreeToggle<CR>" :desc "[undotree] Toggle"}]}
- {1 "MagicDuck/grug-far.nvim" :cmd [:GrugFar :GrugFarWithin] :opts {}}
  {1 "Wansmer/treesj"
   :dependencies ["nvim-treesitter/nvim-treesitter"]
   :opts {:use_default_keymaps false}
@@ -38,21 +35,6 @@
                                                                       {:placement v
                                                                        :mode :insert}))
                                           (.. "Wrap form " v)])))}}
- {1 "aaronik/treewalker.nvim"
-  :opts {:highlight true :highlight_duration 300 :highlight_group :Visual}
-  :keys (let [data [[:th :Left]
-                    [:tl :Right]
-                    [:tk :Up]
-                    [:tj :Down]
-                    [:tsh :SwapLeft]
-                    [:tsl :SwapRight]
-                    [:tsk :SwapUp]
-                    [:tsj :SwapDown]]]
-          (icollect [_ [k v] (ipairs data)]
-            {1 k
-             2 (.. "<Cmd>Treewalker " v "<CR>")
-             :mode (if (vim.startswith v :Swap) :n [:n :v])
-             :desc (.. "[treewalker] " v)}))}
  {1 "folke/flash.nvim"
   :opts {:modes {:char {:enabled false}}}
   :keys (let [data [[:s :jump [:n :x :o]]

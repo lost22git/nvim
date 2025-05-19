@@ -1,6 +1,6 @@
 -- [nfnl] fnl/lz/plugins/git.fnl
-local function _1_(bufid)
-  return require("core.maps").gitsigns(bufid)
+local function _1_(_241)
+  return require("core.maps").gitsigns(_241)
 end
 local function _2_()
   local _local_3_ = require("neogit")

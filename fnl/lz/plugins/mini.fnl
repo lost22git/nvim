@@ -3,17 +3,14 @@
   :config (fn []
             ((. (require :mini.icons) :setup))
             (MiniIcons.mock_nvim_web_devicons))}
+ {1 "echasnovski/mini.cursorword" :lazy false :opts {}}
  {1 "echasnovski/mini.files"
-  :opts {}
+  :opts {:windows {:preview true}}
   :keys [{1 :<M-1> 2 #(MiniFiles.open) :desc "[mini.files] Open"}
          {1 :<M-2>
           2 #(MiniFiles.open (vim.api.nvim_buf_get_name 0) false)
           :desc "[mini.files] Open current directory"}]}
  {1 "echasnovski/mini.move" :lazy false :opts {}}
- {1 "echasnovski/mini.statusline"
-  :lazy false
-  :opts {:use_icons true :set_vim_settings true}}
- {1 "echasnovski/mini.cursorword" :lazy false :opts {}}
  {1 "echasnovski/mini.ai"
   :dependencies [{1 "echasnovski/mini.extra" :opts {}}]
   :lazy false

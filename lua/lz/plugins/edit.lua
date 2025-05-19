@@ -37,20 +37,18 @@ local function _5_(...)
 end
 local _9_
 do
-  local data = {{"th", "Left"}, {"tl", "Right"}, {"tk", "Up"}, {"tj", "Down"}, {"tsh", "SwapLeft"}, {"tsl", "SwapRight"}, {"tsk", "SwapUp"}, {"tsj", "SwapDown"}}
+  local data = {{"s", "jump", {"n", "x", "o"}}, {"S", "treesitter", {"n", "x", "o"}}, {"r", "remote", "o"}, {"R", "treesitter_search", {"x", "o"}}, {"<c-s>", "toggle", "c"}}
   local tbl_21_ = {}
   local i_22_ = 0
   for _, _11_ in ipairs(data) do
     local k = _11_[1]
     local v = _11_[2]
+    local m = _11_[3]
     local val_23_
-    local _12_
-    if vim.startswith(v, "Swap") then
-      _12_ = "n"
-    else
-      _12_ = {"n", "v"}
+    local function _12_()
+      return require("flash")[v]()
     end
-    val_23_ = {k, ("<Cmd>Treewalker " .. v .. "<CR>"), mode = _12_, desc = ("[treewalker] " .. v)}
+    val_23_ = {k, _12_, mode = m}
     if (nil ~= val_23_) then
       i_22_ = (i_22_ + 1)
       tbl_21_[i_22_] = val_23_
@@ -59,26 +57,4 @@ do
   end
   _9_ = tbl_21_
 end
-local _15_
-do
-  local data = {{"s", "jump", {"n", "x", "o"}}, {"S", "treesitter", {"n", "x", "o"}}, {"r", "remote", "o"}, {"R", "treesitter_search", {"x", "o"}}, {"<c-s>", "toggle", "c"}}
-  local tbl_21_ = {}
-  local i_22_ = 0
-  for _, _17_ in ipairs(data) do
-    local k = _17_[1]
-    local v = _17_[2]
-    local m = _17_[3]
-    local val_23_
-    local function _18_()
-      return require("flash")[v]()
-    end
-    val_23_ = {k, _18_, mode = m}
-    if (nil ~= val_23_) then
-      i_22_ = (i_22_ + 1)
-      tbl_21_[i_22_] = val_23_
-    else
-    end
-  end
-  _15_ = tbl_21_
-end
-return {{"TheBlob42/houdini.nvim", event = {"InsertEnter", "CmdLineEnter", "TermEnter"}, opts = {timeout = 250, escape_sequences = {c = "<BS><BS><Esc>", V = false, v = false}}}, {"mbbill/undotree", keys = {{"<Leader>u", "<CMD>UndotreeToggle<CR>", desc = "[undotree] Toggle"}}}, {"MagicDuck/grug-far.nvim", cmd = {"GrugFar", "GrugFarWithin"}, opts = {}}, {"Wansmer/treesj", dependencies = {"nvim-treesitter/nvim-treesitter"}, opts = {use_default_keymaps = false}, keys = {{"<Leader>j", "<Cmd>TSJToggle<CR>", desc = "[treesj] Split/Join"}}}, {"julienvincent/nvim-paredit", ft = {"clojure", "fennel"}, opts = {filetypes = {"clojure", "fennel"}, keys = vim.tbl_extend("error", _1_, _5_(...))}}, {"aaronik/treewalker.nvim", opts = {highlight = true, highlight_duration = 300, highlight_group = "Visual"}, keys = _9_}, {"folke/flash.nvim", opts = {modes = {char = {enabled = false}}}, keys = _15_}}
+return {{"TheBlob42/houdini.nvim", event = {"InsertEnter", "CmdLineEnter", "TermEnter"}, opts = {timeout = 250, escape_sequences = {c = "<BS><BS><Esc>", V = false, v = false}}}, {"Wansmer/treesj", dependencies = {"nvim-treesitter/nvim-treesitter"}, opts = {use_default_keymaps = false}, keys = {{"<Leader>j", "<Cmd>TSJToggle<CR>", desc = "[treesj] Split/Join"}}}, {"julienvincent/nvim-paredit", ft = {"clojure", "fennel"}, opts = {filetypes = {"clojure", "fennel"}, keys = vim.tbl_extend("error", _1_, _5_(...))}}, {"folke/flash.nvim", opts = {modes = {char = {enabled = false}}}, keys = _9_}}

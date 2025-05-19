@@ -32,7 +32,6 @@
 (set vim.o.cursorlineopt "line,number")
 
 ;; Encoding
-(set vim.scriptencoding "utf-8")
 (set vim.o.encoding "utf-8")
 (set vim.o.fileencoding "utf-8")
 

@@ -1,4 +1,3 @@
--- [nfnl] fnl/core/vars.fnl
 local zz_default
 local _1_
 if (vim.fn.has("win32") == 1) then

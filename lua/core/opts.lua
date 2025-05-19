@@ -17,7 +17,6 @@ vim.opt.guicursor:append("t-c:ver25")
 vim.o.cursorcolumn = false
 vim.o.cursorline = false
 vim.o.cursorlineopt = "line,number"
-vim.scriptencoding = "utf-8"
 vim.o.encoding = "utf-8"
 vim.o.fileencoding = "utf-8"
 vim.o.winborder = "rounded"

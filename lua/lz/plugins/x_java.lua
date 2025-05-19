@@ -11,12 +11,10 @@ local function _1_()
   local _3_
   if (vim.fn.has("win32") == 1) then
     _3_ = "/config_win"
+  elseif (vim.fn.has("mac") == 1) then
+    _3_ = "/config_mac"
   else
-    if (vim.fn.has("mac") == 1) then
-      _3_ = "/config_mac"
-    else
-      _3_ = "/config_linux"
-    end
+    _3_ = "/config_linux"
   end
   jdtls_config_dir = (jdtls_root .. _3_)
   local workspace_root = vim.fs.normalize("~/.cache/jdtls/workspace")

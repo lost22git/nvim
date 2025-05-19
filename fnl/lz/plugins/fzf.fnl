@@ -2,6 +2,10 @@
  :cmd :FzfLua
  :opts {:fzf_colors true
         :winopts {:backdrop vim.g.zz.backdrop :preview {:hidden true}}}
+ :config (fn [_ opts]
+           (local fzf (require :fzf-lua))
+           (fzf.setup opts)
+           (fzf.register_ui_select))
  :keys (let [data [[:f :builtin]
                    [:F :resume]
                    [:f? :helptags]

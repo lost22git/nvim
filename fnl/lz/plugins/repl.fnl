@@ -14,8 +14,7 @@
                    {:pattern ["conjure-log-*"]
                     :callback (fn [ev]
                                 (local bufid ev.buf)
-                                (local {: disable_diagnostic}
-                                       (require :core.utils))
+                                ((. (require :core.utils) :disable_diagnostic) bufid)
                                 (local p "\\v^(;|--|#) -+$")
                                 (nvmap "[e"
                                        (string.format "<Cmd>call search(\"%s\" \"bw\")<CR>"

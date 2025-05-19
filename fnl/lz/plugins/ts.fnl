@@ -35,15 +35,19 @@
                                                                           vim.go.foldmethod)
                                                                      (set vim.opt_local.foldexpr
                                                                           vim.go.foldexpr))
-                                                          :is_supported (fn []
-                                                                          true)}}))
+                                                          :is_supported #true}}))
 
-[{1 "nvim-treesitter/nvim-treesitter"
+[{1 "nvim-treesitter/nvim-treesitter-context"
+  :dependencies ["nvim-treesitter/nvim-treesitter"]
+  :cmd :TSContextEnable
+  :opts {}}
+ {1 "nvim-treesitter/nvim-treesitter"
   :build #(let [{: update} (require :nvim-treesitter.install)
                 ts_update (update {:with_sync true})]
             (ts_update))
   :dependencies ["nvim-treesitter/nvim-treesitter-textobjects"]
-  :event [:BufReadPost :BufNewFile]
+  ; :event [:BufReadPost :BufNewFile]
+  :cmd :TSEnable
   :opts {:sync_install false
          :auto_install false
          :highlight {:enable true
@@ -95,5 +99,4 @@
             (use_helix_source)
             (use_custom_source)
             (define_fold_module)
-            ((. (require :nvim-treesitter.configs) :setup) opts))}
- {1 "nvim-treesitter/nvim-treesitter-context" :cmd :TSContextEnable :opts {}}]
+            ((. (require :nvim-treesitter.configs) :setup) opts))}]

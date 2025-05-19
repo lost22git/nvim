@@ -1,4 +1,4 @@
-(import-macros {: autocmd : bufusercmd : nvmap : nvomap} :config.macros)
+(import-macros {: has : autocmd : bufusercmd : nvmap : nvomap} :config.macros)
 
 ;; Register filetypes
 (vim.cmd "
@@ -51,72 +51,70 @@
 (autocmd :VimResume
          {:desc "restore nvim cursor style"
           :pattern "*"
-          :callback (fn []
-                      (when GUI_CURSOR_CACHE
-                        (set vim.opt.guicursor GUI_CURSOR_CACHE)))})
+          :callback #(when GUI_CURSOR_CACHE
+                       (set vim.opt.guicursor GUI_CURSOR_CACHE))})
 
 (autocmd :FileType
          {:desc "set fileformat to unix"
           :pattern "*"
-          :callback (fn []
-                      (when (and vim.bo.modifiable
-                                 (not (vim.tbl_contains [:qf :FTerm]
-                                                        vim.bo.filetype)))
-                        (set vim.bo.fileformat :unix)))})
+          :callback #(when (and vim.bo.modifiable
+                                (not (vim.tbl_contains [:qf :FTerm]
+                                                       vim.bo.filetype)))
+                       (set vim.bo.fileformat :unix))})
 
 (autocmd :TextYankPost
          {:desc "highlight yanked text"
           :pattern "*"
-          :callback (partial vim.hl.on_yank {:higroup :Visual :timeout 200})})
+          :callback #(vim.hl.on_yank {:higroup :Visual :timeout 200})})
 
 (autocmd :BufWinEnter
          {:desc "add keymaps for Goto prev/next region"
-          :callback (fn []
+          :callback (fn [ev]
                       (local p "[-\\/;#] === .\\+ ===$")
                       (nvomap "[r"
                               (string.format "<Cmd>call search('%s','bw')<CR>"
                                              p)
                               {:silent true
-                               :buffer true
+                               :buffer ev.buf
                                :desc "[base] Goto prev region"})
                       (nvomap "]r"
                               (string.format "<Cmd>call search('%s','w')<CR>" p)
                               {:silent true
-                               :buffer true
+                               :buffer ev.buf
                                :desc "[base] Goto next region"}))})
 
 (autocmd :FileType
          {:desc "[Clojure] add keymaps for Goto prev/next (comment)"
           :pattern [:clojure :janet]
-          :callback (fn []
+          :callback (fn [ev]
                       (local p "\\v(^\\(comment|^#_)")
                       (nvomap "[C"
                               (string.format "<Cmd>call search('%s','bw')<CR>"
                                              p)
                               {:silent true
-                               :buffer true
+                               :buffer ev.buf
                                :desc "[base] Clojure goto prev comment"})
                       (nvomap "]C"
                               (string.format "<Cmd>call search('%s','w')<CR>" p)
                               {:silent true
-                               :buffer true
+                               :buffer ev.buf
                                :desc "[base] Clojure goto next comment"}))})
 
 (autocmd :FileType
          {:desc "[Just] add keymaps for Goto prev/next task"
           :pattern :just
-          :callback (fn []
+          :callback (fn [ev]
                       (local p "\\v^\\w+.*:$")
                       (nvomap "[e"
                               (string.format "<Cmd>call search('%s','bw')<CR>"
                                              p)
                               {:silent true
-                               :buffer true
+                               :buffer ev.buf
                                :desc "[base] Justfile goto prev task"})
                       (nvomap "]e"
                               (string.format "<Cmd>call search('%s','w')<CR>" p)
                               {:silent true
-                               :buffer true
+                               :buffer ev.buf
                                :desc "[base] Justfile goto next task"}))})
 
 (fn nvim_help []
@@ -129,10 +127,9 @@
                     :pattern :lua
                     :callback (fn [ev]
                                 (fn cb []
-                                  (local bufid ev.buf)
-                                  (when (= 1 (vim.fn.bufexists bufid))
+                                  (when (= 1 (vim.fn.bufexists ev.buf))
                                     (nvmap "<Leader>k" nvim_help
-                                           {:buffer bufid
+                                           {:buffer ev.buf
                                             :desc "[base] Nvim help"})))
 
                                 (vim.defer_fn cb 1000))})
@@ -144,7 +141,7 @@
     (local text (vim.fn.trim (assert obj.stdout)))
     (local {: open_hover_window} (require :core.utils))
     (open_hover_window text title
-                       (fn [bufid winid]
+                       (fn [bufid _winid]
                          (tset vim.bo bufid :filetype :markdown)
                          (add_keymaps_for_docr bufid))))
 
@@ -180,7 +177,7 @@
     (local text (vim.fn.trim (assert obj.stdout)))
     (local {: open_hover_window} (require :core.utils))
     (open_hover_window text title
-                       (fn [bufid winid]
+                       (fn [bufid _winid]
                          (tset vim.bo bufid :filetype :markdown))))
 
   (fn make_cmd [q]
@@ -226,26 +223,24 @@
 
 (autocmd :FileType {:desc "[Clojure] add `Clj` usercommand for starting Clojure nREPL server"
                     :pattern :clojure
-                    :callback (fn []
-                                (bufusercmd 0 :Clj
-                                            (fn [opts]
-                                              (local clj_opts
-                                                     (if (string.match opts.args
-                                                                       "%-M:")
-                                                         opts.args
-                                                         (.. opts.args " " "-M")))
-                                              (local deps
-                                                     "'{:deps {nrepl/nrepl {:mvn/version \"1.3.0\"} refactor-nrepl/refactor-nrepl {:mvn/version \"3.10.0\"} cider/cider-nrepl {:mvn/version \"0.52.0\"} }}'")
-                                              (local cider_opts
-                                                     "\"(require 'nrepl.cmdline) (nrepl.cmdline/-main \\\"--interactive\\\" \\\"--middleware\\\" \\\"[refactor-nrepl.middleware/wrap-refactor cider.nrepl/cider-middleware]\\\")\"")
-                                              (local command
-                                                     (string.format "clj -Sdeps %s %s -e %s"
-                                                                    deps
-                                                                    clj_opts
-                                                                    cider_opts))
-                                              (vim.cmd (.. "tabnew | term "
-                                                           command)))
-                                            {:nargs "*"}))})
+                    :callback #(bufusercmd 0 :Clj
+                                           (fn [opts]
+                                             (local clj_opts
+                                                    (if (string.match opts.args
+                                                                      "%-M:")
+                                                        opts.args
+                                                        (.. opts.args " " "-M")))
+                                             (local deps
+                                                    "'{:deps {nrepl/nrepl {:mvn/version \"1.3.0\"} refactor-nrepl/refactor-nrepl {:mvn/version \"3.10.0\"} cider/cider-nrepl {:mvn/version \"0.52.0\"} }}'")
+                                             (local cider_opts
+                                                    "\"(require 'nrepl.cmdline) (nrepl.cmdline/-main \\\"--interactive\\\" \\\"--middleware\\\" \\\"[refactor-nrepl.middleware/wrap-refactor cider.nrepl/cider-middleware]\\\")\"")
+                                             (local command
+                                                    (string.format "clj -Sdeps %s %s -e %s"
+                                                                   deps clj_opts
+                                                                   cider_opts))
+                                             (vim.cmd (.. "tabnew | term "
+                                                          command)))
+                                           {:nargs "*"})})
 
 (autocmd :FileType {:desc "[Janet] add `JanetNetrepl` usercommand for starting janet-netrepl server"
                     :pattern :janet
@@ -253,3 +248,74 @@
                                            #(vim.cmd (.. "tabnew | term "
                                                          "janet-netrepl"))
                                            {:nargs "*"})})
+
+;; run_visual state
+(local run_visual {:state {:bufid nil :winid nil}})
+(fn run_visual.buffer_append [lines]
+  "Append given lines to buffer and scroll cursor to the bottom of window"
+  (local {: bufid : winid} run_visual.state)
+  (vim.api.nvim_buf_set_lines bufid (vim.api.nvim_buf_line_count bufid) -1
+                              false lines)
+  (vim.api.nvim_win_set_cursor winid [(vim.api.nvim_buf_line_count bufid) 0]))
+
+(fn run_visual.read_selection_and_write_to_tmp_file []
+  ;; read selection_text
+  (local {: get_last_selection_text} (require :core.utils))
+  (local selection_text (get_last_selection_text))
+  ;; create tmp_file
+  (local tmp_file (-> (os.tmpname)
+                      (vim.fs.dirname)
+                      (.. "/nvim_run_visual_tmp")))
+  ;; write selection text to tmp_file
+  (-> selection_text
+      (vim.split "\n")
+      (vim.fn.writefile tmp_file))
+  ;; ensure tmp_file accessible
+  (when (has :unix)
+    (os.execute (.. "chmod 777 " tmp_file)))
+  tmp_file)
+
+(fn run_visual.ensure_buf_and_win []
+  ;; create buffer if not exists
+  (when (or (not run_visual.state.bufid)
+            (= 0 vim.fn.bufexists run_visual.state.bufid))
+    (set run_visual.state.bufid (vim.api.nvim_create_buf false true)))
+  ;; create window if not exists
+  (when (not (and run_visual.state.winid
+                  (vim.api.nvim_win_is_valid run_visual.state.winid)))
+    (set run_visual.state.winid
+         (vim.api.nvim_open_win run_visual.state.bufid false {:split "below"}))))
+
+(autocmd :BufWinEnter
+         {:desc "create `RunVisual` usercommand"
+          :callback #(bufusercmd $1.buf :RunVisual
+                                 (fn [opts]
+                                   (local tmp_file
+                                          (run_visual.read_selection_and_write_to_tmp_file))
+                                   ;; make cmd
+                                   (local cmd [(unpack opts.fargs) tmp_file])
+                                   ;; open buffer window to waiting for cmd result
+                                   (run_visual.ensure_buf_and_win)
+                                   (let [time_str (os.date "!%m-%d %H:%M:%S"
+                                                           (os.time))
+                                         title_lines [(string.rep "-" 80)
+                                                      (.. time_str " - "
+                                                          (table.concat cmd " "))
+                                                      (string.rep "-" 80)]]
+                                     (run_visual.buffer_append title_lines))
+                                   ;; run cmd
+                                   (vim.system cmd {:text true}
+                                               (fn [obj]
+                                                 (fn print_cmd_result []
+                                                   (local text
+                                                          (if (and obj.stdout
+                                                                   (not= obj.stdout
+                                                                         ""))
+                                                              obj.stdout
+                                                              (vim.inspect obj)))
+                                                   (-> text
+                                                       (vim.fn.split "\n" true)
+                                                       (run_visual.buffer_append)))
+
+                                                 ((vim.schedule_wrap print_cmd_result)))))
+                                 {:nargs "+" :range true})})

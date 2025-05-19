@@ -142,8 +142,8 @@ M.gitsigns = function(bufid)
   vim.keymap.set("n", "[h", "<Cmd>Gitsigns prev_hunk<CR>", opts)
   vim.keymap.set("n", "]h", "<Cmd>Gitsigns next_hunk<CR>", opts)
   vim.keymap.set("n", "<Tab>h", "<Cmd>Gitsigns preview_hunk<CR>", opts)
-  vim.keymap.set("n", "hr", "<Cmd>Gitsigns reset_hunk<CR>", opts)
-  vim.keymap.set("n", "hs", "<Cmd>Gitsigns stage_hunk<CR>", opts)
-  return vim.keymap.set("n", "hv", "<Cmd>Gitsigns select_hunk<CR>", opts)
+  vim.keymap.set("n", "<Leader>hr", "<Cmd>Gitsigns reset_hunk<CR>", opts)
+  vim.keymap.set("n", "<Leader>hs", "<Cmd>Gitsigns stage_hunk<CR>", opts)
+  return vim.keymap.set("n", "<Leader>hv", "<Cmd>Gitsigns select_hunk<CR>", opts)
 end
 return M
