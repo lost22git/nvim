@@ -1,6 +1,6 @@
 (import-macros {: usercmd : autocmd} :config.macros)
 
-(local {: tbl_includes
+(local {: list_includes
         : get_mason_path
         : lsp_server_package_path
         : lsp_with_server
@@ -15,7 +15,7 @@
                   (unpack (vim.api.nvim_get_runtime_file "" true))]})
     (local [mode force] (vim.fn.split (. input.fargs 1) "-" false))
     (local (new_libs old_libs) (values (. libs mode) vim.g.nvim_lua_libs))
-    (if (and (not= force :force) (tbl_includes old_libs new_libs))
+    (if (and (not= force :force) (list_includes old_libs new_libs))
         (vim.notify "[LuaLibsReload] libs have already loaded.")
         (do
           (set vim.g.nvim_lua_libs new_libs)
@@ -57,32 +57,34 @@
                             {:root_markers [".git"]
                              :capabilities (lsp_capabilities)})
             (autocmd :LspAttach
-                     {:callback (fn [args]
-                                  (local client
-                                         (assert (vim.lsp.get_client_by_id args.data.client_id)))
-                                  (local bufid args.buf)
-                                  (lsp_on_attach client bufid))})
+                     {:callback #(-> $.data.client_id
+                                     (vim.lsp.get_client_by_id)
+                                     (assert)
+                                     (lsp_on_attach $.buf))})
+
+            (fn get_nvim_config_path []
+              (let [path (vim.fn.stdpath :config)
+                    path1 (if (= :table (type path))
+                              (. path 1)
+                              (tostring path))]
+                (vim.uv.fs_realpath path1)))
+
+            (fn get_workspace_path [client]
+              (when client.workspace_folders
+                (vim.uv.fs_realpath (. client.workspace_folders 1 :name))))
+
             ;; :help lspconfig-all
             (local lspconfig (require :lspconfig))
             ;; Lua
             (lspconfig.lua_ls.setup {:on_init (fn [client]
                                                 ;; nvim_config_path
                                                 (local nvim_config_path
-                                                       (let [path (vim.fn.stdpath :config)
-                                                             path1 (if (= :table
-                                                                          (type path))
-                                                                       (. path
-                                                                          1)
-                                                                       (tostring path))]
-                                                         (vim.uv.fs_realpath path1)))
+                                                       (get_nvim_config_path))
                                                 (print "lua_ls nvim config path:"
                                                        nvim_config_path)
                                                 ;; workspace_path
                                                 (local workspace_path
-                                                       (when client.workspace_folders
-                                                         (vim.uv.fs_realpath (. client.workspace_folders
-                                                                                1
-                                                                                :name))))
+                                                       (get_workspace_path client))
                                                 (print "lua_ls workspace path:"
                                                        workspace_path)
                                                 ;; default settings
@@ -122,7 +124,7 @@
             (lspconfig.powershell_es.setup {:bundle_path (lsp_server_package_path "powershell-editor-services")})
             ;; Deno  for js jsx ts tsx ; (lspconfig.denols.setup {})
             ;; Typescript
-            (lspconfig.ts_ls.setup {})
+            (lspconfig.vtsls.setup {})
             ;; Html
             (lspconfig.html.setup {})
             ;; Htmx
@@ -202,6 +204,8 @@
             (lspconfig.racket_langserver.setup {})
             ;; Raku
             (lspconfig.raku_navigator.setup {:cmd ["raku-navigator" "--stdio"]})
+            ;; Roc
+            (lspconfig.roc_ls.setup {})
             ;; Swift
             (lspconfig.sourcekit.setup {})
             ;; V

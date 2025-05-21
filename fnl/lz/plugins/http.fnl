@@ -8,18 +8,15 @@
          :formatters {:json ["jq"] :html ["prettier" "--parser" "html"]}}
   :init (fn []
           (fn create_keymaps [bufid]
-            (local p "\\v^<(HEAD|GET|POST|PUT|PATCH|DELETE|OPTION)>")
-            (nmap "[e" (string.format "<Cmd>call search('%s', 'bw')<CR>" p)
-                  {:buffer bufid :silent true :desc "[hurl] Goto prev entry"})
-            (nmap "]e" (string.format "<Cmd>call search('%s', 'w')<CR>" p)
-                  {:buffer bufid :silent true :desc "[hurl] Goto next entry"})
+            (local {: create_keymaps_for_goto_entries} (require :core.utils))
+            (create_keymaps_for_goto_entries "\\v^<(HEAD|GET|POST|PUT|PATCH|DELETE|OPTION)>"
+                                             "[e" "]e" :hurl_request bufid)
             (nmap "<Leader>ee" "<Cmd>HurlRunnerAt<CR>"
                   {:buffer bufid :silent true :desc "[hurl] HurlRunnerAt"})
             (nmap "<Leader>eb" "<Cmd>HurlRunner<CR>"
                   {:buffer bufid :silent true :desc "[hurl] HurlRunner"}))
 
-          (autocmd :FileType
-                   {:pattern :hurl :callback #(create_keymaps $1.buf)}))}
+          (autocmd :FileType {:pattern :hurl :callback #(create_keymaps $.buf)}))}
  {1 "mistweaverco/kulala.nvim"
   :ft [:http :rest]
   :opts {:winbar true :show_variable_info_text :float}
@@ -62,6 +59,6 @@
 
           (autocmd :FileType
                    {:pattern [:http :rest]
-                    :callback (fn [ev]
-                                (create_usercmds ev.buf)
-                                (create_keymaps ev.buf))}))}]
+                    :callback (fn [{:buf bufid}]
+                                (create_usercmds bufid)
+                                (create_keymaps bufid))}))}]

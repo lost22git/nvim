@@ -1,5 +1,7 @@
 (import-macros {: has : autocmd : bufusercmd : nvmap : nvomap} :config.macros)
 
+(local {: create_keymaps_for_goto_entries} (require :core.utils))
+
 ;; Register filetypes
 (vim.cmd "
   au BufNewFile,BufReadPost *.bb set filetype=clojure
@@ -69,53 +71,22 @@
 
 (autocmd :BufWinEnter
          {:desc "add keymaps for Goto prev/next region"
-          :callback (fn [ev]
-                      (local p "[-\\/;#] === .\\+ ===$")
-                      (nvomap "[r"
-                              (string.format "<Cmd>call search('%s','bw')<CR>"
-                                             p)
-                              {:silent true
-                               :buffer ev.buf
-                               :desc "[base] Goto prev region"})
-                      (nvomap "]r"
-                              (string.format "<Cmd>call search('%s','w')<CR>" p)
-                              {:silent true
-                               :buffer ev.buf
-                               :desc "[base] Goto next region"}))})
+          :callback #(create_keymaps_for_goto_entries "[-\\/;#] === .\\+ ===$"
+                                                      "[r" "]r" :code_region
+                                                      $.buf)})
 
 (autocmd :FileType
          {:desc "[Clojure] add keymaps for Goto prev/next (comment)"
           :pattern [:clojure :janet]
-          :callback (fn [ev]
-                      (local p "\\v(^\\(comment|^#_)")
-                      (nvomap "[C"
-                              (string.format "<Cmd>call search('%s','bw')<CR>"
-                                             p)
-                              {:silent true
-                               :buffer ev.buf
-                               :desc "[base] Clojure goto prev comment"})
-                      (nvomap "]C"
-                              (string.format "<Cmd>call search('%s','w')<CR>" p)
-                              {:silent true
-                               :buffer ev.buf
-                               :desc "[base] Clojure goto next comment"}))})
+          :callback #(create_keymaps_for_goto_entries "\\v(^\\(comment|^#_)"
+                                                      "[C" "]C" :comment_form
+                                                      $.buf)})
 
 (autocmd :FileType
          {:desc "[Just] add keymaps for Goto prev/next task"
           :pattern :just
-          :callback (fn [ev]
-                      (local p "\\v^\\w+.*:$")
-                      (nvomap "[e"
-                              (string.format "<Cmd>call search('%s','bw')<CR>"
-                                             p)
-                              {:silent true
-                               :buffer ev.buf
-                               :desc "[base] Justfile goto prev task"})
-                      (nvomap "]e"
-                              (string.format "<Cmd>call search('%s','w')<CR>" p)
-                              {:silent true
-                               :buffer ev.buf
-                               :desc "[base] Justfile goto next task"}))})
+          :callback #(create_keymaps_for_goto_entries "\\v^\\w+.*:$" "[e" "]e"
+                                                      :just_task $.buf)})
 
 (fn nvim_help []
   (local {: on_v_modes : get_current_selection_text} (require :core.utils))
@@ -125,11 +96,11 @@
 
 (autocmd :FileType {:desc "add keymaps for nvim help"
                     :pattern :lua
-                    :callback (fn [ev]
+                    :callback (fn [{:buf bufid}]
                                 (fn cb []
-                                  (when (= 1 (vim.fn.bufexists ev.buf))
+                                  (when (= 1 (vim.fn.bufexists bufid))
                                     (nvmap "<Leader>k" nvim_help
-                                           {:buffer ev.buf
+                                           {:buffer bufid
                                             :desc "[base] Nvim help"})))
 
                                 (vim.defer_fn cb 1000))})
@@ -166,10 +137,9 @@
        (nvmap "<Leader>kk" (partial docr :tree)
               {:buffer bufid :desc "[base] docr tree"})))
 
-(autocmd :FileType
-         {:desc "[Crystal] add keymaps for docr"
-          :pattern :crystal
-          :callback #(add_keymaps_for_docr $1.buf)})
+(autocmd :FileType {:desc "[Crystal] add keymaps for docr"
+                    :pattern :crystal
+                    :callback #(add_keymaps_for_docr $.buf)})
 
 (fn lfe_doc [m_or_h]
   (fn open_doc_window [obj title]
@@ -214,22 +184,22 @@
 (autocmd :FileType
          {:desc "[LFE] add keymaps for (m mode) or (h mod fun arity)"
           :pattern :lfe
-          :callback (fn [ev]
+          :callback (fn [{:buf bufid}]
                       (nvmap "<Leader>k" (partial lfe_doc :h)
-                             {:buffer ev.buf
+                             {:buffer bufid
                               :desc "[base] lfe (h mod fun arity)"})
                       (nvmap "<Leader>K" (partial lfe_doc :m)
-                             {:buffer ev.buf :desc "[base] lfe (m mod)"}))})
+                             {:buffer bufid :desc "[base] lfe (m mod)"}))})
 
 (autocmd :FileType {:desc "[Clojure] add `Clj` usercommand for starting Clojure nREPL server"
                     :pattern :clojure
                     :callback #(bufusercmd 0 :Clj
-                                           (fn [opts]
+                                           (fn [{: args}]
                                              (local clj_opts
-                                                    (if (string.match opts.args
+                                                    (if (string.match args
                                                                       "%-M:")
-                                                        opts.args
-                                                        (.. opts.args " " "-M")))
+                                                        args
+                                                        (.. args " " "-M")))
                                              (local deps
                                                     "'{:deps {nrepl/nrepl {:mvn/version \"1.3.0\"} refactor-nrepl/refactor-nrepl {:mvn/version \"3.10.0\"} cider/cider-nrepl {:mvn/version \"0.52.0\"} }}'")
                                              (local cider_opts
@@ -244,7 +214,7 @@
 
 (autocmd :FileType {:desc "[Janet] add `JanetNetrepl` usercommand for starting janet-netrepl server"
                     :pattern :janet
-                    :callback #(bufusercmd $1.buf :JanetNetrepl
+                    :callback #(bufusercmd $.buf :JanetNetrepl
                                            #(vim.cmd (.. "tabnew | term "
                                                          "janet-netrepl"))
                                            {:nargs "*"})})
@@ -254,8 +224,9 @@
 (fn run_visual.buffer_append [lines]
   "Append given lines to buffer and scroll cursor to the bottom of window"
   (local {: bufid : winid} run_visual.state)
-  (vim.api.nvim_buf_set_lines bufid (vim.api.nvim_buf_line_count bufid) -1
-                              false lines)
+  (var line_start (vim.api.nvim_buf_line_count bufid))
+  (when (= 1 line_start) (set line_start 0))
+  (vim.api.nvim_buf_set_lines bufid line_start -1 false lines)
   (vim.api.nvim_win_set_cursor winid [(vim.api.nvim_buf_line_count bufid) 0]))
 
 (fn run_visual.read_selection_and_write_to_tmp_file []
@@ -279,43 +250,51 @@
   ;; create buffer if not exists
   (when (or (not run_visual.state.bufid)
             (= 0 vim.fn.bufexists run_visual.state.bufid))
-    (set run_visual.state.bufid (vim.api.nvim_create_buf false true)))
+    (set run_visual.state.bufid (vim.api.nvim_create_buf false true))
+    (tset vim.bo run_visual.state.bufid :filetype :RunVisual))
   ;; create window if not exists
   (when (not (and run_visual.state.winid
                   (vim.api.nvim_win_is_valid run_visual.state.winid)))
     (set run_visual.state.winid
-         (vim.api.nvim_open_win run_visual.state.bufid false {:split "below"}))))
+         (vim.api.nvim_open_win run_visual.state.bufid false
+                                {:split "below" :style :minimal}))))
 
 (autocmd :BufWinEnter
          {:desc "create `RunVisual` usercommand"
-          :callback #(bufusercmd $1.buf :RunVisual
-                                 (fn [opts]
+          :callback #(bufusercmd $.buf :RunVisual
+                                 (fn [{: fargs}]
                                    (local tmp_file
                                           (run_visual.read_selection_and_write_to_tmp_file))
                                    ;; make cmd
-                                   (local cmd [(unpack opts.fargs) tmp_file])
+                                   (local cmd [(unpack fargs) tmp_file])
                                    ;; open buffer window to waiting for cmd result
                                    (run_visual.ensure_buf_and_win)
                                    (let [time_str (os.date "!%m-%d %H:%M:%S"
                                                            (os.time))
-                                         title_lines [(string.rep "-" 80)
-                                                      (.. time_str " - "
-                                                          (table.concat cmd " "))
-                                                      (string.rep "-" 80)]]
+                                         title_lines [(.. "# "
+                                                          (string.rep "-" 80))
+                                                      (.. "# " time_str " - "
+                                                          (table.concat cmd " "))]]
                                      (run_visual.buffer_append title_lines))
+
+                                   (fn print_cmd_result [obj]
+                                     (local text
+                                            (if (and obj.stdout
+                                                     (not= obj.stdout ""))
+                                                obj.stdout
+                                                (vim.inspect obj)))
+                                     (-> text
+                                         (vim.fn.trim)
+                                         (vim.fn.split "\n" true)
+                                         (run_visual.buffer_append)))
+
                                    ;; run cmd
                                    (vim.system cmd {:text true}
-                                               (fn [obj]
-                                                 (fn print_cmd_result []
-                                                   (local text
-                                                          (if (and obj.stdout
-                                                                   (not= obj.stdout
-                                                                         ""))
-                                                              obj.stdout
-                                                              (vim.inspect obj)))
-                                                   (-> text
-                                                       (vim.fn.split "\n" true)
-                                                       (run_visual.buffer_append)))
-
-                                                 ((vim.schedule_wrap print_cmd_result)))))
+                                               #((vim.schedule_wrap print_cmd_result) $)))
                                  {:nargs "+" :range true})})
+
+(autocmd :FileType
+         {:desc "[RunVisual] add keymaps for goto prev/next log"
+          :pattern :RunVisual
+          :callback #(create_keymaps_for_goto_entries "\\v^# \\-+$" "[e" "]e"
+                                                      :run_visual_log $.buf)})

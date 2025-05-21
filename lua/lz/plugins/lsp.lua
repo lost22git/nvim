@@ -1,6 +1,6 @@
 -- [nfnl] fnl/lz/plugins/lsp.fnl
 local _local_1_ = require("core.utils")
-local tbl_includes = _local_1_["tbl_includes"]
+local list_includes = _local_1_["list_includes"]
 local get_mason_path = _local_1_["get_mason_path"]
 local lsp_server_package_path = _local_1_["lsp_server_package_path"]
 local lsp_with_server = _local_1_["lsp_with_server"]
@@ -13,7 +13,7 @@ local function create_LuaLibsReload()
     local mode = _local_2_[1]
     local force = _local_2_[2]
     local new_libs, old_libs = libs[mode], vim.g.nvim_lua_libs
-    if ((force ~= "force") and tbl_includes(old_libs, new_libs)) then
+    if ((force ~= "force") and list_includes(old_libs, new_libs)) then
       return vim.notify("[LuaLibsReload] libs have already loaded.")
     else
       vim.g.nvim_lua_libs = new_libs
@@ -39,32 +39,32 @@ lua_conditional_settings = {{match = _5_, config = _6_}}
 local function _7_()
   vim.diagnostic.config({severity_sort = true, virtual_lines = {current_line = true}, virtual_text = false})
   vim.lsp.config("*", {root_markers = {".git"}, capabilities = lsp_capabilities()})
-  local function _8_(args)
-    local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
-    local bufid = args.buf
-    return lsp_on_attach(client, bufid)
+  local function _8_(_241)
+    return lsp_on_attach(assert(vim.lsp.get_client_by_id(_241.data.client_id)), _241.buf)
   end
   vim.api.nvim_create_autocmd("LspAttach", {callback = _8_})
-  local lspconfig = require("lspconfig")
-  local function _9_(client)
-    local nvim_config_path
-    do
-      local path = vim.fn.stdpath("config")
-      local path1
-      if ("table" == type(path)) then
-        path1 = path[1]
-      else
-        path1 = tostring(path)
-      end
-      nvim_config_path = vim.uv.fs_realpath(path1)
-    end
-    print("lua_ls nvim config path:", nvim_config_path)
-    local workspace_path
-    if client.workspace_folders then
-      workspace_path = vim.uv.fs_realpath(client.workspace_folders[1].name)
+  local function get_nvim_config_path()
+    local path = vim.fn.stdpath("config")
+    local path1
+    if ("table" == type(path)) then
+      path1 = path[1]
     else
-      workspace_path = nil
+      path1 = tostring(path)
     end
+    return vim.uv.fs_realpath(path1)
+  end
+  local function get_workspace_path(client)
+    if client.workspace_folders then
+      return vim.uv.fs_realpath(client.workspace_folders[1].name)
+    else
+      return nil
+    end
+  end
+  local lspconfig = require("lspconfig")
+  local function _11_(client)
+    local nvim_config_path = get_nvim_config_path()
+    print("lua_ls nvim config path:", nvim_config_path)
+    local workspace_path = get_workspace_path(client)
     print("lua_ls workspace path:", workspace_path)
     client.config.settings.Lua = {codeLens = {enable = true}, completion = {callSnippet = "Replace"}, telemetry = {enable = false}, workspace = {library = {}, checkThirdParty = false}}
     for _, s in ipairs(lua_conditional_settings) do
@@ -76,7 +76,7 @@ local function _7_()
     end
     return print("lua_ls settings:", vim.inspect(client.config.settings.Lua))
   end
-  lspconfig.lua_ls.setup({on_init = _9_})
+  lspconfig.lua_ls.setup({on_init = _11_})
   lspconfig.kulala_ls.setup({})
   local function _13_(server_path)
     return lspconfig.dockerls.setup({cmd = {server_path, "--stdio"}})
@@ -88,7 +88,7 @@ local function _7_()
   lspconfig.yamlls.setup({})
   lspconfig.nushell.setup({})
   lspconfig.powershell_es.setup({bundle_path = lsp_server_package_path("powershell-editor-services")})
-  lspconfig.ts_ls.setup({})
+  lspconfig.vtsls.setup({})
   lspconfig.html.setup({})
   local function _14_(server_path)
     return lspconfig.htmx.setup({cmd = {server_path}})
@@ -156,6 +156,7 @@ local function _7_()
   lspconfig.ols.setup({})
   lspconfig.racket_langserver.setup({})
   lspconfig.raku_navigator.setup({cmd = {"raku-navigator", "--stdio"}})
+  lspconfig.roc_ls.setup({})
   lspconfig.sourcekit.setup({})
   lspconfig.vls.setup({})
   return lspconfig.zls.setup({settings = {zls = {enable_snippets = true, highlight_global_var_declarations = true, enable_argument_placeholders = false}}})

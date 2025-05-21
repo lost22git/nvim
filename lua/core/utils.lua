@@ -1,5 +1,8 @@
 -- [nfnl] fnl/core/utils.fnl
 local M = {}
+M.generate_id = function()
+  return (os.time() .. "-" .. vim.fn.rand())
+end
 M.on_gui = function()
   return (vim.g.neovide or vim.g.fvim_loaded or vim.g.vscode)
 end
@@ -133,7 +136,7 @@ M.system_open = function(path)
   end
   return vim.fn.jobstart(cmd, {detach = true})
 end
-M.tbl_includes = function(a, b)
+M.list_includes = function(a, b)
   vim.validate("a", a, "table")
   vim.validate("b", b, "table")
   if (#a < #b) then
@@ -208,5 +211,9 @@ M.open_hover_window = function(text_or_lines, title, callback)
   else
     return nil
   end
+end
+M.create_keymaps_for_goto_entries = function(pattern, prev_key, next_key, tag, bufid)
+  vim.keymap.set({"n", "v", "o"}, prev_key, string.format("<Cmd>call search('%s', 'bw')<CR>", pattern), {buffer = bufid, silent = true, desc = string.format("[goto_entries] Goto prev %s entry", tag)})
+  return vim.keymap.set({"n", "v", "o"}, next_key, string.format("<Cmd>call search('%s', 'w')<CR>", pattern), {buffer = bufid, silent = true, desc = string.format("[goto_entries] Goto next %s entry", tag)})
 end
 return M

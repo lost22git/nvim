@@ -1,6 +1,9 @@
-(import-macros {: has : autocmd} :config.macros)
+(import-macros {: has : autocmd : nvomap} :config.macros)
 
 (local M {})
+
+(fn M.generate_id []
+  (.. (os.time) "-" (vim.fn.rand)))
 
 (fn M.on_gui []
   (or vim.g.neovide vim.g.fvim_loaded vim.g.vscode))
@@ -84,7 +87,7 @@
                  (.. "xdg-open '" path "' &")))
   (vim.fn.jobstart cmd {:detach true}))
 
-(fn M.tbl_includes [a b]
+(fn M.list_includes [a b]
   (vim.validate :a a :table)
   (vim.validate :b b :table)
   (when (< (length a) (length b)) (lua "return false"))
@@ -141,5 +144,15 @@
   (tset vim.bo bufid :modifiable false)
   (tset vim.wo winid :wrap false)
   (when callback (callback bufid winid)))
+
+(fn M.create_keymaps_for_goto_entries [pattern prev_key next_key tag bufid]
+  (nvomap prev_key (string.format "<Cmd>call search('%s', 'bw')<CR>" pattern)
+          {:buffer bufid
+           :silent true
+           :desc (string.format "[goto_entries] Goto prev %s entry" tag)})
+  (nvomap next_key (string.format "<Cmd>call search('%s', 'w')<CR>" pattern)
+          {:buffer bufid
+           :silent true
+           :desc (string.format "[goto_entries] Goto next %s entry" tag)}))
 
 M

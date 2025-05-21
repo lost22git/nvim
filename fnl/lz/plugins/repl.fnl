@@ -12,20 +12,15 @@
           (set vim.g.conjure#mapping#eval_previous [:<LocalLeader>E])
           (autocmd :BufWinEnter
                    {:pattern ["conjure-log-*"]
-                    :callback (fn [ev]
-                                (local bufid ev.buf)
-                                ((. (require :core.utils) :disable_diagnostic) bufid)
-                                (local p "\\v^(;|--|#) -+$")
-                                (nvmap "[e"
-                                       (string.format "<Cmd>call search(\"%s\" \"bw\")<CR>"
-                                                      p)
-                                       {:buffer bufid
-                                        :desc "[conjure] Goto prev log"})
-                                (nvmap "]e"
-                                       (string.format "<Cmd>call search(\"%s\" \"w\")<CR>"
-                                                      p)
-                                       {:buffer bufid
-                                        :desc "[conjure] Goto next log"}))}))}
+                    :callback (fn [{:buf bufid}]
+                                (local {: disable_diagnostic
+                                        : create_keymaps_for_goto_entries}
+                                       (require :core.utils))
+                                (disable_diagnostic)
+                                (create_keymaps_for_goto_entries "\\v^(;|--|#) -+$"
+                                                                 "[e" "]e"
+                                                                 :conjure_log
+                                                                 bufid))}))}
  {1 "pappasam/nvim-repl"
   :cmd :Repl
   :opts {:filetype_commands {:crystal {:cmd "crystal i"}
@@ -34,6 +29,7 @@
                              :lfe {:cmd "lfe"}
                              :nim {:cmd "inim"}
                              :raku {:cmd "rlwrap raku"}
+                             :roc {:cmd "roc repl"}
                              :swift {:cmd "swift repl"}}}
   :config (fn [_ opts]
             ((. (require :repl) :setup) opts)
@@ -46,6 +42,6 @@
                     {:buffer bufid :desc "[repl] SendVisual"}))
 
             (autocmd :FileType
-                     {:pattern ftypes :callback #(create_keymaps $1.buf)})
+                     {:pattern ftypes :callback #(create_keymaps $.buf)})
             (when (vim.tbl_contains ftypes vim.bo.filetype)
               (create_keymaps 0)))}]

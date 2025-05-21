@@ -2,4 +2,4 @@
  {1 "HiPhish/rainbow-delimiters.nvim"
   :submodules false
   :event [:BufReadPost :BufNewFile]}
- {1 "utilyre/sentiment.nvim" :event [:BufReadPost :BufNewFile] :opts {}}]
+ {1 "utilyre/sentiment.nvim" :event :BufWinEnter :opts {}}]

@@ -6,6 +6,8 @@
         :signature {:enabled true}
         :sources {:default [:lsp :path :snippets :buffer]}
         :completion {:ghost_text {:enabled false}
+                     :accept {:auto_brackets {:kind_resolution {:enabled true
+                                                                :blocked_filetypes [:fennel]}}}
                      :list {:selection {:preselect true :auto_insert false}}}
         :keymap {:preset :super-tab
                  :<M-j> [:select_next :fallback]

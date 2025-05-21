@@ -18,7 +18,8 @@
  {1 "whizikxd/naysayer-colors.nvim"
   :lazy false
   :priority 1000
-  :init #(vim.cmd.colorscheme :naysayer)}
+  ; :init #(vim.cmd.colorscheme :naysayer)
+  }
  ;; Cyberdream
  {1 "scottmckendry/cyberdream.nvim"
   :lazy false
@@ -36,5 +37,6 @@
  {1 "pappasam/papercolor-theme-slim"
   :lazy false
   :priority 1000
-  ; :init #(vim.cmd.colorscheme :PaperColorSlimLight)
-  }]
+  :init #(vim.cmd.colorscheme (if (= vim.o.background :dark)
+                                  :PaperColorSlim
+                                  :PaperColorSlimLight))}]
