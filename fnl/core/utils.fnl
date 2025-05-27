@@ -1,4 +1,4 @@
-(import-macros {: has : autocmd : nvomap} :config.macros)
+(import-macros {: has! : autocmd! : nvomap!} :config.macros)
 
 (local M {})
 
@@ -15,7 +15,7 @@
 
 (fn M.get_flutter_path []
   (let [path (vim.fn.exepath "flutter")]
-    (if (has :win32) (.. path ".bat") path)))
+    (if (has! :win32) (.. path ".bat") path)))
 
 (fn M.disable_diagnostic [bufid]
   (when (vim.diagnostic.is_enabled {:bufnr bufid})
@@ -29,16 +29,17 @@
 
 (fn find_lsp_server_from_mason [name]
   (var path (.. (M.get_mason_path) "/bin/" name))
-  (when (has :win32) (set path (.. path ".cmd")))
+  (when (has! :win32) (set path (.. path ".cmd")))
   (when (= 1 (vim.fn.executable path)) path))
 
 (fn find_lsp_server_from_env_path [name]
   (var path (vim.fn.exepath name))
   (when (= path "") (set path nil))
-  (when (and path (has :win32) (not (-> path
-                                        (vim.fs.basename)
-                                        (vim.fn.split "\\.")
-                                        (?. 2))))
+  (when (and path (has! :win32)
+             (not (-> path
+                      (vim.fs.basename)
+                      (vim.fn.split "\\.")
+                      (?. 2))))
     (set path (.. path ".cmd")))
   path)
 
@@ -62,15 +63,15 @@
     (let [grp (vim.api.nvim_create_augroup :lsp_format_on_save {})
           cb (partial vim.lsp.buf.format {:buffer bufid :timeout_ms 1000})]
       (vim.api.nvim_clear_autocmds {:group grp :buffer bufid})
-      (autocmd :BufWritePre {:group grp :buffer bufid :callback cb}))))
+      (autocmd! :BufWritePre {:group grp :buffer bufid :callback cb}))))
 
 (fn lsp_codelens_refresh [client bufid]
   (when (client:supports_method :textDocument/codeLens)
     (let [grp (vim.api.nvim_create_augroup :lsp_codelens_refresh {})]
       (vim.api.nvim_clear_autocmds {:group grp :buffer bufid})
       (vim.lsp.codelens.refresh)
-      (autocmd [:BufEnter :InsertLeave]
-               {:group grp :buffer bufid :callback vim.lsp.codelens.refresh}))))
+      (autocmd! [:BufEnter :InsertLeave]
+                {:group grp :buffer bufid :callback vim.lsp.codelens.refresh}))))
 
 (fn M.lsp_on_attach [client bufid]
   (tset vim.bo bufid :omnifunc nil)
@@ -82,8 +83,8 @@
 
 (fn M.system_open [path]
   (vim.notify (.. "system_open path=" path) vim.log.levels.INFO)
-  (local cmd (if (has :win32) (.. "explorer.exe '" path "'")
-                 (has :macunix) (.. "open -g '" path "' &")
+  (local cmd (if (has! :win32) (.. "explorer.exe '" path "'")
+                 (has! :macunix) (.. "open -g '" path "' &")
                  (.. "xdg-open '" path "' &")))
   (vim.fn.jobstart cmd {:detach true}))
 
@@ -146,13 +147,13 @@
   (when callback (callback bufid winid)))
 
 (fn M.create_keymaps_for_goto_entries [pattern prev_key next_key tag bufid]
-  (nvomap prev_key (string.format "<Cmd>call search('%s', 'bw')<CR>" pattern)
-          {:buffer bufid
-           :silent true
-           :desc (string.format "[goto_entries] Goto prev %s entry" tag)})
-  (nvomap next_key (string.format "<Cmd>call search('%s', 'w')<CR>" pattern)
-          {:buffer bufid
-           :silent true
-           :desc (string.format "[goto_entries] Goto next %s entry" tag)}))
+  (nvomap! prev_key (string.format "<Cmd>call search('%s', 'bw')<CR>" pattern)
+           {:buffer bufid
+            :silent true
+            :desc (string.format "[goto_entries] Goto prev %s entry" tag)})
+  (nvomap! next_key (string.format "<Cmd>call search('%s', 'w')<CR>" pattern)
+           {:buffer bufid
+            :silent true
+            :desc (string.format "[goto_entries] Goto next %s entry" tag)}))
 
 M

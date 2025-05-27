@@ -1,4 +1,4 @@
-(import-macros {: has : autocmd} :config.macros)
+(import-macros {: has! : autocmd!} :config.macros)
 
 {1 "mfussenegger/nvim-jdtls"
  :dependencies ["neovim/nvim-lspconfig"]
@@ -17,8 +17,8 @@
            (local lombok_jar (.. jdtls_root "/lombok.jar"))
            (local jdtls_config_dir
                   (.. jdtls_root
-                      (if (has :win32) "/config_win"
-                          (has :mac) "/config_mac"
+                      (if (has! :win32) "/config_win"
+                          (has! :mac) "/config_mac"
                           "/config_linux")))
            (local workspace_root (vim.fs.normalize "~/.cache/jdtls/workspace"))
 
@@ -83,7 +83,7 @@
              ((. (require :jdtls) :start_or_attach) opts))
 
            (when (= :java vim.bo.filetype) (start_or_attach))
-           (autocmd :FileType
-                    {:group (vim.api.nvim_create_augroup :JdtStartOrAttach {})
-                     :pattern :java
-                     :callback start_or_attach}))}
+           (autocmd! :FileType
+                     {:group (vim.api.nvim_create_augroup :JdtStartOrAttach {})
+                      :pattern :java
+                      :callback start_or_attach}))}

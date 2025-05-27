@@ -1,4 +1,4 @@
-(import-macros {: nmap : autocmd} :config.macros)
+(import-macros {: nmap! : autocmd!} :config.macros)
 
 [{1 "lukas-reineke/indent-blankline.nvim"
   :main :ibl

@@ -1,4 +1,4 @@
-(import-macros {: usercmd : autocmd} :config.macros)
+(import-macros {: usercmd! : autocmd!} :config.macros)
 
 (local {: list_includes
         : get_mason_path
@@ -21,8 +21,8 @@
           (set vim.g.nvim_lua_libs new_libs)
           (vim.cmd "LspRestart lua_ls"))))
 
-  (usercmd :LuaLibsReload callback
-           {:nargs 1 :complete #[:vim :all :vim-force :all-force]}))
+  (usercmd! :LuaLibsReload callback
+            {:nargs 1 :complete #[:vim :all :vim-force :all-force]}))
 
 (local lua_conditional_settings
        [{:match (fn [nvim_config_path workspace_path]
@@ -56,11 +56,11 @@
             (vim.lsp.config "*"
                             {:root_markers [".git"]
                              :capabilities (lsp_capabilities)})
-            (autocmd :LspAttach
-                     {:callback #(-> $.data.client_id
-                                     (vim.lsp.get_client_by_id)
-                                     (assert)
-                                     (lsp_on_attach $.buf))})
+            (autocmd! :LspAttach
+                      {:callback #(-> $.data.client_id
+                                      (vim.lsp.get_client_by_id)
+                                      (assert)
+                                      (lsp_on_attach $.buf))})
 
             (fn get_nvim_config_path []
               (let [path (vim.fn.stdpath :config)

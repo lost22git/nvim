@@ -1,57 +1,57 @@
 ;; [nfnl-macro]
 
-(fn has [feature]
+(fn has! [feature]
   "vim.fn.has(feature) but return true|false"
   `(= (vim.fn.has ,feature) 1))
 
-(fn map [...]
+(fn map! [...]
   "vim.keymap.set"
   `(vim.keymap.set ,...))
 
-(fn nmap [...]
+(fn nmap! [...]
   "vim.keymap.set :n"
   `(vim.keymap.set :n ,...))
 
-(fn imap [...]
+(fn imap! [...]
   "vim.keymap.set :i"
   `(vim.keymap.set :i ,...))
 
-(fn cmap [...]
+(fn cmap! [...]
   "vim.keymap.set :c"
   `(vim.keymap.set :c ,...))
 
-(fn vmap [...]
+(fn vmap! [...]
   "vim.keymap.set :v"
   `(vim.keymap.set :v ,...))
 
-(fn nvmap [...]
+(fn nvmap! [...]
   "vim.keymap.set [:n :v]"
   `(vim.keymap.set [:n :v] ,...))
 
-(fn nvomap [...]
+(fn nvomap! [...]
   "vim.keymap.set [:n :v :o]"
   `(vim.keymap.set [:n :v :o] ,...))
 
-(fn autocmd [...]
+(fn autocmd! [...]
   "vim.api.nvim_create_autocmd"
   `(vim.api.nvim_create_autocmd ,...))
 
-(fn usercmd [...]
+(fn usercmd! [...]
   "vim.api.nvim_create_user_command"
   `(vim.api.nvim_create_user_command ,...))
 
-(fn bufusercmd [...]
+(fn bufusercmd! [...]
   "vim.api.nvim_buf_create_user_command"
   `(vim.api.nvim_buf_create_user_command ,...))
 
-{: has
- : map
- : nmap
- : imap
- : cmap
- : vmap
- : nvmap
- : nvomap
- : autocmd
- : usercmd
- : bufusercmd}
+{: has!
+ : map!
+ : nmap!
+ : imap!
+ : cmap!
+ : vmap!
+ : nvmap!
+ : nvomap!
+ : autocmd!
+ : usercmd!
+ : bufusercmd!}

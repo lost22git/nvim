@@ -1,4 +1,4 @@
-(import-macros {: autocmd : bufusercmd : nmap} :config.macros)
+(import-macros {: autocmd! : bufusercmd! : nmap!} :config.macros)
 
 [{1 "jellydn/hurl.nvim"
   :ft :hurl
@@ -11,12 +11,13 @@
             (local {: create_keymaps_for_goto_entries} (require :core.utils))
             (create_keymaps_for_goto_entries "\\v^<(HEAD|GET|POST|PUT|PATCH|DELETE|OPTION)>"
                                              "[e" "]e" :hurl_request bufid)
-            (nmap "<Leader>ee" "<Cmd>HurlRunnerAt<CR>"
-                  {:buffer bufid :silent true :desc "[hurl] HurlRunnerAt"})
-            (nmap "<Leader>eb" "<Cmd>HurlRunner<CR>"
-                  {:buffer bufid :silent true :desc "[hurl] HurlRunner"}))
+            (nmap! "<Leader>ee" "<Cmd>HurlRunnerAt<CR>"
+                   {:buffer bufid :silent true :desc "[hurl] HurlRunnerAt"})
+            (nmap! "<Leader>eb" "<Cmd>HurlRunner<CR>"
+                   {:buffer bufid :silent true :desc "[hurl] HurlRunner"}))
 
-          (autocmd :FileType {:pattern :hurl :callback #(create_keymaps $.buf)}))}
+          (autocmd! :FileType
+                    {:pattern :hurl :callback #(create_keymaps $.buf)}))}
  {1 "mistweaverco/kulala.nvim"
   :ft [:http :rest]
   :opts {:winbar true :show_variable_info_text :float}
@@ -39,12 +40,12 @@
                     [:Scratchpad :scratchpad]
                     [:DownloadGraphqlSchema :download_graphql_schema]])
             (each [_ [k v] (pairs data)]
-              (bufusercmd bufid (.. :Kulala k) #((. (require :kulala) v))
-                          {:nargs 0}))
-            (bufusercmd bufid "KulalaScriptsClearGlobal"
-                        (fn [o]
-                          ((. (require :kulala) :scripts_clear_global) (unpack o.fargs)))
-                        {:nargs "*"}))
+              (bufusercmd! bufid (.. :Kulala k) #((. (require :kulala) v))
+                           {:nargs 0}))
+            (bufusercmd! bufid "KulalaScriptsClearGlobal"
+                         (fn [o]
+                           ((. (require :kulala) :scripts_clear_global) (unpack o.fargs)))
+                         {:nargs "*"}))
 
           (fn create_keymaps [bufid]
             (local data
@@ -55,10 +56,10 @@
                     ["]e" "<Cmd>KulalaJumpNext<CR>"]
                     ["<Leader>ls" "<Cmd>KulalaOpen<CR>"]])
             (each [_ [k v] (pairs data)]
-              (nmap k v {:buffer bufid :silent true})))
+              (nmap! k v {:buffer bufid :silent true})))
 
-          (autocmd :FileType
-                   {:pattern [:http :rest]
-                    :callback (fn [{:buf bufid}]
-                                (create_usercmds bufid)
-                                (create_keymaps bufid))}))}]
+          (autocmd! :FileType
+                    {:pattern [:http :rest]
+                     :callback (fn [{:buf bufid}]
+                                 (create_usercmds bufid)
+                                 (create_keymaps bufid))}))}]
