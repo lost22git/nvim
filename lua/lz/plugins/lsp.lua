@@ -46,10 +46,14 @@ local function _7_()
   local function get_nvim_config_path()
     local path = vim.fn.stdpath("config")
     local path1
-    if ("table" == type(path)) then
-      path1 = path[1]
-    else
-      path1 = tostring(path)
+    do
+      local _9_ = type(path)
+      if (_9_ == "table") then
+        path1 = path[1]
+      else
+        local _ = _9_
+        path1 = tostring(path)
+      end
     end
     return vim.uv.fs_realpath(path1)
   end
@@ -61,7 +65,7 @@ local function _7_()
     end
   end
   local lspconfig = require("lspconfig")
-  local function _11_(client)
+  local function _12_(client)
     local nvim_config_path = get_nvim_config_path()
     print("lua_ls nvim config path:", nvim_config_path)
     local workspace_path = get_workspace_path(client)
@@ -76,12 +80,12 @@ local function _7_()
     end
     return print("lua_ls settings:", vim.inspect(client.config.settings.Lua))
   end
-  lspconfig.lua_ls.setup({on_init = _11_})
+  lspconfig.lua_ls.setup({on_init = _12_})
   lspconfig.kulala_ls.setup({})
-  local function _13_(server_path)
-    return lspconfig.dockerls.setup({cmd = {server_path, "--stdio"}})
+  local function _14_(_241)
+    return lspconfig.dockerls.setup({cmd = {_241, "--stdio"}})
   end
-  lsp_with_server("docker-langserver", _13_)
+  lsp_with_server("docker-langserver", _14_)
   lspconfig.jsonls.setup({})
   lspconfig.taplo.setup({})
   lspconfig.lemminx.setup({})
@@ -90,58 +94,58 @@ local function _7_()
   lspconfig.powershell_es.setup({bundle_path = lsp_server_package_path("powershell-editor-services")})
   lspconfig.vtsls.setup({})
   lspconfig.html.setup({})
-  local function _14_(server_path)
-    return lspconfig.htmx.setup({cmd = {server_path}})
+  local function _15_(_241)
+    return lspconfig.htmx.setup({cmd = {_241}})
   end
-  lsp_with_server("htmx-lsp", _14_)
-  local function _15_(server_path)
-    local function _16_(fname)
+  lsp_with_server("htmx-lsp", _15_)
+  local function _16_(_241)
+    local function _17_(fname)
       local patterns = {"tailwind.config.js", "tailwind.config.cjs", "tailwind.config.mjs", "tailwind.config.ts"}
       return vim.fs.root(fname, patterns)
     end
-    return lspconfig.tailwindcss.setup({cmd = {server_path, "--stdio"}, root_dir = _16_})
+    return lspconfig.tailwindcss.setup({cmd = {_241, "--stdio"}, root_dir = _17_})
   end
-  lsp_with_server("tailwindcss-language-server", _15_)
+  lsp_with_server("tailwindcss-language-server", _16_)
   lspconfig.svelte.setup({})
-  local function _17_(server_path)
-    local function _18_(fname)
+  local function _18_(_241)
+    local function _19_(fname)
       local patterns = {"project.clj", "deps.edn", "build.boot", "shadow-cljs.edn", "bb.edn"}
       return vim.fs.root(fname, patterns)
     end
-    return lspconfig.clojure_lsp.setup({cmd = {server_path}, root_dir = _18_})
+    return lspconfig.clojure_lsp.setup({cmd = {_241}, root_dir = _19_})
   end
-  lsp_with_server("clojure-lsp", _17_)
+  lsp_with_server("clojure-lsp", _18_)
   lspconfig.crystalline.setup({})
-  local function _19_(fname)
+  local function _20_(fname)
     local patterns = {"pubspec.yaml", ".git"}
     return vim.fs.root(fname, patterns)
   end
-  lspconfig.dartls.setup({root_dir = _19_})
-  local function _20_(server_path)
-    return lspconfig.elixirls.setup({cmd = {server_path}})
+  lspconfig.dartls.setup({root_dir = _20_})
+  local function _21_(_241)
+    return lspconfig.elixirls.setup({cmd = {_241}})
   end
-  lsp_with_server("elixir-ls", _20_)
+  lsp_with_server("elixir-ls", _21_)
   lspconfig.fennel_ls.setup({})
-  local function _21_(fname)
+  local function _22_(fname)
     local patterns = {"gleam.toml", ".git"}
     return vim.fs.root(fname, patterns)
   end
-  lspconfig.gleam.setup({root_dir = _21_})
+  lspconfig.gleam.setup({root_dir = _22_})
   lspconfig.gradle_ls.setup({})
   lspconfig.gopls.setup({})
-  local function _22_(new_config, _)
+  local function _23_(new_config, _)
     local julia = vim.fn.expand("~/.julia/environments/nvim-lspconfig/bin/julia")
     local julia_found
-    local _24_
+    local _25_
     do
-      local t_23_ = vim.uv.fs_stat(julia)
-      if (nil ~= t_23_) then
-        t_23_ = t_23_.type
+      local t_24_ = vim.uv.fs_stat(julia)
+      if (nil ~= t_24_) then
+        t_24_ = t_24_.type
       else
       end
-      _24_ = t_23_
+      _25_ = t_24_
     end
-    julia_found = (_24_ == "file")
+    julia_found = (_25_ == "file")
     if julia_found then
       new_config.cmd[1] = julia
       return nil
@@ -149,7 +153,7 @@ local function _7_()
       return nil
     end
   end
-  lspconfig.julials.setup({on_new_config = _22_})
+  lspconfig.julials.setup({on_new_config = _23_})
   lspconfig.koka.setup({})
   lspconfig.nim_langserver.setup({})
   lspconfig.ocamllsp.setup({})

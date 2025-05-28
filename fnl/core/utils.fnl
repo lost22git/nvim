@@ -47,8 +47,8 @@
   (or (find_lsp_server_from_mason name) (find_lsp_server_from_env_path name)))
 
 (fn M.lsp_with_server [name f]
-  (let [path (M.lsp_server_path name)]
-    (when path (f path))))
+  (case (M.lsp_server_path name)
+    path (f path)))
 
 (fn M.lsp_capabilities []
   (let [cmp (require :blink.cmp)
@@ -57,9 +57,8 @@
     (vim.tbl_deep_extend "force" (cmp.get_lsp_capabilities) opts)))
 
 (fn lsp_format_on_save [client bufid]
-  (local (has_conform _) (pcall require :conform))
-  (when (and (not has_conform)
-             (client:supports_method :textDocument/formatting))
+  (case (pcall require :conform)
+    (where (false _) (client:supports_method :textDocument/formatting))
     (let [grp (vim.api.nvim_create_augroup :lsp_format_on_save {})
           cb (partial vim.lsp.buf.format {:buffer bufid :timeout_ms 1000})]
       (vim.api.nvim_clear_autocmds {:group grp :buffer bufid})
@@ -124,9 +123,9 @@
   (vim.fn.trim (vim.fn.getreg "x")))
 
 (fn M.open_hover_window [text_or_lines title callback]
-  (local lines (if (= :string (type text_or_lines))
-                   (vim.fn.split text_or_lines "\n" true)
-                   text_or_lines))
+  (local lines (case (type text_or_lines)
+                 :string (vim.fn.split text_or_lines "\n" true)
+                 _ text_or_lines))
   (var max_cols 0)
   (each [_ l (ipairs lines)]
     (set max_cols (math.max max_cols (vim.api.nvim_strwidth l))))

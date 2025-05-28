@@ -64,9 +64,9 @@
 
             (fn get_nvim_config_path []
               (let [path (vim.fn.stdpath :config)
-                    path1 (if (= :table (type path))
-                              (. path 1)
-                              (tostring path))]
+                    path1 (case (type path)
+                            :table (. path 1)
+                            _ (tostring path))]
                 (vim.uv.fs_realpath path1)))
 
             (fn get_workspace_path [client]
@@ -107,9 +107,7 @@
             ;; Markdown ; (lspconfig.marksman.setup {})
             ;; Dockerfile
             (lsp_with_server "docker-langserver"
-                             (fn [server_path]
-                               (lspconfig.dockerls.setup {:cmd [server_path
-                                                                "--stdio"]})))
+                             #(lspconfig.dockerls.setup {:cmd [$ "--stdio"]}))
             ;; JSON
             (lspconfig.jsonls.setup {})
             ;; TOML
@@ -128,37 +126,32 @@
             ;; Html
             (lspconfig.html.setup {})
             ;; Htmx
-            (lsp_with_server "htmx-lsp"
-                             (fn [server_path]
-                               (lspconfig.htmx.setup {:cmd [server_path]})))
+            (lsp_with_server "htmx-lsp" #(lspconfig.htmx.setup {:cmd [$]}))
             ;; Tailwindcss
             (lsp_with_server "tailwindcss-language-server"
-                             (fn [server_path]
-                               (lspconfig.tailwindcss.setup {:cmd [server_path
-                                                                   "--stdio"]
-                                                             :root_dir (fn [fname]
-                                                                         (local patterns
-                                                                                ["tailwind.config.js"
-                                                                                 "tailwind.config.cjs"
-                                                                                 "tailwind.config.mjs"
-                                                                                 "tailwind.config.ts"])
-                                                                         (vim.fs.root fname
-                                                                                      patterns))})))
+                             #(lspconfig.tailwindcss.setup {:cmd [$ "--stdio"]
+                                                            :root_dir (fn [fname]
+                                                                        (local patterns
+                                                                               ["tailwind.config.js"
+                                                                                "tailwind.config.cjs"
+                                                                                "tailwind.config.mjs"
+                                                                                "tailwind.config.ts"])
+                                                                        (vim.fs.root fname
+                                                                                     patterns))}))
             ;; SVELTE  (requires typescript-language-server)
             (lspconfig.svelte.setup {})
             ;; Clojure
             (lsp_with_server "clojure-lsp"
-                             (fn [server_path]
-                               (lspconfig.clojure_lsp.setup {:cmd [server_path]
-                                                             :root_dir (fn [fname]
-                                                                         (local patterns
-                                                                                ["project.clj"
-                                                                                 "deps.edn"
-                                                                                 "build.boot"
-                                                                                 "shadow-cljs.edn"
-                                                                                 "bb.edn"])
-                                                                         (vim.fs.root fname
-                                                                                      patterns))})))
+                             #(lspconfig.clojure_lsp.setup {:cmd [$]
+                                                            :root_dir (fn [fname]
+                                                                        (local patterns
+                                                                               ["project.clj"
+                                                                                "deps.edn"
+                                                                                "build.boot"
+                                                                                "shadow-cljs.edn"
+                                                                                "bb.edn"])
+                                                                        (vim.fs.root fname
+                                                                                     patterns))}))
             ;; Crystal
             (lspconfig.crystalline.setup {})
             ;; Dart
@@ -167,9 +160,7 @@
                                                         ["pubspec.yaml" ".git"])
                                                  (vim.fs.root fname patterns))})
             ;; Elixir
-            (lsp_with_server "elixir-ls"
-                             (fn [server_path]
-                               (lspconfig.elixirls.setup {:cmd [server_path]})))
+            (lsp_with_server "elixir-ls" #(lspconfig.elixirls.setup {:cmd [$]}))
             ;; Fennel 
             (lspconfig.fennel_ls.setup {})
             ;; Gleam

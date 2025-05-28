@@ -37,6 +37,6 @@
  {1 "pappasam/papercolor-theme-slim"
   :lazy false
   :priority 1000
-  :init #(vim.cmd.colorscheme (if (= vim.o.background :dark)
-                                  :PaperColorSlim
-                                  :PaperColorSlimLight))}]
+  :init #(vim.cmd.colorscheme (case vim.o.background
+                                :dark :PaperColorSlim
+                                :light :PaperColorSlimLight))}]

@@ -76,8 +76,9 @@ M.lsp_server_path = function(name)
   return (find_lsp_server_from_mason(name) or find_lsp_server_from_env_path(name))
 end
 M.lsp_with_server = function(name, f)
-  local path = M.lsp_server_path(name)
-  if path then
+  local _11_ = M.lsp_server_path(name)
+  if (nil ~= _11_) then
+    local path = _11_
     return f(path)
   else
     return nil
@@ -89,16 +90,22 @@ M.lsp_capabilities = function()
   return vim.tbl_deep_extend("force", cmp.get_lsp_capabilities(), opts)
 end
 local function lsp_format_on_save(client, bufid)
-  local has_conform, _ = pcall(require, "conform")
-  if (not has_conform and client:supports_method("textDocument/formatting")) then
+  local _13_, _14_ = pcall(require, "conform")
+  local and_15_ = ((_13_ == false) and true)
+  if and_15_ then
+    local _ = _14_
+    and_15_ = client:supports_method("textDocument/formatting")
+  end
+  if and_15_ then
+    local _ = _14_
     local grp = vim.api.nvim_create_augroup("lsp_format_on_save", {})
     local cb
     do
-      local _12_ = {buffer = bufid, timeout_ms = 1000}
-      local function _13_(...)
-        return vim.lsp.buf.format(_12_, ...)
+      local _17_ = {buffer = bufid, timeout_ms = 1000}
+      local function _18_(...)
+        return vim.lsp.buf.format(_17_, ...)
       end
-      cb = _13_
+      cb = _18_
     end
     vim.api.nvim_clear_autocmds({group = grp, buffer = bufid})
     return vim.api.nvim_create_autocmd("BufWritePre", {group = grp, buffer = bufid, callback = cb})
@@ -190,10 +197,14 @@ M.get_current_selection_text = function()
 end
 M.open_hover_window = function(text_or_lines, title, callback)
   local lines
-  if ("string" == type(text_or_lines)) then
-    lines = vim.fn.split(text_or_lines, "\n", true)
-  else
-    lines = text_or_lines
+  do
+    local _27_ = type(text_or_lines)
+    if (_27_ == "string") then
+      lines = vim.fn.split(text_or_lines, "\n", true)
+    else
+      local _ = _27_
+      lines = text_or_lines
+    end
   end
   local max_cols = 0
   for _, l in ipairs(lines) do
