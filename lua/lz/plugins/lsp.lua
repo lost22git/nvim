@@ -126,34 +126,44 @@ local function _7_()
   end
   lsp_with_server("elixir-ls", _21_)
   lspconfig.fennel_ls.setup({})
-  local function _22_(fname)
+  local configs = require("lspconfig.configs")
+  local function _22_(_241)
+    return vim.fs.root(_241, {"flix.toml", ".git"})
+  end
+  configs.flix = {default_config = {cmd = {"flix", "lsp"}, filetypes = {"flix"}, root_dir = _22_}}
+  lspconfig.flix.setup({})
+  local function _23_(fname)
     local patterns = {"gleam.toml", ".git"}
     return vim.fs.root(fname, patterns)
   end
-  lspconfig.gleam.setup({root_dir = _22_})
+  lspconfig.gleam.setup({root_dir = _23_})
   lspconfig.gradle_ls.setup({})
   lspconfig.gopls.setup({})
-  local function _23_(new_config, _)
-    local julia = vim.fn.expand("~/.julia/environments/nvim-lspconfig/bin/julia")
-    local julia_found
-    local _25_
-    do
-      local t_24_ = vim.uv.fs_stat(julia)
-      if (nil ~= t_24_) then
-        t_24_ = t_24_.type
-      else
+  local function _24_(new_config, _)
+    local _25_ = vim.fn.expand("~/.julia/environments/nvim-lspconfig/bin/julia")
+    local and_26_ = (nil ~= _25_)
+    if and_26_ then
+      local julia_bin = _25_
+      local _29_
+      do
+        local t_28_ = vim.uv.fs_stat(julia_bin)
+        if (nil ~= t_28_) then
+          t_28_ = t_28_.type
+        else
+        end
+        _29_ = t_28_
       end
-      _25_ = t_24_
+      and_26_ = (_29_ == "file")
     end
-    julia_found = (_25_ == "file")
-    if julia_found then
-      new_config.cmd[1] = julia
+    if and_26_ then
+      local julia_bin = _25_
+      new_config.cmd[1] = julia_bin
       return nil
     else
       return nil
     end
   end
-  lspconfig.julials.setup({on_new_config = _23_})
+  lspconfig.julials.setup({on_new_config = _24_})
   lspconfig.koka.setup({})
   lspconfig.nim_langserver.setup({})
   lspconfig.ocamllsp.setup({})

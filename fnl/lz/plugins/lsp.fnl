@@ -163,6 +163,13 @@
             (lsp_with_server "elixir-ls" #(lspconfig.elixirls.setup {:cmd [$]}))
             ;; Fennel 
             (lspconfig.fennel_ls.setup {})
+            ;; Flix
+            (local configs (require :lspconfig.configs))
+            (set configs.flix
+                 {:default_config {:cmd ["flix" "lsp"]
+                                   :filetypes [:flix]
+                                   :root_dir #(vim.fs.root $ [:flix.toml :.git])}})
+            (lspconfig.flix.setup {})
             ;; Gleam
             (lspconfig.gleam.setup {:root_dir (fn [fname]
                                                 (local patterns
@@ -174,15 +181,13 @@
             (lspconfig.gopls.setup {})
             ;; Julia
             (lspconfig.julials.setup {:on_new_config (fn [new_config _]
-                                                       (local julia
-                                                              (vim.fn.expand "~/.julia/environments/nvim-lspconfig/bin/julia"))
-                                                       (local julia_found
-                                                              (= (?. (vim.uv.fs_stat julia)
-                                                                     :type)
-                                                                 :file))
-                                                       (when julia_found
+                                                       (case (vim.fn.expand "~/.julia/environments/nvim-lspconfig/bin/julia")
+                                                         (where julia_bin
+                                                                (-> (vim.uv.fs_stat julia_bin)
+                                                                    (?. :type)
+                                                                    (= :file)))
                                                          (tset new_config.cmd 1
-                                                               julia)))})
+                                                               julia_bin)))})
             ;; Koka
             (lspconfig.koka.setup {})
             ;; Nim

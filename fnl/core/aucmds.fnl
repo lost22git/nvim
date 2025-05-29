@@ -9,6 +9,7 @@
   au BufNewFile,BufReadPost *.c3 set filetype=c3
   au BufNewFile,BufReadPost *.cljd set filetype=clojure
   au BufNewFile,BufReadPost *.cy set filetype=cyber
+  au BufNewFile,BufReadPost *.flix set filetype=flix
   au BufNewFile,BufReadPost *.http set filetype=http
   au BufNewFile,BufReadPost *.kk set filetype=koka
   au BufNewFile,BufReadPost *.lfe set filetype=lfe
@@ -21,6 +22,7 @@
 (vim.cmd "
   au FileType c3 setlocal commentstring=//\\ %s
   au FileType cyber setlocal commentstring=--\\ %s
+  au FileType flix setlocal commentstring=//\\ %s
   au FileType http setlocal commentstring=#\\ %s
   au FileType inko setlocal commentstring=#\\ %s
   au FileType janet setlocal commentstring=#\\ %s

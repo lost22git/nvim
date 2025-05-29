@@ -25,6 +25,7 @@
   :cmd :Repl
   :opts {:filetype_commands {:crystal {:cmd "crystal i"}
                              :elixir {:cmd "iex"}
+                             :flix {:cmd "flix repl"}
                              :java {:cmd "jshell"}
                              :lfe {:cmd "lfe"}
                              :nim {:cmd "inim"}
