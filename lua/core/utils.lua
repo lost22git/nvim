@@ -223,8 +223,8 @@ M.open_hover_window = function(text_or_lines, title, callback)
     return nil
   end
 end
-M.create_keymaps_for_goto_entries = function(pattern, prev_key, next_key, tag, bufid)
-  vim.keymap.set({"n", "v", "o"}, prev_key, string.format("<Cmd>call search('%s', 'bw')<CR>", pattern), {buffer = bufid, silent = true, desc = string.format("[goto_entries] Goto prev %s entry", tag)})
-  return vim.keymap.set({"n", "v", "o"}, next_key, string.format("<Cmd>call search('%s', 'w')<CR>", pattern), {buffer = bufid, silent = true, desc = string.format("[goto_entries] Goto next %s entry", tag)})
+M.create_keymaps_for_goto_entry = function(pattern, prev_key, next_key, tag, bufid)
+  vim.keymap.set({"n", "v", "o"}, prev_key, string.format("<Cmd>call search('%s', 'bw')<CR>", pattern), {buffer = bufid, silent = true, desc = string.format("[goto_entry] Goto prev %s entry", tag)})
+  return vim.keymap.set({"n", "v", "o"}, next_key, string.format("<Cmd>call search('%s', 'w')<CR>", pattern), {buffer = bufid, silent = true, desc = string.format("[goto_entry] Goto next %s entry", tag)})
 end
 return M

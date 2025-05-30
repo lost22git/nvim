@@ -1,7 +1,7 @@
 (import-macros {: has! : autocmd! : bufusercmd! : nvmap! : nvomap!}
                :config.macros)
 
-(local {: create_keymaps_for_goto_entries
+(local {: create_keymaps_for_goto_entry
         : on_v_modes
         : get_current_selection_text
         : get_last_selection_text
@@ -78,29 +78,29 @@
 
 (autocmd! :BufWinEnter
           {:desc "add keymaps for Goto prev/next region"
-           :callback #(create_keymaps_for_goto_entries "[-\\/;#] === .\\+ ===$"
-                                                       "[r" "]r" :code_region
-                                                       $.buf)})
+           :callback #(create_keymaps_for_goto_entry "[-\\/;#] === .\\+ ===$"
+                                                     "[r" "]r" :code_region
+                                                     $.buf)})
 
 (autocmd! :FileType
           {:desc "[Clojure] add keymaps for Goto prev/next (comment)"
            :pattern [:clojure :janet]
-           :callback #(create_keymaps_for_goto_entries "\\v(^\\(comment|^#_)"
-                                                       "[C" "]C" :comment_form
-                                                       $.buf)})
+           :callback #(create_keymaps_for_goto_entry "\\v(^\\(comment|^#_)"
+                                                     "[C" "]C" :comment_form
+                                                     $.buf)})
 
 (autocmd! :FileType
           {:desc "[Just] add keymaps for Goto prev/next task"
            :pattern :just
-           :callback #(create_keymaps_for_goto_entries "\\v^\\w+.*:$" "[e" "]e"
-                                                       :just_task $.buf)})
+           :callback #(create_keymaps_for_goto_entry "\\v^\\w+.*:$" "[e" "]e"
+                                                     :just_task $.buf)})
 
 (autocmd! :FileType
           {:desc "add keymaps for Goto prev/next http request"
            :pattern [:http :rest :hurl]
-           :callback #(create_keymaps_for_goto_entries "\\v^<(HEAD|GET|POST|PUT|PATCH|DELETE|OPTION)>"
-                                                       "[e" "]e" :http_request
-                                                       $.buf)})
+           :callback #(create_keymaps_for_goto_entry "\\v^<(HEAD|GET|POST|PUT|PATCH|DELETE|OPTION)>"
+                                                     "[e" "]e" :http_request
+                                                     $.buf)})
 
 (fn nvim_help []
   (local q (if (on_v_modes) (get_current_selection_text)
@@ -307,5 +307,5 @@
 (autocmd! :FileType
           {:desc "[RunVisual] add keymaps for goto prev/next log"
            :pattern :RunVisual
-           :callback #(create_keymaps_for_goto_entries "\\v^# \\-+$" "[e" "]e"
-                                                       :run_visual_log $.buf)})
+           :callback #(create_keymaps_for_goto_entry "\\v^# \\-+$" "[e" "]e"
+                                                     :run_visual_log $.buf)})

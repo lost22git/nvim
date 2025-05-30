@@ -14,13 +14,13 @@
                     {:pattern ["conjure-log-*"]
                      :callback (fn [{:buf bufid}]
                                  (local {: disable_diagnostic
-                                         : create_keymaps_for_goto_entries}
+                                         : create_keymaps_for_goto_entry}
                                         (require :core.utils))
                                  (disable_diagnostic)
-                                 (create_keymaps_for_goto_entries "\\v^(;|--|#) -+$"
-                                                                  "[e" "]e"
-                                                                  :conjure_log
-                                                                  bufid))}))}
+                                 (create_keymaps_for_goto_entry "\\v^(;|--|#) -+$"
+                                                                "[e" "]e"
+                                                                :conjure_log
+                                                                bufid))}))}
  {1 "pappasam/nvim-repl"
   :cmd :Repl
   :opts {:filetype_commands {:crystal {:cmd "crystal i"}

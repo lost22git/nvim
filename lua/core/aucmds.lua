@@ -1,6 +1,6 @@
 -- [nfnl] fnl/core/aucmds.fnl
 local _local_1_ = require("core.utils")
-local create_keymaps_for_goto_entries = _local_1_["create_keymaps_for_goto_entries"]
+local create_keymaps_for_goto_entry = _local_1_["create_keymaps_for_goto_entry"]
 local on_v_modes = _local_1_["on_v_modes"]
 local get_current_selection_text = _local_1_["get_current_selection_text"]
 local get_last_selection_text = _local_1_["get_last_selection_text"]
@@ -50,19 +50,19 @@ local function _11_()
 end
 vim.api.nvim_create_autocmd("TextYankPost", {desc = "highlight yanked text", pattern = "*", callback = _11_})
 local function _12_(_241)
-  return create_keymaps_for_goto_entries("[-\\/;#] === .\\+ ===$", "[r", "]r", "code_region", _241.buf)
+  return create_keymaps_for_goto_entry("[-\\/;#] === .\\+ ===$", "[r", "]r", "code_region", _241.buf)
 end
 vim.api.nvim_create_autocmd("BufWinEnter", {desc = "add keymaps for Goto prev/next region", callback = _12_})
 local function _13_(_241)
-  return create_keymaps_for_goto_entries("\\v(^\\(comment|^#_)", "[C", "]C", "comment_form", _241.buf)
+  return create_keymaps_for_goto_entry("\\v(^\\(comment|^#_)", "[C", "]C", "comment_form", _241.buf)
 end
 vim.api.nvim_create_autocmd("FileType", {desc = "[Clojure] add keymaps for Goto prev/next (comment)", pattern = {"clojure", "janet"}, callback = _13_})
 local function _14_(_241)
-  return create_keymaps_for_goto_entries("\\v^\\w+.*:$", "[e", "]e", "just_task", _241.buf)
+  return create_keymaps_for_goto_entry("\\v^\\w+.*:$", "[e", "]e", "just_task", _241.buf)
 end
 vim.api.nvim_create_autocmd("FileType", {desc = "[Just] add keymaps for Goto prev/next task", pattern = "just", callback = _14_})
 local function _15_(_241)
-  return create_keymaps_for_goto_entries("\\v^<(HEAD|GET|POST|PUT|PATCH|DELETE|OPTION)>", "[e", "]e", "http_request", _241.buf)
+  return create_keymaps_for_goto_entry("\\v^<(HEAD|GET|POST|PUT|PATCH|DELETE|OPTION)>", "[e", "]e", "http_request", _241.buf)
 end
 vim.api.nvim_create_autocmd("FileType", {desc = "add keymaps for Goto prev/next http request", pattern = {"http", "rest", "hurl"}, callback = _15_})
 local function nvim_help()
@@ -309,6 +309,6 @@ local function _59_(_241)
 end
 vim.api.nvim_create_autocmd("BufWinEnter", {desc = "create `RunVisual` usercommand", callback = _59_})
 local function _64_(_241)
-  return create_keymaps_for_goto_entries("\\v^# \\-+$", "[e", "]e", "run_visual_log", _241.buf)
+  return create_keymaps_for_goto_entry("\\v^# \\-+$", "[e", "]e", "run_visual_log", _241.buf)
 end
 return vim.api.nvim_create_autocmd("FileType", {desc = "[RunVisual] add keymaps for goto prev/next log", pattern = "RunVisual", callback = _64_})

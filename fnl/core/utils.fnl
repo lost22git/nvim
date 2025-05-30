@@ -145,14 +145,14 @@
   (tset vim.wo winid :wrap false)
   (when callback (callback bufid winid)))
 
-(fn M.create_keymaps_for_goto_entries [pattern prev_key next_key tag bufid]
+(fn M.create_keymaps_for_goto_entry [pattern prev_key next_key tag bufid]
   (nvomap! prev_key (string.format "<Cmd>call search('%s', 'bw')<CR>" pattern)
            {:buffer bufid
             :silent true
-            :desc (string.format "[goto_entries] Goto prev %s entry" tag)})
+            :desc (string.format "[goto_entry] Goto prev %s entry" tag)})
   (nvomap! next_key (string.format "<Cmd>call search('%s', 'w')<CR>" pattern)
            {:buffer bufid
             :silent true
-            :desc (string.format "[goto_entries] Goto next %s entry" tag)}))
+            :desc (string.format "[goto_entry] Goto next %s entry" tag)}))
 
 M
