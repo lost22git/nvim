@@ -1,7 +1,11 @@
 (import-macros {: has! : autocmd! : bufusercmd! : nvmap! : nvomap!}
                :config.macros)
 
-(local {: create_keymaps_for_goto_entries} (require :core.utils))
+(local {: create_keymaps_for_goto_entries
+        : on_v_modes
+        : get_current_selection_text
+        : get_last_selection_text
+        : open_hover_window} (require :core.utils))
 
 ;; Register filetypes
 (vim.cmd "
@@ -92,7 +96,6 @@
                                                        :just_task $.buf)})
 
 (fn nvim_help []
-  (local {: on_v_modes : get_current_selection_text} (require :core.utils))
   (local q (if (on_v_modes) (get_current_selection_text)
                (vim.fn.expand "<cword>")))
   (vim.cmd (.. "help " q)))
@@ -113,13 +116,11 @@
   (fn open_doc_window [obj title]
     (print "")
     (local text (vim.fn.trim (assert obj.stdout)))
-    (local {: open_hover_window} (require :core.utils))
     (open_hover_window text title
                        (fn [bufid _winid]
                          (tset vim.bo bufid :filetype :markdown)
                          (add_keymaps_for_docr bufid))))
 
-  (local {: on_v_modes : get_current_selection_text} (require :core.utils))
   (local q (if (on_v_modes) (get_current_selection_text)
                (vim.fn.expand "<cword>")))
   (local cmd ["docr" subcmd (.. "'" (vim.fn.escape q "'") "'")])
@@ -149,7 +150,6 @@
   (fn open_doc_window [obj title]
     (print "")
     (local text (vim.fn.trim (assert obj.stdout)))
-    (local {: open_hover_window} (require :core.utils))
     (open_hover_window text title
                        (fn [bufid _winid]
                          (tset vim.bo bufid :filetype :markdown))))
@@ -173,7 +173,6 @@
                       ")"))))
     ["lfe" "-e" qq])
 
-  (local {: on_v_modes : get_current_selection_text} (require :core.utils))
   (local q (if (on_v_modes) (get_current_selection_text)
                (vim.fn.expand "<cword>")))
   (local cmd (make_cmd q))
@@ -236,7 +235,6 @@
 
 (fn run_visual.read_selection_and_write_to_tmp_file []
   ;; read selection_text
-  (local {: get_last_selection_text} (require :core.utils))
   (local selection_text (get_last_selection_text))
   ;; create tmp_file
   (local tmp_file (-> (os.tmpname)

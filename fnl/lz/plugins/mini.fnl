@@ -5,6 +5,7 @@
             (MiniIcons.mock_nvim_web_devicons))}
  {1 "echasnovski/mini.cursorword" :lazy false :opts {}}
  {1 "echasnovski/mini.files"
+  :lazy false
   :opts {:windows {:preview true}}
   :keys [{1 :<M-1> 2 #(MiniFiles.open) :desc "[mini.files] Open"}
          {1 :<M-2>
