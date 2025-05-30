@@ -95,6 +95,13 @@
            :callback #(create_keymaps_for_goto_entries "\\v^\\w+.*:$" "[e" "]e"
                                                        :just_task $.buf)})
 
+(autocmd! :FileType
+          {:desc "add keymaps for Goto prev/next http request"
+           :pattern [:http :rest :hurl]
+           :callback #(create_keymaps_for_goto_entries "\\v^<(HEAD|GET|POST|PUT|PATCH|DELETE|OPTION)>"
+                                                       "[e" "]e" :http_request
+                                                       $.buf)})
+
 (fn nvim_help []
   (local q (if (on_v_modes) (get_current_selection_text)
                (vim.fn.expand "<cword>")))

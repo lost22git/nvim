@@ -8,9 +8,6 @@
          :formatters {:json ["jq"] :html ["prettier" "--parser" "html"]}}
   :init (fn []
           (fn create_keymaps [bufid]
-            (local {: create_keymaps_for_goto_entries} (require :core.utils))
-            (create_keymaps_for_goto_entries "\\v^<(HEAD|GET|POST|PUT|PATCH|DELETE|OPTION)>"
-                                             "[e" "]e" :hurl_request bufid)
             (nmap! "<Leader>ee" "<Cmd>HurlRunnerAt<CR>"
                    {:buffer bufid :silent true :desc "[hurl] HurlRunnerAt"})
             (nmap! "<Leader>eb" "<Cmd>HurlRunner<CR>"
@@ -52,8 +49,6 @@
                    [["<Leader>ee" "<Cmd>KulalaRun<CR>"]
                     ["<Leader>E" "<Cmd>KulalaSearch<CR>"]
                     ["<Leader>eb" "<Cmd>KulalaRunAll<CR>"]
-                    ["[e" "<Cmd>KulalaJumpPrev<CR>"]
-                    ["]e" "<Cmd>KulalaJumpNext<CR>"]
                     ["<Leader>ls" "<Cmd>KulalaOpen<CR>"]])
             (each [_ [k v] (pairs data)]
               (nmap! k v {:buffer bufid :silent true})))
