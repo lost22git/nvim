@@ -1,2 +1,2 @@
--- [nfnl] fnl/lz/plugins/norg.fnl
+-- [nfnl] fnl/lz/plugins/x_neorg.fnl
 return {"nvim-neorg/neorg", ft = "norg", cmd = "Neorg", opts = {load = {["core.defaults"] = {}, ["core.clipboard"] = {}, ["core.concealer"] = {config = {icon_preset = "varied"}}, ["core.dirman"] = {config = {workspaces = {notes = "~/code/_note/neorg"}}}, ["core.export"] = {}, ["core.export.markdown"] = {}, ["core.highlights"] = {}, ["core.keybinds"] = {config = {}}, ["core.integrations.treesitter"] = {}, ["core.presenter"] = {config = {zen_mode = "truezen"}}, ["core.queries.native"] = {}, ["core.summary"] = {}}}}

@@ -1,4 +1,4 @@
--- [nfnl] fnl/lz/plugins/http.fnl
+-- [nfnl] fnl/lz/plugins/x_http.fnl
 local function _1_()
   local function create_keymaps(bufid)
     vim.keymap.set("n", "<Leader>ee", "<Cmd>HurlRunnerAt<CR>", {buffer = bufid, silent = true, desc = "[hurl] HurlRunnerAt"})
