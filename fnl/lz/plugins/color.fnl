@@ -7,7 +7,7 @@
  {1 "nickkadutskyi/jb.nvim"
   :lazy false
   :priority 1000
-  :opts {:transparent false :disable_hl_args {:bold false :italic true}}}
+  :opts {:disable_hl_args {:bold false :italic true}}}
  ;; Helix
  {1 "oneslash/helix-nvim"
   :lazy false
@@ -24,8 +24,8 @@
  {1 "scottmckendry/cyberdream.nvim"
   :lazy false
   :priority 1000
-  :opts {:variant :light :transparent false :cache true}}
- ;; Dayfox
+  :opts {:variant vim.o.background ::cache true}}
+ ;; Nightfox
  {1 "EdenEast/nightfox.nvim"
   :lazy false
   :priority 1000
