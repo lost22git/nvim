@@ -13,13 +13,13 @@
         v_modes [:v :V v_block_mode]]
     (vim.tbl_contains v_modes (vim.fn.mode))))
 
-(fn M.get_flutter_path []
-  (let [path (vim.fn.exepath "flutter")]
-    (if (has! :win32) (.. path ".bat") path)))
-
 (fn M.disable_diagnostic [bufid]
   (when (vim.diagnostic.is_enabled {:bufnr bufid})
     (pcall vim.diagnostic.enable false {:bufnr bufid})))
+
+(fn M.get_flutter_path []
+  (let [path (vim.fn.exepath "flutter")]
+    (if (has! :win32) (.. path ".bat") path)))
 
 (fn M.get_mason_path []
   (.. (vim.fn.stdpath "data") "/mason"))

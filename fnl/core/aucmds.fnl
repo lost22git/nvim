@@ -18,6 +18,7 @@
   au BufNewFile,BufReadPost *.kk set filetype=koka
   au BufNewFile,BufReadPost *.lfe set filetype=lfe
   au BufNewFile,BufReadPost *.lobster set filetype=lobster
+  au BufNewFile,BufReadPost *.n set filetype=nature
   au BufNewFile,BufReadPost *.postcss set filetype=postcss
   au BufNewFile,BufReadPost *.v set filetype=vlang
 ")
@@ -26,6 +27,7 @@
 (vim.cmd "
   au FileType c3 setlocal commentstring=//\\ %s
   au FileType cyber setlocal commentstring=--\\ %s
+  au FileType fennel setlocal commentstring=;;\\ %s
   au FileType flix setlocal commentstring=//\\ %s
   au FileType http setlocal commentstring=#\\ %s
   au FileType inko setlocal commentstring=#\\ %s
@@ -35,6 +37,7 @@
   au FileType koka setlocal commentstring=//\\ %s
   au FileType lfe setlocal commentstring=;\\ %s
   au FileType lobster setlocal commentstring=//\\ %s
+  au FileType nature setlocal commentstring=//\\ %s
 ")
 
 (when (?. vim.env :TMUX)
@@ -96,7 +99,7 @@
                                                      :just_task $.buf)})
 
 (autocmd! :FileType
-          {:desc "add keymaps for Goto prev/next http request"
+          {:desc "[Http] add keymaps for Goto prev/next http request"
            :pattern [:http :rest :hurl]
            :callback #(create_keymaps_for_goto_entry "\\v^<(HEAD|GET|POST|PUT|PATCH|DELETE|OPTION)>"
                                                      "[e" "]e" :http_request

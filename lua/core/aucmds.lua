@@ -5,8 +5,8 @@ local on_v_modes = _local_1_["on_v_modes"]
 local get_current_selection_text = _local_1_["get_current_selection_text"]
 local get_last_selection_text = _local_1_["get_last_selection_text"]
 local open_hover_window = _local_1_["open_hover_window"]
-vim.cmd("\n  au BufNewFile,BufReadPost *.bb set filetype=clojure\n  au BufNewFile,BufReadPost *.c3 set filetype=c3\n  au BufNewFile,BufReadPost *.cljd set filetype=clojure\n  au BufNewFile,BufReadPost *.cy set filetype=cyber\n  au BufNewFile,BufReadPost *.flix set filetype=flix\n  au BufNewFile,BufReadPost *.http set filetype=http\n  au BufNewFile,BufReadPost *.kk set filetype=koka\n  au BufNewFile,BufReadPost *.lfe set filetype=lfe\n  au BufNewFile,BufReadPost *.lobster set filetype=lobster\n  au BufNewFile,BufReadPost *.postcss set filetype=postcss\n  au BufNewFile,BufReadPost *.v set filetype=vlang\n")
-vim.cmd("\n  au FileType c3 setlocal commentstring=//\\ %s\n  au FileType cyber setlocal commentstring=--\\ %s\n  au FileType flix setlocal commentstring=//\\ %s\n  au FileType http setlocal commentstring=#\\ %s\n  au FileType inko setlocal commentstring=#\\ %s\n  au FileType janet setlocal commentstring=#\\ %s\n  au FileType json setlocal commentstring=//\\ %s\n  au FileType just setlocal commentstring=#\\ %s\n  au FileType koka setlocal commentstring=//\\ %s\n  au FileType lfe setlocal commentstring=;\\ %s\n  au FileType lobster setlocal commentstring=//\\ %s\n")
+vim.cmd("\n  au BufNewFile,BufReadPost *.bb set filetype=clojure\n  au BufNewFile,BufReadPost *.c3 set filetype=c3\n  au BufNewFile,BufReadPost *.cljd set filetype=clojure\n  au BufNewFile,BufReadPost *.cy set filetype=cyber\n  au BufNewFile,BufReadPost *.flix set filetype=flix\n  au BufNewFile,BufReadPost *.http set filetype=http\n  au BufNewFile,BufReadPost *.kk set filetype=koka\n  au BufNewFile,BufReadPost *.lfe set filetype=lfe\n  au BufNewFile,BufReadPost *.lobster set filetype=lobster\n  au BufNewFile,BufReadPost *.n set filetype=nature\n  au BufNewFile,BufReadPost *.postcss set filetype=postcss\n  au BufNewFile,BufReadPost *.v set filetype=vlang\n")
+vim.cmd("\n  au FileType c3 setlocal commentstring=//\\ %s\n  au FileType cyber setlocal commentstring=--\\ %s\n  au FileType fennel setlocal commentstring=;;\\ %s\n  au FileType flix setlocal commentstring=//\\ %s\n  au FileType http setlocal commentstring=#\\ %s\n  au FileType inko setlocal commentstring=#\\ %s\n  au FileType janet setlocal commentstring=#\\ %s\n  au FileType json setlocal commentstring=//\\ %s\n  au FileType just setlocal commentstring=#\\ %s\n  au FileType koka setlocal commentstring=//\\ %s\n  au FileType lfe setlocal commentstring=;\\ %s\n  au FileType lobster setlocal commentstring=//\\ %s\n  au FileType nature setlocal commentstring=//\\ %s\n")
 local _3_
 do
   local t_2_ = vim.env
@@ -64,7 +64,7 @@ vim.api.nvim_create_autocmd("FileType", {desc = "[Just] add keymaps for Goto pre
 local function _15_(_241)
   return create_keymaps_for_goto_entry("\\v^<(HEAD|GET|POST|PUT|PATCH|DELETE|OPTION)>", "[e", "]e", "http_request", _241.buf)
 end
-vim.api.nvim_create_autocmd("FileType", {desc = "add keymaps for Goto prev/next http request", pattern = {"http", "rest", "hurl"}, callback = _15_})
+vim.api.nvim_create_autocmd("FileType", {desc = "[Http] add keymaps for Goto prev/next http request", pattern = {"http", "rest", "hurl"}, callback = _15_})
 local function nvim_help()
   local q
   if on_v_modes() then

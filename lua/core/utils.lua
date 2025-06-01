@@ -11,19 +11,19 @@ M.on_v_modes = function()
   local v_modes = {"v", "V", v_block_mode}
   return vim.tbl_contains(v_modes, vim.fn.mode())
 end
+M.disable_diagnostic = function(bufid)
+  if vim.diagnostic.is_enabled({bufnr = bufid}) then
+    return pcall(vim.diagnostic.enable, false, {bufnr = bufid})
+  else
+    return nil
+  end
+end
 M.get_flutter_path = function()
   local path = vim.fn.exepath("flutter")
   if (vim.fn.has("win32") == 1) then
     return (path .. ".bat")
   else
     return path
-  end
-end
-M.disable_diagnostic = function(bufid)
-  if vim.diagnostic.is_enabled({bufnr = bufid}) then
-    return pcall(vim.diagnostic.enable, false, {bufnr = bufid})
-  else
-    return nil
   end
 end
 M.get_mason_path = function()

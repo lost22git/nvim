@@ -40,8 +40,12 @@ vim.opt.mouse = "a"
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.opt.signcolumn = "yes"
-vim.opt.laststatus = 0
-vim.opt.statusline = "%{repeat('\226\148\128',winwidth('.'))}"
+vim.opt.laststatus = 3
+if not vim.g.zz.statusline then
+  vim.opt.laststatus = 0
+  vim.opt.statusline = "%{repeat('\226\148\128',winwidth('.'))}"
+else
+end
 vim.opt.tabstop = 2
 vim.opt.expandtab = true
 vim.opt.smarttab = true
@@ -50,10 +54,8 @@ vim.opt.scrolloff = 10
 vim.opt.sidescrolloff = 10
 vim.opt.hlsearch = true
 vim.opt.magic = true
-vim.opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
+vim.opt.grepformat = "%f:%l:%c:%m"
 vim.opt.grepprg = "rg --vimgrep --no-heading --smart-case"
-vim.opt.path:append({"**"})
-vim.opt.wildignore:append({"*/node_modules/*"})
 vim.opt.backup = false
 vim.opt.inccommand = "split"
 vim.opt.list = false

@@ -77,8 +77,10 @@
 (set vim.opt.signcolumn "yes")
 
 ;; Status Line
-(set vim.opt.laststatus 0)
-(set vim.opt.statusline "%{repeat('─',winwidth('.'))}")
+(set vim.opt.laststatus 3)
+(when (not vim.g.zz.statusline)
+  (set vim.opt.laststatus 0)
+  (set vim.opt.statusline "%{repeat('─',winwidth('.'))}"))
 
 ;; <Tab> key
 (set vim.opt.tabstop 2)
@@ -93,10 +95,8 @@
 ;; Search
 (set vim.opt.hlsearch true)
 (set vim.opt.magic true)
-(set vim.opt.grepformat "%f:%l:%c:%m,%f:%l:%m")
+(set vim.opt.grepformat "%f:%l:%c:%m")
 (set vim.opt.grepprg "rg --vimgrep --no-heading --smart-case")
-(vim.opt.path:append ["**"])
-(vim.opt.wildignore:append ["*/node_modules/*"])
 
 ;; Misc
 (set vim.opt.backup false)
