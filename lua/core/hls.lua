@@ -1,6 +1,6 @@
 -- [nfnl] fnl/core/hls.fnl
 local function do_hls()
-  vim.cmd("highlight! Pmenu ctermbg=NONE guibg=NONE")
+  vim.cmd("highlight! Pmenu ctermbg=NONE guibg=NONE\n            highlight! link FloatBorder Normal\n            highlight! link BlinkCmpDocBorder FloatBorder\n            highlight! link BlinkCmpMenuBorder FloatBorder\n            highlight! link BlinkCmpSignatureHelpBorder FloatBorder\n            ")
   if not vim.g.zz.statusline then
     vim.cmd("highlight! link StatusLine Normal\n              highlight! link StatusLineNC Normal\n             ")
   else

@@ -37,6 +37,15 @@
  {1 "pappasam/papercolor-theme-slim"
   :lazy false
   :priority 1000
+  ;; :init #(vim.cmd.colorscheme (case vim.o.background
+  ;;                               :dark :PaperColorSlim
+  ;;                               :light :PaperColorSlimLight))
+  }
+ ;; kanagawa-paper
+ {1 "thesimonho/kanagawa-paper.nvim"
+  :lazy false
+  :priority 1000
   :init #(vim.cmd.colorscheme (case vim.o.background
-                                :dark :PaperColorSlim
-                                :light :PaperColorSlimLight))}]
+                                :dark :kanagawa-paper-ink
+                                :light :kanagawa-paper-canvas))
+  :opts {:styles {:comment {:italic false}}}}]
