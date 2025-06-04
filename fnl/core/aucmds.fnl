@@ -294,11 +294,13 @@
 
                                      (fn print_cmd_result [obj]
                                        (local text
-                                              (if (and obj.stdout
-                                                       (not= obj.stdout ""))
-                                                  obj.stdout
-                                                  (vim.inspect obj)))
+                                              (case obj.code
+                                                0 obj.stdout
+                                                code (.. "Code: " code "\n"
+                                                         obj.stderr)))
                                        (-> text
+                                           (string.gsub "\027%[.-m" "")
+                                           (case (a _) a)
                                            (vim.fn.trim)
                                            (vim.fn.split "\n" true)
                                            (run_visual.buffer_append)))
