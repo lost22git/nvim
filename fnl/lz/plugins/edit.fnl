@@ -21,8 +21,8 @@
              :mode (if (vim.startswith v :Swap) :n [:n :v])
              :desc (.. "[treewalker] " v)}))}
  {1 "julienvincent/nvim-paredit"
-  :ft [:clojure :fennel]
-  :opts {:filetypes [:clojure :fennel]
+  :ft [:clojure :fennel :janet]
+  :opts {:filetypes [:clojure :fennel :janet]
          :keys (vim.tbl_extend :error ;;
                                (collect [_ [k v] (ipairs [[:du :raise_form]
                                                           [:dU :raise_element]
