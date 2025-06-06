@@ -73,6 +73,17 @@
               (when client.workspace_folders
                 (vim.uv.fs_realpath (. client.workspace_folders 1 :name))))
 
+            ;; lspconfig register default configs
+            (local configs (require :lspconfig.configs))
+            (set configs.flix
+                 {:default_config {:cmd ["flix" "lsp"]
+                                   :filetypes [:flix]
+                                   :root_dir #(vim.fs.root $ [:flix.toml :.git])}})
+            (set configs.neut
+                 {:default_config {:cmd ["neut" "lsp"]
+                                   :filetypes [:neut]
+                                   :root_dir #(vim.fs.root $
+                                                           [:module.ens :.git])}})
             ;; :help lspconfig-all
             (local lspconfig (require :lspconfig))
             ;; Lua
@@ -164,11 +175,6 @@
             ;; Fennel 
             (lspconfig.fennel_ls.setup {})
             ;; Flix
-            (local configs (require :lspconfig.configs))
-            (set configs.flix
-                 {:default_config {:cmd ["flix" "lsp"]
-                                   :filetypes [:flix]
-                                   :root_dir #(vim.fs.root $ [:flix.toml :.git])}})
             (lspconfig.flix.setup {})
             ;; Gleam
             (lspconfig.gleam.setup {:root_dir (fn [fname]
@@ -190,6 +196,8 @@
                                                                julia_bin)))})
             ;; Koka
             (lspconfig.koka.setup {})
+            ;; Neut
+            (lspconfig.neut.setup {})
             ;; Nim
             (lspconfig.nim_langserver.setup {})
             ;; OCaml
