@@ -119,6 +119,22 @@
     "prefix": "v*task-id*",
     "body": ["*task-id*"]
   },
+  "case": {
+    "prefix": "case",
+    "body": ["case ${1:v}", "\t${2:pattern} ${3:body}", "\t${4:default}"]
+  },
+  "compif": {
+    "prefix": "compif",
+    "body": ["compif ${1:test} ${2:then_body} ${3:else_body}"]
+  },
+  "compwhen": {
+    "prefix": "compwhen",
+    "body": ["compwhen ${1:test} ${2:body}"]
+  },
+  "cond": {
+    "prefix": "cond",
+    "body": ["cond", "\t${1:test} ${2:body}", "\t_ ${3:default}"]
+  },
   "edefer": {
     "prefix": "edefer",
     "body": ["edefer ${1:form} ${2:body}"]
@@ -131,9 +147,13 @@
     "prefix": "for-range",
     "body": ["for ${1:i} ${2:start} ${3:stop} ${4:body}"]
   },
+  "if": {
+    "prefix": "if",
+    "body": ["if ${1:test} ${2:then_body} ${3:else_body}"]
+  },
   "if-let": {
     "prefix": "if-let",
-    "body": ["if-let [${1:k} ${2:v}]", "\t${3:then-body}", "\t${4:else-body}"]
+    "body": ["if-let [${1:k} ${2:v}]", "\t${3:then_body}", "\t${4:else_body}"]
   },
   "if-with": {
     "prefix": "if-with",
@@ -171,6 +191,10 @@
     "prefix": "loop-range-to",
     "body": ["loop [${1:i} :range-to [${2:start} ${3:stop}]] ${4:body}"]
   },
+  "match": {
+    "prefix": "match",
+    "body": ["match ${1:v}", "\t${2:pattern} ${3:body}", "\t${4:default}"]
+  },
   "try": {
     "prefix": "try",
     "body": [
@@ -180,9 +204,21 @@
       "\t\t${2:fallback-value})"
     ]
   },
+  "when": {
+    "prefix": "when",
+    "body": ["when ${1:test} ${2:body}"]
+  },
+  "when-let": {
+    "prefix": "when-let",
+    "body": ["when-let [${1:k} ${2:v}]", "\t${3:body}"]
+  },
   "when-with": {
     "prefix": "when-with",
     "body": ["when-with [${1:v} ${2:ctor} ${3:dtor}] ${4:body}"]
+  },
+  "while": {
+    "prefix": "while",
+    "body": ["while ${1:test} ${2:body}"]
   },
   "with": {
     "prefix": "with",
