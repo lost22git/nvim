@@ -79,11 +79,6 @@
                  {:default_config {:cmd ["flix" "lsp"]
                                    :filetypes [:flix]
                                    :root_dir #(vim.fs.root $ [:flix.toml :.git])}})
-            (set configs.neut
-                 {:default_config {:cmd ["neut" "lsp"]
-                                   :filetypes [:neut]
-                                   :root_dir #(vim.fs.root $
-                                                           [:module.ens :.git])}})
             ;; :help lspconfig-all
             (local lspconfig (require :lspconfig))
             ;; Lua
@@ -196,8 +191,6 @@
                                                                julia_bin)))})
             ;; Koka
             (lspconfig.koka.setup {})
-            ;; Neut
-            (lspconfig.neut.setup {})
             ;; Nim
             (lspconfig.nim_langserver.setup {})
             ;; OCaml

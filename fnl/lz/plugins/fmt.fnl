@@ -20,7 +20,6 @@
                            :json [:jq :prettier]
                            :just [:just]
                            :lua [:stylua]
-                           :neut [:neut]
                            :nim [:nph]
                            :ocaml [:ocamlformat]
                            :python [:ruff_format]
@@ -29,10 +28,4 @@
                            :swift [:swift_format]
                            :toml [:taplo]
                            :typescript [:deno_fmt :prettier]
-                           :zig [:zigfmt]}
-        :formatters {:neut {:command "neut"
-                            :stdin false
-                            :args ["format-source"
-                                   "$FILENAME"
-                                   "--in-place"
-                                   "--minimize-imports"]}}}}
+                           :zig [:zigfmt]}}}

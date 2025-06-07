@@ -19,7 +19,6 @@
   au BufNewFile,BufReadPost *.lfe set filetype=lfe
   au BufNewFile,BufReadPost *.lobster set filetype=lobster
   au BufNewFile,BufReadPost *.n set filetype=nature
-  au BufNewFile,BufReadPost *.nt set filetype=neut
   au BufNewFile,BufReadPost *.postcss set filetype=postcss
   au BufNewFile,BufReadPost *.v set filetype=vlang
 ")
@@ -40,7 +39,6 @@
   au FileType lfe setlocal commentstring=;\\ %s
   au FileType lobster setlocal commentstring=//\\ %s
   au FileType nature setlocal commentstring=//\\ %s
-  au FileType neut setlocal commentstring=//\\ %s
 ")
 
 (when (?. vim.env :TMUX)
