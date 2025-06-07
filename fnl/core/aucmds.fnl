@@ -9,6 +9,7 @@
 
 ;; Register filetypes
 (vim.cmd "
+  au BufNewFile,BufReadPost *.art set filetype=arturo
   au BufNewFile,BufReadPost *.bb set filetype=clojure
   au BufNewFile,BufReadPost *.c3 set filetype=c3
   au BufNewFile,BufReadPost *.cljd set filetype=clojure
@@ -25,6 +26,7 @@
 
 ;; Register commentstring
 (vim.cmd "
+  au FileType arturo setlocal commentstring=;\\ %s
   au FileType c3 setlocal commentstring=//\\ %s
   au FileType crystal setlocal commentstring=#\\ %s
   au FileType cyber setlocal commentstring=--\\ %s

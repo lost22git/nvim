@@ -23,7 +23,8 @@
                                                                 bufid))}))}
  {1 "pappasam/nvim-repl"
   :cmd :Repl
-  :opts {:filetype_commands {:crystal {:cmd "crystal i"}
+  :opts {:filetype_commands {:arturo {:cmd "arturo --repl"}
+                             :crystal {:cmd "crystal i"}
                              :elixir {:cmd "iex"}
                              :flix {:cmd "flix repl"}
                              :java {:cmd "jshell"}
