@@ -298,8 +298,11 @@
                                        (local text
                                               (case obj.code
                                                 0 obj.stdout
-                                                code (.. "Code: " code "\n"
-                                                         obj.stderr)))
+                                                code (.. "💀 Code: " code
+                                                         "\n"
+                                                         (case obj.stderr
+                                                           (where v (not= v "")) v
+                                                           _ obj.stdout))))
                                        (-> text
                                            (string.gsub "\027%[.-m" "")
                                            (case (a _) a)
