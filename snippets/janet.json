@@ -195,6 +195,36 @@
     "prefix": "match",
     "body": ["match ${1:v}", "\t${2:pattern} ${3:body}", "\t${4:default}"]
   },
+  "p": {
+    "prefix": "p",
+    "body": "print $1",
+    "description": "print"
+  },
+  "pd": {
+    "prefix": "pd",
+    "body": "tracev $1",
+    "description": "debug print"
+  },
+  "pe": {
+    "prefix": "pe",
+    "body": "eprint $1",
+    "description": "error print"
+  },
+  "pf": {
+    "prefix": "pf",
+    "body": "printf \"${1:%s}\" ${2:value}",
+    "description": "format print"
+  },
+  "pp": {
+    "prefix": "pp",
+    "body": "pp $1",
+    "description": "pretty print"
+  },
+  "px": {
+    "prefix": "px",
+    "body": "xprint ${1:(or (dyn *out*) stdout)} $2",
+    "description": "custom output target print"
+  },
   "try": {
     "prefix": "try",
     "body": [

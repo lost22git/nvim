@@ -7,6 +7,11 @@
     "prefix": "lambda λ",
     "body": "λ"
   },
+  "minuscule": {
+    "prefix": "minuscule ø",
+    "body": "ø",
+    "description": "similar null sign, ∅"
+  },
   "pi": {
     "prefix": "pi π",
     "body": "π"
@@ -14,5 +19,9 @@
   "shebang #!": {
     "prefix": "shebang #!",
     "body": "#!/usr/bin/env ${1:bash}"
+  },
+  "skull": {
+    "prefix": "skull 💀",
+    "body": "💀"
   }
 }
