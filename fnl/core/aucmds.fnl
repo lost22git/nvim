@@ -126,9 +126,15 @@
 
 (var add_keymaps_for_docr nil)
 (fn docr [subcmd]
-  (fn open_doc_window [obj title]
-    (print "")
-    (local text (vim.fn.trim (assert obj.stdout)))
+  (fn make_cmd [q]
+    ["docr" subcmd (.. "'" (vim.fn.escape q "'") "'")])
+
+  (fn process_content [content]
+    (-> content
+        (vim.fn.trim)))
+
+  (fn open_doc_window [content title]
+    (local text (process_content content))
     (open_hover_window text title
                        (fn [bufid _winid]
                          (tset vim.bo bufid :filetype :markdown)
@@ -136,14 +142,15 @@
 
   (local q (if (on_v_modes) (get_current_selection_text)
                (vim.fn.expand "<cword>")))
-  (local cmd ["docr" subcmd (.. "'" (vim.fn.escape q "'") "'")])
+  (local cmd (make_cmd q))
   (local cmd_str (table.concat cmd " "))
   (print cmd_str " ...")
   (vim.system cmd {:text true}
               (fn [res]
+                (print "")
                 (if (or (not= 0 res.code) (not res.stdout) (= "" res.stdout))
                     (vim.print cmd_str res)
-                    ((vim.schedule_wrap open_doc_window) res cmd_str)))))
+                    ((vim.schedule_wrap open_doc_window) res.stdout cmd_str)))))
 
 (set add_keymaps_for_docr
      (fn [bufid]
@@ -159,14 +166,46 @@
            :pattern :crystal
            :callback #(add_keymaps_for_docr $.buf)})
 
-(fn lfe_doc [m_or_h]
-  (fn open_doc_window [obj title]
-    (print "")
-    (local text (vim.fn.trim (assert obj.stdout)))
+(fn arturo_doc [subcmd]
+  (fn make_cmd [q]
+    ["sh" "-c" (.. "echo \"info '" q "\" | arturo --no-color")])
+
+  (fn process_content [content]
+    (-> content
+        (string.match "(%$%>.+)%s*%$%>")
+        (string.gsub "\027%[.-m" "")
+        (case (a _) a)
+        (vim.fn.trim)))
+
+  (fn open_doc_window [content title]
+    (local text (process_content content))
     (open_hover_window text title
                        (fn [bufid _winid]
                          (tset vim.bo bufid :filetype :markdown))))
 
+  (local q (if (on_v_modes) (get_current_selection_text)
+               (vim.fn.expand "<cword>")))
+  (local cmd (make_cmd q))
+  (local cmd_str (table.concat cmd " "))
+  (print cmd_str " ...")
+  (vim.system cmd {:text true}
+              (fn [res]
+                (print "")
+                (if (or (not= 0 res.code) (not res.stdout) (= "" res.stdout))
+                    (vim.print cmd_str res)
+                    ((vim.schedule_wrap open_doc_window) res.stdout cmd_str)))))
+
+(set add_keymaps_for_arturo_doc
+     (fn [bufid]
+       (nvmap! "<Leader>k" (partial arturo_doc :info)
+               {:buffer bufid :desc "[base] arturo info"})))
+
+(autocmd! :FileType
+          {:desc "[Arturo] add keymaps for arturo doc"
+           :pattern :arturo
+           :callback #(add_keymaps_for_arturo_doc $.buf)})
+
+(fn lfe_doc [m_or_h]
   (fn make_cmd [q]
     (local qq (case m_or_h
                 ;; (m 'proc_ib)
@@ -186,6 +225,16 @@
                       ")"))))
     ["lfe" "-e" qq])
 
+  (fn process_content [content]
+    (-> content
+        (vim.fn.trim)))
+
+  (fn open_doc_window [content title]
+    (local text (process_content content))
+    (open_hover_window text title
+                       (fn [bufid _winid]
+                         (tset vim.bo bufid :filetype :markdown))))
+
   (local q (if (on_v_modes) (get_current_selection_text)
                (vim.fn.expand "<cword>")))
   (local cmd (make_cmd q))
@@ -193,9 +242,10 @@
   (print cmd_str " ...")
   (vim.system cmd {:text true :stdin (string.rep "y\n" 10)}
               (fn [res]
+                (print "")
                 (if (or (not= 0 res.code) (not res.stdout) (= "" res.stdout))
                     (vim.print cmd_str res)
-                    ((vim.schedule_wrap open_doc_window) res cmd_str)))))
+                    ((vim.schedule_wrap open_doc_window) res.stdout cmd_str)))))
 
 (autocmd! :FileType
           {:desc "[LFE] add keymaps for (m mode) or (h mod fun arity)"
