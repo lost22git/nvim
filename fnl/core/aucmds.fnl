@@ -131,6 +131,8 @@
 
   (fn process_content [content]
     (-> content
+        (string.gsub "\027%[.-m" "")
+        (case (a _) a)
         (vim.fn.trim)))
 
   (fn open_doc_window [content title]
@@ -195,10 +197,9 @@
                     (vim.print cmd_str res)
                     ((vim.schedule_wrap open_doc_window) res.stdout cmd_str)))))
 
-(set add_keymaps_for_arturo_doc
-     (fn [bufid]
-       (nvmap! "<Leader>k" (partial arturo_doc :info)
-               {:buffer bufid :desc "[base] arturo info"})))
+(fn add_keymaps_for_arturo_doc [bufid]
+  (nvmap! "<Leader>k" (partial arturo_doc :info)
+          {:buffer bufid :desc "[base] arturo info"}))
 
 (autocmd! :FileType
           {:desc "[Arturo] add keymaps for arturo doc"
@@ -227,6 +228,8 @@
 
   (fn process_content [content]
     (-> content
+        (string.gsub "\027%[.-m" "")
+        (case (a _) a)
         (vim.fn.trim)))
 
   (fn open_doc_window [content title]
@@ -247,15 +250,16 @@
                     (vim.print cmd_str res)
                     ((vim.schedule_wrap open_doc_window) res.stdout cmd_str)))))
 
+(fn add_keymaps_for_lfe_doc [bufid]
+  (nvmap! "<Leader>k" (partial lfe_doc :h)
+          {:buffer bufid :desc "[base] lfe (h mod fun arity)"})
+  (nvmap! "<Leader>K" (partial lfe_doc :m)
+          {:buffer bufid :desc "[base] lfe (m mod)"}))
+
 (autocmd! :FileType
           {:desc "[LFE] add keymaps for (m mode) or (h mod fun arity)"
            :pattern :lfe
-           :callback (fn [{:buf bufid}]
-                       (nvmap! "<Leader>k" (partial lfe_doc :h)
-                               {:buffer bufid
-                                :desc "[base] lfe (h mod fun arity)"})
-                       (nvmap! "<Leader>K" (partial lfe_doc :m)
-                               {:buffer bufid :desc "[base] lfe (m mod)"}))})
+           :callback #(add_keymaps_for_lfe_doc $.buf)})
 
 (autocmd! :FileType {:desc "[Clojure] add `Clj` usercommand for starting Clojure nREPL server"
                      :pattern :clojure
