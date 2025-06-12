@@ -32,7 +32,8 @@
                              :nim {:cmd "inim"}
                              :raku {:cmd "rlwrap raku"}
                              :roc {:cmd "roc repl"}
-                             :swift {:cmd "swift repl"}}}
+                             :swift {:cmd "swift repl"}
+                             :v {:cmd "v repl"}}}
   :config (fn [_ opts]
             ((. (require :repl) :setup) opts)
             (local ftypes (vim.tbl_keys opts.filetype_commands))

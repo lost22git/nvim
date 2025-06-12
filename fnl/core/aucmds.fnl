@@ -1,3 +1,11 @@
+;; TODO
+;; compose fns
+;; (compose (execute_cmd (if ok
+;;            (compose open_hover_window process_content)
+;;            (print_error)))
+;;          make_cmd 
+;;          get_text)
+
 (import-macros {: has! : autocmd! : bufusercmd! : nvmap! : nvomap!}
                :config.macros)
 
@@ -21,7 +29,7 @@
   au BufNewFile,BufReadPost *.lobster set filetype=lobster
   au BufNewFile,BufReadPost *.n set filetype=nature
   au BufNewFile,BufReadPost *.postcss set filetype=postcss
-  au BufNewFile,BufReadPost *.v set filetype=vlang
+  au BufNewFile,BufReadPost *.v,*.vsh set filetype=v
 ")
 
 ;; Register commentstring
@@ -181,9 +189,7 @@
 
   (fn open_doc_window [content title]
     (local text (process_content content))
-    (open_hover_window text title
-                       (fn [bufid _winid]
-                         (tset vim.bo bufid :filetype :markdown))))
+    (open_hover_window text title))
 
   (local q (if (on_v_modes) (get_current_selection_text)
                (vim.fn.expand "<cword>")))

@@ -139,7 +139,7 @@
                              :racket_langserver
                              :roc_ls
                              :sourcekit
-                             :vls]))}
+                             :v-analyzer]))}
  {1 "williamboman/mason.nvim"
   :cmd :Mason
   :opts {:install_root_dir (get_mason_path)

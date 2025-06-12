@@ -28,4 +28,5 @@
                            :swift [:swift_format]
                            :toml [:taplo]
                            :typescript [:deno_fmt :prettier]
+                           :v [:v]
                            :zig [:zigfmt]}}}
