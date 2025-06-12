@@ -111,8 +111,7 @@
                             {:settings {:zls {:enable_snippets true
                                               :enable_argument_placeholders false
                                               :highlight_global_var_declarations true}}})
-            (vim.lsp.enable [:fennel_ls
-                             :marksman
+            (vim.lsp.enable [:marksman
                              :kulala_ls
                              :dockerls
                              ;; === shell ===
@@ -128,6 +127,7 @@
                              :crystalline
                              :dartls
                              :elixirls
+                             :fennel_ls
                              :gleam
                              :gradle_ls
                              :gopls
@@ -138,8 +138,9 @@
                              :ols
                              :racket_langserver
                              :roc_ls
+                             :ruff
                              :sourcekit
-                             :v-analyzer]))}
+                             :v_analyzer]))}
  {1 "williamboman/mason.nvim"
   :cmd :Mason
   :opts {:install_root_dir (get_mason_path)

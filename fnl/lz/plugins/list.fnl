@@ -48,6 +48,4 @@
                 {1 "<"
                  2 #((. (require :quicker) :collapse))
                  :desc "[quicker] Collapse context"}]}}
- {1 "mbbill/undotree"
-  :keys [{1 :<Leader>u 2 "<CMD>UndotreeToggle<CR>" :desc "[undotree] Toggle"}]}
  {1 "mikavilpas/yazi.nvim" :cmd :Yazi :opts {}}]

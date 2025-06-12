@@ -12,13 +12,13 @@
  {1 "oneslash/helix-nvim"
   :lazy false
   :priority 1000
-  ; :init #(vim.cmd.colorscheme :helix)
+  ;; :init #(vim.cmd.colorscheme :helix)
   }
  ;; J.Blow
  {1 "whizikxd/naysayer-colors.nvim"
   :lazy false
   :priority 1000
-  ; :init #(vim.cmd.colorscheme :naysayer)
+  ;; :init #(vim.cmd.colorscheme :naysayer)
   }
  ;; Cyberdream
  {1 "scottmckendry/cyberdream.nvim"
@@ -37,6 +37,14 @@
  {1 "pappasam/papercolor-theme-slim"
   :lazy false
   :priority 1000
+  ;; :init #(vim.cmd.colorscheme (case vim.o.background
+  ;;                               :dark :PaperColorSlim
+  ;;                               :light :PaperColorSlimLight))
+  }
+ ;; Base16
+ {1 "RRethy/base16-nvim"
+  :lazy false
+  :priority 1000
   :init #(vim.cmd.colorscheme (case vim.o.background
-                                :dark :PaperColorSlim
-                                :light :PaperColorSlimLight))}]
+                                :dark :base16-harmonic-dark
+                                :light :base16-harmonic-light))}]

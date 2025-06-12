@@ -67,6 +67,9 @@
                             :vim
                             :vimdoc
                             ;;
+                            :markdown
+                            :markdown_inline
+                            ;;
                             :dockerfile
                             :http
                             :hurl
@@ -78,9 +81,6 @@
                             :xml
                             :yaml
                             ;;
-                            :markdown
-                            :markdown_inline
-                            ;;
                             :css
                             :html
                             :javascript
@@ -88,7 +88,6 @@
                             ;;
                             :clojure
                             :crystal
-                            :gleam
                             :go
                             :gomod
                             :java
