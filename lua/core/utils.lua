@@ -1,8 +1,5 @@
 -- [nfnl] fnl/core/utils.fnl
 local M = {}
-M.generate_id = function()
-  return (os.time() .. "-" .. vim.fn.rand())
-end
 M.on_gui = function()
   return (vim.g.neovide or vim.g.fvim_loaded or vim.g.vscode)
 end
@@ -131,18 +128,6 @@ M.lsp_on_attach = function(client, bufid)
   lsp_codelens_refresh(client, bufid)
   return nil
 end
-M.system_open = function(path)
-  vim.notify(("system_open path=" .. path), vim.log.levels.INFO)
-  local cmd
-  if (vim.fn.has("win32") == 1) then
-    cmd = ("explorer.exe '" .. path .. "'")
-  elseif (vim.fn.has("macunix") == 1) then
-    cmd = ("open -g '" .. path .. "' &")
-  else
-    cmd = ("xdg-open '" .. path .. "' &")
-  end
-  return vim.fn.jobstart(cmd, {detach = true})
-end
 M.list_includes = function(a, b)
   vim.validate("a", a, "table")
   vim.validate("b", b, "table")
@@ -166,17 +151,6 @@ M.list_includes = function(a, b)
   end
   return true
 end
-M.get_buffer_count = function()
-  local result = 0
-  local bufs = vim.api.nvim_list_bufs()
-  for _, bufid in ipairs(bufs) do
-    if vim.bo[bufid].buflisted then
-      result = (result + 1)
-    else
-    end
-  end
-  return result
-end
 M.get_selection_line_range = function()
   local a = vim.fn.line("v")
   local b = vim.fn.line(".")
@@ -198,11 +172,11 @@ end
 M.open_hover_window = function(text_or_lines, title, callback)
   local lines
   do
-    local _27_ = type(text_or_lines)
-    if (_27_ == "string") then
+    local _25_ = type(text_or_lines)
+    if (_25_ == "string") then
       lines = vim.fn.split(text_or_lines, "\n", true)
     else
-      local _ = _27_
+      local _ = _25_
       lines = text_or_lines
     end
   end

@@ -2,9 +2,6 @@
 
 (local M {})
 
-(fn M.generate_id []
-  (.. (os.time) "-" (vim.fn.rand)))
-
 (fn M.on_gui []
   (or vim.g.neovide vim.g.fvim_loaded vim.g.vscode))
 
@@ -80,13 +77,6 @@
   (lsp_codelens_refresh client bufid)
   nil)
 
-(fn M.system_open [path]
-  (vim.notify (.. "system_open path=" path) vim.log.levels.INFO)
-  (local cmd (if (has! :win32) (.. "explorer.exe '" path "'")
-                 (has! :macunix) (.. "open -g '" path "' &")
-                 (.. "xdg-open '" path "' &")))
-  (vim.fn.jobstart cmd {:detach true}))
-
 (fn M.list_includes [a b]
   (vim.validate :a a :table)
   (vim.validate :b b :table)
@@ -99,14 +89,6 @@
         (lua "break")))
     (when (not found) (lua "return false")))
   true)
-
-(fn M.get_buffer_count []
-  (var result 0)
-  (local bufs (vim.api.nvim_list_bufs))
-  (each [_ bufid (ipairs bufs)]
-    (when (. vim.bo bufid :buflisted)
-      (set result (+ result 1))))
-  result)
 
 (fn M.get_selection_line_range []
   (let [a (vim.fn.line "v")
