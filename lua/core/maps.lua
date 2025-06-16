@@ -120,7 +120,7 @@ M.lsp = function(bufid)
   vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, opts)
   local _7_
   do
-    local _6_ = {count = -1, severity = vim.diagnostic.severity.ERROR, float = false}
+    local _6_ = {count = -1, float = true, severity = vim.diagnostic.severity.ERROR}
     local function _8_(...)
       return vim.diagnostic.jump(_6_, ...)
     end
@@ -129,7 +129,7 @@ M.lsp = function(bufid)
   vim.keymap.set("n", "[D", _7_, opts)
   local _10_
   do
-    local _9_ = {count = 1, severity = vim.diagnostic.severity.ERROR, float = false}
+    local _9_ = {count = 1, float = true, severity = vim.diagnostic.severity.ERROR}
     local function _11_(...)
       return vim.diagnostic.jump(_9_, ...)
     end

@@ -58,7 +58,9 @@
   :config (fn []
             (vim.diagnostic.config {:severity_sort true
                                     :virtual_text false
-                                    :virtual_lines {:current_line true}})
+                                    :float true
+                                    :virtual_lines {:current_line true}
+                                    :jump {:float true}})
             (vim.lsp.config "*"
                             {:root_markers [".git"]
                              :capabilities (lsp_capabilities)})

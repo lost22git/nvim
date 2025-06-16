@@ -116,12 +116,12 @@
   (nmap! "gt" vim.lsp.buf.type_definition opts)
   (nmap! "[D" (partial vim.diagnostic.jump
                        {:count -1
-                        :float false
+                        :float true
                         :severity vim.diagnostic.severity.ERROR})
          opts)
   (nmap! "]D" (partial vim.diagnostic.jump
                        {:count 1
-                        :float false
+                        :float true
                         :severity vim.diagnostic.severity.ERROR})
          opts))
 

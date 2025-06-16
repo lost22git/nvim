@@ -56,7 +56,7 @@ local function get_workspace_path(client)
   end
 end
 local function _10_()
-  vim.diagnostic.config({severity_sort = true, virtual_lines = {current_line = true}, virtual_text = false})
+  vim.diagnostic.config({severity_sort = true, float = true, virtual_lines = {current_line = true}, jump = {float = true}, virtual_text = false})
   vim.lsp.config("*", {root_markers = {".git"}, capabilities = lsp_capabilities()})
   local function _11_(_241)
     return lsp_on_attach(assert(vim.lsp.get_client_by_id(_241.data.client_id)), _241.buf)
