@@ -15,42 +15,6 @@
         : get_last_selection_text
         : open_hover_window} (require :core.utils))
 
-;; Register filetypes
-(vim.cmd "
-  au BufNewFile,BufReadPost *.art set filetype=arturo
-  au BufNewFile,BufReadPost *.bb set filetype=clojure
-  au BufNewFile,BufReadPost *.c3 set filetype=c3
-  au BufNewFile,BufReadPost *.cljd set filetype=clojure
-  au BufNewFile,BufReadPost *.cy set filetype=cyber
-  au BufNewFile,BufReadPost *.flix set filetype=flix
-  au BufNewFile,BufReadPost *.http set filetype=http
-  au BufNewFile,BufReadPost *.kk set filetype=koka
-  au BufNewFile,BufReadPost *.lfe set filetype=lfe
-  au BufNewFile,BufReadPost *.lobster set filetype=lobster
-  au BufNewFile,BufReadPost *.n set filetype=nature
-  au BufNewFile,BufReadPost *.postcss set filetype=postcss
-  au BufNewFile,BufReadPost *.v,*.vsh set filetype=v
-")
-
-;; Register commentstring
-(vim.cmd "
-  au FileType arturo setlocal commentstring=;\\ %s
-  au FileType c3 setlocal commentstring=//\\ %s
-  au FileType crystal setlocal commentstring=#\\ %s
-  au FileType cyber setlocal commentstring=--\\ %s
-  au FileType fennel setlocal commentstring=;;\\ %s
-  au FileType flix setlocal commentstring=//\\ %s
-  au FileType http setlocal commentstring=#\\ %s
-  au FileType inko setlocal commentstring=#\\ %s
-  au FileType janet setlocal commentstring=#\\ %s
-  au FileType json setlocal commentstring=//\\ %s
-  au FileType just setlocal commentstring=#\\ %s
-  au FileType koka setlocal commentstring=//\\ %s
-  au FileType lfe setlocal commentstring=;\\ %s
-  au FileType lobster setlocal commentstring=//\\ %s
-  au FileType nature setlocal commentstring=//\\ %s
-")
-
 (when (?. vim.env :TMUX)
   (vim.cmd "
     augroup tmux_status_bar_toggle
