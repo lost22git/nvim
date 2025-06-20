@@ -81,6 +81,6 @@ local function _10_()
   vim.lsp.config("raku_navigator", {cmd = {"raku-navigator", "--stdio"}})
   vim.lsp.config("tailwindcss", {root_markers = {"tailwind.config.js", "tailwind.config.cjs", "tailwind.config.mjs", "tailwind.config.ts"}})
   vim.lsp.config("zls", {settings = {zls = {enable_snippets = true, highlight_global_var_declarations = true, enable_argument_placeholders = false}}})
-  return vim.lsp.enable({"marksman", "kulala_ls", "dockerls", "nushell", "powershell_es", "html", "htmx", "svelte", "vtsls", "clojure_lsp", "crystalline", "dartls", "elixirls", "fennel_ls", "gleam", "gradle_ls", "gopls", "julials", "koka", "nim_langserver", "ocamllsp", "ols", "racket_langserver", "roc_ls", "ruff", "sourcekit", "v_analyzer"})
+  return vim.lsp.enable({"emmylua_ls", "marksman", "kulala_ls", "dockerls", "nushell", "powershell_es", "html", "htmx", "svelte", "vtsls", "clojure_lsp", "crystalline", "dartls", "elixirls", "fennel_ls", "gleam", "gradle_ls", "gopls", "julials", "koka", "nim_langserver", "ocamllsp", "ols", "racket_langserver", "roc_ls", "ruff", "sourcekit", "v_analyzer"})
 end
 return {{"neovim/nvim-lspconfig", cmd = {"LspInfo", "LspStart", "LspLog"}, dependencies = {{"deathbeam/lspecho.nvim", opts = {}}}, config = _10_}, {"williamboman/mason.nvim", cmd = "Mason", opts = {install_root_dir = get_mason_path(), PATH = "prepend", ui = {backdrop = vim.g.zz.backdrop}}}}

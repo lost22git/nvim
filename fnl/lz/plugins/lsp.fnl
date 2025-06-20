@@ -113,7 +113,8 @@
                             {:settings {:zls {:enable_snippets true
                                               :enable_argument_placeholders false
                                               :highlight_global_var_declarations true}}})
-            (vim.lsp.enable [:marksman
+            (vim.lsp.enable [:emmylua_ls
+                             :marksman
                              :kulala_ls
                              :dockerls
                              ;; === shell ===

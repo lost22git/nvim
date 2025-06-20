@@ -1,11 +1,3 @@
-;; TODO
-;; compose fns
-;; (compose (execute_cmd (if ok
-;;            (compose open_hover_window process_content)
-;;            (print_error)))
-;;          make_cmd 
-;;          get_text)
-
 (import-macros {: has! : autocmd! : bufusercmd! : nvmap! : nvomap!}
                :config.macros)
 
@@ -80,6 +72,37 @@
                                                      "[e" "]e" :http_request
                                                      $.buf)})
 
+(autocmd! :FileType {:desc "[Clojure] add `Clj` usercommand for starting Clojure nREPL server"
+                     :pattern :clojure
+                     :callback #(bufusercmd! 0 :Clj
+                                             (fn [{: args}]
+                                               (local clj_opts
+                                                      (if (string.match args
+                                                                        "%-M:")
+                                                          args
+                                                          (.. args " " "-M")))
+                                               (local deps
+                                                      "'{:deps {nrepl/nrepl {:mvn/version \"1.3.0\"} refactor-nrepl/refactor-nrepl {:mvn/version \"3.10.0\"} cider/cider-nrepl {:mvn/version \"0.52.0\"} }}'")
+                                               (local cider_opts
+                                                      "\"(require 'nrepl.cmdline) (nrepl.cmdline/-main \\\"--interactive\\\" \\\"--middleware\\\" \\\"[refactor-nrepl.middleware/wrap-refactor cider.nrepl/cider-middleware]\\\")\"")
+                                               (local command
+                                                      (string.format "clj -Sdeps %s %s -e %s"
+                                                                     deps
+                                                                     clj_opts
+                                                                     cider_opts))
+                                               (vim.cmd (.. "tabnew | term "
+                                                            command)))
+                                             {:nargs "*"})})
+
+(autocmd! :FileType {:desc "[Janet] add `JanetNetrepl` usercommand for starting janet-netrepl server"
+                     :pattern :janet
+                     :callback #(bufusercmd! $.buf :JanetNetrepl
+                                             #(vim.cmd (.. "tabnew | term "
+                                                           "janet-netrepl"))
+                                             {:nargs "*"})})
+
+;; === nvim help ===
+
 (fn nvim_help []
   (local q (if (on_v_modes) (get_current_selection_text)
                (vim.fn.expand "<cword>")))
@@ -95,6 +118,16 @@
                                               :desc "[base] Nvim help"})))
 
                                  (vim.defer_fn cb 1000))})
+
+;; TODO
+;; compose fns
+;; (compose (execute_cmd (if ok
+;;            (compose open_hover_window process_content)
+;;            (print_error)))
+;;          make_cmd 
+;;          get_text)
+
+;; === docr ===
 
 (var add_keymaps_for_docr nil)
 (fn docr [subcmd]
@@ -140,6 +173,8 @@
            :pattern :crystal
            :callback #(add_keymaps_for_docr $.buf)})
 
+;; === arturo_doc ===
+
 (fn arturo_doc [subcmd]
   (fn make_cmd [q]
     ["sh" "-c" (.. "echo \"info '" q "\" | arturo --no-color")])
@@ -175,6 +210,8 @@
           {:desc "[Arturo] add keymaps for arturo doc"
            :pattern :arturo
            :callback #(add_keymaps_for_arturo_doc $.buf)})
+
+;; === lfe doc ===
 
 (fn lfe_doc [m_or_h]
   (fn make_cmd [q]
@@ -231,34 +268,7 @@
            :pattern :lfe
            :callback #(add_keymaps_for_lfe_doc $.buf)})
 
-(autocmd! :FileType {:desc "[Clojure] add `Clj` usercommand for starting Clojure nREPL server"
-                     :pattern :clojure
-                     :callback #(bufusercmd! 0 :Clj
-                                             (fn [{: args}]
-                                               (local clj_opts
-                                                      (if (string.match args
-                                                                        "%-M:")
-                                                          args
-                                                          (.. args " " "-M")))
-                                               (local deps
-                                                      "'{:deps {nrepl/nrepl {:mvn/version \"1.3.0\"} refactor-nrepl/refactor-nrepl {:mvn/version \"3.10.0\"} cider/cider-nrepl {:mvn/version \"0.52.0\"} }}'")
-                                               (local cider_opts
-                                                      "\"(require 'nrepl.cmdline) (nrepl.cmdline/-main \\\"--interactive\\\" \\\"--middleware\\\" \\\"[refactor-nrepl.middleware/wrap-refactor cider.nrepl/cider-middleware]\\\")\"")
-                                               (local command
-                                                      (string.format "clj -Sdeps %s %s -e %s"
-                                                                     deps
-                                                                     clj_opts
-                                                                     cider_opts))
-                                               (vim.cmd (.. "tabnew | term "
-                                                            command)))
-                                             {:nargs "*"})})
-
-(autocmd! :FileType {:desc "[Janet] add `JanetNetrepl` usercommand for starting janet-netrepl server"
-                     :pattern :janet
-                     :callback #(bufusercmd! $.buf :JanetNetrepl
-                                             #(vim.cmd (.. "tabnew | term "
-                                                           "janet-netrepl"))
-                                             {:nargs "*"})})
+;; === RunVisual ===
 
 ;; run_visual state
 (local run_visual {:state {:bufid nil :winid nil}})

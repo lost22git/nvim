@@ -65,11 +65,7 @@
                                :group "MiniHipatternsTodo"}
                         :note {:pattern "%f[%w]()NOTE()%f[%W]"
                                :group "MiniHipatternsNote"}
-                        :warn {:pattern "%f[%w]()WARN()%f[%W]"
+                        :warn {:pattern "%f[%w]()WARNI?N?G?()%f[%W]"
                                :group "MiniHipatternsHack"}
-                        :warning {:pattern "%f[%w]()WARNING()%f[%W]"
-                                  :group "MiniHipatternsHack"}
-                        :err {:pattern "%f[%w]()ERR()%f[%W]"
-                              :group "MiniHipatternsFixme"}
-                        :error {:pattern "%f[%w]()ERROR()%f[%W]"
+                        :error {:pattern "%f[%w]()ERRO?R?()%f[%W]"
                                 :group "MiniHipatternsFixme"}}}}]

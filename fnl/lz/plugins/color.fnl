@@ -45,6 +45,12 @@
  {1 "RRethy/base16-nvim"
   :lazy false
   :priority 1000
-  :init #(vim.cmd.colorscheme (case vim.o.background
-                                :dark :base16-harmonic-dark
-                                :light :base16-harmonic-light))}]
+  ;; :init #(vim.cmd.colorscheme (case vim.o.background
+  ;;                               :dark :base16-harmonic-dark
+  ;;                               :light :base16-harmonic-light))
+  }
+ ;; MonaLisa
+ {1 "ptdewey/monalisa-nvim"
+  :lazy false
+  :priority 1000
+  :init #(vim.cmd.colorscheme "monalisa")}]
