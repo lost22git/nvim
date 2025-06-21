@@ -10,7 +10,7 @@
                            :elixir [:mix]
                            :fennel [:fnlfmt]
                            :gleam [:gleam]
-                           :go [:gofmt]
+                           :go [:gofmt :goimports]
                            :http [:kulala-fmt]
                            :html [:prettier]
                            :inko [:inko]
