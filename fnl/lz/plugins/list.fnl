@@ -48,4 +48,21 @@
                 {1 "<"
                  2 #((. (require :quicker) :collapse))
                  :desc "[quicker] Collapse context"}]}}
- {1 "mikavilpas/yazi.nvim" :cmd :Yazi :opts {}}]
+ {1 "mikavilpas/yazi.nvim" :cmd :Yazi :opts {}}
+ {1 "bassamsdata/namu.nvim"
+  :cmd :Namu
+  :opts {:global {:movement {:next ["<M-j>" "<DOWN>"]
+                             :previous ["<M-k>" "<UP>"]
+                             :close ["<C-c>" "<Esc>"]}
+                  :multiselect {:enabled true
+                                :selected_icon "✓"
+                                :keymaps {:toggle "<Tab>"
+                                          :untoggle "<S-Tab>"
+                                          :select_all "<M-a>"
+                                          :clear_all "<M-x>"}}
+                  :custom_keymaps {:yank {:keys ["<M-y>"]
+                                          :desc "Yank symbol text"}
+                                   :delete {:keys ["M-d"]
+                                            :desc "Delete symbol text"}}}
+         :namu_symbols {:enable true :options {}}
+         :ui_select {:enable false}}}]
