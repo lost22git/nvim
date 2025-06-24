@@ -2,8 +2,8 @@
   "get": {
     "prefix": "get",
     "body": [
-      "###",
-      "# @name ${1:GET_DATA}",
+      "### ${1:GET_DATA}",
+      "",
       "${2:GET} ${3:url} HTTP/${4:1.1}",
       "Accept: ${5:application/json}",
       ""
@@ -12,8 +12,8 @@
   "post-json": {
     "prefix": "post-json",
     "body": [
-      "###",
-      "# @name ${1:POST_JSON}",
+      "### ${1:POST_JSON}",
+      "",
       "${2:POST} ${3:url} HTTP/${4:1.1}",
       "Accept: ${5:application/json}",
       "Content-Type: application/json",
@@ -27,22 +27,21 @@
   "post-json-file": {
     "prefix": "post-json-file",
     "body": [
-      "###",
-      "# @name ${1:POST_JSON_FILE}",
+      "### ${1:POST_JSON_FILE}",
+      "",
       "${2:POST} ${3:url} HTTP/${4:1.1}",
       "Accept: ${5:application/json}",
       "Content-Type: application/json",
-      "#file-to-variable JSON_DATA ${6:./data.json}",
       "",
-      "{{JSON_DATA}}",
+      "< ${6:./data.json}",
       ""
     ]
   },
   "post-form-data": {
     "prefix": "post-form-data",
     "body": [
-      "###",
-      "# @name ${1:POST_FORMDATA}",
+      "### ${1:POST_FORMDATA}",
+      "",
       "${2:POST} ${3:url} HTTP/${4:1.1}",
       "Accept: ${5:application/json}",
       "Content-Type: application/x-www-form-urlencoded",
@@ -55,18 +54,18 @@
   "post-multipart": {
     "prefix": "post-multipart",
     "body": [
-      "###",
-      "# @name ${1:POST_MULTIPART}",
+      "### ${1:POST_MULTIPART}",
+      "",
       "${2:POST} ${3:url} HTTP/${4:1.1}",
       "Accept: ${5:application/json}",
-      "Content-Type: multipart/form-data; boundary=----WebKitFormBoundary{{\\$timestamp}}",
-      "# @file-to-variable ${6:FILE_DATA} ${7:./file.png} binary",
+      "Content-Type: multipart/form-data; boundary=----WebKitFormBoundary{{\\$timestamp}}; charset=utf-8",
       "",
       "------WebKitFormBoundary{{\\$timestamp}}",
-      "Content-Disposition: form-data; name=\"${8:file}\"; filename=\"${9:file.png}\"",
-      "Content-Type: ${10:image/jpeg}",
+      "Content-Disposition: form-data; name=\"${6:image}\"; filename=\"${7:image.png}\"",
+      "Content-Type: ${8:image/png}",
       "",
-      "{{${6:FILE_DATA}}}",
+      "< ${9:./image.png}",
+      "",
       "------WebKitFormBoundary{{\\$timestamp}}--",
       ""
     ]

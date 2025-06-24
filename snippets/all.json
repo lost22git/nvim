@@ -1,4 +1,8 @@
 {
+  "check": {
+    "prefix": "check ✓",
+    "body": "✓"
+  },
   "inf": {
     "prefix": "inf ∞",
     "body": "∞"

@@ -1,9 +1,15 @@
 {
   "default": {
     "prefix": "default",
+    "body": ["_default:", "\t@just --list --unsorted"]
+  },
+  "exe-info": {
+    "prefix": "exe-info",
     "body": [
-      "_default:",
-      "\t@just --list --unsorted"
+      "exe-info executable:",
+      "\tls -l {{ executable }}",
+      "\tfile {{ executable }}",
+      "\tldd {{ executable }}"
     ]
   },
   "set-windows-powershell": {
@@ -20,8 +26,6 @@
   },
   "set-windows-cmd": {
     "prefix": "set-windows-cmd",
-    "body": [
-      "set windows-shell := [\"cmd\", \"/c\"]"
-    ]
+    "body": ["set windows-shell := [\"cmd\", \"/c\"]"]
   }
 }
