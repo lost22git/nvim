@@ -24,6 +24,7 @@
                     [:fh :git_hunks]
                     [:fi :lsp_implementations]
                     [:fk :keymaps]
+                    [:fl :blines]
                     [:fO :lsp_document_symbols]
                     [:fr :lsp_references]
                     [:fs :live_grep]
@@ -32,6 +33,9 @@
             {1 (.. :<Leader> k)
              2 (.. "<CMD>FzfLua " v "<CR>")
              :desc (.. "[fzflua] " v)}))}
+ {1 "stevearc/aerial.nvim"
+  :opts {}
+  :keys [{1 "<Leader>O" 2 "<Cmd>AerialToggle<Cr>" :desc "[aerial] toggle"}]}
  {1 "stevearc/quicker.nvim"
   :ft :qf
   :keys [{1 "<Leader>q"
