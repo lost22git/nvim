@@ -5,8 +5,6 @@
   :dependencies ["nvim-treesitter/nvim-treesitter"]
   :opts {:use_default_keymaps false}
   :keys [{1 "<Leader>j" 2 "<Cmd>TSJToggle<CR>" :desc "[treesj] Split/Join"}]}
- {1 "mbbill/undotree"
-  :keys [{1 :<Leader>u 2 "<CMD>UndotreeToggle<CR>" :desc "[undotree] Toggle"}]}
  {1 "aaronik/treewalker.nvim"
   :opts {:highlight true :highlight_duration 300 :highlight_group :Visual}
   :keys (let [data [[:th :Left]
@@ -60,4 +58,5 @@
                     [:R :treesitter_search [:x :o]]
                     [:<c-s> :toggle :c]]]
           (icollect [_ [k v m] (ipairs data)]
-            {1 k 2 #((. (require :flash) v)) :mode m}))}]
+            {1 k 2 #((. (require :flash) v)) :mode m}))}
+ {1 "MagicDuck/grug-far.nvim" :cmd [:GrugFar :GrugFarWithin] :opts {}}]

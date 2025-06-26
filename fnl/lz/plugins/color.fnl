@@ -7,7 +7,9 @@
  {1 "nickkadutskyi/jb.nvim"
   :lazy false
   :priority 1000
-  :opts {:disable_hl_args {:bold false :italic true}}}
+  :opts {:disable_hl_args {:bold false :italic true}}
+  ;; :init #(vim.cmd.colorscheme :jb)
+  }
  ;; Helix
  {1 "oneslash/helix-nvim"
   :lazy false
@@ -20,11 +22,6 @@
   :priority 1000
   ;; :init #(vim.cmd.colorscheme :naysayer)
   }
- ;; Cyberdream
- {1 "scottmckendry/cyberdream.nvim"
-  :lazy false
-  :priority 1000
-  :opts {:variant vim.o.background ::cache true}}
  ;; Nightfox
  {1 "EdenEast/nightfox.nvim"
   :lazy false
@@ -37,10 +34,9 @@
  {1 "pappasam/papercolor-theme-slim"
   :lazy false
   :priority 1000
-  ;; :init #(vim.cmd.colorscheme (case vim.o.background
-  ;;                               :dark :PaperColorSlim
-  ;;                               :light :PaperColorSlimLight))
-  }
+  :init #(vim.cmd.colorscheme (case vim.o.background
+                                :dark :PaperColorSlim
+                                :light :PaperColorSlimLight))}
  ;; Base16
  {1 "RRethy/base16-nvim"
   :lazy false
@@ -48,9 +44,4 @@
   ;; :init #(vim.cmd.colorscheme (case vim.o.background
   ;;                               :dark :base16-harmonic-dark
   ;;                               :light :base16-harmonic-light))
-  }
- ;; MonaLisa
- {1 "ptdewey/monalisa-nvim"
-  :lazy false
-  :priority 1000
-  :init #(vim.cmd.colorscheme "monalisa")}]
+  }]

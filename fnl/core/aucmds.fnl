@@ -7,18 +7,18 @@
         : get_last_selection_text
         : open_hover_window} (require :core.utils))
 
-(when (?. vim.env :TMUX)
-  (vim.cmd "
-    augroup tmux_status_bar_toggle
-      autocmd VimEnter,VimResume  * call system('tmux set status off')
-      autocmd VimLeave,VimSuspend * call system('tmux set status on')
-    augroup END
-  "))
+;; (when (?. vim.env :TMUX)
+;;   (vim.cmd "
+;;     augroup tmux_status_bar_toggle
+;;       autocmd VimEnter,VimResume  * call system('tmux set status off')
+;;       autocmd VimLeave,VimSuspend * call system('tmux set status on')
+;;     augroup END
+;;   "))
 
 (var GUI_CURSOR_CACHE nil)
 
 (autocmd! [:VimLeave :VimSuspend]
-          {:desc "restore terminal cursor style"
+          {:desc "Restore terminal cursor style"
            :pattern "*"
            :callback (fn []
                        (set GUI_CURSOR_CACHE (vim.opt.guicursor:get))
@@ -28,13 +28,13 @@
                        (vim.fn.chansend vim.v.stderr "\x1b[6 q \x1b[?12l"))})
 
 (autocmd! :VimResume
-          {:desc "restore nvim cursor style"
+          {:desc "Restore nvim cursor style"
            :pattern "*"
            :callback #(when GUI_CURSOR_CACHE
                         (set vim.opt.guicursor GUI_CURSOR_CACHE))})
 
 (autocmd! :FileType
-          {:desc "set fileformat to unix"
+          {:desc "Set fileformat to unix"
            :pattern "*"
            :callback #(when (and vim.bo.modifiable
                                  (not (vim.tbl_contains [:qf :FTerm]
@@ -42,12 +42,25 @@
                         (set vim.bo.fileformat :unix))})
 
 (autocmd! :TextYankPost
-          {:desc "highlight yanked text"
+          {:desc "Highlight yanked text"
            :pattern "*"
            :callback #(vim.hl.on_yank {:higroup :Visual :timeout 200})})
 
+(autocmd! :BufWritePre
+          {:desc "Remove trailing whitespace"
+           :callback #(vim.cmd "%s/\\s\\+$//e")})
+
+(autocmd! :BufReadPost
+          {:desc "Restore cursor position"
+           :callback #(vim.cmd "silent! normal! g`\"zv")})
+
+(autocmd! :FileType
+          {:desc "Do not list quickfix buffers"
+           :pattern :qf
+           :callback #(set vim.opt_local.buflisted false)})
+
 (autocmd! :BufWinEnter
-          {:desc "add keymaps for Goto prev/next region"
+          {:desc "Add keymaps for Goto prev/next region"
            :callback #(create_keymaps_for_goto_entry "[-\\/;#] === .\\+ ===$"
                                                      "[r" "]r" :code_region
                                                      $.buf)})
@@ -108,7 +121,7 @@
                (vim.fn.expand "<cword>")))
   (vim.cmd (.. "help " q)))
 
-(autocmd! :FileType {:desc "add keymaps for nvim help"
+(autocmd! :FileType {:desc "Add keymaps for nvim help"
                      :pattern :lua
                      :callback (fn [{:buf bufid}]
                                  (fn cb []

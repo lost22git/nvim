@@ -56,7 +56,7 @@ local function get_workspace_path(client)
   end
 end
 local function _10_()
-  vim.diagnostic.config({severity_sort = true, float = true, virtual_lines = {current_line = true}, jump = {float = true}, virtual_text = false})
+  vim.diagnostic.config({severity_sort = true, float = true, jump = {float = true}, virtual_text = false})
   vim.lsp.config("*", {root_markers = {".git"}, capabilities = lsp_capabilities()})
   local function _11_(_241)
     return lsp_on_attach(assert(vim.lsp.get_client_by_id(_241.data.client_id)), _241.buf)
@@ -83,4 +83,4 @@ local function _10_()
   vim.lsp.config("zls", {settings = {zls = {enable_snippets = true, highlight_global_var_declarations = true, enable_argument_placeholders = false}}})
   return vim.lsp.enable({"emmylua_ls", "marksman", "kulala_ls", "dockerls", "nushell", "powershell_es", "html", "htmx", "svelte", "vtsls", "clojure_lsp", "crystalline", "dartls", "elixirls", "fennel_ls", "gleam", "gradle_ls", "gopls", "julials", "koka", "nim_langserver", "ocamllsp", "ols", "racket_langserver", "roc_ls", "ruff", "sourcekit", "v_analyzer"})
 end
-return {{"neovim/nvim-lspconfig", cmd = {"LspInfo", "LspStart", "LspLog"}, dependencies = {{"deathbeam/lspecho.nvim", opts = {}}}, config = _10_}, {"williamboman/mason.nvim", cmd = "Mason", opts = {install_root_dir = get_mason_path(), PATH = "prepend", ui = {backdrop = vim.g.zz.backdrop}}}}
+return {{"neovim/nvim-lspconfig", cmd = {"LspInfo", "LspStart", "LspLog"}, dependencies = {{"deathbeam/lspecho.nvim", opts = {}}, {"rachartier/tiny-inline-diagnostic.nvim", opts = {preset = "ghost"}}}, config = _10_}, {"williamboman/mason.nvim", cmd = "Mason", opts = {install_root_dir = get_mason_path(), PATH = "prepend", ui = {backdrop = vim.g.zz.backdrop}}}}

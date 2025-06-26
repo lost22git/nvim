@@ -54,13 +54,16 @@
 
 [{1 "neovim/nvim-lspconfig"
   :cmd [:LspInfo :LspStart :LspLog]
-  :dependencies [{1 "deathbeam/lspecho.nvim" :opts {}}]
+  :dependencies [{1 "deathbeam/lspecho.nvim" :opts {}}
+                 {1 "rachartier/tiny-inline-diagnostic.nvim"
+                  :opts {:preset :ghost}}]
   :config (fn []
             (vim.diagnostic.config {:severity_sort true
                                     :virtual_text false
                                     :float true
-                                    :virtual_lines {:current_line true}
-                                    :jump {:float true}})
+                                    :jump {:float true}
+                                    ;; :virtual_lines {:current_line true}
+                                    })
             (vim.lsp.config "*"
                             {:root_markers [".git"]
                              :capabilities (lsp_capabilities)})

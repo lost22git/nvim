@@ -1,7 +1,4 @@
-[{1 "EL-MASTOR/bufferlist.nvim"
-  :keys [{1 "<Leader>b" 2 "<Cmd>BufferList<CR>" :desc "[bufferlist] Open"}]
-  :opts {}}
- {1 "ibhagwan/fzf-lua"
+[{1 "ibhagwan/fzf-lua"
   :cmd :FzfLua
   :opts {:fzf_colors true
          :winopts {:backdrop vim.g.zz.backdrop :preview {:hidden true}}}
@@ -33,6 +30,8 @@
             {1 (.. :<Leader> k)
              2 (.. "<CMD>FzfLua " v "<CR>")
              :desc (.. "[fzflua] " v)}))}
+ {1 "mbbill/undotree"
+  :keys [{1 :<Leader>u 2 "<CMD>UndotreeToggle<CR>" :desc "[undotree] Toggle"}]}
  {1 "stevearc/aerial.nvim"
   :opts {}
   :keys [{1 "<Leader>O" 2 "<Cmd>AerialToggle<Cr>" :desc "[aerial] toggle"}]}
