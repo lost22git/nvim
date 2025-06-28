@@ -7,32 +7,6 @@
         : get_last_selection_text
         : open_hover_window} (require :core.utils))
 
-;; (when (?. vim.env :TMUX)
-;;   (vim.cmd "
-;;     augroup tmux_status_bar_toggle
-;;       autocmd VimEnter,VimResume  * call system('tmux set status off')
-;;       autocmd VimLeave,VimSuspend * call system('tmux set status on')
-;;     augroup END
-;;   "))
-
-(var GUI_CURSOR_CACHE nil)
-
-(autocmd! [:VimLeave :VimSuspend]
-          {:desc "Restore terminal cursor style"
-           :pattern "*"
-           :callback (fn []
-                       (set GUI_CURSOR_CACHE (vim.opt.guicursor:get))
-                       (set vim.opt.guicursor {})
-                       ;; \x1b[?12l -> disable cursor blink
-                       ;; \x1b[6 q -> set cursor style to bar
-                       (vim.fn.chansend vim.v.stderr "\x1b[6 q \x1b[?12l"))})
-
-(autocmd! :VimResume
-          {:desc "Restore nvim cursor style"
-           :pattern "*"
-           :callback #(when GUI_CURSOR_CACHE
-                        (set vim.opt.guicursor GUI_CURSOR_CACHE))})
-
 (autocmd! :FileType
           {:desc "Set fileformat to unix"
            :pattern "*"
@@ -65,12 +39,38 @@
                                                      "[r" "]r" :code_region
                                                      $.buf)})
 
-(autocmd! :FileType
-          {:desc "[Clojure] add keymaps for Goto prev/next (comment)"
-           :pattern [:clojure :janet]
-           :callback #(create_keymaps_for_goto_entry "\\v(^\\(comment|^#_)"
-                                                     "[C" "]C" :comment_form
-                                                     $.buf)})
+;; === GUI CURSOR STYLE ===
+
+(var GUI_CURSOR_CACHE nil)
+
+(autocmd! [:VimLeave :VimSuspend]
+          {:desc "Restore terminal cursor style"
+           :pattern "*"
+           :callback (fn []
+                       (set GUI_CURSOR_CACHE (vim.opt.guicursor:get))
+                       (set vim.opt.guicursor {})
+                       ;; \x1b[?12l -> disable cursor blink
+                       ;; \x1b[6 q -> set cursor style to bar
+                       (vim.fn.chansend vim.v.stderr "\x1b[6 q \x1b[?12l")
+                       nil)})
+
+(autocmd! :VimResume
+          {:desc "Restore nvim cursor style"
+           :pattern "*"
+           :callback #(when GUI_CURSOR_CACHE
+                        (set vim.opt.guicursor GUI_CURSOR_CACHE))})
+
+;; === TMUX ===
+
+(when (?. vim.env :TMUX)
+  (autocmd! :BufWritePost {:desc "Reload tmux config after [.tmux.conf] saved"
+                           :pattern ".tmux.conf"
+                           :callback #(let [cmd (.. "tmux source-file "
+                                                    (vim.api.nvim_buf_get_name $.buf))]
+                                        (vim.fn.system cmd)
+                                        nil)}))
+
+;; === JUST ===
 
 (autocmd! :FileType
           {:desc "[Just] add keymaps for Goto prev/next task"
@@ -78,11 +78,22 @@
            :callback #(create_keymaps_for_goto_entry "\\v^\\w+.*:$" "[e" "]e"
                                                      :just_task $.buf)})
 
+;; === HTTP ===
+
 (autocmd! :FileType
           {:desc "[Http] add keymaps for Goto prev/next http request"
            :pattern [:http :rest :hurl]
            :callback #(create_keymaps_for_goto_entry "\\v^<(HEAD|GET|POST|PUT|PATCH|DELETE|OPTION)>"
                                                      "[e" "]e" :http_request
+                                                     $.buf)})
+
+;; === CLOJURE ===
+
+(autocmd! :FileType
+          {:desc "[Clojure] add keymaps for Goto prev/next (comment)"
+           :pattern [:clojure :janet]
+           :callback #(create_keymaps_for_goto_entry "\\v(^\\(comment|^#_)"
+                                                     "[C" "]C" :comment_form
                                                      $.buf)})
 
 (autocmd! :FileType {:desc "[Clojure] add `Clj` usercommand for starting Clojure nREPL server"
@@ -114,7 +125,7 @@
                                                            "janet-netrepl"))
                                              {:nargs "*"})})
 
-;; === nvim help ===
+;; === NVIM HELP ===
 
 (fn nvim_help []
   (local q (if (on_v_modes) (get_current_selection_text)
@@ -137,10 +148,10 @@
 ;; (compose (execute_cmd (if ok
 ;;            (compose open_hover_window process_content)
 ;;            (print_error)))
-;;          make_cmd 
+;;          make_cmd
 ;;          get_text)
 
-;; === docr ===
+;; === CRYSTAL ===
 
 (var add_keymaps_for_docr nil)
 (fn docr [subcmd]
@@ -186,7 +197,7 @@
            :pattern :crystal
            :callback #(add_keymaps_for_docr $.buf)})
 
-;; === arturo_doc ===
+;; === ARTURO ===
 
 (fn arturo_doc [subcmd]
   (fn make_cmd [q]
@@ -224,7 +235,7 @@
            :pattern :arturo
            :callback #(add_keymaps_for_arturo_doc $.buf)})
 
-;; === lfe doc ===
+;; === LFE ===
 
 (fn lfe_doc [m_or_h]
   (fn make_cmd [q]
