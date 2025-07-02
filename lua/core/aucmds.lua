@@ -3,7 +3,6 @@ local _local_1_ = require("core.utils")
 local create_keymaps_for_goto_entry = _local_1_["create_keymaps_for_goto_entry"]
 local on_v_modes = _local_1_["on_v_modes"]
 local get_current_selection_text = _local_1_["get_current_selection_text"]
-local get_last_selection_text = _local_1_["get_last_selection_text"]
 local open_hover_window = _local_1_["open_hover_window"]
 local function _2_()
   if (vim.bo.modifiable and not vim.tbl_contains({"qf", "FTerm"}, vim.bo.filetype)) then
@@ -191,7 +190,7 @@ local function _42_(_241)
   return add_keymaps_for_docr(_241.buf)
 end
 vim.api.nvim_create_autocmd("FileType", {desc = "[Crystal] add keymaps for docr", pattern = "crystal", callback = _42_})
-local function arturo_doc(subcmd)
+local function arturo_doc(_subcmd)
   local function make_cmd(q)
     return {"sh", "-c", ("echo \"info '" .. q .. "\" | arturo --no-color")}
   end
@@ -338,107 +337,4 @@ local function _72_(_241)
   return add_keymaps_for_lfe_doc(_241.buf)
 end
 vim.api.nvim_create_autocmd("FileType", {desc = "[LFE] add keymaps for (m mode) or (h mod fun arity)", pattern = "lfe", callback = _72_})
-local run_visual = {state = {bufid = nil, winid = nil}}
-run_visual.buffer_append = function(lines)
-  local bufid = run_visual.state["bufid"]
-  local winid = run_visual.state["winid"]
-  local line_start = vim.api.nvim_buf_line_count(bufid)
-  if (1 == line_start) then
-    line_start = 0
-  else
-  end
-  vim.api.nvim_buf_set_lines(bufid, line_start, -1, false, lines)
-  return vim.api.nvim_win_set_cursor(winid, {vim.api.nvim_buf_line_count(bufid), 0})
-end
-run_visual.read_selection_and_write_to_tmp_file = function()
-  local selection_text = get_last_selection_text()
-  local tmp_file = (vim.fs.dirname(os.tmpname()) .. "/nvim_run_visual_tmp")
-  vim.fn.writefile(vim.split(selection_text, "\n"), tmp_file)
-  if (vim.fn.has("unix") == 1) then
-    os.execute(("chmod 777 " .. tmp_file))
-  else
-  end
-  return tmp_file
-end
-run_visual.ensure_buf_and_win = function()
-  local or_75_ = not run_visual.state.bufid
-  if not or_75_ then
-    local _76_ = vim.fn.bufexists
-    or_75_ = ((0 == _76_) and (_76_ == run_visual.state.bufid))
-  end
-  if or_75_ then
-    run_visual.state.bufid = vim.api.nvim_create_buf(false, true)
-    vim.bo[run_visual.state.bufid]["filetype"] = "RunVisual"
-  else
-  end
-  if not (run_visual.state.winid and vim.api.nvim_win_is_valid(run_visual.state.winid)) then
-    run_visual.state.winid = vim.api.nvim_open_win(run_visual.state.bufid, false, {split = "below", style = "minimal"})
-    return nil
-  else
-    return nil
-  end
-end
-local function _79_(_241)
-  local function _81_(_80_)
-    local fargs = _80_["fargs"]
-    local tmp_file = run_visual.read_selection_and_write_to_tmp_file()
-    local cmd = {unpack(fargs), tmp_file}
-    run_visual.ensure_buf_and_win()
-    do
-      local time_str = os.date("!%m-%d %H:%M:%S", os.time())
-      local title_lines = {("# " .. string.rep("-", 80)), ("# " .. time_str .. " - " .. table.concat(cmd, " "))}
-      run_visual.buffer_append(title_lines)
-    end
-    local function print_cmd_result(obj)
-      local text
-      do
-        local _82_ = obj.code
-        if (_82_ == 0) then
-          text = obj.stdout
-        elseif (nil ~= _82_) then
-          local code = _82_
-          local _84_
-          do
-            local _83_ = obj.stderr
-            local and_85_ = (nil ~= _83_)
-            if and_85_ then
-              local v = _83_
-              and_85_ = (v ~= "")
-            end
-            if and_85_ then
-              local v = _83_
-              _84_ = v
-            else
-              local _ = _83_
-              _84_ = obj.stdout
-            end
-          end
-          text = ("\240\159\146\128 Code: " .. code .. "\n" .. _84_)
-        else
-          text = nil
-        end
-      end
-      local function _93_()
-        local _91_, _92_ = string.gsub(text, "\27%[.-m", "")
-        if ((nil ~= _91_) and true) then
-          local a = _91_
-          local _ = _92_
-          return a
-        else
-          return nil
-        end
-      end
-      return run_visual.buffer_append(vim.fn.split(vim.fn.trim(_93_()), "\n", true))
-    end
-    local function _95_(_2410)
-      return vim.schedule_wrap(print_cmd_result)(_2410)
-    end
-    return vim.system(cmd, {text = true}, _95_)
-  end
-  return vim.api.nvim_buf_create_user_command(_241.buf, "RunVisual", _81_, {nargs = "+", range = true})
-end
-vim.api.nvim_create_autocmd("BufWinEnter", {desc = "create `RunVisual` usercommand", callback = _79_})
-local function _96_(_241)
-  return create_keymaps_for_goto_entry("\\v^# \\-+$", "[e", "]e", "run_visual_log", _241.buf)
-end
-return vim.api.nvim_create_autocmd("FileType", {desc = "[RunVisual] add keymaps for goto prev/next log", pattern = "RunVisual", callback = _96_})
+return require("core.run_visual")

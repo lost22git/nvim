@@ -1,4 +1,4 @@
-(set vim.opt.background :dark)
+(set vim.opt.background :light)
 (set vim.opt.termguicolors true)
 
 ;; GUI Font
@@ -66,7 +66,7 @@
 ;; Mode
 (set vim.opt.showmode false)
 
-;; Mouse 
+;; Mouse
 (set vim.opt.mouse "a")
 
 ;; Split
