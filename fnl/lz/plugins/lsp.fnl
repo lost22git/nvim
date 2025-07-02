@@ -139,6 +139,7 @@
                              :gopls
                              :julials
                              :koka
+                             :kotlin_lsp
                              :nim_langserver
                              :ocamllsp
                              :ols
