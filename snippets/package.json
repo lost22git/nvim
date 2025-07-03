@@ -47,6 +47,10 @@
         "path": "./lfe.json"
       },
       {
+        "language": "nim",
+        "path": "./nim.json"
+      },
+      {
         "language": "raku",
         "path": "./raku.json"
       }

@@ -1,0 +1,6 @@
+{
+  "fmt-nph": {
+    "prefix": "fmt-nph",
+    "body": "#!fmt: ${1|off,on|}"
+  }
+}
