@@ -118,14 +118,14 @@ local function _28_(_27_)
   local bufid = _27_["buf"]
   local function cb()
     if (1 == vim.fn.bufexists(bufid)) then
-      return vim.keymap.set({"n", "v"}, "<Leader>k", nvim_help, {buffer = bufid, desc = "[base] Nvim help"})
+      return vim.keymap.set({"n", "v"}, "<Leader>K", nvim_help, {buffer = bufid, desc = "[base] Nvim help"})
     else
       return nil
     end
   end
   return vim.defer_fn(cb, 1000)
 end
-vim.api.nvim_create_autocmd("FileType", {desc = "Add keymaps for nvim help", pattern = "lua", callback = _28_})
+vim.api.nvim_create_autocmd("FileType", {desc = "Add keymaps for nvim help", pattern = {"lua", "fennel"}, callback = _28_})
 local add_keymaps_for_docr = nil
 local function docr(subcmd)
   local function make_cmd(q)

@@ -61,48 +61,35 @@ local function _8_(_241)
           text = obj.stdout
         elseif (nil ~= _11_) then
           local code = _11_
-          local _13_
-          do
-            local _12_ = obj.stderr
-            local and_14_ = (nil ~= _12_)
-            if and_14_ then
-              local v = _12_
-              and_14_ = (v ~= "")
-            end
-            if and_14_ then
-              local v = _12_
-              _13_ = v
-            else
-              local _ = _12_
-              _13_ = obj.stdout
-            end
+          local _12_
+          if (obj.stderr == "") then
+            _12_ = obj.stdout
+          else
+            _12_ = obj.stderr
           end
-          text = ("\240\159\146\128 Code: " .. code .. "\n" .. _13_)
+          text = ("\240\159\146\128 Code: " .. code .. "\n" .. _12_)
         else
           text = nil
         end
       end
-      local function _22_()
-        local _20_, _21_ = string.gsub(text, "\27%[.-m", "")
-        if ((nil ~= _20_) and true) then
-          local a = _20_
-          local _ = _21_
+      local function _17_()
+        local _15_, _16_ = string.gsub(text, "\27%[.-m", "")
+        if ((nil ~= _15_) and true) then
+          local a = _15_
+          local _ = _16_
           return a
         else
           return nil
         end
       end
-      return run_visual.buffer_append(vim.fn.split(vim.fn.trim(_22_()), "\n", true))
+      return run_visual.buffer_append(vim.fn.split(vim.fn.trim(_17_()), "\n", true))
     end
-    local function _24_(_2410)
-      return vim.schedule_wrap(print_cmd_result)(_2410)
-    end
-    return vim.system(cmd, {text = true}, _24_)
+    return vim.system(cmd, {text = true}, vim.schedule_wrap(print_cmd_result))
   end
   return vim.api.nvim_buf_create_user_command(_241.buf, "RunVisual", _10_, {nargs = "+", range = true})
 end
 vim.api.nvim_create_autocmd("BufWinEnter", {desc = "Create [RunVisual] usercommand", callback = _8_})
-local function _25_(_241)
+local function _19_(_241)
   return create_keymaps_for_goto_entry("\\v^# \\-+$", "[e", "]e", "run_visual_log", _241.buf)
 end
-return vim.api.nvim_create_autocmd("FileType", {desc = "[RunVisual] add keymaps for goto prev/next log", pattern = "RunVisual", callback = _25_})
+return vim.api.nvim_create_autocmd("FileType", {desc = "[RunVisual] add keymaps for goto prev/next log", pattern = "RunVisual", callback = _19_})

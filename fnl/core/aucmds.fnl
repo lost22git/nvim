@@ -132,11 +132,11 @@
   (vim.cmd (.. "help " q)))
 
 (autocmd! :FileType {:desc "Add keymaps for nvim help"
-                     :pattern :lua
+                     :pattern [:lua :fennel]
                      :callback (fn [{:buf bufid}]
                                  (fn cb []
                                    (when (= 1 (vim.fn.bufexists bufid))
-                                     (nvmap! "<Leader>k" nvim_help
+                                     (nvmap! "<Leader>K" nvim_help
                                              {:buffer bufid
                                               :desc "[base] Nvim help"})))
 

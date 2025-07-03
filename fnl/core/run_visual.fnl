@@ -70,9 +70,9 @@
                                                 0 obj.stdout
                                                 code (.. "💀 Code: " code
                                                          "\n"
-                                                         (case obj.stderr
-                                                           (where v (not= v "")) v
-                                                           _ obj.stdout))))
+                                                         (if (= obj.stderr "")
+                                                             obj.stdout
+                                                             obj.stderr))))
                                        (-> text
                                            (string.gsub "\027%[.-m" "")
                                            (case (a _) a)
@@ -82,7 +82,7 @@
 
                                      ;; run cmd
                                      (vim.system cmd {:text true}
-                                                 #((vim.schedule_wrap print_cmd_result) $)))
+                                                 (vim.schedule_wrap print_cmd_result)))
                                    {:nargs "+" :range true})})
 
 (autocmd! :FileType
