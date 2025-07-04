@@ -26,7 +26,7 @@ end
 local _7_
 do
   local tbl_16_ = {}
-  for _, _8_ in ipairs({{"du", "raise_form"}, {"dU", "raise_element"}, {">D", "drag_pair_forwards"}, {"<D", "drag_pair_backwards"}, {">E", "drag_element_forwards"}, {"<E", "drag_element_backwards"}, {">F", "drag_form_forwards"}, {"<F", "drag_form_backwards"}}) do
+  for _, _8_ in ipairs({{"du", "raise_form"}, {"dU", "raise_element"}, {">)", "slurp_forwards"}, {">(", "barf_backwards"}, {"<)", "barf_forwards"}, {"<(", "slurp_backwards"}, {">D", "drag_pair_forwards"}, {"<D", "drag_pair_backwards"}, {">E", "drag_element_forwards"}, {"<E", "drag_element_backwards"}, {">F", "drag_form_forwards"}, {"<F", "drag_form_backwards"}}) do
     local k = _8_[1]
     local v = _8_[2]
     local k_17_, v_18_ = nil, nil
@@ -81,4 +81,4 @@ do
   end
   _15_ = tbl_21_
 end
-return {{"TheBlob42/houdini.nvim", event = {"InsertEnter", "CmdLineEnter", "TermEnter"}, opts = {timeout = 250, escape_sequences = {c = "<BS><BS><Esc>", V = false, v = false}}}, {"Wansmer/treesj", dependencies = {"nvim-treesitter/nvim-treesitter"}, opts = {use_default_keymaps = false}, keys = {{"<Leader>j", "<Cmd>TSJToggle<CR>", desc = "[treesj] Split/Join"}}}, {"aaronik/treewalker.nvim", opts = {highlight = true, highlight_duration = 300, highlight_group = "Visual"}, keys = _1_}, {"julienvincent/nvim-paredit", event = "VeryLazy", opts = {filetypes = {"clojure", "fennel", "janet"}, keys = vim.tbl_extend("error", _7_, _11_(...))}}, {"folke/flash.nvim", opts = {modes = {char = {enabled = false}}}, keys = _15_}, {"MagicDuck/grug-far.nvim", cmd = {"GrugFar", "GrugFarWithin"}, opts = {}}}
+return {{"TheBlob42/houdini.nvim", event = {"InsertEnter", "CmdLineEnter", "TermEnter"}, opts = {timeout = 250, escape_sequences = {c = "<BS><BS><Esc>", V = false, v = false}}}, {"Wansmer/treesj", dependencies = {"nvim-treesitter/nvim-treesitter"}, opts = {use_default_keymaps = false}, keys = {{"<Leader>j", "<Cmd>TSJToggle<CR>", desc = "[treesj] Split/Join"}}}, {"aaronik/treewalker.nvim", opts = {highlight = true, highlight_duration = 300, highlight_group = "Visual"}, keys = _1_}, {"julienvincent/nvim-paredit", event = "VeryLazy", opts = {filetypes = {"clojure", "fennel", "janet"}, keys = vim.tbl_extend("error", _7_, _11_(...)), use_default_keys = false}}, {"folke/flash.nvim", opts = {modes = {char = {enabled = false}}}, keys = _15_}, {"MagicDuck/grug-far.nvim", cmd = {"GrugFar", "GrugFarWithin"}, opts = {}}}

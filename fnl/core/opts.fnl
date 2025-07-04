@@ -61,7 +61,7 @@
 ;; Line Number
 (set vim.opt.number true)
 (set vim.opt.numberwidth 1)
-(set vim.opt.relativenumber false)
+(set vim.opt.relativenumber true)
 
 ;; Mode
 (set vim.opt.showmode false)

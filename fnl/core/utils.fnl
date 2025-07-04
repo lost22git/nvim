@@ -50,7 +50,8 @@
 (fn M.lsp_capabilities []
   (let [cmp (require :blink.cmp)
         opts {:textDocument {:semanticTokens {:multilineTokenSupport true}}
-              :workspace {:fileOperations {:didRename true :willRename true}}}]
+              :workspace {:didChangeWatchedFiles {:dynamicRegistration true}
+                          :fileOperations {:didRename true :willRename true}}}]
     (vim.tbl_deep_extend "force" (cmp.get_lsp_capabilities) opts)))
 
 (fn lsp_format_on_save [client bufid]

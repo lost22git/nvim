@@ -17,14 +17,14 @@
                     [:fD :lsp_workspace_diagnostics]
                     [:fe :oldfiles]
                     [:ff :files]
-                    [:fg :lsp_finder]
+                    [:fF :lsp_finder]
+                    [:fg :live_grep]
                     [:fh :git_hunks]
                     [:fi :lsp_implementations]
                     [:fk :keymaps]
                     [:fl :blines]
-                    [:fO :lsp_document_symbols]
                     [:fr :lsp_references]
-                    [:fs :live_grep]
+                    [:fs :lsp_document_symbols]
                     [:fz :zoxide]]]
           (icollect [_ [k v] (pairs data)]
             {1 (.. :<Leader> k)
@@ -68,4 +68,14 @@
                                    :delete {:keys ["M-d"]
                                             :desc "Delete symbol text"}}}
          :namu_symbols {:enable true :options {}}
-         :ui_select {:enable false}}}]
+         :ui_select {:enable false}}
+  :keys (let [data [[:nd :diagnostics]
+                    [:nD "diagnostics workspace"]
+                    [:ne :watchtower]
+                    [:ns :symbols]
+                    [:nt :treesitter]
+                    [:nw :workspace]]]
+          (icollect [_ [k v] (pairs data)]
+            {1 (.. :<Leader> k)
+             2 (.. "<CMD>Namu " v "<CR>")
+             :desc (.. "[namu] " v)}))}]

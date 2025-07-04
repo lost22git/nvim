@@ -23,9 +23,17 @@
  {1 "julienvincent/nvim-paredit"
   :event :VeryLazy
   :opts {:filetypes [:clojure :fennel :janet]
+         :use_default_keys false
          :keys (vim.tbl_extend :error ;;
                                (collect [_ [k v] (ipairs [[:du :raise_form]
                                                           [:dU :raise_element]
+                                                          [">)"
+                                                           :slurp_forwards]
+                                                          [">("
+                                                           :barf_backwards]
+                                                          ["<)" :barf_forwards]
+                                                          ["<("
+                                                           :slurp_backwards]
                                                           [:>D
                                                            :drag_pair_forwards]
                                                           [:<D

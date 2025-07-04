@@ -11,8 +11,7 @@
   :lazy false
   :priority 1000
   :opts {:disable_hl_args {:bold false :italic true}}
-  ;; :init #(vim.cmd.colorscheme :jb)
-  }
+  :init #(vim.cmd.colorscheme :jb)}
  ;; Helix
  {1 "oneslash/helix-nvim"
   :lazy false
@@ -37,9 +36,10 @@
  {1 "pappasam/papercolor-theme-slim"
   :lazy false
   :priority 1000
-  :init #(vim.cmd.colorscheme (case vim.o.background
-                                :dark :PaperColorSlim
-                                :light :PaperColorSlimLight))}
+  ;; :init #(vim.cmd.colorscheme (case vim.o.background
+  ;;                               :dark :PaperColorSlim
+  ;;                               :light :PaperColorSlimLight))
+  }
  ;; Base16
  {1 "RRethy/base16-nvim"
   :lazy false
