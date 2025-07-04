@@ -59,7 +59,7 @@
                                            :node_incremental :<CR>
                                            :node_decremental :<BS>}}
          :autotag {:enable true}
-         :fold {:enable true}
+         :fold {:enable false}
          :ensure_installed [:bash
                             :lua
                             :regex
