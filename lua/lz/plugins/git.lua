@@ -12,4 +12,4 @@ local function _2_()
   end
   return nil
 end
-return {{"tpope/vim-fugitive", cmd = "Git"}, {"lewis6991/gitsigns.nvim", event = {"BufReadPost", "BufNewFile"}, opts = {numhl = true, on_attach = _1_}}, {"NeogitOrg/neogit", dependencies = {"nvim-lua/plenary.nvim", "sindrets/diffview.nvim"}, cmd = {"Neogit", "NeogitCommit"}, config = _2_}}
+return {{"tpope/vim-fugitive", cmd = "Git"}, {"lewis6991/gitsigns.nvim", event = "VeryLazy", opts = {numhl = true, on_attach = _1_}}, {"NeogitOrg/neogit", dependencies = {"nvim-lua/plenary.nvim", "sindrets/diffview.nvim"}, cmd = {"Neogit", "NeogitCommit"}, config = _2_}}

@@ -1,4 +1,3 @@
--- [nfnl] init.fnl
 require("core.vars")
 require("core.opts")
 require("core.fts")

@@ -1,1 +1,1 @@
-{1 "chrisgrieser/nvim-origami" :event "VeryLazy" :opts {}}
+{1 "chrisgrieser/nvim-origami" :event :VeryLazy :opts {}}

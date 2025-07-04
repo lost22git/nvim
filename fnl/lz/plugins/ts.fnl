@@ -46,7 +46,7 @@
                 ts_update (update {:with_sync true})]
             (ts_update))
   :dependencies ["nvim-treesitter/nvim-treesitter-textobjects"]
-  :lazy false
+  :event :VeryLazy
   :opts {:sync_install false
          :auto_install false
          :highlight {:enable true

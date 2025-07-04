@@ -1,6 +1,6 @@
 {1 "saghen/blink.cmp"
  :version "1.*"
- :lazy false
+ :event [:InsertEnter :CmdlineEnter]
  :dependencies [{1 "rafamadriz/friendly-snippets"}]
  :opts {:appearance {:nerd_font_variant :mono}
         :signature {:enabled true}

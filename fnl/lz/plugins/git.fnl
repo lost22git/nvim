@@ -1,6 +1,6 @@
 [{1 "tpope/vim-fugitive" :cmd :Git}
  {1 "lewis6991/gitsigns.nvim"
-  :event [:BufReadPost :BufNewFile]
+  :event :VeryLazy
   :opts {:numhl true :on_attach #((. (require :core.maps) :gitsigns) $)}}
  {1 "NeogitOrg/neogit"
   :dependencies ["nvim-lua/plenary.nvim" "sindrets/diffview.nvim"]

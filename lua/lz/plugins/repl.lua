@@ -34,4 +34,4 @@ local function _5_(_, opts)
     return nil
   end
 end
-return {{"Olical/conjure", cmd = "ConjureConnect", ft = {"lua", "fennel", "clojure", "janet", "racket"}, init = _1_}, {"pappasam/nvim-repl", cmd = "Repl", opts = {filetype_commands = {arturo = {cmd = "arturo --repl"}, crystal = {cmd = "crystal i"}, elixir = {cmd = "iex"}, flix = {cmd = "flix repl"}, java = {cmd = "jshell"}, kotlin = {cmd = "kotlin -Xrepl"}, lfe = {cmd = "lfe"}, nim = {cmd = "inim"}, raku = {cmd = "rlwrap raku"}, roc = {cmd = "roc repl"}, swift = {cmd = "swift repl"}, v = {cmd = "v repl"}}}, config = _5_}}
+return {{"Olical/conjure", cmd = "ConjureConnect", event = "VeryLazy", init = _1_}, {"pappasam/nvim-repl", cmd = "Repl", opts = {filetype_commands = {arturo = {cmd = "arturo --repl"}, crystal = {cmd = "crystal i"}, elixir = {cmd = "iex"}, flix = {cmd = "flix repl"}, java = {cmd = "jshell"}, kotlin = {cmd = "kotlin -Xrepl"}, lfe = {cmd = "lfe"}, nim = {cmd = "inim"}, raku = {cmd = "rlwrap raku"}, roc = {cmd = "roc repl"}, swift = {cmd = "swift repl"}, v = {cmd = "v repl"}}}, config = _5_}}

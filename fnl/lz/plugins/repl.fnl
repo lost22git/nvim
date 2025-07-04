@@ -1,7 +1,7 @@
 (import-macros {: autocmd! : nmap! : vmap! : nvmap!} :config.macros)
 [{1 "Olical/conjure"
   :cmd :ConjureConnect
-  :ft [:lua :fennel :clojure :janet :racket]
+  :event :VeryLazy
   :init (fn []
           (set vim.g.conjure#highlight#enabled true)
           (set vim.g.conjure#extract#tree_sitter#enabled true)

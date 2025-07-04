@@ -11,8 +11,8 @@
 
 (local lazy (require "lazy"))
 (lazy.setup "lz.plugins"
-            {; :debug true
-             :defaults {:lazy true}
+            {:defaults {:lazy true}
+             ;; :debug true
              :lockfile (.. (vim.fn.stdpath :config) "/lazy-lock.json")
              :git {:log ["--since=3 days ago"]
                    :timeout 120
