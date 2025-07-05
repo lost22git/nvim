@@ -83,7 +83,7 @@ M.lsp_with_server = function(name, f)
 end
 M.lsp_capabilities = function()
   local cmp = require("blink.cmp")
-  local opts = {textDocument = {semanticTokens = {multilineTokenSupport = true}}, workspace = {didChangeWatchedFiles = {dynamicRegistration = true}, fileOperations = {didRename = true, willRename = true}}}
+  local opts = {textDocument = {semanticTokens = {multilineTokenSupport = true}}}
   return vim.tbl_deep_extend("force", cmp.get_lsp_capabilities(), opts)
 end
 local function lsp_format_on_save(client, bufid)

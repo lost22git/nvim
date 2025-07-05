@@ -103,6 +103,9 @@
                             {:cmd ["flix" "lsp"]
                              :filetypes [:flix]
                              :root_markers [:flix.toml]})
+            ;; nim_langserver
+            (vim.lsp.config :nim_langserver
+                            {:settings {:nim {:inlayHints {:exceptionHints {:enable false}}}}})
             ;; raku_navigator
             (vim.lsp.config :raku_navigator {:cmd ["raku-navigator" "--stdio"]})
             ;; tailwindcss
@@ -140,7 +143,6 @@
                              :julials
                              :koka
                              :kotlin_lsp
-                             :nim_langserver
                              :ocamllsp
                              :ols
                              :racket_langserver
