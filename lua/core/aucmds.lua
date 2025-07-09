@@ -88,7 +88,7 @@ local function _20_()
     if string.match(args, "%-M:") then
       clj_opts = args
     else
-      clj_opts = (args .. " " .. "-M")
+      clj_opts = (args .. " -M")
     end
     local deps = "'{:deps {nrepl/nrepl {:mvn/version \"1.3.0\"} refactor-nrepl/refactor-nrepl {:mvn/version \"3.10.0\"} cider/cider-nrepl {:mvn/version \"0.52.0\"} }}'"
     local cider_opts = "\"(require 'nrepl.cmdline) (nrepl.cmdline/-main \\\"--interactive\\\" \\\"--middleware\\\" \\\"[refactor-nrepl.middleware/wrap-refactor cider.nrepl/cider-middleware]\\\")\""
@@ -126,31 +126,42 @@ local function _28_(_27_)
   return vim.defer_fn(cb, 1000)
 end
 vim.api.nvim_create_autocmd("FileType", {desc = "Add keymaps for nvim help", pattern = {"lua", "fennel"}, callback = _28_})
+local function cmd_result_handle(open_doc_window, cmd_str)
+  local function _30_(res)
+    print("")
+    if ((0 ~= res.code) or not res.stdout or ("" == res.stdout)) then
+      return vim.print(cmd_str, res)
+    else
+      return vim.schedule_wrap(open_doc_window)(res.stdout, cmd_str)
+    end
+  end
+  return _30_
+end
 local add_keymaps_for_docr = nil
 local function docr(subcmd)
   local function make_cmd(q)
     return {"docr", subcmd, ("'" .. vim.fn.escape(q, "'") .. "'")}
   end
   local function process_content(content)
-    local function _32_()
-      local _30_, _31_ = string.gsub(content, "\27%[.-m", "")
-      if ((nil ~= _30_) and true) then
-        local a = _30_
-        local _ = _31_
+    local function _34_()
+      local _32_, _33_ = string.gsub(content, "\27%[.-m", "")
+      if ((nil ~= _32_) and true) then
+        local a = _32_
+        local _ = _33_
         return a
       else
         return nil
       end
     end
-    return vim.fn.trim(_32_())
+    return vim.fn.trim(_34_())
   end
   local function open_doc_window(content, title)
     local text = process_content(content)
-    local function _34_(bufid, _winid)
+    local function _36_(bufid, _winid)
       vim.bo[bufid]["filetype"] = "markdown"
       return add_keymaps_for_docr(bufid)
     end
-    return open_hover_window(text, title, _34_)
+    return open_hover_window(text, title, _36_)
   end
   local q
   if on_v_modes() then
@@ -161,15 +172,7 @@ local function docr(subcmd)
   local cmd = make_cmd(q)
   local cmd_str = table.concat(cmd, " ")
   print(cmd_str, " ...")
-  local function _36_(res)
-    print("")
-    if ((0 ~= res.code) or not res.stdout or ("" == res.stdout)) then
-      return vim.print(cmd_str, res)
-    else
-      return vim.schedule_wrap(open_doc_window)(res.stdout, cmd_str)
-    end
-  end
-  return vim.system(cmd, {text = true}, _36_)
+  return vim.system(cmd, {text = true}, cmd_result_handle(open_doc_window, cmd_str))
 end
 local function _38_(bufid)
   local function _39_(...)
@@ -220,89 +223,81 @@ local function arturo_doc(_subcmd)
   local cmd = make_cmd(q)
   local cmd_str = table.concat(cmd, " ")
   print(cmd_str, " ...")
-  local function _48_(res)
-    print("")
-    if ((0 ~= res.code) or not res.stdout or ("" == res.stdout)) then
-      return vim.print(cmd_str, res)
-    else
-      return vim.schedule_wrap(open_doc_window)(res.stdout, cmd_str)
-    end
-  end
-  return vim.system(cmd, {text = true}, _48_)
+  return vim.system(cmd, {text = true}, cmd_result_handle(open_doc_window, cmd_str))
 end
 local function add_keymaps_for_arturo_doc(bufid)
-  local function _50_(...)
+  local function _48_(...)
     return arturo_doc("info", ...)
   end
-  return vim.keymap.set({"n", "v"}, "<Leader>k", _50_, {buffer = bufid, desc = "[base] arturo info"})
+  return vim.keymap.set({"n", "v"}, "<Leader>k", _48_, {buffer = bufid, desc = "[base] arturo info"})
 end
-local function _51_(_241)
+local function _49_(_241)
   return add_keymaps_for_arturo_doc(_241.buf)
 end
-vim.api.nvim_create_autocmd("FileType", {desc = "[Arturo] add keymaps for arturo doc", pattern = "arturo", callback = _51_})
+vim.api.nvim_create_autocmd("FileType", {desc = "[Arturo] add keymaps for arturo doc", pattern = "arturo", callback = _49_})
 local function lfe_doc(m_or_h)
   local function make_cmd(q)
     local qq
     if (m_or_h == "m") then
       qq = ("(m '" .. q .. ")")
     elseif (m_or_h == "h") then
-      local _local_52_ = vim.split(q, ":")
-      local m = _local_52_[1]
-      local fa = _local_52_[2]
-      local function _53_()
+      local _local_50_ = vim.split(q, ":")
+      local m = _local_50_[1]
+      local fa = _local_50_[2]
+      local function _51_()
         if fa then
           return vim.split(fa, "/")
         else
           return {}
         end
       end
-      local _local_54_ = _53_()
-      local f = _local_54_[1]
-      local a = _local_54_[2]
-      local _55_
+      local _local_52_ = _51_()
+      local f = _local_52_[1]
+      local a = _local_52_[2]
+      local _53_
       if m then
-        _55_ = (" '" .. m)
+        _53_ = (" '" .. m)
+      else
+        _53_ = ""
+      end
+      local _55_
+      if f then
+        _55_ = (" '" .. f)
       else
         _55_ = ""
       end
       local _57_
-      if f then
-        _57_ = (" '" .. f)
+      if a then
+        _57_ = (" " .. a)
       else
         _57_ = ""
       end
-      local _59_
-      if a then
-        _59_ = (" " .. a)
-      else
-        _59_ = ""
-      end
-      qq = ("(h" .. _55_ .. _57_ .. _59_ .. ")")
+      qq = ("(h" .. _53_ .. _55_ .. _57_ .. ")")
     else
       qq = nil
     end
     return {"lfe", "-e", qq}
   end
   local function process_content(content)
-    local function _64_()
-      local _62_, _63_ = string.gsub(content, "\27%[.-m", "")
-      if ((nil ~= _62_) and true) then
-        local a = _62_
-        local _ = _63_
+    local function _62_()
+      local _60_, _61_ = string.gsub(content, "\27%[.-m", "")
+      if ((nil ~= _60_) and true) then
+        local a = _60_
+        local _ = _61_
         return a
       else
         return nil
       end
     end
-    return vim.fn.trim(_64_())
+    return vim.fn.trim(_62_())
   end
   local function open_doc_window(content, title)
     local text = process_content(content)
-    local function _66_(bufid, _winid)
+    local function _64_(bufid, _winid)
       vim.bo[bufid]["filetype"] = "markdown"
       return nil
     end
-    return open_hover_window(text, title, _66_)
+    return open_hover_window(text, title, _64_)
   end
   local q
   if on_v_modes() then
@@ -313,28 +308,20 @@ local function lfe_doc(m_or_h)
   local cmd = make_cmd(q)
   local cmd_str = table.concat(cmd, " ")
   print(cmd_str, " ...")
-  local function _68_(res)
-    print("")
-    if ((0 ~= res.code) or not res.stdout or ("" == res.stdout)) then
-      return vim.print(cmd_str, res)
-    else
-      return vim.schedule_wrap(open_doc_window)(res.stdout, cmd_str)
-    end
-  end
-  return vim.system(cmd, {text = true, stdin = string.rep("y\n", 10)}, _68_)
+  return vim.system(cmd, {text = true, stdin = string.rep("y\n", 10)}, cmd_result_handle(open_doc_window, cmd_str))
 end
 local function add_keymaps_for_lfe_doc(bufid)
-  local function _70_(...)
+  local function _66_(...)
     return lfe_doc("h", ...)
   end
-  vim.keymap.set({"n", "v"}, "<Leader>k", _70_, {buffer = bufid, desc = "[base] lfe (h mod fun arity)"})
-  local function _71_(...)
+  vim.keymap.set({"n", "v"}, "<Leader>k", _66_, {buffer = bufid, desc = "[base] lfe (h mod fun arity)"})
+  local function _67_(...)
     return lfe_doc("m", ...)
   end
-  return vim.keymap.set({"n", "v"}, "<Leader>K", _71_, {buffer = bufid, desc = "[base] lfe (m mod)"})
+  return vim.keymap.set({"n", "v"}, "<Leader>K", _67_, {buffer = bufid, desc = "[base] lfe (m mod)"})
 end
-local function _72_(_241)
+local function _68_(_241)
   return add_keymaps_for_lfe_doc(_241.buf)
 end
-vim.api.nvim_create_autocmd("FileType", {desc = "[LFE] add keymaps for (m mode) or (h mod fun arity)", pattern = "lfe", callback = _72_})
+vim.api.nvim_create_autocmd("FileType", {desc = "[LFE] add keymaps for (m mode) or (h mod fun arity)", pattern = "lfe", callback = _68_})
 return require("core.run_visual")

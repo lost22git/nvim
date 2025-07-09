@@ -8,24 +8,22 @@
   :opts {}}
  ;; Jetbrains IDEA
  {1 "nickkadutskyi/jb.nvim"
+  :enabled false
   :lazy false
   :priority 1000
   :opts {:disable_hl_args {:bold false :italic true}}
-  :init #(vim.cmd.colorscheme :jb)}
+  ;; :init #(vim.cmd.colorscheme :jb)
+  }
  ;; Helix
  {1 "oneslash/helix-nvim"
+  :enabled false
   :lazy false
   :priority 1000
   ;; :init #(vim.cmd.colorscheme :helix)
   }
- ;; J.Blow
- {1 "whizikxd/naysayer-colors.nvim"
-  :lazy false
-  :priority 1000
-  ;; :init #(vim.cmd.colorscheme :naysayer)
-  }
  ;; Nightfox
  {1 "EdenEast/nightfox.nvim"
+  :enabled false
   :lazy false
   :priority 1000
   :opts {:groups {:all {:MiniCursorWord {:link :Underlined}
@@ -34,6 +32,7 @@
   }
  ;; Papercolor
  {1 "pappasam/papercolor-theme-slim"
+  :enabled false
   :lazy false
   :priority 1000
   ;; :init #(vim.cmd.colorscheme (case vim.o.background
@@ -42,9 +41,10 @@
   }
  ;; Base16
  {1 "RRethy/base16-nvim"
+  :enabled false
   :lazy false
   :priority 1000
   ;; :init #(vim.cmd.colorscheme (case vim.o.background
-  ;;                               :dark :base16-harmonic-dark
-  ;;                               :light :base16-harmonic-light))
+  ;;                                 :dark :base16-ayu-dark
+  ;;                                 :light :base16-ayu-light))
   }]

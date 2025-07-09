@@ -103,7 +103,7 @@
                                                       (if (string.match args
                                                                         "%-M:")
                                                           args
-                                                          (.. args " " "-M")))
+                                                          (.. args " -M")))
                                                (local deps
                                                       "'{:deps {nrepl/nrepl {:mvn/version \"1.3.0\"} refactor-nrepl/refactor-nrepl {:mvn/version \"3.10.0\"} cider/cider-nrepl {:mvn/version \"0.52.0\"} }}'")
                                                (local cider_opts
@@ -150,6 +150,13 @@
 ;;          make_cmd
 ;;          get_text)
 
+(fn cmd_result_handle [open_doc_window cmd_str]
+  (fn [res]
+    (print "")
+    (if (or (not= 0 res.code) (not res.stdout) (= "" res.stdout))
+        (vim.print cmd_str res)
+        ((vim.schedule_wrap open_doc_window) res.stdout cmd_str))))
+
 ;; === CRYSTAL ===
 
 (var add_keymaps_for_docr nil)
@@ -175,12 +182,7 @@
   (local cmd (make_cmd q))
   (local cmd_str (table.concat cmd " "))
   (print cmd_str " ...")
-  (vim.system cmd {:text true}
-              (fn [res]
-                (print "")
-                (if (or (not= 0 res.code) (not res.stdout) (= "" res.stdout))
-                    (vim.print cmd_str res)
-                    ((vim.schedule_wrap open_doc_window) res.stdout cmd_str)))))
+  (vim.system cmd {:text true} (cmd_result_handle open_doc_window cmd_str)))
 
 (set add_keymaps_for_docr
      (fn [bufid]
@@ -218,12 +220,7 @@
   (local cmd (make_cmd q))
   (local cmd_str (table.concat cmd " "))
   (print cmd_str " ...")
-  (vim.system cmd {:text true}
-              (fn [res]
-                (print "")
-                (if (or (not= 0 res.code) (not res.stdout) (= "" res.stdout))
-                    (vim.print cmd_str res)
-                    ((vim.schedule_wrap open_doc_window) res.stdout cmd_str)))))
+  (vim.system cmd {:text true} (cmd_result_handle open_doc_window cmd_str)))
 
 (fn add_keymaps_for_arturo_doc [bufid]
   (nvmap! "<Leader>k" (partial arturo_doc :info)
@@ -274,11 +271,7 @@
   (local cmd_str (table.concat cmd " "))
   (print cmd_str " ...")
   (vim.system cmd {:text true :stdin (string.rep "y\n" 10)}
-              (fn [res]
-                (print "")
-                (if (or (not= 0 res.code) (not res.stdout) (= "" res.stdout))
-                    (vim.print cmd_str res)
-                    ((vim.schedule_wrap open_doc_window) res.stdout cmd_str)))))
+              (cmd_result_handle open_doc_window cmd_str)))
 
 (fn add_keymaps_for_lfe_doc [bufid]
   (nvmap! "<Leader>k" (partial lfe_doc :h)
