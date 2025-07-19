@@ -53,6 +53,10 @@
       {
         "language": "raku",
         "path": "./raku.json"
+      },
+      {
+        "language": "sshconfig",
+        "path": "./sshconfig.json"
       }
     ]
   }

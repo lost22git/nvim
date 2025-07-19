@@ -1,0 +1,20 @@
+{
+  "host-base": {
+    "prefix": "host-base",
+    "body": [
+      "Host *",
+      "\tIdentitiesOnly yes",
+      "\tForwardAgent yes",
+      "\tAddKeysToAgent yes"
+    ]
+  },
+  "host-github": {
+    "prefix": "host-github",
+    "body": [
+      "Host github.com",
+      "\tHostname ssh.github.com",
+      "\tPort 443",
+      "\tIdentityFile ~/.ssh/id_github"
+    ]
+  }
+}
