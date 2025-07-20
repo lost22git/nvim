@@ -1,4 +1,4 @@
-(set vim.opt.background :dark)
+(set vim.opt.background :light)
 (set vim.opt.termguicolors true)
 
 ;; GUI Font
@@ -28,7 +28,7 @@
 ;; Cursor
 (vim.opt.guicursor:append "t-c:ver25")
 (set vim.opt.cursorcolumn false)
-(set vim.opt.cursorline true)
+(set vim.opt.cursorline false)
 (set vim.opt.cursorlineopt "line,number")
 
 ;; Encoding

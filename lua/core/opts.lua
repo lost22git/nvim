@@ -1,5 +1,5 @@
 -- [nfnl] fnl/core/opts.fnl
-vim.opt.background = "dark"
+vim.opt.background = "light"
 vim.opt.termguicolors = true
 if not vim.g.neovide then
   vim.opt.guifont = "IosevkaTermSlab NFM:h14"
@@ -15,7 +15,7 @@ vim.opt.cmdheight = 1
 vim.opt.completeopt = "menu,menuone,noselect,noinsert,preview"
 vim.opt.guicursor:append("t-c:ver25")
 vim.opt.cursorcolumn = false
-vim.opt.cursorline = true
+vim.opt.cursorline = false
 vim.opt.cursorlineopt = "line,number"
 vim.opt.encoding = "utf-8"
 vim.opt.fileencoding = "utf-8"

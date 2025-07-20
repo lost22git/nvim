@@ -40,10 +40,7 @@
                                          :D (gen_ai_spec.diagnostic)
                                          :I (gen_ai_spec.indent)
                                          :L (gen_ai_spec.line)
-                                         :N (gen_ai_spec.number)
-                                         ;; custom
-                                         ; C  comment_block
-                                         }}))}
+                                         :N (gen_ai_spec.number)}}))}
  {1 "echasnovski/mini.surround"
   :lazy false
   :opts {:mappings {:add :ms
