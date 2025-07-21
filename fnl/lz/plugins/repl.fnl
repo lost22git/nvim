@@ -1,4 +1,4 @@
-(import-macros {: autocmd! : nmap! : vmap! : nvmap!} :config.macros)
+(import-macros {: autocmd! : nmap! : vmap! : nvmap! : call!} :config.macros)
 [{1 "Olical/conjure"
   :cmd :ConjureConnect
   :event :VeryLazy
@@ -36,7 +36,7 @@
                              :swift {:cmd "swift repl"}
                              :v {:cmd "v repl"}}}
   :config (fn [_ opts]
-            ((. (require :repl) :setup) opts)
+            (call! :repl :setup opts)
             (local ftypes (vim.tbl_keys opts.filetype_commands))
 
             (fn create_keymaps [bufid]

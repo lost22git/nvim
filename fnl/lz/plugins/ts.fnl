@@ -1,3 +1,5 @@
+(import-macros {: call!} :config.macros)
+
 (fn use_helix_source []
   (local rtp vim.env.HELIX_RUNTIMEPATH)
   (when (and rtp (vim.fn.exists rtp))
@@ -5,8 +7,7 @@
     (vim.opt.runtimepath:append rtp)
     ;; parsers
     (local parser_source (.. rtp "/grammars/sources/"))
-    (local parser_config ((. (require :nvim-treesitter.parsers)
-                             :get_parser_configs)))
+    (local parser_config (call! :nvim-treesitter.parsers :get_parser_configs))
     (set parser_config.koka
          {:filetype :koka
           :install_info {:url (.. parser_source :koka)
@@ -16,8 +17,7 @@
           :install_info {:url (.. parser_source :nu) :files ["src/parser.c"]}})))
 
 (fn use_custom_source []
-  (local parser_config ((. (require :nvim-treesitter.parsers)
-                           :get_parser_configs)))
+  (local parser_config (call! :nvim-treesitter.parsers :get_parser_configs))
   (set parser_config.crystal
        {:filetype :crystal
         :install_info {:url "https://github.com/crystal-lang-tools/tree-sitter-crystal"
@@ -25,17 +25,15 @@
                        :files ["src/parser.c" "src/scanner.c"]}}))
 
 (fn define_fold_module []
-  ((. (require :nvim-treesitter) :define_modules) {:fold {:attach #(do
-                                                                     (set vim.opt_local.foldmethod
-                                                                          :expr)
-                                                                     (set vim.opt_local.foldexpr
-                                                                          "v:lua.vim.treesitter.foldexpr()"))
-                                                          :detach #(do
-                                                                     (set vim.opt_local.foldmethod
-                                                                          vim.go.foldmethod)
-                                                                     (set vim.opt_local.foldexpr
-                                                                          vim.go.foldexpr))
-                                                          :is_supported #true}}))
+  (call! :nvim-treesitter :define_modules
+         {:fold {:attach #(do
+                            (set vim.opt_local.foldmethod :expr)
+                            (set vim.opt_local.foldexpr
+                                 "v:lua.vim.treesitter.foldexpr()"))
+                 :detach #(do
+                            (set vim.opt_local.foldmethod vim.go.foldmethod)
+                            (set vim.opt_local.foldexpr vim.go.foldexpr))
+                 :is_supported #true}}))
 
 [{1 "nvim-treesitter/nvim-treesitter-context"
   :dependencies ["nvim-treesitter/nvim-treesitter"]
@@ -97,4 +95,4 @@
             (use_helix_source)
             (use_custom_source)
             (define_fold_module)
-            ((. (require :nvim-treesitter.configs) :setup) opts))}]
+            (call! :nvim-treesitter.configs :setup opts))}]

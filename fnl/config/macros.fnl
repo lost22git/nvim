@@ -44,6 +44,16 @@
   "vim.api.nvim_buf_create_user_command"
   `(vim.api.nvim_buf_create_user_command ,...))
 
+(fn fn! [module ...]
+  "find function"
+  `(. (require ,module) ,...))
+
+(fn call! [module fn-paths ...]
+  "call function"
+  (if (= "table" (type fn-paths))
+      `((. (require ,module) ,(unpack fn-paths)) ,...)
+      `((. (require ,module) ,fn-paths) ,...)))
+
 {: has!
  : map!
  : nmap!
@@ -54,4 +64,6 @@
  : nvomap!
  : autocmd!
  : usercmd!
- : bufusercmd!}
+ : bufusercmd!
+ : fn!
+ : call!}

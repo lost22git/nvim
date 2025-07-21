@@ -20,8 +20,8 @@ local function _3_()
       end
       vim.api.nvim_buf_create_user_command(bufid, ("Kulala" .. k), _5_, {nargs = 0})
     end
-    local function _6_(o)
-      return require("kulala").scripts_clear_global(unpack(o.fargs))
+    local function _6_(_241)
+      return require("kulala").scripts_clear_global(unpack(_241.fargs))
     end
     return vim.api.nvim_buf_create_user_command(bufid, "KulalaScriptsClearGlobal", _6_, {nargs = "*"})
   end

@@ -1,4 +1,4 @@
-(import-macros {: autocmd! : bufusercmd! : nmap!} :config.macros)
+(import-macros {: autocmd! : bufusercmd! : nmap! : call!} :config.macros)
 
 [{1 "jellydn/hurl.nvim"
   :ft :hurl
@@ -40,8 +40,7 @@
               (bufusercmd! bufid (.. :Kulala k) #((. (require :kulala) v))
                            {:nargs 0}))
             (bufusercmd! bufid "KulalaScriptsClearGlobal"
-                         (fn [o]
-                           ((. (require :kulala) :scripts_clear_global) (unpack o.fargs)))
+                         #(call! :kulala :scripts_clear_global (unpack $.fargs))
                          {:nargs "*"}))
 
           (fn create_keymaps [bufid]

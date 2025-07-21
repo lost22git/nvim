@@ -1,7 +1,9 @@
+(import-macros {: call!} :config.macros)
+
 [{1 "echasnovski/mini.icons"
   :lazy false
   :config (fn []
-            ((. (require :mini.icons) :setup))
+            (call! :mini.icons :setup)
             (MiniIcons.mock_nvim_web_devicons))}
  {1 "echasnovski/mini.cursorword" :lazy false :opts {}}
  {1 "echasnovski/mini.files"

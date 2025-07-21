@@ -1,4 +1,4 @@
-(import-macros {: has! : autocmd!} :config.macros)
+(import-macros {: has! : autocmd! : call!} :config.macros)
 
 {1 "mfussenegger/nvim-jdtls"
  :dependencies ["neovim/nvim-lspconfig"]
@@ -80,7 +80,7 @@
                      ;; If you don"t plan on using the debugger or other eclipse.jdt.ls plugins you can remove this
                      :init_options {:bundles {}}
                      :flags {:allow_incremental_sync true}})
-             ((. (require :jdtls) :start_or_attach) opts))
+             (call! :jdtls :start_or_attach opts))
 
            (when (= :java vim.bo.filetype) (start_or_attach))
            (autocmd! :FileType
