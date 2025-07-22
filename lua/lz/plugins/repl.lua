@@ -28,7 +28,7 @@ local function _5_(_, opts)
     return create_keymaps(_241.buf)
   end
   vim.api.nvim_create_autocmd("FileType", {pattern = ftypes, callback = _6_})
-  if vim.tbl_contains(ftypes, vim.bo.filetype) then
+  if vim.list_contains(ftypes, vim.bo.filetype) then
     return create_keymaps(0)
   else
     return nil

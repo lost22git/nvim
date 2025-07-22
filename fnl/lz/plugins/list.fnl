@@ -81,5 +81,5 @@
             {1 (.. :<Leader> k)
              2 (.. "<CMD>Namu " v "<CR>")
              :desc (.. "[namu] " v)}))}
- {1 "A7Lavinraj/fyler.nvim" :cmd :Fyler :opts {}}
+ {1 "A7Lavinraj/fyler.nvim" :cmd :Fyler :opts {:default_explorer false}}
  {1 "alex-popov-tech/store.nvim" :cmd :Store :opts {:width 1 :height 1}}]

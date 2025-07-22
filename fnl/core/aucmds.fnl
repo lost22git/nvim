@@ -10,8 +10,8 @@
           {:desc "Set fileformat to unix"
            :pattern "*"
            :callback #(when (and vim.bo.modifiable
-                                 (not (vim.tbl_contains [:qf :FTerm]
-                                                        vim.bo.filetype)))
+                                 (not (vim.list_contains [:qf :FTerm]
+                                                         vim.bo.filetype)))
                         (set vim.bo.fileformat :unix))})
 
 (autocmd! :TextYankPost

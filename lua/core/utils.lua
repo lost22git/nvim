@@ -6,7 +6,7 @@ end
 M.on_v_modes = function()
   local v_block_mode = vim.api.nvim_replace_termcodes("<C-V>", true, true, true)
   local v_modes = {"v", "V", v_block_mode}
-  return vim.tbl_contains(v_modes, vim.fn.mode())
+  return vim.list_contains(v_modes, vim.fn.mode())
 end
 M.disable_diagnostic = function(bufid)
   if vim.diagnostic.is_enabled({bufnr = bufid}) then

@@ -41,10 +41,9 @@
   }
  ;; Base16
  {1 "RRethy/base16-nvim"
-  :enabled false
+  ;; :enabled false
   :lazy false
   :priority 1000
-  ;; :init #(vim.cmd.colorscheme (case vim.o.background
-  ;;                                 :dark :base16-ayu-dark
-  ;;                                 :light :base16-ayu-light))
-  }]
+  :init #(vim.cmd.colorscheme (case vim.o.background
+                                :dark :base16-black-metal-immortal
+                                :light :base16-emil))}]

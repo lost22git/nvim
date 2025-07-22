@@ -8,7 +8,7 @@
 (fn M.on_v_modes []
   (let [v_block_mode (vim.api.nvim_replace_termcodes :<C-V> true true true)
         v_modes [:v :V v_block_mode]]
-    (vim.tbl_contains v_modes (vim.fn.mode))))
+    (vim.list_contains v_modes (vim.fn.mode))))
 
 (fn M.disable_diagnostic [bufid]
   (when (vim.diagnostic.is_enabled {:bufnr bufid})
