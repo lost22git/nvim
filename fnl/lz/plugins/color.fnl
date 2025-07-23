@@ -45,5 +45,5 @@
   :lazy false
   :priority 1000
   :init #(vim.cmd.colorscheme (case vim.o.background
-                                :dark :base16-black-metal-immortal
+                                :dark :base16-black-metal
                                 :light :base16-emil))}]

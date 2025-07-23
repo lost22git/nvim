@@ -3,7 +3,7 @@ local function _1_()
   local function _3_()
     local _2_ = vim.o.background
     if (_2_ == "dark") then
-      return "base16-black-metal-immortal"
+      return "base16-black-metal"
     elseif (_2_ == "light") then
       return "base16-emil"
     else
