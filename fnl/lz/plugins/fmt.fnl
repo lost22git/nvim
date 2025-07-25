@@ -1,7 +1,7 @@
 {1 "stevearc/conform.nvim"
  :event :BufWritePre
  :opts {:default_format_opts {:lsp_format :fallback}
-        :format_on_save {:lsp_format :fallback :timeout_ms 5000}
+        :format_on_save {:lsp_format :fallback :timeout_ms 3000}
         ;; see :help conform-formatters
         :formatters_by_ft {:clojure [:cljfmt]
                            :crystal [:crystal]
@@ -30,4 +30,5 @@
                            :toml [:taplo]
                            :typescript [:deno_fmt :prettier]
                            :v [:v]
+                           :xml [:prettier]
                            :zig [:zigfmt]}}}

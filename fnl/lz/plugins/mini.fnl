@@ -43,17 +43,7 @@
                                          :I (gen_ai_spec.indent)
                                          :L (gen_ai_spec.line)
                                          :N (gen_ai_spec.number)}}))}
- {1 "echasnovski/mini.surround"
-  :lazy false
-  :opts {:mappings {:add :ms
-                    :delete :md
-                    :find :mf
-                    :find_left :mF
-                    :highlight :mh
-                    :replace :mr
-                    :update_n_lines :mn
-                    :suffix_last :l
-                    :suffix_next :n}}}
+ {1 "echasnovski/mini.surround" :lazy false :opts {:mappings {:add :ss}}}
  {1 "echasnovski/mini.hipatterns"
   :lazy false
   :opts {:highlighters {:fixme {:pattern "%f[%w]()FIXME()%f[%W]"

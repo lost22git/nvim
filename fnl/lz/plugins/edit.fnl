@@ -60,8 +60,8 @@
                                           (.. "Wrap form " v)])))}}
  {1 "folke/flash.nvim"
   :opts {:modes {:char {:enabled false}}}
-  :keys (let [data [[:s :jump [:n :x :o]]
-                    [:S :treesitter [:n :x :o]]
+  :keys (let [data [["<Leader>s" :jump [:n :x :o]]
+                    ["<Leader>S" :treesitter [:n :x :o]]
                     [:r :remote :o]
                     [:R :treesitter_search [:x :o]]
                     [:<c-s> :toggle :c]]]

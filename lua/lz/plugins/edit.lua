@@ -61,7 +61,7 @@ local function _11_(...)
 end
 local _15_
 do
-  local data = {{"s", "jump", {"n", "x", "o"}}, {"S", "treesitter", {"n", "x", "o"}}, {"r", "remote", "o"}, {"R", "treesitter_search", {"x", "o"}}, {"<c-s>", "toggle", "c"}}
+  local data = {{"<Leader>s", "jump", {"n", "x", "o"}}, {"<Leader>S", "treesitter", {"n", "x", "o"}}, {"r", "remote", "o"}, {"R", "treesitter_search", {"x", "o"}}, {"<c-s>", "toggle", "c"}}
   local tbl_21_ = {}
   local i_22_ = 0
   for _, _17_ in ipairs(data) do
