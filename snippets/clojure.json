@@ -157,6 +157,10 @@
     "prefix": "bb-http",
     "body": ["babashka.http-client"]
   },
+  "bb-log": {
+    "prefix": "bb-log",
+    "body": ["taoensso.timbre"]
+  },
   "bb-main": {
     "prefix": "bb-main",
     "body": [
@@ -206,6 +210,10 @@
   "clj-proc": {
     "prefix": "clj-proc",
     "body": ["clojure.core.proc"]
+  },
+  "clj-shell": {
+    "prefix": "clj-shell",
+    "body": ["clojure.java.shell"]
   },
   "clj-string": {
     "prefix": "clj-string",
