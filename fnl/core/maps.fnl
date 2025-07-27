@@ -53,40 +53,6 @@
   (cmap! "<C-d>" "<Del>" {:silent false :desc "[readline] Delete next char"})
   (cmap! "<C-f>" "<Right>" {:silent false :desc "[readline] Goto next char"}))
 
-(fn highlight_visual []
-  (local nsid (vim.api.nvim_create_namespace :zz_highlight_visual))
-
-  (fn do_highlight_visual []
-    (vim.api.nvim_buf_clear_namespace 0 nsid 0 -1)
-    (local mode (vim.fn.mode))
-    ;; N MODE
-    (when (= :n mode) (lua "return"))
-    ;; V MODES
-    (local [begin finish]
-           (case mode
-             ;; V-LINE MODE
-             :V
-             (let [lc (vim.fn.line ".")
-                   lp (vim.fn.line "v")]
-               (if (> lc lp)
-                   [[(- lp 1) 0] [(- lc 1) vim.v.maxcol]]
-                   [[(- lc 1) 0] [(- lp 1) vim.v.maxcol]]))
-             ;; V MODE OR V-BLOCK MODE
-             _
-             (let [pc (vim.fn.getpos ".")
-                   pp (vim.fn.getpos "v")
-                   pcl (. pc 2)
-                   pcc (. pc 3)
-                   ppl (. pp 2)
-                   ppc (. pp 3)]
-               (if (or (> pcl ppl) (and (= pcl ppl) (> pcc ppc)))
-                   [[(- ppl 1) (- ppc 1)] [(- pcl 1) pcc]]
-                   [[(- pcl 1) (- pcc 1)] [(- ppl 1) ppc]]))))
-    (vim.hl.range 0 nsid :Visual begin finish)
-    (vim.cmd "exe \"normal \\<Esc>\""))
-
-  (nvmap! "<Leader>v" do_highlight_visual {:desc "[base] Highlight Visual"}))
-
 (fn messages []
   (fn create_messages_buf []
     (local bufid (vim.api.nvim_create_buf false true))
@@ -102,7 +68,6 @@
 
 (base)
 (readline)
-(highlight_visual)
 (messages)
 
 (local M {})

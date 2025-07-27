@@ -1,4 +1,5 @@
-[{1 "TheBlob42/houdini.nvim"
+[{1 "lost22git/highlight-visual.nvim" :lazy false :opts {}}
+ {1 "TheBlob42/houdini.nvim"
   :event [:InsertEnter :CmdLineEnter :TermEnter]
   :opts {:timeout 250 :escape_sequences {:v false :V false :c :<BS><BS><Esc>}}}
  {1 "Wansmer/treesj"

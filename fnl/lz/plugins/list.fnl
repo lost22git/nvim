@@ -33,6 +33,7 @@
             {1 (.. :<Leader> k)
              2 (.. "<CMD>FzfLua " v "<CR>")
              :desc (.. "[fzflua] " v)}))}
+ {1 "mikavilpas/yazi.nvim" :cmd :Yazi :opts {}}
  {1 "mbbill/undotree"
   :keys [{1 :<Leader>u 2 "<CMD>UndotreeToggle<CR>" :desc "[undotree] Toggle"}]}
  {1 "stevearc/aerial.nvim"
@@ -53,7 +54,6 @@
                 {1 "<"
                  2 #(call! :quicker :collapse)
                  :desc "[quicker] Collapse context"}]}}
- {1 "mikavilpas/yazi.nvim" :cmd :Yazi :opts {}}
  {1 "bassamsdata/namu.nvim"
   :cmd :Namu
   :opts {:global {:movement {:next ["<M-j>" "<DOWN>"]
@@ -80,5 +80,4 @@
           (icollect [_ [k v] (pairs data)]
             {1 (.. :<Leader> k)
              2 (.. "<CMD>Namu " v "<CR>")
-             :desc (.. "[namu] " v)}))}
- {1 "A7Lavinraj/fyler.nvim" :cmd :Fyler :opts {:default_explorer false}}]
+             :desc (.. "[namu] " v)}))}]

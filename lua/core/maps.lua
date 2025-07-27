@@ -51,47 +51,6 @@ local function readline()
   vim.keymap.set("c", "<C-d>", "<Del>", {desc = "[readline] Delete next char", silent = false})
   return vim.keymap.set("c", "<C-f>", "<Right>", {desc = "[readline] Goto next char", silent = false})
 end
-local function highlight_visual()
-  local nsid = vim.api.nvim_create_namespace("zz_highlight_visual")
-  local function do_highlight_visual()
-    vim.api.nvim_buf_clear_namespace(0, nsid, 0, -1)
-    local mode = vim.fn.mode()
-    if ("n" == mode) then
-      return
-    else
-    end
-    local function _4_()
-      if (mode == "V") then
-        local lc = vim.fn.line(".")
-        local lp = vim.fn.line("v")
-        if (lc > lp) then
-          return {{(lp - 1), 0}, {(lc - 1), vim.v.maxcol}}
-        else
-          return {{(lc - 1), 0}, {(lp - 1), vim.v.maxcol}}
-        end
-      else
-        local _ = mode
-        local pc = vim.fn.getpos(".")
-        local pp = vim.fn.getpos("v")
-        local pcl = pc[2]
-        local pcc = pc[3]
-        local ppl = pp[2]
-        local ppc = pp[3]
-        if ((pcl > ppl) or ((pcl == ppl) and (pcc > ppc))) then
-          return {{(ppl - 1), (ppc - 1)}, {(pcl - 1), pcc}}
-        else
-          return {{(pcl - 1), (pcc - 1)}, {(ppl - 1), ppc}}
-        end
-      end
-    end
-    local _local_5_ = _4_()
-    local begin = _local_5_[1]
-    local finish = _local_5_[2]
-    vim.hl.range(0, nsid, "Visual", begin, finish)
-    return vim.cmd("exe \"normal \\<Esc>\"")
-  end
-  return vim.keymap.set({"n", "v"}, "<Leader>v", do_highlight_visual, {desc = "[base] Highlight Visual"})
-end
 local function messages()
   local function create_messages_buf()
     local bufid = vim.api.nvim_create_buf(false, true)
@@ -108,7 +67,6 @@ local function messages()
 end
 base()
 readline()
-highlight_visual()
 messages()
 local M = {}
 M.lsp = function(bufid)
@@ -118,24 +76,24 @@ M.lsp = function(bufid)
   vim.keymap.set("n", "gs", vim.lsp.buf.document_symbol, opts)
   vim.keymap.set("n", "gS", vim.lsp.buf.workspace_symbol, opts)
   vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, opts)
-  local _7_
+  local _2_
   do
-    local _6_ = {count = -1, float = true, severity = vim.diagnostic.severity.ERROR}
-    local function _8_(...)
-      return vim.diagnostic.jump(_6_, ...)
+    local _1_ = {count = -1, float = true, severity = vim.diagnostic.severity.ERROR}
+    local function _3_(...)
+      return vim.diagnostic.jump(_1_, ...)
     end
-    _7_ = _8_
+    _2_ = _3_
   end
-  vim.keymap.set("n", "[D", _7_, opts)
-  local _10_
+  vim.keymap.set("n", "[D", _2_, opts)
+  local _5_
   do
-    local _9_ = {count = 1, float = true, severity = vim.diagnostic.severity.ERROR}
-    local function _11_(...)
-      return vim.diagnostic.jump(_9_, ...)
+    local _4_ = {count = 1, float = true, severity = vim.diagnostic.severity.ERROR}
+    local function _6_(...)
+      return vim.diagnostic.jump(_4_, ...)
     end
-    _10_ = _11_
+    _5_ = _6_
   end
-  return vim.keymap.set("n", "]D", _10_, opts)
+  return vim.keymap.set("n", "]D", _5_, opts)
 end
 M.gitsigns = function(bufid)
   local opts = {buffer = bufid}
