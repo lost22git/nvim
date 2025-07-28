@@ -283,7 +283,3 @@
           {:desc "[LFE] add keymaps for (m mode) or (h mod fun arity)"
            :pattern :lfe
            :callback #(add_keymaps_for_lfe_doc $.buf)})
-
-;; === RUN_VISUAL ===
-
-(require :core.run_visual)

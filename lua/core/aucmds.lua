@@ -323,5 +323,4 @@ end
 local function _68_(_241)
   return add_keymaps_for_lfe_doc(_241.buf)
 end
-vim.api.nvim_create_autocmd("FileType", {desc = "[LFE] add keymaps for (m mode) or (h mod fun arity)", pattern = "lfe", callback = _68_})
-return require("core.run_visual")
+return vim.api.nvim_create_autocmd("FileType", {desc = "[LFE] add keymaps for (m mode) or (h mod fun arity)", pattern = "lfe", callback = _68_})
