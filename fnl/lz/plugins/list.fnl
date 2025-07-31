@@ -1,4 +1,4 @@
-(import-macros {: call!} :config.macros)
+(import-macros {: call! : autocmd!} :config.macros)
 
 [{1 "ibhagwan/fzf-lua"
   :cmd :FzfLua
@@ -80,4 +80,49 @@
           (icollect [_ [k v] (pairs data)]
             {1 (.. :<Leader> k)
              2 (.. "<CMD>Namu " v "<CR>")
-             :desc (.. "[namu] " v)}))}]
+             :desc (.. "[namu] " v)}))}
+ {1 "hrsh7th/nvim-deck"
+  :cmd :Deck
+  :config (fn []
+            (local deck (require :deck))
+            (call! :deck.easy :setup {})
+            (autocmd! :User
+                      {:pattern :DeckStart
+                       :callback (fn [ev]
+                                   (local ctx ev.data.ctx)
+                                   (local data
+                                          [[:<C-l> :refresh]
+                                           [:a :choose_action]
+                                           [:i :prompt]
+                                           ["@" :toggle_select]
+                                           ["*" :toggle_select_all]
+                                           [:d :delete]
+                                           [:df :delete_file]
+                                           [:db :delete_buffer]
+                                           [:<CR> :default]
+                                           [:o :open]
+                                           [:O :open_keep]
+                                           [:s :open_split]
+                                           [:v :open_vsplit]
+                                           [:p :toggle_preview_mode]
+                                           [:<C-u> :scroll_preview_up]
+                                           [:<C-d> :scroll_preview_down]])
+                                   (each [_ [k v] (ipairs data)]
+                                     (ctx.keymap :n k (deck.action_mapping v))))})
+            (autocmd! :User
+                      {:pattern "DeckStart:explorer"
+                       :callback (fn [ev]
+                                   (local ctx ev.data.ctx)
+                                   (local data
+                                          [[:h :explorer.collapse]
+                                           [:l :explorer.expand]
+                                           [:. :explorer.toggle_dotfiles]
+                                           [:c :explorer.create]
+                                           [:y :explorer.clipboard.save_copy]
+                                           [:x :explorer.clipboard.save_move]
+                                           [:p :explorer.clipboard.paste]
+                                           [:r :explorer.rename]
+                                           [:P :explorer.toggle_preview_mode]
+                                           [:D :explorer.dirs]])
+                                   (each [_ [k v] (ipairs data)]
+                                     (ctx.keymap :n k (deck.action_mapping v))))}))}]

@@ -8,42 +8,55 @@
   :opts {}}
  ;; Jetbrains IDEA
  {1 "nickkadutskyi/jb.nvim"
-  :enabled false
   :lazy false
   :priority 1000
   :opts {:disable_hl_args {:bold false :italic true}}
   ;; :init #(vim.cmd.colorscheme :jb)
   }
- ;; Helix
+ ;; fleet
+ {1 "razcoen/fleet.nvim"
+  :lazy false
+  :priority 1000
+  ;; :init #(vim.cmd.colorscheme :fleet)
+  }
+ ;; helix
  {1 "oneslash/helix-nvim"
-  :enabled false
   :lazy false
   :priority 1000
   ;; :init #(vim.cmd.colorscheme :helix)
   }
- ;; Nightfox
+ ;; nightfox
  {1 "EdenEast/nightfox.nvim"
-  :enabled false
   :lazy false
   :priority 1000
   :opts {:groups {:all {:MiniCursorWord {:link :Underlined}
                         :MiniCursorWordCurrent {:link :Underlined}}}}
   ; :init #(vim.cmd.colorscheme :dayfox)
   }
- ;; Papercolor
+ ;; papercolor
  {1 "pappasam/papercolor-theme-slim"
-  :enabled false
   :lazy false
   :priority 1000
   ;; :init #(vim.cmd.colorscheme (case vim.o.background
   ;;                               :dark :PaperColorSlim
   ;;                               :light :PaperColorSlimLight))
   }
- ;; Base16
+ ;; base16
  {1 "RRethy/base16-nvim"
-  ;; :enabled false
   :lazy false
   :priority 1000
-  :init #(vim.cmd.colorscheme (case vim.o.background
-                                :dark :base16-da-one-black
-                                :light :base16-cupertino))}]
+  :init #(case vim.o.background
+           :light (vim.cmd.colorscheme :base16-cupertino))}
+ {1 "emanuel2718/vanta.nvim"
+  :lazy false
+  :priority 1000
+  ;; :init #(vim.cmd.colorscheme :vanta)
+  :opts {:italic {:strings false
+                  :comments false
+                  :operators false
+                  :emphasis false
+                  :folds false}}}
+ {1 "olivercederborg/poimandres.nvim"
+  :lazy false
+  :priority 1000
+  :init #(vim.cmd.colorscheme :poimandres)}]

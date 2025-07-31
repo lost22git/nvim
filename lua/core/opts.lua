@@ -1,5 +1,5 @@
 -- [nfnl] fnl/core/opts.fnl
-vim.opt.background = "light"
+vim.opt.background = "dark"
 vim.opt.termguicolors = true
 if not vim.g.neovide then
   vim.opt.guifont = "IosevkaTermSlab NFM:h14"
@@ -19,7 +19,7 @@ vim.opt.cursorline = false
 vim.opt.cursorlineopt = "line,number"
 vim.opt.encoding = "utf-8"
 vim.opt.fileencoding = "utf-8"
-vim.opt.winborder = "rounded"
+vim.opt.winborder = "single"
 vim.opt.winblend = 0
 vim.opt.pumblend = 0
 vim.opt.fillchars:append({eob = " ", foldsep = " ", foldopen = "\239\145\188", foldclose = "\239\145\160"})

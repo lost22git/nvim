@@ -69,4 +69,8 @@
                     [:<c-s> :toggle :c]]]
           (icollect [_ [k v m] (ipairs data)]
             {1 k 2 #((. (require :flash) v)) :mode m}))}
- {1 "MagicDuck/grug-far.nvim" :cmd [:GrugFar :GrugFarWithin] :opts {}}]
+ {1 "MagicDuck/grug-far.nvim" :cmd [:GrugFar :GrugFarWithin] :opts {}}
+ {1 "andrewferrier/debugprint.nvim"
+  :cmd :DeleteDebugPrints
+  :keys [:g?]
+  :opts {}}]

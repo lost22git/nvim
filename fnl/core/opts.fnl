@@ -1,4 +1,4 @@
-(set vim.opt.background :light)
+(set vim.opt.background :dark)
 (set vim.opt.termguicolors true)
 
 ;; GUI Font
@@ -36,7 +36,7 @@
 (set vim.opt.fileencoding "utf-8")
 
 ;; Floating Window / Popup Menu
-(set vim.opt.winborder "rounded")
+(set vim.opt.winborder :single)
 (set vim.opt.winblend 0)
 (set vim.opt.pumblend 0)
 
