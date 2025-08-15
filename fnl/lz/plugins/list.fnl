@@ -125,4 +125,5 @@
                                            [:P :explorer.toggle_preview_mode]
                                            [:D :explorer.dirs]])
                                    (each [_ [k v] (ipairs data)]
-                                     (ctx.keymap :n k (deck.action_mapping v))))}))}]
+                                     (ctx.keymap :n k (deck.action_mapping v))))}))}
+ {1 "NStefan002/screenkey.nvim" :cmd :Screenkey}]

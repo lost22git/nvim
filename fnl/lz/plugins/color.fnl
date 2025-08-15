@@ -17,8 +17,7 @@
  {1 "razcoen/fleet.nvim"
   :lazy false
   :priority 1000
-  ;; :init #(vim.cmd.colorscheme :fleet)
-  }
+  :init #(vim.cmd.colorscheme :fleet)}
  ;; helix
  {1 "oneslash/helix-nvim"
   :lazy false
@@ -31,7 +30,7 @@
   :priority 1000
   :opts {:groups {:all {:MiniCursorWord {:link :Underlined}
                         :MiniCursorWordCurrent {:link :Underlined}}}}
-  ; :init #(vim.cmd.colorscheme :dayfox)
+  ;; :init #(vim.cmd.colorscheme :dayfox)
   }
  ;; papercolor
  {1 "pappasam/papercolor-theme-slim"
@@ -59,4 +58,15 @@
  {1 "olivercederborg/poimandres.nvim"
   :lazy false
   :priority 1000
-  :init #(vim.cmd.colorscheme :poimandres)}]
+  ;; :init #(vim.cmd.colorscheme :poimandres)
+  }
+ {1 "ptdewey/monalisa-nvim"
+  :lazy false
+  :priority 1000
+  ;; :init #(vim.cmd.colorscheme :monalisa)
+  }
+ {1 "ptdewey/darkearth-nvim"
+  :lazy false
+  :priority 1000
+  ;; :init #(vim.cmd.colorscheme :darkearth)
+  }]

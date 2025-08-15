@@ -1,10 +1,14 @@
 {1 "saghen/blink.cmp"
  :version "1.*"
  :event [:InsertEnter :CmdlineEnter]
- :dependencies [{1 "rafamadriz/friendly-snippets"}]
+ :dependencies [{1 "rafamadriz/friendly-snippets"}
+                {1 "mikavilpas/blink-ripgrep.nvim"}]
  :opts {:appearance {:nerd_font_variant :mono}
         :signature {:enabled true}
-        :sources {:default [:lsp :path :snippets :buffer]}
+        :sources {:default [:lsp :path :snippets :buffer :ripgrep]
+                  :providers {:ripgrep {:module :blink-ripgrep
+                                        :name :Ripgrep
+                                        :opts {}}}}
         :completion {:ghost_text {:enabled false}
                      :accept {:auto_brackets {:kind_resolution {:enabled true
                                                                 :blocked_filetypes [:fennel]}}}
