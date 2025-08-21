@@ -17,7 +17,7 @@
                                          : create_keymaps_for_goto_entry}
                                         (require :core.utils))
                                  (disable_diagnostic)
-                                 (create_keymaps_for_goto_entry "\\v^(;|--|#) -+$"
+                                 (create_keymaps_for_goto_entry "\\v^(;|--|#|\\/\\/) -+$"
                                                                 "[e" "]e"
                                                                 :conjure_log
                                                                 bufid))}))}

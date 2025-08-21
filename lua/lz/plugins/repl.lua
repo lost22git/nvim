@@ -13,7 +13,7 @@ local function _1_()
     local disable_diagnostic = _local_4_["disable_diagnostic"]
     local create_keymaps_for_goto_entry = _local_4_["create_keymaps_for_goto_entry"]
     disable_diagnostic()
-    return create_keymaps_for_goto_entry("\\v^(;|--|#) -+$", "[e", "]e", "conjure_log", bufid)
+    return create_keymaps_for_goto_entry("\\v^(;|--|#|\\/\\/) -+$", "[e", "]e", "conjure_log", bufid)
   end
   return vim.api.nvim_create_autocmd("BufWinEnter", {pattern = {"conjure-log-*"}, callback = _3_})
 end
