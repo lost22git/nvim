@@ -44,10 +44,9 @@
                             {:settings {:zls {:enable_snippets true
                                               :enable_argument_placeholders false
                                               :highlight_global_var_declarations true}}})
-            (vim.lsp.enable [:emmylua_ls
-                             :marksman
+            (vim.lsp.enable [:dockerls
                              :kulala_ls
-                             :dockerls
+                             :marksman
                              ;; === shell ===
                              :nushell
                              :powershell_es
@@ -56,11 +55,12 @@
                              :htmx
                              :svelte
                              :vtsls
-                             ;; === PL ===
+                             ;; === pl ===
                              :clojure_lsp
                              :crystalline
                              :dartls
                              :elixirls
+                             :emmylua_ls
                              :fennel_ls
                              :gleam
                              :gradle_ls
@@ -73,6 +73,7 @@
                              :racket_langserver
                              :roc_ls
                              :ruff
+                             :rust_analyzer
                              :sourcekit
                              :v_analyzer]))}
  {1 "williamboman/mason.nvim"

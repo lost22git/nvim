@@ -89,8 +89,8 @@
 
 ;; Scroll
 (set vim.opt.smoothscroll true)
-(set vim.opt.scrolloff 10)
-(set vim.opt.sidescrolloff 10)
+(set vim.opt.scrolloff 7)
+(set vim.opt.sidescrolloff 7)
 
 ;; Search
 (set vim.opt.hlsearch true)
