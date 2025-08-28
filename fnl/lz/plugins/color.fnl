@@ -1,3 +1,25 @@
+(import-macros {: autocmd!} :config.macros)
+
+(local ft-colors {:clojure {:dark :duskfox :light :dayfox}
+                  :crystal {:dark :vanta}
+                  :java :jb
+                  :nim {:dark :vanta}})
+
+(fn get-ft-color [ft]
+  (local v (. ft-colors ft))
+  (case (type v)
+    :string v
+    :table (. v vim.o.background)))
+
+(autocmd! :FileType {:desc "change colorscheme for filetype"
+                     :pattern (vim.tbl_keys ft-colors)
+                     :nested true
+                     :callback (fn [ev]
+                                 (-> ev.match
+                                     get-ft-color
+                                     vim.cmd.colorscheme)
+                                 nil)})
+
 [{1 "NvChad/nvim-colorizer.lua"
   :cmd :ColorizerAttachToBuffer
   :opts {:user_default_options {:tailwind true
@@ -19,21 +41,16 @@
   :priority 1000
   ;; :init #(vim.cmd.colorscheme :fleet)
   }
- ;; helix
- {1 "oneslash/helix-nvim"
-  :lazy false
-  :priority 1000
-  ;; :init #(vim.cmd.colorscheme :helix)
-  }
  ;; nightfox
  {1 "EdenEast/nightfox.nvim"
   :lazy false
   :priority 1000
   :opts {:groups {:all {:MiniCursorWord {:link :Underlined}
                         :MiniCursorWordCurrent {:link :Underlined}}}}
-  :init #(vim.cmd.colorscheme (case vim.o.background
-                                :light :dayfox
-                                :dark :carbonfox))}
+  ;; :init #(vim.cmd.colorscheme (case vim.o.background
+  ;;                               :light :dayfox
+  ;;                               :dark :carbonfox))
+  }
  ;; papercolor
  {1 "pappasam/papercolor-theme-slim"
   :lazy false
@@ -41,14 +58,6 @@
   ;; :init #(vim.cmd.colorscheme (case vim.o.background
   ;;                               :dark :PaperColorSlim
   ;;                               :light :PaperColorSlimLight))
-  }
- ;; base16
- {1 "RRethy/base16-nvim"
-  :lazy false
-  :priority 1000
-  ;; :init #(vim.cmd.colorscheme (case vim.o.background
-  ;;                               :light :base16-cupertino
-  ;;                               :dark :base16-3024))
   }
  {1 "emanuel2718/vanta.nvim"
   :lazy false
