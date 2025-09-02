@@ -1,5 +1,5 @@
 -- [nfnl] fnl/lz/plugins/color.fnl
-local ft_colors = {clojure = {dark = "duskfox", light = "dayfox"}, crystal = {dark = "vanta"}, java = "jb", nim = {dark = "vanta"}}
+local ft_colors = {clojure = {dark = "duskfox"}, janet = {dark = "duskfox"}, java = "jb"}
 local function get_ft_color(ft)
   local v = ft_colors[ft]
   local _1_ = type(v)
@@ -16,4 +16,4 @@ local function _3_(ev)
   return nil
 end
 vim.api.nvim_create_autocmd("FileType", {desc = "change colorscheme for filetype", pattern = vim.tbl_keys(ft_colors), nested = true, callback = _3_})
-return {{"NvChad/nvim-colorizer.lua", cmd = "ColorizerAttachToBuffer", opts = {user_default_options = {tailwind = true, mode = "virtualtext", virtualtext_inline = "before"}}}, {"uga-rosa/ccc.nvim", cmd = {"CccPick", "CccCovert", "CccHighlighterToggle"}, opts = {}}, {"nickkadutskyi/jb.nvim", priority = 1000, opts = {disable_hl_args = {italic = true, bold = false}}, lazy = false}, {"razcoen/fleet.nvim", priority = 1000, lazy = false}, {"EdenEast/nightfox.nvim", priority = 1000, opts = {groups = {all = {MiniCursorWord = {link = "Underlined"}, MiniCursorWordCurrent = {link = "Underlined"}}}}, lazy = false}, {"pappasam/papercolor-theme-slim", priority = 1000, lazy = false}, {"emanuel2718/vanta.nvim", priority = 1000, opts = {italic = {comments = false, emphasis = false, folds = false, operators = false, strings = false}}, lazy = false}, {"ptdewey/monalisa-nvim", priority = 1000, lazy = false}}
+return {{"NvChad/nvim-colorizer.lua", cmd = "ColorizerAttachToBuffer", opts = {user_default_options = {tailwind = true, mode = "virtualtext", virtualtext_inline = "before"}}}, {"uga-rosa/ccc.nvim", cmd = {"CccPick", "CccCovert", "CccHighlighterToggle"}, opts = {}}, {"nickkadutskyi/jb.nvim", priority = 1000, opts = {disable_hl_args = {italic = true, bold = false}}, lazy = false}, {"razcoen/fleet.nvim", priority = 1000, lazy = false}, {"EdenEast/nightfox.nvim", priority = 1000, opts = {groups = {all = {MiniCursorWord = {link = "Underlined"}, MiniCursorWordCurrent = {link = "Underlined"}}}}, lazy = false}, {"pappasam/papercolor-theme-slim", priority = 1000, lazy = false}, {"ptdewey/monalisa-nvim", priority = 1000, lazy = false}}

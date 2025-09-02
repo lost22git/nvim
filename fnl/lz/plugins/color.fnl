@@ -1,9 +1,6 @@
 (import-macros {: autocmd!} :config.macros)
 
-(local ft-colors {:clojure {:dark :duskfox :light :dayfox}
-                  :crystal {:dark :vanta}
-                  :java :jb
-                  :nim {:dark :vanta}})
+(local ft-colors {:clojure {:dark :duskfox} :janet {:dark :duskfox} :java :jb})
 
 (fn get-ft-color [ft]
   (local v (. ft-colors ft))
@@ -28,48 +25,21 @@
  {1 "uga-rosa/ccc.nvim"
   :cmd [:CccPick :CccCovert :CccHighlighterToggle]
   :opts {}}
+ ;; === ColorScheme ===
  ;; Jetbrains IDEA
  {1 "nickkadutskyi/jb.nvim"
   :lazy false
   :priority 1000
-  :opts {:disable_hl_args {:bold false :italic true}}
-  ;; :init #(vim.cmd.colorscheme :jb)
-  }
+  :opts {:disable_hl_args {:bold false :italic true}}}
  ;; fleet
- {1 "razcoen/fleet.nvim"
-  :lazy false
-  :priority 1000
-  ;; :init #(vim.cmd.colorscheme :fleet)
-  }
+ {1 "razcoen/fleet.nvim" :lazy false :priority 1000}
  ;; nightfox
  {1 "EdenEast/nightfox.nvim"
   :lazy false
   :priority 1000
   :opts {:groups {:all {:MiniCursorWord {:link :Underlined}
-                        :MiniCursorWordCurrent {:link :Underlined}}}}
-  ;; :init #(vim.cmd.colorscheme (case vim.o.background
-  ;;                               :light :dayfox
-  ;;                               :dark :carbonfox))
-  }
+                        :MiniCursorWordCurrent {:link :Underlined}}}}}
  ;; papercolor
- {1 "pappasam/papercolor-theme-slim"
-  :lazy false
-  :priority 1000
-  ;; :init #(vim.cmd.colorscheme (case vim.o.background
-  ;;                               :dark :PaperColorSlim
-  ;;                               :light :PaperColorSlimLight))
-  }
- {1 "emanuel2718/vanta.nvim"
-  :lazy false
-  :priority 1000
-  ;; :init #(vim.cmd.colorscheme :vanta)
-  :opts {:italic {:strings false
-                  :comments false
-                  :operators false
-                  :emphasis false
-                  :folds false}}}
- {1 "ptdewey/monalisa-nvim"
-  :lazy false
-  :priority 1000
-  ;; :init #(vim.cmd.colorscheme :monalisa)
-  }]
+ {1 "pappasam/papercolor-theme-slim" :lazy false :priority 1000}
+ ;; monalisa
+ {1 "ptdewey/monalisa-nvim" :lazy false :priority 1000}]
