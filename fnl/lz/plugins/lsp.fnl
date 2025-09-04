@@ -1,6 +1,6 @@
 (import-macros {: autocmd! : usercmd!} :config.macros)
 
-(local {: get_mason_path : lsp_on_attach : lsp_capabilities}
+(local {: get_mason_path : lsp_on_attach : lsp_capabilities : lsp_with_server}
        (require :core.utils))
 
 [{1 "neovim/nvim-lspconfig"
@@ -23,6 +23,8 @@
                                       (vim.lsp.get_client_by_id)
                                       (assert)
                                       (lsp_on_attach $.buf))})
+            ;; elixir
+            (lsp_with_server :elixir-ls #(vim.lsp.config :elixirls {:cmd [$]}))
             ;; flix
             (vim.lsp.config :flix
                             {:cmd ["flix" "lsp"]
@@ -59,7 +61,6 @@
                              :clojure_lsp
                              :crystalline
                              :dartls
-                             :elixirls
                              :emmylua_ls
                              :fennel_ls
                              :gleam
