@@ -1,6 +1,6 @@
 (import-macros {: autocmd!} :config.macros)
 
-(local ft-colors {:clojure {:dark :duskfox} :janet {:dark :duskfox} :java :jb})
+(local ft-colors {:clojure :retrobox :janet :retrobox :java :jb})
 
 (fn get-ft-color [ft]
   (local v (. ft-colors ft))
