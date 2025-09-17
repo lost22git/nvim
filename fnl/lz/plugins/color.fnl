@@ -1,6 +1,6 @@
 (import-macros {: autocmd!} :config.macros)
 
-(local ft-colors {:clojure :retrobox :janet :retrobox :java :jb})
+(local ft-colors {:clojure :cyberdream :janet :cyberdream :java :jb})
 
 (fn get-ft-color [ft]
   (local v (. ft-colors ft))
@@ -31,8 +31,6 @@
   :lazy false
   :priority 1000
   :opts {:disable_hl_args {:bold false :italic true}}}
- ;; fleet
- {1 "razcoen/fleet.nvim" :lazy false :priority 1000}
  ;; nightfox
  {1 "EdenEast/nightfox.nvim"
   :lazy false
@@ -42,4 +40,6 @@
  ;; papercolor
  {1 "pappasam/papercolor-theme-slim" :lazy false :priority 1000}
  ;; monalisa
- {1 "ptdewey/monalisa-nvim" :lazy false :priority 1000}]
+ {1 "ptdewey/monalisa-nvim" :lazy false :priority 1000}
+ ;; cyberdream
+ {1 "scottmckendry/cyberdream.nvim" :lazy false :priority 1000}]

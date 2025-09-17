@@ -1,4 +1,4 @@
-(set vim.opt.background :light)
+(set vim.opt.background :dark)
 (set vim.opt.termguicolors true)
 
 ;; GUI Font
