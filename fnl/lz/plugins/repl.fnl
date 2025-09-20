@@ -28,7 +28,7 @@
                              :elixir {:cmd "iex"}
                              :flix {:cmd "flix repl"}
                              :java {:cmd "jshell"}
-                             :kotlin {:cmd "kotlin -Xrepl"}
+                             :kotlin {:cmd "rlwrap kotlin -repl"}
                              :lfe {:cmd "lfe"}
                              :nim {:cmd "inim"}
                              :raku {:cmd "rlwrap raku"}
