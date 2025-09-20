@@ -15,6 +15,7 @@
                            :html [:prettier]
                            :inko [:inko]
                            :janet [:janet-format]
+                           :java [:google-java-format]
                            :javascript [:deno_fmt :prettier]
                            :jsx [:prettier]
                            :json [:jq :prettier]
