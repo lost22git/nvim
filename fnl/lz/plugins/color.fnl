@@ -39,7 +39,5 @@
                         :MiniCursorWordCurrent {:link :Underlined}}}}}
  ;; papercolor
  {1 "pappasam/papercolor-theme-slim" :lazy false :priority 1000}
- ;; monalisa
- {1 "ptdewey/monalisa-nvim" :lazy false :priority 1000}
  ;; cyberdream
  {1 "scottmckendry/cyberdream.nvim" :lazy false :priority 1000}]
