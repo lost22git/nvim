@@ -16,7 +16,7 @@
                            :inko [:inko]
                            :janet [:janet-format]
                            :java [:google-java-format]
-                           :javascript [:deno_fmt :prettier]
+                           :javascript [:deno_fmt]
                            :jsx [:prettier]
                            :json [:jq :prettier]
                            :just [:just]
@@ -29,7 +29,7 @@
                            :sh [:shfmt]
                            :swift [:swift]
                            :toml [:taplo]
-                           :typescript [:deno_fmt :prettier]
+                           :typescript [:deno_fmt]
                            :v [:v]
                            :xml [:prettier]
                            :zig [:zigfmt]}}}
