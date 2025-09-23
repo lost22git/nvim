@@ -35,12 +35,6 @@
                             {:settings {:nim {:inlayHints {:exceptionHints {:enable false}}}}})
             ;; raku_navigator
             (vim.lsp.config :raku_navigator {:cmd ["raku-navigator" "--stdio"]})
-            ;; tailwindcss
-            (vim.lsp.config :tailwindcss
-                            {:root_markers ["tailwind.config.js"
-                                            "tailwind.config.cjs"
-                                            "tailwind.config.mjs"
-                                            "tailwind.config.ts"]})
             ;; zls
             (vim.lsp.config :zls
                             {:settings {:zls {:enable_snippets true
@@ -52,11 +46,6 @@
                              ;; === shell ===
                              :nushell
                              :powershell_es
-                             ;; === frontend ===
-                             :html
-                             :htmx
-                             :svelte
-                             :vtsls
                              ;; === pl ===
                              :clojure_lsp
                              :crystalline
@@ -76,7 +65,13 @@
                              :ruff
                              :rust_analyzer
                              :sourcekit
-                             :v_analyzer]))}
+                             :v_analyzer
+                             ;; === frontend ===
+                             :html
+                             :htmx
+                             :svelte
+                             :tailwindcss
+                             :vtsls]))}
  {1 "williamboman/mason.nvim"
   :cmd :Mason
   :opts {:install_root_dir (get_mason_path)
