@@ -1,6 +1,10 @@
 (import-macros {: autocmd!} :config.macros)
 
-(local ft-colors {:clojure :cyberdream :janet :cyberdream :java :jb})
+(local ft-colors {:clojure :cyberdream
+                  :janet :cyberdream
+                  :java :jb
+                  :javascript :cyberdream
+                  :typescript :cyberdream})
 
 (fn get-ft-color [ft]
   (local v (. ft-colors ft))

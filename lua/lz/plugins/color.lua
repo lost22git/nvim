@@ -1,5 +1,5 @@
 -- [nfnl] fnl/lz/plugins/color.fnl
-local ft_colors = {clojure = "cyberdream", janet = "cyberdream", java = "jb"}
+local ft_colors = {clojure = "cyberdream", janet = "cyberdream", java = "jb", javascript = "cyberdream", typescript = "cyberdream"}
 local function get_ft_color(ft)
   local v = ft_colors[ft]
   local _1_ = type(v)

@@ -78,7 +78,7 @@
   (nmap! "gk" vim.lsp.buf.hover opts)
   (nmap! "gs" vim.lsp.buf.document_symbol opts)
   (nmap! "gS" vim.lsp.buf.workspace_symbol opts)
-  (nmap! "gt" vim.lsp.buf.type_definition opts)
+  (nmap! "grl" vim.lsp.codelens.run opts)
   (nmap! "[D" (partial vim.diagnostic.jump
                        {:count -1
                         :float true

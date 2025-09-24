@@ -67,6 +67,7 @@
                              :sourcekit
                              :v_analyzer
                              ;; === frontend ===
+                             :denols
                              :html
                              :htmx
                              :svelte

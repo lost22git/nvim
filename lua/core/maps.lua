@@ -75,7 +75,7 @@ M.lsp = function(bufid)
   vim.keymap.set("n", "gk", vim.lsp.buf.hover, opts)
   vim.keymap.set("n", "gs", vim.lsp.buf.document_symbol, opts)
   vim.keymap.set("n", "gS", vim.lsp.buf.workspace_symbol, opts)
-  vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, opts)
+  vim.keymap.set("n", "grl", vim.lsp.codelens.run, opts)
   local _2_
   do
     local _1_ = {count = -1, float = true, severity = vim.diagnostic.severity.ERROR}
