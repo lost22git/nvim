@@ -67,12 +67,9 @@
                              :sourcekit
                              :v_analyzer
                              ;; === frontend ===
-                             :denols
                              :html
                              :htmx
-                             :svelte
-                             :tailwindcss
-                             :vtsls]))}
+                             :svelte]))}
  {1 "williamboman/mason.nvim"
   :cmd :Mason
   :opts {:install_root_dir (get_mason_path)

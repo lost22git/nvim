@@ -34,6 +34,7 @@
                              :raku {:cmd "rlwrap raku"}
                              :roc {:cmd "roc repl"}
                              :swift {:cmd "swift repl"}
+                             :typescript {:cmd "deno repl"}
                              :v {:cmd "v repl"}}}
   :config (fn [_ opts]
             (call! :repl :setup opts)
