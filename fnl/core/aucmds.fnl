@@ -1,4 +1,4 @@
-(import-macros {: has! : autocmd! : bufusercmd! : nvmap! : nvomap!}
+(import-macros {: has! : autocmd! : bufusercmd! : nmap! : nvmap! : nvomap!}
                :config.macros)
 
 (local {: create_keymaps_for_goto_entry
@@ -150,7 +150,7 @@
 ;;          make_cmd
 ;;          get_text)
 
-(fn cmd_result_handle [open_doc_window cmd_str]
+(fn handle_cmd_result [open_doc_window cmd_str]
   (fn [res]
     (print "")
     (if (or (not= 0 res.code) (not res.stdout) (= "" res.stdout))
@@ -159,7 +159,6 @@
 
 ;; === CRYSTAL ===
 
-(var add_keymaps_for_docr nil)
 (fn docr [subcmd]
   (fn make_cmd [q]
     ["docr" subcmd (.. "'" (vim.fn.escape q "'") "'")])
@@ -174,29 +173,80 @@
     (local text (process_content content))
     (open_hover_window text title
                        (fn [bufid _winid]
-                         (tset vim.bo bufid :filetype :markdown)
-                         (add_keymaps_for_docr bufid))))
+                         (tset vim.bo bufid :filetype :crystal))))
 
   (local q (if (on_v_modes) (get_current_selection_text)
                (vim.fn.expand "<cword>")))
   (local cmd (make_cmd q))
   (local cmd_str (table.concat cmd " "))
   (print cmd_str " ...")
-  (vim.system cmd {:text true} (cmd_result_handle open_doc_window cmd_str)))
+  (vim.system cmd {:text true} (handle_cmd_result open_doc_window cmd_str)))
 
-(set add_keymaps_for_docr
-     (fn [bufid]
-       (nvmap! "<Leader>k" (partial docr :info)
-               {:buffer bufid :desc "[base] docr info"})
-       (nvmap! "<Leader>K" (partial docr :search)
-               {:buffer bufid :desc "[base] docr search"})
-       (nvmap! "<Leader>kk" (partial docr :tree)
-               {:buffer bufid :desc "[base] docr tree"})))
+(fn add_keymaps_for_docr [bufid]
+  (nvmap! "<Leader>k" (partial docr :info)
+          {:buffer bufid :desc "[Crystal] docr info"})
+  (nvmap! "<Leader>K" (partial docr :search)
+          {:buffer bufid :desc "[Crystal] docr search"})
+  (nvmap! "<Leader>kk" (partial docr :tree)
+          {:buffer bufid :desc "[Crystal] docr tree"}))
 
 (autocmd! :FileType
           {:desc "[Crystal] add keymaps for docr"
            :pattern :crystal
            :callback #(add_keymaps_for_docr $.buf)})
+
+(fn crystal_tool [subcmd]
+  (fn make_cmd [subcmd]
+    (case subcmd
+      (where (or :context :expand :implementations)) (let [file (vim.fn.expand "%")
+                                                           column (vim.fn.col ".")
+                                                           line (vim.fn.line ".")
+                                                           location (.. file
+                                                                        ":" line
+                                                                        ":"
+                                                                        column)]
+                                                       ["crystal"
+                                                        "tool"
+                                                        subcmd
+                                                        "-c"
+                                                        location
+                                                        file])
+      :hierarchy (let [type_name (if (on_v_modes) (get_current_selection_text)
+                                     (vim.fn.expand "<cword>"))
+                       file (vim.fn.expand "%")]
+                   ["crystal" "tool" "hierarchy" "-e" type_name file])))
+
+  (fn process_content [content]
+    (-> content
+        (string.gsub "\027%[.-m" "")
+        (case (a _) a)
+        (vim.fn.trim)))
+
+  (fn open_doc_window [content title]
+    (local text (process_content content))
+    (open_hover_window text title
+                       (fn [bufid _winid]
+                         (tset vim.bo bufid :filetype :crystal))))
+
+  (local cmd (make_cmd subcmd))
+  (local cmd_str (table.concat cmd " "))
+  (print cmd_str " ...")
+  (vim.system cmd {:text true} (handle_cmd_result open_doc_window cmd_str)))
+
+(fn add_keymaps_for_crystal_tool [bufid]
+  (nmap! "<Leader>kc" (partial crystal_tool :context)
+         {:buffer bufid :desc "[Crystal] crystal tool context"})
+  (nmap! "<Leader>ke" (partial crystal_tool :expand)
+         {:buffer bufid :desc "[Crystal] crystal tool expand"})
+  (nmap! "<Leader>ki" (partial crystal_tool :implementations)
+         {:buffer bufid :desc "[Crystal] crystal tool implementations"})
+  (nvmap! "<Leader>kh" (partial crystal_tool :hierarchy)
+          {:buffer bufid :desc "[Crystal] crystal tool hierarchy"}))
+
+(autocmd! :FileType
+          {:desc "[Crystal] add keymaps for crystal tool"
+           :pattern :crystal
+           :callback #(add_keymaps_for_crystal_tool $.buf)})
 
 ;; === ARTURO ===
 
@@ -220,11 +270,11 @@
   (local cmd (make_cmd q))
   (local cmd_str (table.concat cmd " "))
   (print cmd_str " ...")
-  (vim.system cmd {:text true} (cmd_result_handle open_doc_window cmd_str)))
+  (vim.system cmd {:text true} (handle_cmd_result open_doc_window cmd_str)))
 
 (fn add_keymaps_for_arturo_doc [bufid]
   (nvmap! "<Leader>k" (partial arturo_doc :info)
-          {:buffer bufid :desc "[base] arturo info"}))
+          {:buffer bufid :desc "[Arturo] arturo info"}))
 
 (autocmd! :FileType
           {:desc "[Arturo] add keymaps for arturo doc"
@@ -271,13 +321,13 @@
   (local cmd_str (table.concat cmd " "))
   (print cmd_str " ...")
   (vim.system cmd {:text true :stdin (string.rep "y\n" 10)}
-              (cmd_result_handle open_doc_window cmd_str)))
+              (handle_cmd_result open_doc_window cmd_str)))
 
 (fn add_keymaps_for_lfe_doc [bufid]
   (nvmap! "<Leader>k" (partial lfe_doc :h)
-          {:buffer bufid :desc "[base] lfe (h mod fun arity)"})
+          {:buffer bufid :desc "[LFE] lfe (h mod fun arity)"})
   (nvmap! "<Leader>K" (partial lfe_doc :m)
-          {:buffer bufid :desc "[base] lfe (m mod)"}))
+          {:buffer bufid :desc "[LFE] lfe (m mod)"}))
 
 (autocmd! :FileType
           {:desc "[LFE] add keymaps for (m mode) or (h mod fun arity)"
