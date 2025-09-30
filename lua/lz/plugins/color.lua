@@ -1,5 +1,5 @@
 -- [nfnl] fnl/lz/plugins/color.fnl
-local ft_colors = {clojure = "jb", elixir = {dark = "duskfox", light = "dayfox"}, fennel = "jb", gleam = {dark = "duskfox", light = "dayfox"}, janet = "jb", java = "jb", javascript = "jb", typescript = "jb"}
+local ft_colors = {clojure = "jb", fennel = "jb", janet = "jb", crystal = "jb", java = "jb", nim = "jb", python = "jb", swift = "jb", elixir = {dark = "duskfox", light = "dayfox"}, gleam = {dark = "duskfox", light = "dayfox"}, javascript = "jb", typescript = "jb"}
 local function get_ft_color(ft)
   local v = ft_colors[ft]
   local _1_ = type(v)
@@ -16,4 +16,4 @@ local function _3_(ev)
   return nil
 end
 vim.api.nvim_create_autocmd("FileType", {desc = "change colorscheme for filetype", pattern = vim.tbl_keys(ft_colors), nested = true, callback = _3_})
-return {{"NvChad/nvim-colorizer.lua", cmd = "ColorizerAttachToBuffer", opts = {user_default_options = {tailwind = true, mode = "virtualtext", virtualtext_inline = "before"}}}, {"uga-rosa/ccc.nvim", cmd = {"CccPick", "CccCovert", "CccHighlighterToggle"}, opts = {}}, {"nickkadutskyi/jb.nvim", priority = 1000, opts = {disable_hl_args = {italic = true, bold = false}}, lazy = false}, {"EdenEast/nightfox.nvim", priority = 1000, opts = {groups = {all = {MiniCursorWord = {link = "Underlined"}, MiniCursorWordCurrent = {link = "Underlined"}}}}, lazy = false}, {"pappasam/papercolor-theme-slim", priority = 1000, lazy = false}, {"scottmckendry/cyberdream.nvim", priority = 1000, lazy = false}}
+return {{"NvChad/nvim-colorizer.lua", cmd = "ColorizerAttachToBuffer", opts = {user_default_options = {tailwind = true, mode = "virtualtext", virtualtext_inline = "before"}}}, {"uga-rosa/ccc.nvim", cmd = {"CccPick", "CccCovert", "CccHighlighterToggle"}, opts = {}}, {"nickkadutskyi/jb.nvim", priority = 1000, opts = {disable_hl_args = {italic = true, bold = false}}, lazy = false}, {"EdenEast/nightfox.nvim", priority = 1000, opts = {groups = {all = {MiniCursorWord = {link = "Underlined"}, MiniCursorWordCurrent = {link = "Underlined"}}}}, lazy = false}, {"pappasam/papercolor-theme-slim", priority = 1000, lazy = false}, {"scottmckendry/cyberdream.nvim", priority = 1000, lazy = false}, {"khoido2003/monokai-v2.nvim", priority = 1000, lazy = false}, {"muchzill4/doubletrouble", priority = 1000, lazy = false}}

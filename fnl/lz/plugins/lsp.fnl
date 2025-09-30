@@ -62,9 +62,9 @@
                              :ols
                              :racket_langserver
                              :roc_ls
-                             :ruff
                              :rust_analyzer
                              :sourcekit
+                             :ty
                              :v_analyzer
                              ;; === frontend ===
                              :html

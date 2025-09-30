@@ -1,11 +1,15 @@
 (import-macros {: autocmd!} :config.macros)
 
 (local ft-colors {:clojure :jb
-                  :elixir {:dark :duskfox :light :dayfox}
                   :fennel :jb
-                  :gleam {:dark :duskfox :light :dayfox}
                   :janet :jb
+                  :crystal :jb
                   :java :jb
+                  :nim :jb
+                  :python :jb
+                  :swift :jb
+                  :elixir {:dark :duskfox :light :dayfox}
+                  :gleam {:dark :duskfox :light :dayfox}
                   :javascript :jb
                   :typescript :jb})
 
@@ -47,4 +51,8 @@
  ;; papercolor
  {1 "pappasam/papercolor-theme-slim" :lazy false :priority 1000}
  ;; cyberdream
- {1 "scottmckendry/cyberdream.nvim" :lazy false :priority 1000}]
+ {1 "scottmckendry/cyberdream.nvim" :lazy false :priority 1000}
+ ;; monokai
+ {1 "khoido2003/monokai-v2.nvim" :lazy false :priority 1000}
+ ;; doubletrouble
+ {1 "muchzill4/doubletrouble" :lazy false :priority 1000}]
