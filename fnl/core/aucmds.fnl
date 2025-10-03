@@ -38,7 +38,7 @@
                                                      "[r" "]r" :code_region
                                                      $.buf)})
 
-;; === GUI CURSOR STYLE ===
+;; === CURSOR STYLE ===
 
 (var GUI_CURSOR_CACHE nil)
 
@@ -117,128 +117,11 @@
                                                             command)))
                                              {:nargs "*"})})
 
+;; === JANET ===
+
 (autocmd! :FileType {:desc "[Janet] add `JanetNetrepl` usercommand for starting janet-netrepl server"
                      :pattern :janet
                      :callback #(bufusercmd! $.buf :JanetNetrepl
                                              #(vim.cmd (.. "tabnew | term "
                                                            "janet-netrepl"))
                                              {:nargs "*"})})
-
-;; === NVIM HELP ===
-
-(fn nvim_help []
-  (local q (if (on_v_modes) (get_current_selection_text)
-               (vim.fn.expand "<cword>")))
-  (vim.cmd (.. "help " q)))
-
-(autocmd! :FileType {:desc "Add keymaps for nvim help"
-                     :pattern [:lua :fennel]
-                     :callback (fn [{:buf bufid}]
-                                 (fn cb []
-                                   (when (= 1 (vim.fn.bufexists bufid))
-                                     (nvmap! "<Leader>K" nvim_help
-                                             {:buffer bufid
-                                              :desc "[base] Nvim help"})))
-
-                                 (vim.defer_fn cb 1000))})
-
-;; TODO
-;; compose fns
-;; (compose (execute_cmd (if ok
-;;            (compose open_hover_window process_content)
-;;            (print_error)))
-;;          make_cmd
-;;          get_text)
-
-(fn handle_cmd_result [open_doc_window cmd_str]
-  (fn [res]
-    (print "")
-    (if (or (not= 0 res.code) (not res.stdout) (= "" res.stdout))
-        (vim.print cmd_str res)
-        ((vim.schedule_wrap open_doc_window) res.stdout cmd_str))))
-
-;; === ARTURO ===
-
-(fn arturo_doc [_subcmd]
-  (fn make_cmd [q]
-    ["sh" "-c" (.. "echo \"info '" q "\" | arturo --no-color")])
-
-  (fn process_content [content]
-    (-> content
-        (string.match "(%$%>.+)%s*%$%>")
-        (string.gsub "\027%[.-m" "")
-        (case (a _) a)
-        (vim.fn.trim)))
-
-  (fn open_doc_window [content title]
-    (local text (process_content content))
-    (open_hover_window text title))
-
-  (local q (if (on_v_modes) (get_current_selection_text)
-               (vim.fn.expand "<cword>")))
-  (local cmd (make_cmd q))
-  (local cmd_str (table.concat cmd " "))
-  (print cmd_str " ...")
-  (vim.system cmd {:text true} (handle_cmd_result open_doc_window cmd_str)))
-
-(fn add_keymaps_for_arturo_doc [bufid]
-  (nvmap! "<Leader>k" (partial arturo_doc :info)
-          {:buffer bufid :desc "[Arturo] arturo info"}))
-
-(autocmd! :FileType
-          {:desc "[Arturo] add keymaps for arturo doc"
-           :pattern :arturo
-           :callback #(add_keymaps_for_arturo_doc $.buf)})
-
-;; === LFE ===
-
-(fn lfe_doc [m_or_h]
-  (fn make_cmd [q]
-    (local qq (case m_or_h
-                ;; (m 'proc_ib)
-                :m
-                (.. "(m '" q ")")
-                ;; q='proc_lib' => qq="(h 'proc_lib)"
-                ;; q='proc_lib:stop' => qq="(h 'proc_lib 'stop)"
-                ;; q='proc_lib:stop/3' => qq="(h 'proc_lib 'stop 3)"
-                :h
-                (do
-                  (local [m fa] (vim.split q ":"))
-                  (local [f a] (if fa (vim.split fa "/") []))
-                  (.. "(h" ;;
-                      (if m (.. " '" m) "") ;; mode
-                      (if f (.. " '" f) "") ;; func
-                      (if a (.. " " a) "") ;; arity
-                      ")"))))
-    ["lfe" "-e" qq])
-
-  (fn process_content [content]
-    (-> content
-        (string.gsub "\027%[.-m" "")
-        (case (a _) a)
-        (vim.fn.trim)))
-
-  (fn open_doc_window [content title]
-    (local text (process_content content))
-    (open_hover_window text title
-                       (fn [bufid _winid]
-                         (tset vim.bo bufid :filetype :markdown))))
-
-  (local q (if (on_v_modes) (get_current_selection_text)
-               (vim.fn.expand "<cword>")))
-  (local cmd (make_cmd q))
-  (local cmd_str (table.concat cmd " "))
-  (print cmd_str " ...")
-  (vim.system cmd {:text true :stdin (string.rep "y\n" 10)}
-              (handle_cmd_result open_doc_window cmd_str)))
-
-(fn add_keymaps_for_lfe_doc [bufid]
-  (nvmap! "<Leader>k" (partial lfe_doc :h)
-          {:buffer bufid :desc "[LFE] lfe (h mod fun arity)"})
-  (nvmap! "<Leader>K" (partial lfe_doc :m)
-          {:buffer bufid :desc "[LFE] lfe (m mod)"}))
-
-(autocmd! :FileType
-          {:desc "[LFE] add keymaps for (m mode) or (h mod fun arity)"
-           :pattern :lfe
-           :callback #(add_keymaps_for_lfe_doc $.buf)})
