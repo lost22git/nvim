@@ -68,8 +68,7 @@
                              :v_analyzer
                              ;; === frontend ===
                              :html
-                             :htmx
-                             :svelte]))}
+                             :htmx]))}
  {1 "williamboman/mason.nvim"
   :cmd :Mason
   :opts {:install_root_dir (get_mason_path)

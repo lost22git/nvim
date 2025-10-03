@@ -53,6 +53,4 @@
  ;; cyberdream
  {1 "scottmckendry/cyberdream.nvim" :lazy false :priority 1000}
  ;; monokai
- {1 "khoido2003/monokai-v2.nvim" :lazy false :priority 1000}
- ;; doubletrouble
- {1 "muchzill4/doubletrouble" :lazy false :priority 1000}]
+ {1 "khoido2003/monokai-v2.nvim" :lazy false :priority 1000}]

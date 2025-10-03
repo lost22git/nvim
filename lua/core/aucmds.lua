@@ -1,9 +1,6 @@
 -- [nfnl] fnl/core/aucmds.fnl
 local _local_1_ = require("core.utils")
 local create_keymaps_for_goto_entry = _local_1_["create_keymaps_for_goto_entry"]
-local on_v_modes = _local_1_["on_v_modes"]
-local get_current_selection_text = _local_1_["get_current_selection_text"]
-local open_hover_window = _local_1_["open_hover_window"]
 local function _2_()
   if (vim.bo.modifiable and not vim.list_contains({"qf", "FTerm"}, vim.bo.filetype)) then
     vim.bo.fileformat = "unix"

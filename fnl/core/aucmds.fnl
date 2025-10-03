@@ -1,10 +1,7 @@
 (import-macros {: has! : autocmd! : bufusercmd! : nmap! : nvmap! : nvomap!}
                :config.macros)
 
-(local {: create_keymaps_for_goto_entry
-        : on_v_modes
-        : get_current_selection_text
-        : open_hover_window} (require :core.utils))
+(local {: create_keymaps_for_goto_entry} (require :core.utils))
 
 (autocmd! :FileType
           {:desc "Set fileformat to unix"
