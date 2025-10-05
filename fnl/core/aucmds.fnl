@@ -92,26 +92,20 @@
                                                      "[C" "]C" :comment_form
                                                      $.buf)})
 
+(fn start-clojure-nrepl-server [args]
+  (let [clj_opts (if (string.match args "%-M:")
+                     args
+                     (.. args " -M"))
+        deps "'{:deps {nrepl/nrepl {:mvn/version \"1.3.0\"} refactor-nrepl/refactor-nrepl {:mvn/version \"3.10.0\"} cider/cider-nrepl {:mvn/version \"0.52.0\"} }}'"
+        cider_opts "\"(require 'nrepl.cmdline) (nrepl.cmdline/-main \\\"--interactive\\\" \\\"--middleware\\\" \\\"[refactor-nrepl.middleware/wrap-refactor cider.nrepl/cider-middleware]\\\")\""
+        cmd (string.format "clj -Sdeps %s %s -e %s" deps clj_opts cider_opts)]
+    (vim.cmd (.. "tabnew | term " cmd))))
+
 (autocmd! :FileType {:desc "[Clojure] add `Clj` usercommand for starting Clojure nREPL server"
                      :pattern :clojure
-                     :callback #(bufusercmd! 0 :Clj
+                     :callback #(bufusercmd! $.buf :Clj
                                              (fn [{: args}]
-                                               (local clj_opts
-                                                      (if (string.match args
-                                                                        "%-M:")
-                                                          args
-                                                          (.. args " -M")))
-                                               (local deps
-                                                      "'{:deps {nrepl/nrepl {:mvn/version \"1.3.0\"} refactor-nrepl/refactor-nrepl {:mvn/version \"3.10.0\"} cider/cider-nrepl {:mvn/version \"0.52.0\"} }}'")
-                                               (local cider_opts
-                                                      "\"(require 'nrepl.cmdline) (nrepl.cmdline/-main \\\"--interactive\\\" \\\"--middleware\\\" \\\"[refactor-nrepl.middleware/wrap-refactor cider.nrepl/cider-middleware]\\\")\"")
-                                               (local command
-                                                      (string.format "clj -Sdeps %s %s -e %s"
-                                                                     deps
-                                                                     clj_opts
-                                                                     cider_opts))
-                                               (vim.cmd (.. "tabnew | term "
-                                                            command)))
+                                               (start-clojure-nrepl-server args))
                                              {:nargs "*"})})
 
 ;; === JANET ===
