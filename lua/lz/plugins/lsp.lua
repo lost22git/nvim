@@ -16,6 +16,7 @@ local function _2_()
   end
   lsp_with_server("elixir-ls", _4_)
   vim.lsp.config("flix", {cmd = {"flix", "lsp"}, filetypes = {"flix"}, root_markers = {"flix.toml"}})
+  vim.lsp.config("nelua_lsp", {cmd = {"nelua-lsp"}})
   vim.lsp.config("nim_langserver", {settings = {nim = {inlayHints = {exceptionHints = {enable = false}}}}})
   vim.lsp.config("raku_navigator", {cmd = {"raku-navigator", "--stdio"}})
   vim.lsp.config("zls", {settings = {zls = {enable_snippets = true, highlight_global_var_declarations = true, enable_argument_placeholders = false}}})

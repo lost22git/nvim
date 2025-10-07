@@ -30,6 +30,8 @@
                             {:cmd ["flix" "lsp"]
                              :filetypes [:flix]
                              :root_markers [:flix.toml]})
+            ;; nelua
+            (vim.lsp.config :nelua_lsp {:cmd ["nelua-lsp"]})
             ;; nim_langserver
             (vim.lsp.config :nim_langserver
                             {:settings {:nim {:inlayHints {:exceptionHints {:enable false}}}}})

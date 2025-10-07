@@ -18,11 +18,14 @@
 
 (fn use_custom_source []
   (local parser_config (call! :nvim-treesitter.parsers :get_parser_configs))
+  ;; crystal
   (set parser_config.crystal
        {:filetype :crystal
         :install_info {:url "https://github.com/crystal-lang-tools/tree-sitter-crystal"
                        :branch :main
-                       :files ["src/parser.c" "src/scanner.c"]}}))
+                       :files ["src/parser.c" "src/scanner.c"]}})
+  ;; nelua
+  (vim.treesitter.language.register :lua :nelua))
 
 (fn define_fold_module []
   (call! :nvim-treesitter :define_modules
