@@ -10,7 +10,6 @@
                                :lfe :lfe
                                :lobster :lobster
                                :n :nature
-                               :nelua :nelua
                                :postcss :postcss
                                :v :v
                                :vsh :v}})

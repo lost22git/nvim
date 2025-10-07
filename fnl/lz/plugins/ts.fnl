@@ -23,9 +23,7 @@
        {:filetype :crystal
         :install_info {:url "https://github.com/crystal-lang-tools/tree-sitter-crystal"
                        :branch :main
-                       :files ["src/parser.c" "src/scanner.c"]}})
-  ;; nelua
-  (vim.treesitter.language.register :lua :nelua))
+                       :files ["src/parser.c" "src/scanner.c"]}}))
 
 (fn define_fold_module []
   (call! :nvim-treesitter :define_modules

@@ -15,7 +15,7 @@ end
 local function use_custom_source()
   local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
   parser_config.crystal = {filetype = "crystal", install_info = {url = "https://github.com/crystal-lang-tools/tree-sitter-crystal", branch = "main", files = {"src/parser.c", "src/scanner.c"}}}
-  return vim.treesitter.language.register("lua", "nelua")
+  return nil
 end
 local function define_fold_module()
   local function _2_()
