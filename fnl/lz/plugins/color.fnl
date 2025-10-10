@@ -1,7 +1,5 @@
 (import-macros {: autocmd!} :config.macros)
 
-(vim.cmd.colorscheme :murphy)
-
 [{1 "NvChad/nvim-colorizer.lua"
   :cmd :ColorizerAttachToBuffer
   :opts {:user_default_options {:tailwind true

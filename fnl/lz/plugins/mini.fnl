@@ -57,4 +57,5 @@
                         :warn {:pattern "%f[%w]()WARNI?N?G?()%f[%W]"
                                :group "MiniHipatternsHack"}
                         :error {:pattern "%f[%w]()ERRO?R?()%f[%W]"
-                                :group "MiniHipatternsFixme"}}}}]
+                                :group "MiniHipatternsFixme"}}}}
+ {1 "nvim-mini/mini.hues" :lazy false :init #(vim.cmd.colorscheme :randomhue)}]
