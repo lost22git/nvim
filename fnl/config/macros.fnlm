@@ -1,5 +1,3 @@
-;; [nfnl-macro]
-
 (fn has! [feature]
   "vim.fn.has(feature) but return true|false"
   `(= (vim.fn.has ,feature) 1))

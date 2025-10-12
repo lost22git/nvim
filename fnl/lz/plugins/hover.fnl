@@ -17,7 +17,7 @@
                       ["sh"
                        "-c"
                        (.. "echo \"info '" text "\" | arturo --no-color")])
-               (print (table.concat cmd " "))
+               (vim.notify (table.concat cmd " ") vim.log.levels.INFO)
 
                (fn on_exit [res cmd open_hover_window]
                  (local out (-> (if (= res.stderr "") res.stdout res.stderr)
@@ -53,7 +53,7 @@
                                  (if f (.. " '" f) "") ;; func
                                  (if a (.. " " a) "") ;; arity
                                  ")"))])
-               (print (table.concat cmd " "))
+               (vim.notify (table.concat cmd " ") vim.log.levels.INFO)
 
                (fn on_exit [res cmd open_hover_window]
                  (local out (-> (if (= res.stderr "") res.stdout res.stderr)
@@ -75,7 +75,7 @@
         :mode [:n :v]
         :run (fn [{: text : open_hover_window}]
                (local cmd ["lfe" "-e" (.. "(m '" text ")")])
-               (print (table.concat cmd " "))
+               (vim.notify (table.concat cmd " ") vim.log.levels.INFO)
 
                (fn on_exit [res cmd open_hover_window]
                  (local out (-> (if (= res.stderr "") res.stdout res.stderr)

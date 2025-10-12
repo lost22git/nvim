@@ -73,9 +73,9 @@ M.lsp_server_path = function(name)
   return (find_lsp_server_from_mason(name) or find_lsp_server_from_env_path(name))
 end
 M.lsp_with_server = function(name, f)
-  local _11_ = M.lsp_server_path(name)
-  if (nil ~= _11_) then
-    local path = _11_
+  local case_11_ = M.lsp_server_path(name)
+  if (nil ~= case_11_) then
+    local path = case_11_
     return f(path)
   else
     return nil
@@ -87,20 +87,20 @@ M.lsp_capabilities = function()
   return vim.tbl_deep_extend("force", cmp.get_lsp_capabilities(), opts)
 end
 local function lsp_format_on_save(client, bufid)
-  local _13_, _14_ = pcall(require, "conform")
-  local and_15_ = ((_13_ == false) and true)
+  local case_13_, case_14_ = pcall(require, "conform")
+  local and_15_ = ((case_13_ == false) and true)
   if and_15_ then
-    local _ = _14_
+    local _ = case_14_
     and_15_ = client:supports_method("textDocument/formatting")
   end
   if and_15_ then
-    local _ = _14_
+    local _ = case_14_
     local grp = vim.api.nvim_create_augroup("lsp_format_on_save", {})
     local cb
     do
-      local _17_ = {buffer = bufid, timeout_ms = 1000}
+      local partial_17_ = {buffer = bufid, timeout_ms = 1000}
       local function _18_(...)
-        return vim.lsp.buf.format(_17_, ...)
+        return vim.lsp.buf.format(partial_17_, ...)
       end
       cb = _18_
     end
@@ -172,11 +172,11 @@ end
 M.open_hover_window = function(text_or_lines, title, callback)
   local lines
   do
-    local _25_ = type(text_or_lines)
-    if (_25_ == "string") then
+    local case_25_ = type(text_or_lines)
+    if (case_25_ == "string") then
       lines = vim.fn.split(text_or_lines, "\n", true)
     else
-      local _ = _25_
+      local _ = case_25_
       lines = text_or_lines
     end
   end

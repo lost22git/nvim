@@ -1,9 +1,9 @@
 -- [nfnl] fnl/lz/plugins/x_java.fnl
 local function _1_()
   local _local_2_ = require("core.utils")
-  local lsp_capabilities = _local_2_["lsp_capabilities"]
-  local lsp_on_attach = _local_2_["lsp_on_attach"]
-  local lsp_server_package_path = _local_2_["lsp_server_package_path"]
+  local lsp_capabilities = _local_2_.lsp_capabilities
+  local lsp_on_attach = _local_2_.lsp_on_attach
+  local lsp_server_package_path = _local_2_.lsp_server_package_path
   local jdtls_root = lsp_server_package_path("jdtls")
   local jdtls_jar = assert(vim.fn.globpath((jdtls_root .. "/plugins"), "org.eclipse.equinox.launcher_*.jar"), "[nvim-jdtls] jdtls jar not found")
   local lombok_jar = (jdtls_root .. "/lombok.jar")

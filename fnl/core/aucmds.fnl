@@ -16,10 +16,6 @@
            :pattern "*"
            :callback #(vim.hl.on_yank {:higroup :Visual :timeout 200})})
 
-(autocmd! :BufWritePre
-          {:desc "Remove trailing whitespace"
-           :callback #(vim.cmd "%s/\\s\\+$//e")})
-
 (autocmd! :BufReadPost
           {:desc "Restore cursor position"
            :callback #(vim.cmd "silent! normal! g`\"zv")})
@@ -40,7 +36,7 @@
 (var GUI_CURSOR_CACHE nil)
 
 (autocmd! [:VimLeave :VimSuspend]
-          {:desc "Restore terminal cursor style"
+          {:desc "[Cursor Style] Restore terminal cursor style"
            :pattern "*"
            :callback (fn []
                        (set GUI_CURSOR_CACHE (vim.opt.guicursor:get))
@@ -51,7 +47,7 @@
                        nil)})
 
 (autocmd! :VimResume
-          {:desc "Restore nvim cursor style"
+          {:desc "[Cursor Style] Restore nvim cursor style"
            :pattern "*"
            :callback #(when GUI_CURSOR_CACHE
                         (set vim.opt.guicursor GUI_CURSOR_CACHE))})
@@ -59,7 +55,7 @@
 ;; === TMUX ===
 
 (when (?. vim.env :TMUX)
-  (autocmd! :BufWritePost {:desc "Reload tmux config after [.tmux.conf] saved"
+  (autocmd! :BufWritePost {:desc "[Tmux] Reload tmux config after [.tmux.conf] saved"
                            :pattern ".tmux.conf"
                            :callback #(let [cmd (.. "tmux source-file "
                                                     (vim.api.nvim_buf_get_name $.buf))]

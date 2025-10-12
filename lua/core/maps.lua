@@ -78,18 +78,18 @@ M.lsp = function(bufid)
   vim.keymap.set("n", "grl", vim.lsp.codelens.run, opts)
   local _2_
   do
-    local _1_ = {count = -1, float = true, severity = vim.diagnostic.severity.ERROR}
+    local partial_1_ = {count = -1, float = true, severity = vim.diagnostic.severity.ERROR}
     local function _3_(...)
-      return vim.diagnostic.jump(_1_, ...)
+      return vim.diagnostic.jump(partial_1_, ...)
     end
     _2_ = _3_
   end
   vim.keymap.set("n", "[D", _2_, opts)
   local _5_
   do
-    local _4_ = {count = 1, float = true, severity = vim.diagnostic.severity.ERROR}
+    local partial_4_ = {count = 1, float = true, severity = vim.diagnostic.severity.ERROR}
     local function _6_(...)
-      return vim.diagnostic.jump(_4_, ...)
+      return vim.diagnostic.jump(partial_4_, ...)
     end
     _5_ = _6_
   end

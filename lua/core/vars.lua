@@ -1,3 +1,4 @@
+-- [nfnl] fnl/core/vars.fnl
 local zz_default
 local _1_
 if (vim.fn.has("win32") == 1) then
@@ -5,7 +6,7 @@ if (vim.fn.has("win32") == 1) then
 else
   _1_ = nil
 end
-zz_default = {shell = _1_, backdrop = 100, transparent = false}
+zz_default = {backdrop = 100, shell = _1_, statusline = false, transparent = false}
 vim.g.zz = vim.tbl_deep_extend("force", zz_default, (vim.g.zz or {}))
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "

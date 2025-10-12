@@ -11,10 +11,10 @@ local function _3_()
 end
 local function _4_()
   local _local_5_ = require("mini.ai")
-  local setup = _local_5_["setup"]
-  local gen_spec = _local_5_["gen_spec"]
+  local setup = _local_5_.setup
+  local gen_spec = _local_5_.gen_spec
   local _local_6_ = require("mini.extra")
-  local gen_ai_spec = _local_6_["gen_ai_spec"]
+  local gen_ai_spec = _local_6_.gen_ai_spec
   return setup({mappings = {around = "a", inside = "i", around_next = "an", inside_next = "in", around_last = "al", inside_last = "il", goto_left = "[", goto_right = "]"}, custom_textobjects = {F = gen_spec.treesitter({a = "@function.outer", i = "@function.inner"}), c = gen_spec.treesitter({a = "@class.outer", i = "@class.inner"}), o = gen_spec.treesitter({a = {"@conditional.outer", "@loop.outer"}, i = {"@conditional.inner", "@loop.inner"}}), B = gen_ai_spec.buffer(), D = gen_ai_spec.diagnostic(), I = gen_ai_spec.indent(), L = gen_ai_spec.line(), N = gen_ai_spec.number()}})
 end
 local function _7_()

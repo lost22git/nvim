@@ -35,7 +35,7 @@ local function define_fold_module()
 end
 local function _5_()
   local _let_6_ = require("nvim-treesitter.install")
-  local update = _let_6_["update"]
+  local update = _let_6_.update
   local ts_update = update({with_sync = true})
   return ts_update()
 end

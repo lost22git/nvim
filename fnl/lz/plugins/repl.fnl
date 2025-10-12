@@ -1,14 +1,13 @@
 (import-macros {: autocmd! : nmap! : vmap! : nvmap! : call!} :config.macros)
 [{1 "Olical/conjure"
   :cmd :ConjureConnect
-  :event :VeryLazy
+  ;; :event :VeryLazy
   :init (fn []
           (set vim.g.conjure#highlight#enabled true)
           (set vim.g.conjure#extract#tree_sitter#enabled true)
           (set vim.g.conjure#log#jump_to_latest#enabled true)
           (set vim.g.conjure#mapping#doc_word [:<LocalLeader>k])
           (set vim.g.conjure#mapping#eval_visual [:<LocalLeader>ee])
-          (set vim.g.conjure#mapping#eval_replace_form [:<LocalLeader>es])
           (set vim.g.conjure#mapping#eval_previous [:<LocalLeader>E])
           (autocmd! :BufWinEnter
                     {:pattern ["conjure-log-*"]

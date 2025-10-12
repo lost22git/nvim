@@ -4,7 +4,7 @@ local function _1_(_241)
 end
 local function _2_()
   local _local_3_ = require("neogit")
-  local setup = _local_3_["setup"]
+  local setup = _local_3_.setup
   return setup({highlight = {italic = false}})
 end
 return {{"tpope/vim-fugitive", cmd = "Git"}, {"lewis6991/gitsigns.nvim", event = "VeryLazy", opts = {numhl = true, on_attach = _1_}}, {"NeogitOrg/neogit", dependencies = {"nvim-lua/plenary.nvim", "sindrets/diffview.nvim"}, cmd = {"Neogit", "NeogitCommit"}, config = _2_}}

@@ -48,7 +48,7 @@
                    [["<Leader>ee" "<Cmd>KulalaRun<CR>"]
                     ["<Leader>E" "<Cmd>KulalaSearch<CR>"]
                     ["<Leader>eb" "<Cmd>KulalaRunAll<CR>"]
-                    ["<Leader>ls" "<Cmd>KulalaOpen<CR>"]])
+                    ["<Leader>el" "<Cmd>KulalaOpen<CR>"]])
             (each [_ [k v] (pairs data)]
               (nmap! k v {:buffer bufid :silent true})))
 

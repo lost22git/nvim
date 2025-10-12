@@ -1,30 +1,30 @@
 -- [nfnl] fnl/lz/plugins/hover.fnl
 local nvim_help
 local function _2_(_1_)
-  local text = _1_["text"]
+  local text = _1_.text
   return vim.cmd(("help " .. text))
 end
 nvim_help = {name = "[hover] nvim help", event = "FileType", pattern = {"lua", "fennel"}, key = "<Leader>K", mode = {"n", "v"}, run = _2_}
 local arturo_info
 local function _4_(_3_)
-  local text = _3_["text"]
-  local open_hover_window = _3_["open_hover_window"]
+  local text = _3_.text
+  local open_hover_window = _3_.open_hover_window
   local cmd = {"sh", "-c", ("echo \"info '" .. text .. "\" | arturo --no-color")}
-  print(table.concat(cmd, " "))
+  vim.notify(table.concat(cmd, " "), vim.log.levels.INFO)
   local function on_exit(res, cmd0, open_hover_window0)
     local out
     local function _9_()
-      local _5_, _6_ = nil, nil
+      local case_5_, case_6_
       local _7_
       if (res.stderr == "") then
         _7_ = res.stdout
       else
         _7_ = res.stderr
       end
-      _5_, _6_ = string.gsub(string.match(_7_, "(%$%>.+)%s*%$%>"), "\27%[.-m", "")
-      if ((nil ~= _5_) and true) then
-        local a = _5_
-        local _ = _6_
+      case_5_, case_6_ = string.gsub(string.match(_7_, "(%$%>.+)%s*%$%>"), "\27%[.-m", "")
+      if ((nil ~= case_5_) and true) then
+        local a = case_5_
+        local _ = case_6_
         return a
       else
         return nil
@@ -46,8 +46,8 @@ end
 arturo_info = {name = "[hover] arturo info", event = "FileType", pattern = "arturo", key = "<Leader>k", mode = {"n", "v"}, run = _4_}
 local lfe_info_fun
 local function _13_(_12_)
-  local text = _12_["text"]
-  local open_hover_window = _12_["open_hover_window"]
+  local text = _12_.text
+  local open_hover_window = _12_.open_hover_window
   local cmd
   local function _14_()
     local _local_15_ = vim.split(text, ":")
@@ -84,21 +84,21 @@ local function _13_(_12_)
     return ("(h" .. _18_ .. _20_ .. _22_ .. ")")
   end
   cmd = {"lfe", "-e", _14_()}
-  print(table.concat(cmd, " "))
+  vim.notify(table.concat(cmd, " "), vim.log.levels.INFO)
   local function on_exit(res, cmd0, open_hover_window0)
     local out
     local function _28_()
-      local _24_, _25_ = nil, nil
+      local case_24_, case_25_
       local _26_
       if (res.stderr == "") then
         _26_ = res.stdout
       else
         _26_ = res.stderr
       end
-      _24_, _25_ = string.gsub(_26_, "\27%[.-m", "")
-      if ((nil ~= _24_) and true) then
-        local a = _24_
-        local _ = _25_
+      case_24_, case_25_ = string.gsub(_26_, "\27%[.-m", "")
+      if ((nil ~= case_24_) and true) then
+        local a = case_24_
+        local _ = case_25_
         return a
       else
         return nil
@@ -116,24 +116,24 @@ end
 lfe_info_fun = {name = "[hover] lfe (h mod fun arity)", event = "FileType", pattern = "lfe", key = "<Leader>k", mode = {"n", "v"}, run = _13_}
 local lfe_info_mod
 local function _32_(_31_)
-  local text = _31_["text"]
-  local open_hover_window = _31_["open_hover_window"]
+  local text = _31_.text
+  local open_hover_window = _31_.open_hover_window
   local cmd = {"lfe", "-e", ("(m '" .. text .. ")")}
-  print(table.concat(cmd, " "))
+  vim.notify(table.concat(cmd, " "), vim.log.levels.INFO)
   local function on_exit(res, cmd0, open_hover_window0)
     local out
     local function _37_()
-      local _33_, _34_ = nil, nil
+      local case_33_, case_34_
       local _35_
       if (res.stderr == "") then
         _35_ = res.stdout
       else
         _35_ = res.stderr
       end
-      _33_, _34_ = string.gsub(_35_, "\27%[.-m", "")
-      if ((nil ~= _33_) and true) then
-        local a = _33_
-        local _ = _34_
+      case_33_, case_34_ = string.gsub(_35_, "\27%[.-m", "")
+      if ((nil ~= case_33_) and true) then
+        local a = case_33_
+        local _ = case_34_
         return a
       else
         return nil

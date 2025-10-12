@@ -28,7 +28,7 @@
 ;; Cursor
 (vim.opt.guicursor:append "t-c:ver25")
 (set vim.opt.cursorcolumn false)
-(set vim.opt.cursorline false)
+(set vim.opt.cursorline true)
 (set vim.opt.cursorlineopt "line,number")
 
 ;; Encoding
@@ -89,8 +89,8 @@
 
 ;; Scroll
 (set vim.opt.smoothscroll true)
-(set vim.opt.scrolloff 7)
-(set vim.opt.sidescrolloff 7)
+(set vim.opt.scrolloff 99)
+(set vim.opt.sidescrolloff 9)
 
 ;; Search
 (set vim.opt.hlsearch true)

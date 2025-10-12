@@ -1,6 +1,6 @@
 -- [nfnl] fnl/core/aucmds.fnl
 local _local_1_ = require("core.utils")
-local create_keymaps_for_goto_entry = _local_1_["create_keymaps_for_goto_entry"]
+local create_keymaps_for_goto_entry = _local_1_.create_keymaps_for_goto_entry
 local function _2_()
   if (vim.bo.modifiable and not vim.list_contains({"qf", "FTerm"}, vim.bo.filetype)) then
     vim.bo.fileformat = "unix"
@@ -15,31 +15,27 @@ local function _4_()
 end
 vim.api.nvim_create_autocmd("TextYankPost", {desc = "Highlight yanked text", pattern = "*", callback = _4_})
 local function _5_()
-  return vim.cmd("%s/\\s\\+$//e")
-end
-vim.api.nvim_create_autocmd("BufWritePre", {desc = "Remove trailing whitespace", callback = _5_})
-local function _6_()
   return vim.cmd("silent! normal! g`\"zv")
 end
-vim.api.nvim_create_autocmd("BufReadPost", {desc = "Restore cursor position", callback = _6_})
-local function _7_()
+vim.api.nvim_create_autocmd("BufReadPost", {desc = "Restore cursor position", callback = _5_})
+local function _6_()
   vim.opt_local.buflisted = false
   return nil
 end
-vim.api.nvim_create_autocmd("FileType", {desc = "Do not list quickfix buffers", pattern = "qf", callback = _7_})
-local function _8_(_241)
+vim.api.nvim_create_autocmd("FileType", {desc = "Do not list quickfix buffers", pattern = "qf", callback = _6_})
+local function _7_(_241)
   return create_keymaps_for_goto_entry("[-\\/;#] === .\\+ ===$", "[r", "]r", "code_region", _241.buf)
 end
-vim.api.nvim_create_autocmd("BufWinEnter", {desc = "Add keymaps for Goto prev/next region", callback = _8_})
+vim.api.nvim_create_autocmd("BufWinEnter", {desc = "Add keymaps for Goto prev/next region", callback = _7_})
 local GUI_CURSOR_CACHE = nil
-local function _9_()
+local function _8_()
   GUI_CURSOR_CACHE = vim.opt.guicursor:get()
   vim.opt.guicursor = {}
   vim.fn.chansend(vim.v.stderr, "\27[6 q \27[?12l")
   return nil
 end
-vim.api.nvim_create_autocmd({"VimLeave", "VimSuspend"}, {desc = "Restore terminal cursor style", pattern = "*", callback = _9_})
-local function _10_()
+vim.api.nvim_create_autocmd({"VimLeave", "VimSuspend"}, {desc = "[Cursor Style] Restore terminal cursor style", pattern = "*", callback = _8_})
+local function _9_()
   if GUI_CURSOR_CACHE then
     vim.opt.guicursor = GUI_CURSOR_CACHE
     return nil
@@ -47,37 +43,37 @@ local function _10_()
     return nil
   end
 end
-vim.api.nvim_create_autocmd("VimResume", {desc = "Restore nvim cursor style", pattern = "*", callback = _10_})
-local _13_
+vim.api.nvim_create_autocmd("VimResume", {desc = "[Cursor Style] Restore nvim cursor style", pattern = "*", callback = _9_})
+local _12_
 do
-  local t_12_ = vim.env
-  if (nil ~= t_12_) then
-    t_12_ = t_12_.TMUX
+  local t_11_ = vim.env
+  if (nil ~= t_11_) then
+    t_11_ = t_11_.TMUX
   else
   end
-  _13_ = t_12_
+  _12_ = t_11_
 end
-if _13_ then
-  local function _15_(_241)
+if _12_ then
+  local function _14_(_241)
     local cmd = ("tmux source-file " .. vim.api.nvim_buf_get_name(_241.buf))
     vim.fn.system(cmd)
     return nil
   end
-  vim.api.nvim_create_autocmd("BufWritePost", {desc = "Reload tmux config after [.tmux.conf] saved", pattern = ".tmux.conf", callback = _15_})
+  vim.api.nvim_create_autocmd("BufWritePost", {desc = "[Tmux] Reload tmux config after [.tmux.conf] saved", pattern = ".tmux.conf", callback = _14_})
 else
 end
-local function _17_(_241)
+local function _16_(_241)
   return create_keymaps_for_goto_entry("\\v^\\w+.*:$", "[e", "]e", "just_task", _241.buf)
 end
-vim.api.nvim_create_autocmd("FileType", {desc = "[Just] add keymaps for Goto prev/next task", pattern = "just", callback = _17_})
-local function _18_(_241)
+vim.api.nvim_create_autocmd("FileType", {desc = "[Just] add keymaps for Goto prev/next task", pattern = "just", callback = _16_})
+local function _17_(_241)
   return create_keymaps_for_goto_entry("\\v^<(HEAD|GET|POST|PUT|PATCH|DELETE|OPTION)>", "[e", "]e", "http_request", _241.buf)
 end
-vim.api.nvim_create_autocmd("FileType", {desc = "[Http] add keymaps for Goto prev/next http request", pattern = {"http", "rest", "hurl"}, callback = _18_})
-local function _19_(_241)
+vim.api.nvim_create_autocmd("FileType", {desc = "[Http] add keymaps for Goto prev/next http request", pattern = {"http", "rest", "hurl"}, callback = _17_})
+local function _18_(_241)
   return create_keymaps_for_goto_entry("\\v(^\\(comment|^#_)", "[C", "]C", "comment_form", _241.buf)
 end
-vim.api.nvim_create_autocmd("FileType", {desc = "[Clojure] add keymaps for Goto prev/next (comment)", pattern = {"clojure", "janet"}, callback = _19_})
+vim.api.nvim_create_autocmd("FileType", {desc = "[Clojure] add keymaps for Goto prev/next (comment)", pattern = {"clojure", "janet"}, callback = _18_})
 local function start_clojure_nrepl_server(args)
   local clj_opts
   if string.match(args, "%-M:") then
@@ -90,18 +86,18 @@ local function start_clojure_nrepl_server(args)
   local cmd = string.format("clj -Sdeps %s %s -e %s", deps, clj_opts, cider_opts)
   return vim.cmd(("tabnew | term " .. cmd))
 end
-local function _21_(_241)
-  local function _23_(_22_)
-    local args = _22_["args"]
+local function _20_(_241)
+  local function _22_(_21_)
+    local args = _21_.args
     return start_clojure_nrepl_server(args)
   end
-  return vim.api.nvim_buf_create_user_command(_241.buf, "Clj", _23_, {nargs = "*"})
+  return vim.api.nvim_buf_create_user_command(_241.buf, "Clj", _22_, {nargs = "*"})
 end
-vim.api.nvim_create_autocmd("FileType", {desc = "[Clojure] add `Clj` usercommand for starting Clojure nREPL server", pattern = "clojure", callback = _21_})
-local function _24_(_241)
-  local function _25_()
+vim.api.nvim_create_autocmd("FileType", {desc = "[Clojure] add `Clj` usercommand for starting Clojure nREPL server", pattern = "clojure", callback = _20_})
+local function _23_(_241)
+  local function _24_()
     return vim.cmd(("tabnew | term " .. "janet-netrepl"))
   end
-  return vim.api.nvim_buf_create_user_command(_241.buf, "JanetNetrepl", _25_, {nargs = "*"})
+  return vim.api.nvim_buf_create_user_command(_241.buf, "JanetNetrepl", _24_, {nargs = "*"})
 end
-return vim.api.nvim_create_autocmd("FileType", {desc = "[Janet] add `JanetNetrepl` usercommand for starting janet-netrepl server", pattern = "janet", callback = _24_})
+return vim.api.nvim_create_autocmd("FileType", {desc = "[Janet] add `JanetNetrepl` usercommand for starting janet-netrepl server", pattern = "janet", callback = _23_})

@@ -1,9 +1,9 @@
 -- [nfnl] fnl/lz/plugins/lsp.fnl
 local _local_1_ = require("core.utils")
-local get_mason_path = _local_1_["get_mason_path"]
-local lsp_on_attach = _local_1_["lsp_on_attach"]
-local lsp_capabilities = _local_1_["lsp_capabilities"]
-local lsp_with_server = _local_1_["lsp_with_server"]
+local get_mason_path = _local_1_.get_mason_path
+local lsp_on_attach = _local_1_.lsp_on_attach
+local lsp_capabilities = _local_1_.lsp_capabilities
+local lsp_with_server = _local_1_.lsp_with_server
 local function _2_()
   vim.diagnostic.config({severity_sort = true, float = true, jump = {float = true}, virtual_text = false})
   vim.lsp.config("*", {root_markers = {".git"}, capabilities = lsp_capabilities()})

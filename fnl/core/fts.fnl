@@ -4,6 +4,7 @@
                                :c3 :c3
                                :cljd :clojure
                                :cy :cyber
+                               :fnlm :fennel
                                :flix :flix
                                :http :http
                                :kk :koka
