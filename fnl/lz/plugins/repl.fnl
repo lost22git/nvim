@@ -32,6 +32,7 @@
                              :nim {:cmd "inim"}
                              :raku {:cmd "rlwrap raku"}
                              :roc {:cmd "roc repl"}
+                             :lisp {:cmd "rlwrap sbcl"}
                              :swift {:cmd "swift repl"}
                              :typescript {:cmd "deno repl"}
                              :v {:cmd "v repl"}}}

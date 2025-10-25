@@ -24,7 +24,7 @@
              :desc (.. "[treewalker] " v)}))}
  {1 "julienvincent/nvim-paredit"
   :event :VeryLazy
-  :opts {:filetypes [:clojure :fennel :janet]
+  :opts {:filetypes [:clojure :fennel :janet :lisp]
          :use_default_keys false
          :keys (vim.tbl_extend :error ;;
                                (collect [_ [k v] (ipairs [[:du :raise_form]

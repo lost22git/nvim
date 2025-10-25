@@ -33,4 +33,4 @@ local function _5_(_, opts)
     return nil
   end
 end
-return {{"Olical/conjure", cmd = "ConjureConnect", init = _1_}, {"pappasam/nvim-repl", cmd = "Repl", opts = {filetype_commands = {arturo = {cmd = "arturo --repl"}, crystal = {cmd = "crystal i"}, elixir = {cmd = "iex"}, flix = {cmd = "flix repl"}, java = {cmd = "jshell"}, kotlin = {cmd = "rlwrap kotlin -repl"}, lfe = {cmd = "lfe"}, nim = {cmd = "inim"}, raku = {cmd = "rlwrap raku"}, roc = {cmd = "roc repl"}, swift = {cmd = "swift repl"}, typescript = {cmd = "deno repl"}, v = {cmd = "v repl"}}}, config = _5_}}
+return {{"Olical/conjure", cmd = "ConjureConnect", init = _1_}, {"pappasam/nvim-repl", cmd = "Repl", opts = {filetype_commands = {arturo = {cmd = "arturo --repl"}, crystal = {cmd = "crystal i"}, elixir = {cmd = "iex"}, flix = {cmd = "flix repl"}, java = {cmd = "jshell"}, kotlin = {cmd = "rlwrap kotlin -repl"}, lfe = {cmd = "lfe"}, nim = {cmd = "inim"}, raku = {cmd = "rlwrap raku"}, roc = {cmd = "roc repl"}, lisp = {cmd = "rlwrap sbcl"}, swift = {cmd = "swift repl"}, typescript = {cmd = "deno repl"}, v = {cmd = "v repl"}}}, config = _5_}}
