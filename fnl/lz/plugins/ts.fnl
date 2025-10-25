@@ -25,17 +25,6 @@
                        :branch :main
                        :files ["src/parser.c" "src/scanner.c"]}}))
 
-(fn define_fold_module []
-  (call! :nvim-treesitter :define_modules
-         {:fold {:attach #(do
-                            (set vim.opt_local.foldmethod :expr)
-                            (set vim.opt_local.foldexpr
-                                 "v:lua.vim.treesitter.foldexpr()"))
-                 :detach #(do
-                            (set vim.opt_local.foldmethod vim.go.foldmethod)
-                            (set vim.opt_local.foldexpr vim.go.foldexpr))
-                 :is_supported #true}}))
-
 [{1 "nvim-treesitter/nvim-treesitter-context"
   :dependencies ["nvim-treesitter/nvim-treesitter"]
   :cmd :TSContextEnable
@@ -58,7 +47,6 @@
                                            :node_incremental :<CR>
                                            :node_decremental :<BS>}}
          :autotag {:enable true}
-         :fold {:enable true}
          :ensure_installed [:bash
                             :lua
                             :regex
@@ -95,5 +83,4 @@
   :config (fn [_ opts]
             (use_helix_source)
             (use_custom_source)
-            (define_fold_module)
             (call! :nvim-treesitter.configs :setup opts))}]
