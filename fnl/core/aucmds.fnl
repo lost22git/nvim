@@ -106,9 +106,19 @@
 
 ;; === JANET ===
 
-(autocmd! :FileType {:desc "[Janet] add `JanetNetrepl` usercommand for starting janet-netrepl server"
+(autocmd! :FileType {:desc "[Janet] add `Janet` usercommand for starting janet-netrepl server"
                      :pattern :janet
-                     :callback #(bufusercmd! $.buf :JanetNetrepl
+                     :callback #(bufusercmd! $.buf :Janet
                                              #(vim.cmd (.. "tabnew | term "
                                                            "janet-netrepl"))
+                                             {:nargs "*"})})
+
+;; === LISP ===
+
+(autocmd! :FileType {:desc "[Lisp] add `Lisp` usercommand for starting swank server"
+                     :pattern :lisp
+                     :callback #(bufusercmd! $.buf :Lisp
+                                             #(->> "sbcl --eval \"(ql:quickload :swank)\" --eval \"(swank:create-server :dont-close t)\""
+                                                   (.. "tabnew | term ")
+                                                   (vim.cmd))
                                              {:nargs "*"})})

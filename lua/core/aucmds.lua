@@ -98,6 +98,13 @@ local function _23_(_241)
   local function _24_()
     return vim.cmd(("tabnew | term " .. "janet-netrepl"))
   end
-  return vim.api.nvim_buf_create_user_command(_241.buf, "JanetNetrepl", _24_, {nargs = "*"})
+  return vim.api.nvim_buf_create_user_command(_241.buf, "Janet", _24_, {nargs = "*"})
 end
-return vim.api.nvim_create_autocmd("FileType", {desc = "[Janet] add `JanetNetrepl` usercommand for starting janet-netrepl server", pattern = "janet", callback = _23_})
+vim.api.nvim_create_autocmd("FileType", {desc = "[Janet] add `Janet` usercommand for starting janet-netrepl server", pattern = "janet", callback = _23_})
+local function _25_(_241)
+  local function _26_()
+    return vim.cmd(("tabnew | term " .. "sbcl --eval \"(ql:quickload :swank)\" --eval \"(swank:create-server :dont-close t)\""))
+  end
+  return vim.api.nvim_buf_create_user_command(_241.buf, "Lisp", _26_, {nargs = "*"})
+end
+return vim.api.nvim_create_autocmd("FileType", {desc = "[Lisp] add `Lisp` usercommand for starting swank server", pattern = "lisp", callback = _25_})

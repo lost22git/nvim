@@ -21,6 +21,7 @@
                            :json [:jq :prettier]
                            :just [:just]
                            :kotlin [:ktfmt]
+                           :lisp [:cljfmt]
                            :lua [:stylua]
                            :nim [:nph]
                            :ocaml [:ocamlformat]
