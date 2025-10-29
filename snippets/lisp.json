@@ -1,4 +1,12 @@
 {
+  "apropos": {
+    "prefix": "apropos",
+    "body": ["apropos \"$1\" :${2:cl}"]
+  },
+  "describe": {
+    "prefix": "describe",
+    "body": ["describe '$1"]
+  },
   "defun": {
     "prefix": "defun",
     "body": ["defun ${1:name} (${2:arg})", "\t\"${3:doc}\"", "\t${4:body}"]
@@ -65,6 +73,15 @@
     "body": [
       "loop for i from ${1:from} below ${2:below} by ${3:step}",
       "\tdo ${4:body}"
+    ]
+  },
+  "with-hash-table-iterator": {
+    "prefix": "with-hash-table-iterator",
+    "body": [
+      "with-hash-table-iterator (next ${1:hash-table} )",
+      "\t(loop (multiple-value-bind (ok k v) (next)",
+      "\t\t(unless ok (return))",
+      "\t\t${2:body} ))"
     ]
   },
   "ql-load": {
