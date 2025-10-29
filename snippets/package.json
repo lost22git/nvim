@@ -47,6 +47,10 @@
         "path": "./lfe.json"
       },
       {
+        "language": "lisp",
+        "path": "./lisp.json"
+      },
+      {
         "language": "nim",
         "path": "./nim.json"
       },

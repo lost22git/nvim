@@ -1,0 +1,111 @@
+{
+  "defun": {
+    "prefix": "defun",
+    "body": ["defun ${1:name} (${2:arg})", "\t\"${3:doc}\"", "\t${4:body}"]
+  },
+  "let-var": {
+    "prefix": "let-var",
+    "body": ["let (${1:a})", "\t${2:body}"]
+  },
+  "let-val": {
+    "prefix": "let-val",
+    "body": ["let ((${1:k} ${2:v}))", "\t${3:body}"]
+  },
+  "let*-val": {
+    "prefix": "let*-val",
+    "body": ["let* ((${1:k} ${2:v})", "\t(${3:k2} ${4:v2}))", "\t${5:body}"]
+  },
+  "loop-list": {
+    "prefix": "loop-list",
+    "body": ["loop for ${1:i} in ${2:list}", "\tdo (${3:body})"]
+  },
+  "loop-vector": {
+    "prefix": "loop-vector",
+    "body": ["loop for ${1:i} across ${2:vector}", "\tdo (${3:body})"]
+  },
+  "loop-string": {
+    "prefix": "loop-string",
+    "body": ["loop for ${1:c} across ${2:string}", "\tdo (${3:body})"]
+  },
+  "loop-hash-key": {
+    "prefix": "loop-hash-key",
+    "body": [
+      "loop for ${1:k} being the hash-key of ${2:hash-table}",
+      "\tdo (${3:body})"
+    ]
+  },
+  "loop-hash-value": {
+    "prefix": "loop-hash-value",
+    "body": [
+      "loop for ${1:v} being the hash-value of ${2:hash-table}",
+      "\tdo (${3:body})"
+    ]
+  },
+  "loop-hash-table": {
+    "prefix": "loop-hash-table",
+    "body": [
+      "loop for ${1:k} being the hash-key of ${2:hash-table}",
+      "\t using (hash-value v)",
+      "\tdo (${3:body})"
+    ]
+  },
+  "loop-repeat": {
+    "prefix": "loop-repeat",
+    "body": ["loop repeat ${1:times}", "\tdo (${2:body})"]
+  },
+  "loop-from-to": {
+    "prefix": "loop-from-to",
+    "body": [
+      "loop for i from ${1:from} to ${2:to} by ${3:step}",
+      "\tdo ${4:body}"
+    ]
+  },
+  "loop-from-below": {
+    "prefix": "loop-from-below",
+    "body": [
+      "loop for i from ${1:from} below ${2:below} by ${3:step}",
+      "\tdo ${4:body}"
+    ]
+  },
+  "ql-load": {
+    "prefix": "ql-load",
+    "body": ["ql:quickload '(${1:packages})"]
+  },
+  "add-package-local-nickname": {
+    "prefix": "add-package-local-nickname",
+    "body": ["sb-ext:add-package-local-nickname ${1:nickname} ${2:package}"]
+  },
+  "save-lisp-and-die": {
+    "prefix": "save-lisp-and-die",
+    "body": [
+      "sb-ext:save-lisp-and-die ${1:name}",
+      "\t:toplevel #'main",
+      "\t:executable t",
+      "\t:compression ${2:9/-7~22}"
+    ]
+  },
+  "clingo-make-command": {
+    "prefix": "clingo-make-command",
+    "body": [
+      "clingo:make-command",
+      "\t:name ${1:name}",
+      "\t:description ${2:desc}",
+      "\t:version ${3:ver}",
+      "\t:authors '(${4:authors})",
+      "\t:options ${5:options}",
+      "\t:handler ${6:handler}"
+    ]
+  },
+  "clingo-make-option": {
+    "prefix": "clingo-make-option",
+    "body": [
+      "clingo:make-option",
+      "\t${1:type}",
+      "\t:key ${2:key}",
+      "\t:description ${3:desc}",
+      "\t:short-name #\\\\${4:short-name}",
+      "\t:long-name ${5:long-name}",
+      "\t:initial-value ${6:init-value}"
+    ]
+  }
+}
