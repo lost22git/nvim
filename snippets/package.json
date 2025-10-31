@@ -55,6 +55,10 @@
         "path": "./nim.json"
       },
       {
+        "language": "racket",
+        "path": "./racket.json"
+      },
+      {
         "language": "raku",
         "path": "./raku.json"
       },

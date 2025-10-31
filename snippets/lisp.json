@@ -1,4 +1,8 @@
 {
+  "format": {
+    "prefix": "format",
+    "body": ["format t \"~A~&\" $1"]
+  },
   "apropos": {
     "prefix": "apropos",
     "body": ["apropos \"$1\" :${2:cl}"]
@@ -72,6 +76,20 @@
     "prefix": "loop-from-below",
     "body": [
       "loop for i from ${1:from} below ${2:below} by ${3:step}",
+      "\tdo ${4:body}"
+    ]
+  },
+  "loop-from-downto": {
+    "prefix": "loop-from-downto",
+    "body": [
+      "loop for i from ${1:from} downto ${2:downto} by ${3:step}",
+      "\tdo ${4:body}"
+    ]
+  },
+  "loop-from-above": {
+    "prefix": "loop-from-above",
+    "body": [
+      "loop for i from ${1:from} above ${2:above} by ${3:step}",
       "\tdo ${4:body}"
     ]
   },

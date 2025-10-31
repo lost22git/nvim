@@ -135,6 +135,10 @@
     "prefix": "assert-true",
     "body": ["assert ${1:true-body}"]
   },
+  "binding": {
+    "prefix": "binding",
+    "body": ["binding [${1:k} ${2:v}]", "\t${3:body}"]
+  },
   "bb-add-deps": {
     "prefix": "bb-add-deps",
     "body": [

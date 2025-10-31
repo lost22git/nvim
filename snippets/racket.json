@@ -1,0 +1,66 @@
+{
+  "define-fn": {
+    "prefix": "define-fn",
+    "body": ["define (${1:name} ${2:arg})", "\t${3:body}"]
+  },
+  "define-values": {
+    "prefix": "define-values",
+    "body": ["define-values (v v2)", "\t${3:values}"]
+  },
+  "let": {
+    "prefix": "let",
+    "body": ["let ([${1:k} ${2:v}])", "\t${3:body}"]
+  },
+  "let-values": {
+    "prefix": "let-values",
+    "body": ["let-values ([(v v2) ${1:values}])", "\t${2:body}"]
+  },
+  "for-in-range": {
+    "prefix": "for-in-range",
+    "body": ["for ([i (in-range ${1:from} ${2:to} ${3:step})])", "\t${4:body}"]
+  },
+  "for-in-string": {
+    "prefix": "for-in-string",
+    "body": ["for ([c (in-string ${1:str})])", "\t${2:body}"]
+  },
+  "for-in-list": {
+    "prefix": "for-in-list",
+    "body": ["for ([i (in-list ${1:list})])", "\t${2:body}"]
+  },
+  "for-in-vector": {
+    "prefix": "for-in-vector",
+    "body": ["for ([i (in-vector ${1:vector})])", "\t${2:body}"]
+  },
+  "for-in-hash": {
+    "prefix": "for-in-hash",
+    "body": ["for ([(k v) (in-hash ${1:hash-table})])", "\t${2:body}"]
+  },
+  "for-in-hash-keys": {
+    "prefix": "for-in-hash-keys",
+    "body": ["for ([k (in-hash-keys ${1:hash-table})])", "\t${2:body}"]
+  },
+  "for-in-hash-vaues": {
+    "prefix": "for-in-hash-vaues",
+    "body": ["for ([v (in-hash-values ${1:hash-table})])", "\t${2:body}"]
+  },
+  "with-handlers": {
+    "prefix": "with-handlers",
+    "body": [
+      "with-handlers ([${1:error-test-fn} ${2:error-handle-fn}])",
+      "\t${3:body}"
+    ],
+    "description": "with error handlers"
+  },
+  "parameterize": {
+    "prefix": "parameterize",
+    "body": [
+      "parameterize ([${1:binding-var} ${2:binding-value}])",
+      "\t${3:body}"
+    ],
+    "description": "dynamic bindings"
+  },
+  "struct": {
+    "prefix": "struct",
+    "body": ["struct ${1:name} (${2:field}) #:transparent"]
+  }
+}
