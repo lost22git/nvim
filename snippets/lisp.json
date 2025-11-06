@@ -15,6 +15,18 @@
     "prefix": "defun",
     "body": ["defun ${1:name} (${2:arg})", "\t\"${3:doc}\"", "\t${4:body}"]
   },
+  "destructuring-bind": {
+    "prefix": "destructuring-bind",
+    "body": ["destructuring-bind (${1:el}) ${2:list}", "\t${3:body}"]
+  },
+  "multiple-value-bind": {
+    "prefix": "multiple-value-bind",
+    "body": ["multiple-value-bind (${1:a} ${2:b}) ${3:values}", "\t${4:body}"]
+  },
+  "with-slots": {
+    "prefix": "with-slots",
+    "body": ["with-slots (${1:slot}) ${2:object}", "\t${3:body}"]
+  },
   "let-var": {
     "prefix": "let-var",
     "body": ["let (${1:a})", "\t${2:body}"]
