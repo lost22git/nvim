@@ -8,6 +8,7 @@
         :sources {:default [:lsp :path :snippets :buffer :ripgrep]
                   :providers {:ripgrep {:module :blink-ripgrep
                                         :name :Ripgrep
+                                        :score_offset -1
                                         :opts {}}}}
         :completion {:ghost_text {:enabled false}
                      :accept {:auto_brackets {:kind_resolution {:enabled true
