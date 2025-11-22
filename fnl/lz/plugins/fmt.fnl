@@ -26,11 +26,15 @@
                            :nim [:nph]
                            :ocaml [:ocamlformat]
                            :python [:ruff_format]
+                           :racket [:myracketfmt]
                            :roc [:roc]
+                           :scheme [:cljfmt]
                            :sh [:shfmt]
                            :swift [:swift]
                            :toml [:taplo]
                            :typescript [:deno_fmt]
                            :v [:v]
                            :xml [:prettier]
-                           :zig [:zigfmt]}}}
+                           :zig [:zigfmt]}
+        :formatters {:myracketfmt {:command "raco"
+                                   :args ["fmt" "--limit" "50"]}}}}

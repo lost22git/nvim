@@ -1,7 +1,8 @@
 (import-macros {: autocmd! : nmap! : vmap! : nvmap! : call!} :config.macros)
+
 [{1 "Olical/conjure"
   :cmd :ConjureConnect
-  ;; :event :VeryLazy
+  :event :VeryLazy
   :init (fn []
           (set vim.g.conjure#highlight#enabled true)
           (set vim.g.conjure#extract#tree_sitter#enabled true)
@@ -9,6 +10,9 @@
           (set vim.g.conjure#mapping#doc_word [:<LocalLeader>k])
           (set vim.g.conjure#mapping#eval_visual [:<LocalLeader>ee])
           (set vim.g.conjure#mapping#eval_previous [:<LocalLeader>E])
+          ;; configure ChezScheme repl
+          (set vim.g.conjure#client#scheme#stdio#command "petite")
+          (set vim.g.conjure#client#scheme#stdio#prompt_pattern "> $?")
           (autocmd! :BufWinEnter
                     {:pattern ["conjure-log-*"]
                      :callback (fn [{:buf bufid}]
@@ -30,6 +34,7 @@
                              :kotlin {:cmd "rlwrap kotlin -repl"}
                              :lfe {:cmd "lfe"}
                              :nim {:cmd "inim"}
+                             :racket {:cmd "rlwrap racket -i"}
                              :raku {:cmd "rlwrap raku"}
                              :roc {:cmd "roc repl"}
                              :lisp {:cmd "rlwrap sbcl"}

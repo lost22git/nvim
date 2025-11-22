@@ -6,6 +6,8 @@ local function _1_()
   vim.g["conjure#mapping#doc_word"] = {"<LocalLeader>k"}
   vim.g["conjure#mapping#eval_visual"] = {"<LocalLeader>ee"}
   vim.g["conjure#mapping#eval_previous"] = {"<LocalLeader>E"}
+  vim.g["conjure#client#scheme#stdio#command"] = "petite"
+  vim.g["conjure#client#scheme#stdio#prompt_pattern"] = "> $?"
   local function _3_(_2_)
     local bufid = _2_.buf
     local _local_4_ = require("core.utils")
@@ -33,4 +35,4 @@ local function _5_(_, opts)
     return nil
   end
 end
-return {{"Olical/conjure", cmd = "ConjureConnect", init = _1_}, {"pappasam/nvim-repl", cmd = "Repl", opts = {filetype_commands = {arturo = {cmd = "arturo --repl"}, crystal = {cmd = "crystal i"}, elixir = {cmd = "iex"}, flix = {cmd = "flix repl"}, java = {cmd = "jshell"}, kotlin = {cmd = "rlwrap kotlin -repl"}, lfe = {cmd = "lfe"}, nim = {cmd = "inim"}, raku = {cmd = "rlwrap raku"}, roc = {cmd = "roc repl"}, lisp = {cmd = "rlwrap sbcl"}, swift = {cmd = "swift repl"}, typescript = {cmd = "deno repl"}, v = {cmd = "v repl"}}}, config = _5_}}
+return {{"Olical/conjure", cmd = "ConjureConnect", event = "VeryLazy", init = _1_}, {"pappasam/nvim-repl", cmd = "Repl", opts = {filetype_commands = {arturo = {cmd = "arturo --repl"}, crystal = {cmd = "crystal i"}, elixir = {cmd = "iex"}, flix = {cmd = "flix repl"}, java = {cmd = "jshell"}, kotlin = {cmd = "rlwrap kotlin -repl"}, lfe = {cmd = "lfe"}, nim = {cmd = "inim"}, racket = {cmd = "rlwrap racket -i"}, raku = {cmd = "rlwrap raku"}, roc = {cmd = "roc repl"}, lisp = {cmd = "rlwrap sbcl"}, swift = {cmd = "swift repl"}, typescript = {cmd = "deno repl"}, v = {cmd = "v repl"}}}, config = _5_}}

@@ -21,44 +21,36 @@
              2 (.. "<Cmd>Treewalker " v "<CR>")
              :mode (if (vim.startswith v :Swap) :n [:n :v])
              :desc (.. "[treewalker] " v)}))}
- {1 "julienvincent/nvim-paredit"
+ {1 "lost22git/nvim-paredit"
+  :branch :add-racket-lang
   :event :VeryLazy
-  :opts {:filetypes [:clojure :fennel :janet :lisp]
-         :use_default_keys false
-         :keys (vim.tbl_extend :error ;;
-                               (collect [_ [k v] (ipairs [[:du :raise_form]
-                                                          [:dU :raise_element]
-                                                          [">)"
-                                                           :slurp_forwards]
-                                                          [">("
-                                                           :barf_backwards]
-                                                          ["<)" :barf_forwards]
-                                                          ["<("
-                                                           :slurp_backwards]
-                                                          [:>D
-                                                           :drag_pair_forwards]
-                                                          [:<D
-                                                           :drag_pair_backwards]
-                                                          [:>E
-                                                           :drag_element_forwards]
-                                                          [:<E
-                                                           :drag_element_backwards]
-                                                          [:>F
-                                                           :drag_form_forwards]
-                                                          [:<F
-                                                           :drag_form_backwards]])]
-                                 (values k
-                                         [#((. (require :nvim-paredit) :api v))
-                                          v])) ;;
-                               (collect [_ [k v] (ipairs [[:<A :inner_start]
-                                                          [:>A :inner_end]])]
-                                 (values k
-                                         [#(let [par (require :nvim-paredit)]
-                                             (par.cursor.place_cursor (par.wrap.wrap_enclosing_form_under_cursor "("
-                                                                                                                 ")")
-                                                                      {:placement v
-                                                                       :mode :insert}))
-                                          (.. "Wrap form " v)])))}}
+  :opts {:use_default_keys false
+         :keys (let [data [[:du :raise_form]
+                           [:dU :raise_element]
+                           [">)" :slurp_forwards]
+                           [">(" :barf_backwards]
+                           ["<)" :barf_forwards]
+                           ["<(" :slurp_backwards]
+                           [:>D :drag_pair_forwards]
+                           [:<D :drag_pair_backwards]
+                           [:>E :drag_element_forwards]
+                           [:<E :drag_element_backwards]
+                           [:>F :drag_form_forwards]
+                           [:<F :drag_form_backwards]]]
+                 (vim.tbl_extend :error
+                                 (collect [_ [k v] (ipairs data)]
+                                   (values k
+                                           [#((. (require :nvim-paredit) :api v))
+                                            v]))
+                                 (collect [_ [k v] (ipairs [[:<A :inner_start]
+                                                            [:>A :inner_end]])]
+                                   (values k
+                                           [#(let [par (require :nvim-paredit)]
+                                               (par.cursor.place_cursor (par.wrap.wrap_enclosing_form_under_cursor "("
+                                                                                                                   ")")
+                                                                        {:placement v
+                                                                         :mode :insert}))
+                                            (.. "Wrap form " v)]))))}}
  {1 "folke/flash.nvim"
   :opts {:modes {:char {:enabled false}}}
   :keys (let [data [["<Leader>s" :jump [:n :x :o]]
