@@ -1,0 +1,18 @@
+{
+  "deriving": {
+    "prefix": "deriving",
+    "body": ["[@@deriving $1]"]
+  },
+  "Logs-setup": {
+    "prefix": "Logs-setup",
+    "body": [
+      "let setup_logs () = ",
+      "\tLogs.set_level (Some Logs.Info);",
+      "\tLogs.set_reporter (Logs_fmt.reporter ())"
+    ]
+  },
+  "Logs": {
+    "prefix": "Logs",
+    "body": ["Logs.${1:info} (fun m -> m \"$2\")"]
+  }
+}

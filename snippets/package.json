@@ -55,6 +55,10 @@
         "path": "./nim.json"
       },
       {
+        "language": "ocaml",
+        "path": "./ocaml.json"
+      },
+      {
         "language": "racket",
         "path": "./racket.json"
       },
