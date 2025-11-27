@@ -27,7 +27,7 @@
 
 (autocmd! :BufWinEnter
           {:desc "Add keymaps for Goto prev/next region"
-           :callback #(create_keymaps_for_goto_entry "[-\\/;#] === .\\+ ===$"
+           :callback #(create_keymaps_for_goto_entry "[-\\/;#\\*] === .\\+ ==="
                                                      "[r" "]r" :code_region
                                                      $.buf)})
 

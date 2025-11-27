@@ -24,7 +24,7 @@ local function _6_()
 end
 vim.api.nvim_create_autocmd("FileType", {desc = "Do not list quickfix buffers", pattern = "qf", callback = _6_})
 local function _7_(_241)
-  return create_keymaps_for_goto_entry("[-\\/;#] === .\\+ ===$", "[r", "]r", "code_region", _241.buf)
+  return create_keymaps_for_goto_entry("[-\\/;#\\*] === .\\+ ===", "[r", "]r", "code_region", _241.buf)
 end
 vim.api.nvim_create_autocmd("BufWinEnter", {desc = "Add keymaps for Goto prev/next region", callback = _7_})
 local GUI_CURSOR_CACHE = nil
