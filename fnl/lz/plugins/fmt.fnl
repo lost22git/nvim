@@ -3,10 +3,12 @@
  :opts {:default_format_opts {:lsp_format :fallback}
         :format_on_save {:lsp_format :fallback :timeout_ms 5000}
         ;; see :help conform-formatters
-        :formatters_by_ft {:clojure [:cljfmt]
+        :formatters_by_ft {:basilisp [:cljfmt]
+                           :clojure [:cljfmt]
                            :crystal [:crystal]
                            :css [:prettier]
                            :dart [:dart_format]
+                           :dune [:format-dune-file]
                            :elixir [:mix]
                            :fennel [:fnlfmt]
                            :gleam [:gleam]

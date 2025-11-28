@@ -10,6 +10,7 @@
                                :kk :koka
                                :lfe :lfe
                                :lobster :lobster
+                               :lpy :basilisp
                                :n :nature
                                :postcss :postcss
                                :v :v
@@ -18,10 +19,11 @@
 ;; Register commentstring
 (vim.cmd "
   au FileType arturo setlocal commentstring=;\\ %s
+  au FileType basilisp setlocal commentstring=;\\ %s
   au FileType c3 setlocal commentstring=//\\ %s
   au FileType crystal setlocal commentstring=#\\ %s
   au FileType cyber setlocal commentstring=--\\ %s
-  au FileType fennel setlocal commentstring=;;\\ %s
+  au FileType fennel setlocal commentstring=;\\ %s
   au FileType flix setlocal commentstring=//\\ %s
   au FileType http setlocal commentstring=#\\ %s
   au FileType inko setlocal commentstring=#\\ %s
