@@ -7,8 +7,8 @@
     "prefix": "Logs-setup",
     "body": [
       "let setup_logs () = ",
-      "\tLogs.set_level (Some Logs.Info);",
-      "\tLogs.set_reporter (Logs_fmt.reporter ())"
+      "\tLogs.set_reporter @@ Logs_fmt.reporter ();",
+      "\tLogs.set_level @@ Some Logs.Info"
     ]
   },
   "Logs": {
