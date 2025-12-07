@@ -1,0 +1,28 @@
+{
+  "define-syntax-case": {
+    "prefix": "define-syntax-case",
+    "body": [
+      "define-syntax ${1:name}",
+      "\t(lambda (stx)",
+      "\t\t(syntax-case stx ()",
+      "\t\t\t[(_ ${2:args}) ${3:body}",
+      "))"
+    ]
+  },
+  "define-function": {
+    "prefix": "define-function",
+    "body": ["define (${1:name} ${2:args})", "\t\"${3:doc}", "\t\""]
+  },
+  "let": {
+    "prefix": "let",
+    "body": ["let ((${1:bind-name}  ${2:bind-val}))", "\t${3:body}"]
+  },
+  "let*": {
+    "prefix": "let*",
+    "body": [
+      "let* ((${1:bind-name}  ${2:bind-val})",
+      "\t(${3:bind-name}  ${4:bind-val}))",
+      "\t${3:body}"
+    ]
+  }
+}

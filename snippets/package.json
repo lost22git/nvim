@@ -67,6 +67,10 @@
         "path": "./raku.json"
       },
       {
+        "language": "scheme",
+        "path": "./scheme.json"
+      },
+      {
         "language": "sshconfig",
         "path": "./sshconfig.json"
       }
