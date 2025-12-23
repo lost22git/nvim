@@ -30,6 +30,7 @@
                              :crystal {:cmd "crystal i"}
                              :elixir {:cmd "iex"}
                              :flix {:cmd "flix repl"}
+                             :haskell {:cmd "ghci"}
                              :java {:cmd "jshell"}
                              :kotlin {:cmd "rlwrap kotlin -repl"}
                              :lfe {:cmd "lfe"}

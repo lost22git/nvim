@@ -55,6 +55,7 @@
                              :gleam
                              :gradle_ls
                              :gopls
+                             :hls
                              :julials
                              :koka
                              :kotlin_lsp

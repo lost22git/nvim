@@ -13,6 +13,7 @@
                            :fennel [:fnlfmt]
                            :gleam [:gleam]
                            :go [:gofmt :goimports]
+                           :haskell [:ormolu]
                            :http [:kulala-fmt]
                            :html [:prettier]
                            :inko [:inko]
