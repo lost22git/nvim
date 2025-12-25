@@ -44,6 +44,7 @@
                              :kulala_ls
                              :marksman
                              ;; === shell ===
+                             :bashls
                              :nushell
                              :powershell_es
                              ;; === pl ===
