@@ -27,6 +27,7 @@
  {1 "pappasam/nvim-repl"
   :cmd :Repl
   :opts {:filetype_commands {:arturo {:cmd "arturo --repl"}
+                             :basilisp {:cmd "basilisp repl"}
                              :crystal {:cmd "crystal i"}
                              :elixir {:cmd "iex"}
                              :flix {:cmd "flix repl"}

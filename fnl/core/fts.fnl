@@ -1,4 +1,4 @@
-;; Register filetypes
+;; Add filetypes
 (vim.filetype.add {:extension {:art :arturo
                                :bb :clojure
                                :c3 :c3
@@ -10,13 +10,13 @@
                                :kk :koka
                                :lfe :lfe
                                :lobster :lobster
-                               :lpy :basilisp
+                               :lpy :clojure
                                :n :nature
                                :postcss :postcss
                                :v :v
                                :vsh :v}})
 
-;; Register commentstring
+;; Add commentstring
 (vim.cmd "
   au FileType arturo setlocal commentstring=;\\ %s
   au FileType basilisp setlocal commentstring=;\\ %s

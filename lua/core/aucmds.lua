@@ -107,4 +107,11 @@ local function _25_(_241)
   end
   return vim.api.nvim_buf_create_user_command(_241.buf, "Lisp", _26_, {nargs = "*"})
 end
-return vim.api.nvim_create_autocmd("FileType", {desc = "[Lisp] add `Lisp` usercommand for starting swank server", pattern = "lisp", callback = _25_})
+vim.api.nvim_create_autocmd("FileType", {desc = "[Lisp] add `Lisp` usercommand for starting swank server", pattern = "lisp", callback = _25_})
+local function _27_(_241)
+  local function _28_()
+    return vim.cmd(("tabnew | term " .. "basilisp nrepl-server"))
+  end
+  return vim.api.nvim_buf_create_user_command(_241.buf, "Basilisp", _28_, {nargs = "*"})
+end
+return vim.api.nvim_create_autocmd("FileType", {desc = "[Basilisp] add `Basilisp` usercommand for starting Basilisp nrepl server", pattern = "clojure", callback = _27_})

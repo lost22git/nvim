@@ -122,3 +122,12 @@
                                                    (.. "tabnew | term ")
                                                    (vim.cmd))
                                              {:nargs "*"})})
+
+;; === BASILISP ===
+
+(autocmd! :FileType {:desc "[Basilisp] add `Basilisp` usercommand for starting Basilisp nrepl server"
+                     :pattern :clojure
+                     :callback #(bufusercmd! $.buf :Basilisp
+                                             #(vim.cmd (.. "tabnew | term "
+                                                           "basilisp nrepl-server"))
+                                             {:nargs "*"})})
