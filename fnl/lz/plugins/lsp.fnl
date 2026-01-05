@@ -67,6 +67,7 @@
                              :rust_analyzer
                              :sourcekit
                              :ty
+                             :unison
                              :v_analyzer
                              ;; === frontend ===
                              :html
