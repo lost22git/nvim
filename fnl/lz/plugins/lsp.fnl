@@ -23,6 +23,11 @@
                                       (vim.lsp.get_client_by_id)
                                       (assert)
                                       (lsp_on_attach $.buf))})
+            ;; crystal
+            (vim.lsp.config :liger
+                            {:cmd ["liger"]
+                             :filetypes [:crystal]
+                             :root_markers [:shard.yml :.git]})
             ;; elixir
             (lsp_with_server :elixir-ls #(vim.lsp.config :elixirls {:cmd [$]}))
             ;; flix
@@ -49,7 +54,6 @@
                              :powershell_es
                              ;; === pl ===
                              :clojure_lsp
-                             :crystalline
                              :dartls
                              :emmylua_ls
                              :fennel_ls
