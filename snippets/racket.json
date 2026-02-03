@@ -43,14 +43,6 @@
     "prefix": "for-in-hash-vaues",
     "body": ["for ([v (in-hash-values ${1:hash-table})])", "\t${2:body}"]
   },
-  "with-handlers": {
-    "prefix": "with-handlers",
-    "body": [
-      "with-handlers ([${1:error-test-fn} ${2:error-handle-fn}])",
-      "\t${3:body}"
-    ],
-    "description": "with error handlers"
-  },
   "parameterize": {
     "prefix": "parameterize",
     "body": [
@@ -62,5 +54,13 @@
   "struct": {
     "prefix": "struct",
     "body": ["struct ${1:name} (${2:field}) #:transparent"]
+  },
+  "with-handlers": {
+    "prefix": "with-handlers",
+    "body": [
+      "with-handlers ([exn:fail? (λ (exn)",
+      "\t(printf \"error: ~a\\n\" (exn-message exn)))])",
+      "\t${1:body}"
+    ]
   }
 }
