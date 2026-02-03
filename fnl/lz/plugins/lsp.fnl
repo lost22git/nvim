@@ -48,11 +48,11 @@
             (vim.lsp.enable [:dockerls
                              :kulala_ls
                              :marksman
-                             ;; === shell ===
+                             ;; === SHELL ===
                              :bashls
                              :nushell
                              :powershell_es
-                             ;; === pl ===
+                             ;; === PL ===
                              :clojure_lsp
                              :dartls
                              :emmylua_ls
@@ -73,7 +73,7 @@
                              :ty
                              :unison
                              :v_analyzer
-                             ;; === frontend ===
+                             ;; === FE ===
                              :html
                              :htmx]))}
  {1 "williamboman/mason.nvim"

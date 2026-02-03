@@ -49,6 +49,7 @@
          :autotag {:enable true}
          :ensure_installed [:bash
                             :lua
+                            :fennel
                             :regex
                             :vim
                             :vimdoc
@@ -76,10 +77,7 @@
                             :crystal
                             :go
                             :gomod
-                            :java
-                            :nim
-                            :rust
-                            :zig]}
+                            :java]}
   :config (fn [_ opts]
             (use_helix_source)
             (use_custom_source)
