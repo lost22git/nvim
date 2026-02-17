@@ -5,7 +5,7 @@
   :opts {:debug false
          :show_notification false
          :mode :split
-         :formatters {:json ["jq"] :html ["prettier" "--parser" "html"]}}
+         :formatters {:json ["jq"] :html ["deno_fmt" "--ext" "html"]}}
   :init (fn []
           (fn create_keymaps [bufid]
             (nmap! "<Leader>ee" "<Cmd>HurlRunnerAt<CR>"

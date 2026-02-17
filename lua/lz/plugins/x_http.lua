@@ -41,4 +41,4 @@ local function _3_()
   end
   return vim.api.nvim_create_autocmd("FileType", {pattern = {"http", "rest"}, callback = _9_})
 end
-return {{"jellydn/hurl.nvim", ft = "hurl", opts = {mode = "split", formatters = {json = {"jq"}, html = {"prettier", "--parser", "html"}}, debug = false, show_notification = false}, init = _1_}, {"mistweaverco/kulala.nvim", ft = {"http", "rest"}, opts = {winbar = true, show_variable_info_text = "float"}, init = _3_}}
+return {{"jellydn/hurl.nvim", ft = "hurl", opts = {mode = "split", formatters = {json = {"jq"}, html = {"deno_fmt", "--ext", "html"}}, debug = false, show_notification = false}, init = _1_}, {"mistweaverco/kulala.nvim", ft = {"http", "rest"}, opts = {winbar = true, show_variable_info_text = "float"}, init = _3_}}

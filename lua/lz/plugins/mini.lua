@@ -12,7 +12,7 @@ local function _2_()
   return setup({mappings = {around = "a", inside = "i", around_next = "an", inside_next = "in", around_last = "al", inside_last = "il", goto_left = "[", goto_right = "]"}, custom_textobjects = {F = gen_spec.treesitter({a = "@function.outer", i = "@function.inner"}), c = gen_spec.treesitter({a = "@class.outer", i = "@class.inner"}), o = gen_spec.treesitter({a = {"@conditional.outer", "@loop.outer"}, i = {"@conditional.inner", "@loop.inner"}}), B = gen_ai_spec.buffer(), D = gen_ai_spec.diagnostic(), I = gen_ai_spec.indent(), L = gen_ai_spec.line(), N = gen_ai_spec.number()}})
 end
 local function _5_()
-  return vim.cmd.colorscheme("minispring")
+  return vim.cmd.colorscheme("minisummer")
 end
 local function _6_()
   return MiniFiles.open()

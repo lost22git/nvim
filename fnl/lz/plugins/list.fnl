@@ -1,6 +1,25 @@
 (import-macros {: call! : autocmd!} :config.macros)
 
-[{1 "ibhagwan/fzf-lua"
+[{1 "mikavilpas/yazi.nvim" :cmd :Yazi :opts {}}
+ {1 "stevearc/aerial.nvim"
+  :opts {}
+  :keys [{1 "<Leader>O" 2 "<Cmd>AerialToggle<Cr>" :desc "[aerial] toggle"}]}
+ {1 "stevearc/quicker.nvim"
+  :ft :qf
+  :keys [{1 "<Leader>q"
+          2 #(call! :quicker :toggle)
+          :desc "[quicker] Toggle qflist"}
+         {1 "<Leader>l"
+          2 #(call! :quicker :toggle {:loclist true})
+          :desc "[quicker] Toggle loclist"}]
+  :opts {:keys [{1 ">"
+                 2 #(call! :quicker :expand
+                           {:before 2 :after 2 :add_to_existing true})
+                 :desc "[quicker] Expand context"}
+                {1 "<"
+                 2 #(call! :quicker :collapse)
+                 :desc "[quicker] Collapse context"}]}}
+ {1 "ibhagwan/fzf-lua"
   :cmd :FzfLua
   :opts {:fzf_colors true
          :winopts {:backdrop vim.g.zz.backdrop :preview {:hidden true}}}
@@ -33,27 +52,6 @@
             {1 (.. :<Leader> k)
              2 (.. "<CMD>FzfLua " v "<CR>")
              :desc (.. "[fzflua] " v)}))}
- {1 "mikavilpas/yazi.nvim" :cmd :Yazi :opts {}}
- {1 "mbbill/undotree"
-  :keys [{1 :<Leader>u 2 "<CMD>UndotreeToggle<CR>" :desc "[undotree] Toggle"}]}
- {1 "stevearc/aerial.nvim"
-  :opts {}
-  :keys [{1 "<Leader>O" 2 "<Cmd>AerialToggle<Cr>" :desc "[aerial] toggle"}]}
- {1 "stevearc/quicker.nvim"
-  :ft :qf
-  :keys [{1 "<Leader>q"
-          2 #(call! :quicker :toggle)
-          :desc "[quicker] Toggle qflist"}
-         {1 "<Leader>l"
-          2 #(call! :quicker :toggle {:loclist true})
-          :desc "[quicker] Toggle loclist"}]
-  :opts {:keys [{1 ">"
-                 2 #(call! :quicker :expand
-                           {:before 2 :after 2 :add_to_existing true})
-                 :desc "[quicker] Expand context"}
-                {1 "<"
-                 2 #(call! :quicker :collapse)
-                 :desc "[quicker] Collapse context"}]}}
  {1 "bassamsdata/namu.nvim"
   :cmd :Namu
   :opts {:global {:movement {:next ["<M-j>" "<DOWN>"]
@@ -65,20 +63,17 @@
                                           :untoggle "<S-Tab>"
                                           :select_all "<M-a>"
                                           :clear_all "<M-x>"}}
-                  :custom_keymaps {:yank {:keys ["<M-y>"]
-                                          :desc "Yank symbol text"}
-                                   :delete {:keys ["M-d"]
-                                            :desc "Delete symbol text"}}}
+                  :custom_keymaps {:yank {:keys ["<M-y>"]}
+                                   :delete {:keys ["M-d"]}}}
          :namu_symbols {:enable true :options {}}
          :ui_select {:enable false}}
   :keys (let [data [[:nd :diagnostics]
                     [:nD "diagnostics workspace"]
-                    [:ne :watchtower]
                     [:ns :symbols]
-                    [:nt :treesitter]
-                    [:nw :workspace]]]
+                    [:nS :treesitter]
+                    [:nw :watchtower]
+                    [:nW :workspace]]]
           (icollect [_ [k v] (pairs data)]
             {1 (.. :<Leader> k)
              2 (.. "<CMD>Namu " v "<CR>")
-             :desc (.. "[namu] " v)}))}
- {1 "NStefan002/screenkey.nvim" :cmd :Screenkey}]
+             :desc (.. "[namu] " v)}))}]
