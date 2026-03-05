@@ -51,7 +51,10 @@
                                :group "MiniHipatternsHack"}
                         :error {:pattern "%f[%w]()ERRO?R?()%f[%W]"
                                 :group "MiniHipatternsFixme"}}}}
- {1 "nvim-mini/mini.hues" :lazy false :init #(vim.cmd.colorscheme :minisummer)}
+ {1 "nvim-mini/mini.hues"
+  :enabled false
+  :lazy false
+  :init #(vim.cmd.colorscheme :minisummer)}
  {1 "nvim-mini/mini.files"
   :lazy false
   :opts {:windows {:preview true}}
