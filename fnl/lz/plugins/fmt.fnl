@@ -22,6 +22,7 @@
                            :javascript [:deno_fmt]
                            :javascriptreact [:deno_fmt]
                            :json [:jq]
+                           :julia [:runic]
                            :just [:just]
                            :kotlin [:ktfmt]
                            :lisp [:cljfmt]
