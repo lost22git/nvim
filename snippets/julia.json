@@ -1,0 +1,9 @@
+{
+  "apropos": {
+    "prefix": "apropos",
+    "body": [
+      "using InteractiveUtils",
+      "apropos(\"$1\")"
+    ]
+  }
+}
