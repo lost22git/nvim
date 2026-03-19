@@ -1,4 +1,5 @@
-(import-macros {: autocmd! : nmap! : vmap! : nvmap! : call!} :config.macros)
+(import-macros {: autocmd! : bufusercmd! : nmap! : vmap! : nvmap! : call!}
+               :config.macros)
 
 [{1 "Olical/conjure"
   :cmd :ConjureConnect
@@ -10,11 +11,37 @@
           (set vim.g.conjure#mapping#doc_word [:<LocalLeader>k])
           (set vim.g.conjure#mapping#eval_visual [:<LocalLeader>ee])
           (set vim.g.conjure#mapping#eval_previous [:<LocalLeader>E])
-          ;; configure ChezScheme repl
-          (set vim.g.conjure#client#scheme#stdio#command "petite")
-          (set vim.g.conjure#client#scheme#stdio#prompt_pattern "> $?")
+
+          (fn configure-chez-scheme []
+            (set vim.g.conjure#client#scheme#stdio#command "petite")
+            (set vim.g.conjure#client#scheme#stdio#prompt_pattern "> $?"))
+
+          (fn configure-chicken-scheme []
+            (set vim.g.conjure#client#scheme#stdio#command "chicken-csi -:c")
+            (set vim.g.conjure#client#scheme#stdio#prompt_pattern "\n-#;%d-> ")
+            (set vim.g.conjure#client#scheme#stdio#value_prefix_pattern false))
+
+          (fn change-scheme [lang]
+            (vim.cmd :ConjureSchemeStop)
+            (case lang
+              :chez (configure-chez-scheme)
+              :chicken (configure-chicken-scheme))
+            (vim.cmd :ConjureSchemeStart))
+
+          ;; For the first time, configure ChezScheme repl for Scheme
+          (configure-chez-scheme)
+          (autocmd! :FileType
+                    {:desc "create `ConjureSchemeChange` usercmd to change conjure repl for Scheme"
+                     :pattern :scheme
+                     :callback #(bufusercmd! $.buf :ConjureSchemeChange
+                                             (fn [{:fargs [lang]}]
+                                               (change-scheme lang))
+                                             {:nargs 1
+                                              :complete (fn []
+                                                          [:chez :chicken])})})
           (autocmd! :BufWinEnter
-                    {:pattern ["conjure-log-*"]
+                    {:desc "create keymaps for conjure log"
+                     :pattern ["conjure-log-*"]
                      :callback (fn [{:buf bufid}]
                                  (local {: disable_diagnostic
                                          : create_keymaps_for_goto_entry}
