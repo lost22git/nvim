@@ -57,6 +57,7 @@
                              :dartls
                              :emmylua_ls
                              :fennel_ls
+                             :fsautocomplete
                              :gleam
                              :gradle_ls
                              :gopls
