@@ -87,15 +87,31 @@
   },
   "case-in": {
     "prefix": "case-in",
-    "body": ["case ${1:v}", "in ${2:p1}", "\t$3", "in ${4:p2}", "\t$5", "end"]
+    "body": [
+      "case ${1:v}",
+      "in ${2:p1}",
+      "\t$3",
+      "in ${4:p2}",
+      "\t$5",
+      "end"
+    ]
   },
   "class": {
     "prefix": "class",
-    "body": ["class ${1:ClassName}", "\tdef initialize()", "\tend", "end"]
+    "body": [
+      "class ${1:ClassName}",
+      "\tdef initialize()",
+      "\tend",
+      "end"
+    ]
   },
   "exception-class": {
     "prefix": "exception-class",
-    "body": ["class ${1:Custom}Error < Exception", "\t$2", "end"],
+    "body": [
+      "class ${1:Custom}Error < Exception",
+      "\t$2",
+      "end"
+    ],
     "description": "define a custom exception class"
   },
   "extern": {
@@ -130,7 +146,11 @@
   },
   "heredoc": {
     "prefix": "heredoc",
-    "body": ["<<-${1:DOC}", "$2", "$1"]
+    "body": [
+      "<<-${1:DOC}",
+      "$2",
+      "$1"
+    ]
   },
   "inline-always": {
     "prefix": "inline-always",
@@ -193,7 +213,11 @@
   },
   "log-with-context": {
     "prefix": "log-with-context",
-    "body": ["Log.with_context(${1:k}: ${2:v}) do", "\t$3", "end"],
+    "body": [
+      "Log.with_context(${1:k}: ${2:v}) do",
+      "\t$3",
+      "end"
+    ],
     "description": "log with context"
   },
   "loop": {
@@ -237,7 +261,12 @@
   },
   "struct": {
     "prefix": "struct",
-    "body": ["struct ${1:ClassName}", "\tdef initialize()", "\tend", "end"]
+    "body": [
+      "struct ${1:ClassName}",
+      "\tdef initialize()",
+      "\tend",
+      "end"
+    ]
   },
   "uninit": {
     "prefix": "uninit",

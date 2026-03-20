@@ -1,4 +1,18 @@
 {
+  "apropos": {
+    "prefix": "apropos",
+    "body": [
+      "apropos \"${1:symbol-kw}\" #:macros? #t"
+    ],
+    "description": "find symbols by kw"
+  },
+  "apropos-module": {
+    "prefix": "apropos",
+    "body": [
+      "apropos \"${1:module-kw}\" #:macros? #t #:find #:module"
+    ],
+    "description": "find all symbols by module kw"
+  },
   "define-syntax-case": {
     "prefix": "define-syntax-case",
     "body": [
@@ -11,18 +25,239 @@
   },
   "define-function": {
     "prefix": "define-function",
-    "body": ["define (${1:name} ${2:args})", "\t\"${3:doc}", "\t\""]
+    "body": [
+      "define (${1:name} ${2:a} )",
+      "\t\"${3:doc}",
+      "\t\""
+    ]
+  },
+  "lambda": {
+    "prefix": "lambda",
+    "body": [
+      "lambda (${1:a}) ${2:body} "
+    ]
+  },
+  "parameterize": {
+    "prefix": "parameterize",
+    "body": [
+      "parameterize ((${1:k} ${2:v} ))",
+      "\t${3:body} "
+    ]
   },
   "let": {
     "prefix": "let",
-    "body": ["let ((${1:bind-name}  ${2:bind-val}))", "\t${3:body}"]
+    "body": [
+      "let ((${1:name} ${2:value} ))",
+      "\t${3:body} "
+    ]
   },
   "let*": {
     "prefix": "let*",
     "body": [
-      "let* ((${1:bind-name}  ${2:bind-val})",
-      "\t(${3:bind-name}  ${4:bind-val}))",
-      "\t${3:body}"
+      "let* ((${1:name} ${2:value} )",
+      "\t(${3:name} ${4:value} ))",
+      "\t${5:body} "
+    ]
+  },
+  "let-loop": {
+    "prefix": "let-loop",
+    "body": [
+      "let loop ((${1:name} ${2:value} ))",
+      "\t${3:body} "
+    ]
+  },
+  "do": {
+    "prefix": "do",
+    "body": [
+      "do ((${1:a} ${2:init} ${3:next} ))",
+      "\t(${4:test} ${5:result} )",
+      "\t(${6:body} )"
+    ]
+  },
+  "values": {
+    "prefix": "values",
+    "body": [
+      "values ${1:a} ${2:b} "
+    ]
+  },
+  "nth-value": {
+    "prefix": "nth-value",
+    "body": [
+      "nth-value ${1:0} ${2:values} "
+    ]
+  },
+  "define-values": {
+    "prefix": "define-values",
+    "body": [
+      "define-values (${1:a} ${2:b}) ${3:values} "
+    ]
+  },
+  "set!-values": {
+    "prefix": "set!-values",
+    "body": [
+      "set!-values (${1:a} ${2:b}) ${3:values} "
+    ]
+  },
+  "let-values": {
+    "prefix": "let-values",
+    "body": [
+      "let-values (((${1:a} ${2:b}) ${3:values} ))",
+      "\t${4:body} "
+    ]
+  },
+  "let*-values": {
+    "prefix": "let*-values",
+    "body": [
+      "let*-values (((${1:a} ${2:b}) ${3:values} ))",
+      "\t${4:body} "
+    ]
+  },
+  "call-with-values": {
+    "prefix": "call-with-values",
+    "body": [
+      "call-with-values",
+      "\t(lambda () (values $1 $2 ))",
+      "\t(lambda (a b) $3 )"
+    ]
+  },
+  "call-with-input-file": {
+    "prefix": "call-with-input-file",
+    "body": [
+      "call-with-input-file ${1:filepath}",
+      "\t(lambda (port) ${2:body} )",
+      "\t#:append"
+    ]
+  },
+  "call-with-output-file": {
+    "prefix": "call-with-output-file",
+    "body": [
+      "call-with-output-file ${1:filepath}",
+      "\t(lambda (port) ${2:body} )"
+    ]
+  },
+  "with-input-from-file": {
+    "prefix": "with-input-from-file",
+    "body": [
+      "with-input-from-file ${1:filepath}",
+      "\t(lambda () ${2:body} )"
+    ]
+  },
+  "with-output-to-file": {
+    "prefix": "with-output-to-file",
+    "body": [
+      "with-output-to-file ${1:filepath}",
+      "\t(lambda () ${2:body} )",
+      "\t#:append"
+    ]
+  },
+  "open-input-file": {
+    "prefix": "open-input-file",
+    "body": [
+      "open-input-file ${1:filepath} "
+    ]
+  },
+  "open-output-file": {
+    "prefix": "open-output-file",
+    "body": [
+      "open-output-file ${1:filepath} #:append"
+    ]
+  },
+  "close-input-port": {
+    "prefix": "close-input-port",
+    "body": [
+      "close-input-port ${1:port} "
+    ]
+  },
+  "close-output-port": {
+    "prefix": "close-output-port",
+    "body": [
+      "close-output-port ${1:port} "
+    ]
+  },
+  "call-with-current-continuation": {
+    "prefix": "call-with-current-continuation",
+    "body": [
+      "call-with-current-continuation",
+      "\t(lambda (k) $1 )"
+    ]
+  },
+  "call/cc": {
+    "prefix": "call/cc",
+    "body": [
+      "call/cc",
+      "\t(lambda (k) $1 )"
+    ]
+  },
+  "dynamic-wind": {
+    "prefix": "dynamic-wind",
+    "body": [
+      "dynamic-wind",
+      "\t(lambda () #f)",
+      "\t(lambda () ${1:body} )",
+      "\t(lambda () ${2:cleanup} )"
+    ]
+  },
+  "eq?": {
+    "prefix": "eq?",
+    "body": [
+      "eq? ${1:a} ${2:b} "
+    ],
+    "description": "same object?"
+  },
+  "eqv?": {
+    "prefix": "eqv?",
+    "body": [
+      "eqv? ${1:a} ${2:b} "
+    ],
+    "description": "same object? or same value? (just for primitive types)"
+  },
+  "equal?": {
+    "prefix": "equal?",
+    "body": [
+      "equal? ${1:a} ${2:b} "
+    ],
+    "description": "same structure?"
+  },
+  "string=?": {
+    "prefix": "string=?",
+    "body": [
+      "string=? ${1:a} ${2:b} "
+    ]
+  },
+  "string-ci=?": {
+    "prefix": "string-ci=?",
+    "body": [
+      "string-ci=? ${1:a} ${2:b} "
+    ]
+  },
+  "string-ci<>?": {
+    "prefix": "string-ci<>?",
+    "body": [
+      "string-ci<>? ${1:a} ${2:b} "
+    ]
+  },
+  "string-ci<?": {
+    "prefix": "string-ci<?",
+    "body": [
+      "string-ci<? ${1:a} ${2:b} "
+    ]
+  },
+  "string-ci<=?": {
+    "prefix": "string-ci<=?",
+    "body": [
+      "string-ci<=? ${1:a} ${2:b} "
+    ]
+  },
+  "string-ci>?": {
+    "prefix": "string-ci>?",
+    "body": [
+      "string-ci>? ${1:a} ${2:b} "
+    ]
+  },
+  "string-ci>=?": {
+    "prefix": "string-ci>=?",
+    "body": [
+      "string-ci>=? ${1:a} ${2:b} "
     ]
   }
 }

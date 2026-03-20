@@ -1,7 +1,9 @@
 {
   "deriving": {
     "prefix": "deriving",
-    "body": ["[@@deriving $1]"]
+    "body": [
+      "[@@deriving $1]"
+    ]
   },
   "Logs-setup": {
     "prefix": "Logs-setup",
@@ -13,6 +15,8 @@
   },
   "Logs": {
     "prefix": "Logs",
-    "body": ["Logs.${1:info} (fun m -> m \"$2\")"]
+    "body": [
+      "Logs.${1:info} (fun m -> m \"$2\")"
+    ]
   }
 }

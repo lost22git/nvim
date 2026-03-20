@@ -21,7 +21,11 @@
   },
   "cond": {
     "prefix": "cond",
-    "body": ["cond", "\t(${1:COND-1} ${2:BODY})", "\t('true ${3:DEFAULT})"]
+    "body": [
+      "cond",
+      "\t(${1:COND-1} ${2:BODY})",
+      "\t('true ${3:DEFAULT})"
+    ]
   },
   "defmodule": {
     "prefix": "defmodule",
@@ -129,7 +133,11 @@
   },
   "maybe": {
     "prefix": "maybe",
-    "body": ["maybe", "\t(?= ${1:PATTERN} ${2:EXPR})", "\t${3:BODY}"]
+    "body": [
+      "maybe",
+      "\t(?= ${1:PATTERN} ${2:EXPR})",
+      "\t${3:BODY}"
+    ]
   },
   "process_flag": {
     "prefix": "process_flag",

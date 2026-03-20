@@ -1,68 +1,287 @@
 {
-  "format": {
-    "prefix": "format",
-    "body": ["format t \"~A~&\" $1"]
-  },
   "apropos": {
     "prefix": "apropos",
-    "body": ["apropos \"$1\" :${2:cl}"]
+    "body": [
+      "apropos \"$1\" :${2:cl}"
+    ]
   },
   "describe": {
     "prefix": "describe",
-    "body": ["describe '$1"]
+    "body": [
+      "describe '$1"
+    ]
+  },
+  "format": {
+    "prefix": "format",
+    "body": [
+      "format ${1|t,nil,stream|} \"~A~&\" $2 "
+    ]
+  },
+  "print": {
+    "prefix": "print",
+    "body": [
+      "print $1 ${2|t,nil,stream|} "
+    ],
+    "description": "println and return value"
+  },
+  "princ": {
+    "prefix": "princ",
+    "body": [
+      "princ $1 ${2|t,nil,stream|} "
+    ],
+    "description": "same as `print` but no newline"
+  },
+  "pprint": {
+    "prefix": "pprint",
+    "body": [
+      "pprint $1 ${2:stream} "
+    ],
+    "description": "pretty-print a value, no return"
+  },
+  "defparameter": {
+    "prefix": "defparameter",
+    "body": [
+      "defparameter *$1* $2 "
+    ]
+  },
+  "defvar": {
+    "prefix": "defvar",
+    "body": [
+      "defvar *$1* $2 "
+    ],
+    "description": "same as `defparameter` but can't be redefined"
+  },
+  "defconstant": {
+    "prefix": "defconstant",
+    "body": [
+      "defconstant +$1+ $2 "
+    ]
+  },
+  "setf": {
+    "prefix": "setf",
+    "body": [
+      "setf ${1:field} ${2:value} "
+    ],
+    "description": "set value to a field"
+  },
+  "lambda": {
+    "prefix": "lambda",
+    "body": [
+      "lambda (${1:a}) ${2:body} "
+    ]
   },
   "defun": {
     "prefix": "defun",
-    "body": ["defun ${1:name} (${2:arg})", "\t\"${3:doc}\"", "\t${4:body}"]
+    "body": [
+      "defun ${1:name} (${2|a,&optional,&key,&rest,&allow-other-keys|} )",
+      "\t\"${3:doc}\"",
+      "\t${4:body} "
+    ]
   },
-  "destructuring-bind": {
-    "prefix": "destructuring-bind",
-    "body": ["destructuring-bind (${1:el}) ${2:list}", "\t${3:body}"]
+  "defun-setf": {
+    "prefix": "defun-setf",
+    "body": [
+      "defun (setf ${1:fun-name}) (new-value ${1:first-arg-of-fun} )"
+    ]
   },
-  "multiple-value-bind": {
-    "prefix": "multiple-value-bind",
-    "body": ["multiple-value-bind (${1:a} ${2:b}) ${3:values}", "\t${4:body}"]
+  "defgeneric": {
+    "prefix": "defgeneric",
+    "body": [
+      "defgeneric ${1:name} (${2|a,&optional,&key,&rest,&allow-other-keys|} )",
+      "\t(:documentation \"$3\")",
+      "\t(:method (${4:a})) ${5:body} "
+    ]
   },
-  "with-slots": {
-    "prefix": "with-slots",
-    "body": ["with-slots (${1:slot}) ${2:object}", "\t${3:body}"]
+  "defmethod": {
+    "prefix": "defmethod",
+    "body": [
+      "defmethod ${1:name} ${2|:before,:after,:around|} defgeneric ${1:name} (${3|a,&optional,&key,&rest,&allow-other-keys|} )",
+      "\t${4:body} "
+    ]
+  },
+  "makunbound": {
+    "prefix": "makunbound",
+    "body": [
+      "makunbound ${1:var-symbol} "
+    ],
+    "description": "unbound a var"
+  },
+  "fmakbound": {
+    "prefix": "fmakbound",
+    "body": [
+      "fmakbound ${1:fun-symbol}"
+    ],
+    "description": "unbound a function"
+  },
+  "boundp": {
+    "prefix": "boundp",
+    "body": [
+      "boundp ${1:var-symbol} "
+    ],
+    "description": "check a var bound?"
+  },
+  "fboundp": {
+    "prefix": "fboundp",
+    "body": [
+      "fboundp ${1:fun-symbol} "
+    ],
+    "description": "check a fun bound?"
+  },
+  "array-in-bounds-p": {
+    "prefix": "array-in-bounds-p",
+    "body": [
+      "array-in-bounds-p ${1:array} ${2:0} "
+    ],
+    "description": "check index bound? in array"
   },
   "let-var": {
     "prefix": "let-var",
-    "body": ["let (${1:a})", "\t${2:body}"]
+    "body": [
+      "let (${1:a} )",
+      "\t${2:body} "
+    ]
   },
-  "let-val": {
-    "prefix": "let-val",
-    "body": ["let ((${1:k} ${2:v}))", "\t${3:body}"]
+  "let": {
+    "prefix": "let",
+    "body": [
+      "let ((${1:k} ${2:v} ))",
+      "\t${3:body} "
+    ]
   },
-  "let*-val": {
-    "prefix": "let*-val",
-    "body": ["let* ((${1:k} ${2:v})", "\t(${3:k2} ${4:v2}))", "\t${5:body}"]
+  "let*": {
+    "prefix": "let*",
+    "body": [
+      "let* ((${1:k} ${2:v} )",
+      "\t(${3:k2} ${4:v2} ))",
+      "\t${5:body} "
+    ]
+  },
+  "values": {
+    "prefix": "values",
+    "body": [
+      "values $1 $2 "
+    ]
+  },
+  "nth-value": {
+    "prefix": "nth-value",
+    "body": [
+      "nth-value ${1:0} ${2:values} "
+    ]
+  },
+  "values-list": {
+    "prefix": "values-list",
+    "body": [
+      "values-list ${1:list} "
+    ],
+    "description": "list -> values, opposite to `multiple-value-list`"
+  },
+  "multiple-value-list": {
+    "prefix": "multiple-value-list",
+    "body": [
+      "multiple-value-list ${1:values} "
+    ],
+    "description": "values -> list, opposite to `values-list`"
+  },
+  "multiple-value-setq": {
+    "prefix": "multiple-value-setq",
+    "body": [
+      "multiple-value-setq (${1:var-a} ${2:var-b}) ${3:values} "
+    ]
+  },
+  "multiple-value-call": {
+    "prefix": "multiple-value-call",
+    "body": [
+      "multiple-value-call ${1:fun} ${2:values} "
+    ],
+    "description": "apply function with values"
+  },
+  "multiple-value-bind": {
+    "prefix": "multiple-value-bind",
+    "body": [
+      "multiple-value-bind (${1:a} ${2:b}) ${3:values}",
+      "\t${4:body} "
+    ],
+    "description": "destructuring a multi-values"
+  },
+  "destructuring-bind": {
+    "prefix": "destructuring-bind",
+    "body": [
+      "destructuring-bind (${1:a}) ${2:list}",
+      "\t${3:body}"
+    ],
+    "description": "destructuring a list"
+  },
+  "with-slots": {
+    "prefix": "with-slots",
+    "body": [
+      "with-slots (${1:a} ${2:b}) ${3:object}",
+      "\t${4:body} "
+    ],
+    "description": "destructuring an object"
+  },
+  "do": {
+    "prefix": "do",
+    "body": [
+      "do ((${1:a} ${2:init} ${3:next} ))",
+      "\t(${4:test} ${5:result} )",
+      "\t(${6:body} )"
+    ]
+  },
+  "do*": {
+    "prefix": "do*",
+    "body": [
+      "do* ((${1:a} ${2:init} ${3:next} ))",
+      "\t(${4:test} ${5:result} )",
+      "\t(${6:body} )"
+    ]
+  },
+  "dotimes": {
+    "prefix": "dotimes",
+    "body": [
+      "dotimes ${1:i} ${2:count} ${3:optional-result}",
+      "\t${4:body} "
+    ]
+  },
+  "dolist": {
+    "prefix": "dolist",
+    "body": [
+      "dolist (${1:a} ${2:list} ${3:optional-result} )",
+      "\t${4:body} "
+    ]
   },
   "loop-list": {
     "prefix": "loop-list",
-    "body": ["loop for ${1:i} in ${2:list}", "\tdo (${3:body})"]
+    "body": [
+      "loop for ${1:i} in ${2:list}",
+      "\tdo (${3:body} )"
+    ]
   },
   "loop-vector": {
     "prefix": "loop-vector",
-    "body": ["loop for ${1:i} across ${2:vector}", "\tdo (${3:body})"]
+    "body": [
+      "loop for ${1:i} across ${2:vector}",
+      "\tdo (${3:body} )"
+    ]
   },
   "loop-string": {
     "prefix": "loop-string",
-    "body": ["loop for ${1:c} across ${2:string}", "\tdo (${3:body})"]
+    "body": [
+      "loop for ${1:c} across ${2:string}",
+      "\tdo (${3:body} )"
+    ]
   },
   "loop-hash-key": {
     "prefix": "loop-hash-key",
     "body": [
       "loop for ${1:k} being the hash-key of ${2:hash-table}",
-      "\tdo (${3:body})"
+      "\tdo (${3:body} )"
     ]
   },
   "loop-hash-value": {
     "prefix": "loop-hash-value",
     "body": [
       "loop for ${1:v} being the hash-value of ${2:hash-table}",
-      "\tdo (${3:body})"
+      "\tdo (${3:body} )"
     ]
   },
   "loop-hash-table": {
@@ -70,39 +289,94 @@
     "body": [
       "loop for ${1:k} being the hash-key of ${2:hash-table}",
       "\t using (hash-value v)",
-      "\tdo (${3:body})"
+      "\tdo (${3:body} )"
     ]
   },
   "loop-repeat": {
     "prefix": "loop-repeat",
-    "body": ["loop repeat ${1:times}", "\tdo (${2:body})"]
+    "body": [
+      "loop repeat ${1:times}",
+      "\tdo (${2:body} )"
+    ]
   },
   "loop-from-to": {
     "prefix": "loop-from-to",
     "body": [
       "loop for i from ${1:from} to ${2:to} by ${3:step}",
-      "\tdo ${4:body}"
+      "\tdo (${4:body} )"
     ]
   },
   "loop-from-below": {
     "prefix": "loop-from-below",
     "body": [
       "loop for i from ${1:from} below ${2:below} by ${3:step}",
-      "\tdo ${4:body}"
+      "\tdo (${4:body} )"
     ]
   },
   "loop-from-downto": {
     "prefix": "loop-from-downto",
     "body": [
       "loop for i from ${1:from} downto ${2:downto} by ${3:step}",
-      "\tdo ${4:body}"
+      "\tdo (${4:body} )"
     ]
   },
   "loop-from-above": {
     "prefix": "loop-from-above",
     "body": [
       "loop for i from ${1:from} above ${2:above} by ${3:step}",
-      "\tdo ${4:body}"
+      "\tdo (${4:body} )"
+    ]
+  },
+  "map": {
+    "prefix": "map",
+    "body": [
+      "map ${1|'string,'list,'vector|} ${2:fun} ${3:seq} "
+    ]
+  },
+  "mapc": {
+    "prefix": "mapc",
+    "body": [
+      "mapc ${1:fun} ${2:list} "
+    ],
+    "description": "apply list with fun (side-effect) and return original list"
+  },
+  "mapcan": {
+    "prefix": "mapcan",
+    "body": [
+      "mapcan ${1:fun} ${2:list} "
+    ],
+    "description": "same as `mapcat` of Clojure, `flatmap` of other languages"
+  },
+  "mapcar": {
+    "prefix": "mapcar",
+    "body": [
+      "mapcar ${1:fun} ${2:list} "
+    ],
+    "description": "smae as `map` of others languages"
+  },
+  "mapcdr": {
+    "prefix": "mapcdr",
+    "body": [
+      "maplist ${1:fun} ${2:list} "
+    ]
+  },
+  "map-into": {
+    "prefix": "map-into",
+    "body": [
+      "map-into ${1:into-seq} ${2:fun} ${3:seq}"
+    ],
+    "description": "apply seq with fun into the same/another seq"
+  },
+  "maphash": {
+    "prefix": "maphash",
+    "body": [
+      "maphash (lambda (k v) ${1:body} ) ${2:hash} "
+    ]
+  },
+  "gethash": {
+    "prefix": "gethash",
+    "body": [
+      "gethash ${1:key} ${2:ht} ${3:optional-default-value} "
     ]
   },
   "with-hash-table-iterator": {
@@ -114,21 +388,266 @@
       "\t\t${2:body} ))"
     ]
   },
-  "ql-load": {
-    "prefix": "ql-load",
-    "body": ["ql:quickload '(${1:packages})"]
+  "with-input-from-string": {
+    "prefix": "with-input-from-string",
+    "body": [
+      "with-input-from-string (s ${1:string} )",
+      "\t${2:body} "
+    ]
   },
-  "add-package-local-nickname": {
-    "prefix": "add-package-local-nickname",
-    "body": ["sb-ext:add-package-local-nickname ${1:nickname} ${2:package}"]
+  "with-output-to-string": {
+    "prefix": "with-output-to-string",
+    "body": [
+      "with-output-to-string (s)",
+      "\t${1:body} "
+    ]
   },
-  "save-lisp-and-die": {
-    "prefix": "save-lisp-and-die",
+  "with-input-from-file": {
+    "prefix": "with-input-from-file",
+    "body": [
+      "with-open-file (in #p\"${1:foo.dat}\" :direction :input :if-does-not-exist nil)",
+      "\t(when in",
+      "\t\t${2:body} )"
+    ]
+  },
+  "with-output-to-file": {
+    "prefix": "with-output-to-file",
+    "body": [
+      "with-open-file (out #p\"${1:foo.dat}\" :direction :output :if-does-not-exist :create :if-exists ${2|:append,:supersede|})",
+      "\t${3:body} "
+    ]
+  },
+  "with-open-stream": {
+    "prefix": "with-open-stream",
+    "body": [
+      "with-open-stream (s ${1:stream} )",
+      "\t${2:body} "
+    ]
+  },
+  "make-string-input-stream": {
+    "prefix": "make-string-input-stream",
+    "body": [
+      "make-string-input-stream ${1:string} "
+    ]
+  },
+  "make-string-output-stream": {
+    "prefix": "make-string-output-stream",
+    "body": [
+      "make-string-output-stream"
+    ]
+  },
+  "get-output-stream-string": {
+    "prefix": "get-output-stream-string",
+    "body": [
+      "get-output-stream-string ${1:stream} "
+    ]
+  },
+  "make-broadcast-stream": {
+    "prefix": "make-broadcast-stream",
+    "body": [
+      "make-broadcast-stream ${1:out-1} ${2:out-2} "
+    ]
+  },
+  "broadcast-stream-streams": {
+    "prefix": "broadcast-stream-streams",
+    "body": [
+      "broadcast-stream-streams ${1:broadcast-stream} "
+    ],
+    "description": "broadcast-stream -> out-1,out-2..."
+  },
+  "make-concatenated-stream": {
+    "prefix": "make-concatenated-stream",
+    "body": [
+      "make-concatenated-stream ${1:in-1} ${2:in-2} "
+    ]
+  },
+  "concatenated-stream-streams": {
+    "prefix": "concatenated-stream-streams",
+    "body": [
+      "concatenated-stream-streams ${1:concatencated-stream} "
+    ],
+    "description": "concatencated-stream -> in-1,in-2..."
+  },
+  "make-two-way-stream": {
+    "prefix": "make-two-way-stream",
+    "body": [
+      "make-two-way-stream ${1:in} ${2:out} "
+    ]
+  },
+  "two-way-stream-input-stream": {
+    "prefix": "two-way-stream-input-stream",
+    "body": [
+      "two-way-stream-input-stream ${1:two-way-stream} "
+    ]
+  },
+  "two-way-stream-output-stream": {
+    "prefix": "two-way-stream-output-stream",
+    "body": [
+      "two-way-stream-output-stream ${1:two-way-stream} "
+    ]
+  },
+  "make-echo-stream": {
+    "prefix": "make-echo-stream",
+    "body": [
+      "make-echo-stream ${1:in} ${2:out} "
+    ],
+    "description": "in -> memory and echo out"
+  },
+  "echo-stream-input-stream": {
+    "prefix": "echo-stream-input-stream",
+    "body": [
+      "echo-stream-input-stream ${1:echo-stream} "
+    ]
+  },
+  "echo-stream-output-stream": {
+    "prefix": "echo-stream-output-stream",
+    "body": [
+      "echo-stream-output-stream ${1:echo-stream} "
+    ]
+  },
+  "open-file": {
+    "prefix": "open-file",
+    "body": [
+      "open ${1:filepath}",
+      "\t:direction ${2|:input,:output|}",
+      "\t:if-does-not-exist ${3|nil,:create,:error|}",
+      "\t:if-exists ${4|:append,:supersede,:new-version,:rename,:rename-and-delete,:overwrite,:error|}"
+    ]
+  },
+  "close-stream": {
+    "prefix": "close-stream",
+    "body": [
+      "(close ${1:stream} )"
+    ]
+  },
+  "unwind-protect": {
+    "prefix": "unwind-protect",
+    "body": [
+      "unwind-protect",
+      "\t${1:body}",
+      "\t${2:cleanup} "
+    ]
+  },
+  "coerce": {
+    "prefix": "coerce",
+    "body": [
+      "coerce ${1:a} ${2:type} "
+    ],
+    "description": "coerce a value as another type"
+  },
+  "type-of": {
+    "prefix": "type-of",
+    "body": [
+      "type-of $1 "
+    ]
+  },
+  "class-of": {
+    "prefix": "class-of",
+    "body": [
+      "class-of $1 "
+    ]
+  },
+  "eq": {
+    "prefix": "eq",
+    "body": [
+      "eq ${1:a} ${2:b} "
+    ],
+    "description": "same object?"
+  },
+  "eql": {
+    "prefix": "eql",
+    "body": [
+      "eql ${1:a} ${2:b} "
+    ],
+    "description": "same object? or asme numbers? or same character?"
+  },
+  "equal": {
+    "prefix": "equal",
+    "body": [
+      "equal ${1:a} ${2:b} "
+    ],
+    "description": "same string? or same structure?"
+  },
+  "equalp": {
+    "prefix": "equalp",
+    "body": [
+      "equalp ${1:a} ${2:b} "
+    ],
+    "description": "same string? (case-insensitive) or same number? (ignore type) or same structure?"
+  },
+  "string-equal": {
+    "prefix": "string-equal",
+    "body": [
+      "string-equal ${1:a} ${2:b} "
+    ],
+    "description": "same string? (case-insensitive)"
+  },
+  "char-equal": {
+    "prefix": "char-equal",
+    "body": [
+      "char-equal ${1:a} ${2:b} "
+    ],
+    "description": "same character? (case-insensitive)"
+  },
+  "load-ql": {
+    "prefix": "load-ql",
+    "body": [
+      "load \"~/quicklisp/setup.lisp\""
+    ],
+    "description": "load quickload for `sbcl --script`"
+  },
+  "ql": {
+    "prefix": "ql",
+    "body": [
+      "ql:quickload '(${1:packages})"
+    ]
+  },
+  "defpackage": {
+    "prefix": "defpackage",
+    "body": [
+      "defpackage #:${1:name}",
+      "\t(:nicknames #:$2)",
+      "\t(:use #:cl)",
+      "\t(:local-nicknames (#:$3 #:$4))",
+      "\t(:export #:$5)"
+    ]
+  },
+  "in-package": {
+    "prefix": "in-package",
+    "body": [
+      "in-package #:$1"
+    ]
+  },
+  "nickname": {
+    "prefix": "nickname",
+    "body": [
+      "sb-ext:add-package-local-nickname ${1:nickname} ${2:package}"
+    ]
+  },
+  "asdf-central-registry": {
+    "prefix": "asdf-central-registry",
+    "body": [
+      "push (truename \".\") asdf:*central-registry*"
+    ]
+  },
+  "dump": {
+    "prefix": "dump",
     "body": [
       "sb-ext:save-lisp-and-die ${1:name}",
       "\t:toplevel #'main",
       "\t:executable t",
       "\t:compression ${2:9/-7~22}"
+    ]
+  },
+  "cl-project-make": {
+    "prefix": "cl-project-make",
+    "body": [
+      "(cl-project:make-project #p\"${1:demo}\"",
+      "\t:name \"${2:demo}\"",
+      "\t:description \"$2\"",
+      "\t:author \"lost\"",
+      "\t:license \"MIT\"",
+      "\t:depends-on '())"
     ]
   },
   "clingo-make-command": {

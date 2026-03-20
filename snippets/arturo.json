@@ -17,11 +17,22 @@
   },
   "fn": {
     "prefix": "fn",
-    "body": ["${1:fn-name}: \\$[${2:x}] [", "\t$3", "]"]
+    "body": [
+      "${1:fn-name}: \\$[${2:x}] [",
+      "\t$3",
+      "]"
+    ]
   },
   "if-else": {
     "prefix": "if",
-    "body": ["if? ${1:1=1} [", "\t$2", "]", "else [", "\t$3", "]"]
+    "body": [
+      "if? ${1:1=1} [",
+      "\t$2",
+      "]",
+      "else [",
+      "\t$3",
+      "]"
+    ]
   },
   "if-elseif-else": {
     "prefix": "if-elseif-else",
@@ -39,27 +50,51 @@
   },
   "loop": {
     "prefix": "loop",
-    "body": ["loop ${1:xs} 'x [", "\t$2", "]"]
+    "body": [
+      "loop ${1:xs} 'x [",
+      "\t$2",
+      "]"
+    ]
   },
   "loop-forever": {
     "prefix": "loop-forever",
-    "body": ["loop.forever [", "\t$1", "]"]
+    "body": [
+      "loop.forever [",
+      "\t$1",
+      "]"
+    ]
   },
   "loop-kvs": {
     "prefix": "loop-kvs",
-    "body": ["loop ${1:kvs} [k v] [", "\t$2", "]"]
+    "body": [
+      "loop ${1:kvs} [k v] [",
+      "\t$2",
+      "]"
+    ]
   },
   "loop-range": {
     "prefix": "loop-range",
-    "body": ["loop ${1:from}..${2:to} 'x [", "\t$3", "]"]
+    "body": [
+      "loop ${1:from}..${2:to} 'x [",
+      "\t$3",
+      "]"
+    ]
   },
   "loop-range-step": {
     "prefix": "loop-range-step",
-    "body": ["loop ${1:from}..${2:to} .step: ${3:1} 'x [", "\t$4", "]"]
+    "body": [
+      "loop ${1:from}..${2:to} .step: ${3:1} 'x [",
+      "\t$4",
+      "]"
+    ]
   },
   "loop-with-index": {
     "prefix": "loop-with-index",
-    "body": ["loop.with: 'i ${1:xs} 'x [", "\t$2", "]"]
+    "body": [
+      "loop.with: 'i ${1:xs} 'x [",
+      "\t$2",
+      "]"
+    ]
   },
   "p": {
     "prefix": "p",

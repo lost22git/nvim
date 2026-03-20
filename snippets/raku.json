@@ -101,7 +101,11 @@
   },
   "=begin": {
     "prefix": "=begin",
-    "body": ["=begin ${1:title}", "${2:content}", "=end $1"],
+    "body": [
+      "=begin ${1:title}",
+      "${2:content}",
+      "=end $1"
+    ],
     "description": "comment block"
   },
   "attributes": {
@@ -166,7 +170,11 @@
   },
   "heredoc": {
     "prefix": "heredoc",
-    "body": ["q:to/${1:DOC}/", "$2", "$1"]
+    "body": [
+      "q:to/${1:DOC}/",
+      "$2",
+      "$1"
+    ]
   },
   "loop": {
     "prefix": "loop",
@@ -242,7 +250,13 @@
   },
   "with-try": {
     "prefix": "with-try",
-    "body": ["with try ${1:expr} {", "\t$2", "else {", "\t$3", "}"],
+    "body": [
+      "with try ${1:expr} {",
+      "\t$2",
+      "else {",
+      "\t$3",
+      "}"
+    ],
     "description": "with try"
   }
 }

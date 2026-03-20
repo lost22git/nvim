@@ -5,6 +5,9 @@
   },
   "is-main-module": {
     "prefix": "is-main-module",
-    "body": ["when isMainModule:", "\tmain()"]
+    "body": [
+      "when isMainModule:",
+      "\tmain()"
+    ]
   }
 }
