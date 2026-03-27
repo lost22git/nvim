@@ -73,30 +73,108 @@
   "defun": {
     "prefix": "defun",
     "body": [
-      "defun ${1:name} (${2|a,&optional,&key,&rest,&allow-other-keys|} )",
-      "\t\"${3:doc}\"",
-      "\t${4:body} "
+      "defun ${1:name} (${2:a} &${3|optional,key,rest,allow-other-keys|} )",
+      "\t\"${4:doc}\"",
+      "\t${5:body} "
     ]
   },
   "defun-setf": {
     "prefix": "defun-setf",
     "body": [
-      "defun (setf ${1:fun-name}) (new-value ${1:first-arg-of-fun} )"
+      "defun (setf ${1:fun-name}) (new-value ${2:first-arg-of-fun} )"
     ]
   },
   "defgeneric": {
     "prefix": "defgeneric",
     "body": [
-      "defgeneric ${1:name} (${2|a,&optional,&key,&rest,&allow-other-keys|} )",
-      "\t(:documentation \"$3\")",
-      "\t(:method (${4:a})) ${5:body} "
+      "defgeneric ${1:name} (${2:obj} &${3|optional,key,rest,allow-other-keys|} )",
+      "\t(:documentation \"$4\")"
     ]
   },
   "defmethod": {
     "prefix": "defmethod",
     "body": [
-      "defmethod ${1:name} ${2|:before,:after,:around|} defgeneric ${1:name} (${3|a,&optional,&key,&rest,&allow-other-keys|} )",
-      "\t${4:body} "
+      "defmethod ${1:name} ${2|:before,:after,:around|} (${3:obj} &${4|optional,key,rest,allow-other-keys|} )",
+      "\t${5:body} "
+    ]
+  },
+  "defgeneric-methods": {
+    "prefix": "defgeneric-methods",
+    "body": [
+      "defgeneric ${1:name} (${2:obj} &${3|optional,key,rest,allow-other-keys|} )",
+      "\t(:documentation \"$4\")",
+      "\t(:method ($2) ${5:body} )"
+    ]
+  },
+  "defgeneric-method-list": {
+    "prefix": "defgeneric-method-list",
+    "body": [
+      "defgeneric ${1:name} (${2:obj} &${3|optional,key,rest,allow-other-keys|} )",
+      "\t(:documentation \"$4\")",
+      "\t(:method-combination list)",
+      "\t(:method list ($2 $3) ${5:body} )"
+    ]
+  },
+  "defgeneric-method-progn": {
+    "prefix": "defgeneric-method-progn",
+    "body": [
+      "defgeneric ${1:name} (${2:obj} &${3|optional,key,rest,allow-other-keys|} )",
+      "\t(:documentation \"$4\")",
+      "\t(:method-combination progn)",
+      "\t(:method progn ($2 $3) ${5:body} )"
+    ]
+  },
+  "after-initialize-instance": {
+    "prefix": "after-initialize-instance",
+    "body": [
+      "defmethod initialize-instance :after ((obj ${1:class}) &key)",
+      "\t${2:body} "
+    ]
+  },
+  "trace-method": {
+    "prefix": "trace-method",
+    "body": [
+      "trace ${1:method-name} :methods t"
+    ]
+  },
+  "defclass": {
+    "prefix": "defclass",
+    "body": [
+      "defclass ${1:name} (${2:optional-super-class-name-list})",
+      "\t((${3:id}",
+      "\t\t:accessor $3",
+      "\t\t:initarg :$3",
+      "\t\t:initform (error \"slot $3 must be initialized.\"))",
+      ")"
+    ]
+  },
+  "slot": {
+    "prefix": "slot",
+    "body": [
+      "${1:a}",
+      "\t:accessor $1",
+      "\t:initarg :$1",
+      "\t:initform (error \"slot $1 must be initialized.\")"
+    ]
+  },
+  "make-instance": {
+    "prefix": "make-instance",
+    "body": [
+      "make-instance '${1:class} "
+    ]
+  },
+  "defstruct": {
+    "prefix": "defstruct",
+    "body": [
+      "defstruct ${1:name}",
+      "\t(${2:id} ${3:default-value} ${4|:type,:read-only|})"
+    ]
+  },
+  "defstrcut-include": {
+    "prefix": "defstrcut-include",
+    "body": [
+      "defstruct (${1:name} (:include ${2:super-struct}))",
+      "\t(${3:id} ${4:default-value} ${5|:type,:read-only|})"
     ]
   },
   "makunbound": {
@@ -106,10 +184,10 @@
     ],
     "description": "unbound a var"
   },
-  "fmakbound": {
-    "prefix": "fmakbound",
+  "fmakunbound": {
+    "prefix": "fmakunbound",
     "body": [
-      "fmakbound ${1:fun-symbol}"
+      "fmakunbound ${1:fun-symbol}"
     ],
     "description": "unbound a function"
   },
@@ -214,10 +292,23 @@
   "with-slots": {
     "prefix": "with-slots",
     "body": [
-      "with-slots (${1:a} ${2:b}) ${3:object}",
+      "with-slots (${1:slot-a} ${2:slot-b}) ${3:obj}",
       "\t${4:body} "
     ],
     "description": "destructuring an object"
+  },
+  "slot-value": {
+    "prefix": "slot-value",
+    "body": [
+      "slot-value ${1:obj} '${2:slot-name}"
+    ]
+  },
+  "with-accessors": {
+    "prefix": "with-accessors",
+    "body": [
+      "with-accessors ((${1;accessor-a} $1) (${2:accessor-b} $2)) ${3:obj}",
+      "\t${4:body} "
+    ]
   },
   "do": {
     "prefix": "do",
