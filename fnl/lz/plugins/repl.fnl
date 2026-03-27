@@ -14,7 +14,8 @@
 
           (fn configure-chez-scheme []
             (set vim.g.conjure#client#scheme#stdio#command "petite")
-            (set vim.g.conjure#client#scheme#stdio#prompt_pattern "> $?"))
+            (set vim.g.conjure#client#scheme#stdio#prompt_pattern "> $?")
+            (set vim.g.conjure#client#scheme#stdio#value_prefix_pattern false))
 
           (fn configure-chicken-scheme []
             (set vim.g.conjure#client#scheme#stdio#command "chicken-csi -:c")
@@ -28,8 +29,8 @@
               :chicken (configure-chicken-scheme))
             (vim.cmd :ConjureSchemeStart))
 
-          ;; For the first time, configure ChezScheme repl for Scheme
-          (configure-chez-scheme)
+          ;; For the first time, configure Chicken REPL for Scheme
+          (configure-chicken-scheme)
           (autocmd! :FileType
                     {:desc "create `ConjureSchemeChange` usercmd to change conjure repl for Scheme"
                      :pattern :scheme

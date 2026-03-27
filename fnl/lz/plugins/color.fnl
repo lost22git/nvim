@@ -9,5 +9,5 @@
  {1 "aymenhafeez/doric-themes.nvim"
   :lazy false
   :priority 1000
-  :init #(vim.cmd.colorscheme :doric)
+  :init #(vim.cmd.colorscheme :doric-dark)
   :opts {:styles {:italic false :bold true}}}]

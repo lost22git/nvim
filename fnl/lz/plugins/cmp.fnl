@@ -5,7 +5,7 @@
                 {1 "mikavilpas/blink-ripgrep.nvim"}]
  :opts {:appearance {:nerd_font_variant :mono}
         :signature {:enabled true}
-        :sources {:default [:lsp :path :snippets :buffer :ripgrep]
+        :sources {:default [:snippets :lsp :path :buffer :ripgrep]
                   :providers {:ripgrep {:module :blink-ripgrep
                                         :name :Ripgrep
                                         :score_offset -1

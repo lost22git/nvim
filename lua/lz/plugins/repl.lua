@@ -9,6 +9,7 @@ local function _1_()
   local function configure_chez_scheme()
     vim.g["conjure#client#scheme#stdio#command"] = "petite"
     vim.g["conjure#client#scheme#stdio#prompt_pattern"] = "> $?"
+    vim.g["conjure#client#scheme#stdio#value_prefix_pattern"] = false
     return nil
   end
   local function configure_chicken_scheme()
@@ -27,7 +28,7 @@ local function _1_()
     end
     return vim.cmd("ConjureSchemeStart")
   end
-  configure_chez_scheme()
+  configure_chicken_scheme()
   local function _3_(_241)
     local function _6_(_4_)
       local _arg_5_ = _4_.fargs

@@ -115,9 +115,9 @@
 
 ;; === LISP ===
 
-(autocmd! :FileType {:desc "[Lisp] add `Lisp` usercommand for starting swank server"
+(autocmd! :FileType {:desc "[SBCL] add `SBCL` usercommand for starting swank server"
                      :pattern :lisp
-                     :callback #(bufusercmd! $.buf :Lisp
+                     :callback #(bufusercmd! $.buf :SBCL
                                              #(->> "sbcl --eval \"(ql:quickload :swank)\" --eval \"(swank:create-server :dont-close t)\""
                                                    (.. "tabnew | term ")
                                                    (vim.cmd))

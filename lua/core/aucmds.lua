@@ -105,9 +105,9 @@ local function _25_(_241)
   local function _26_()
     return vim.cmd(("tabnew | term " .. "sbcl --eval \"(ql:quickload :swank)\" --eval \"(swank:create-server :dont-close t)\""))
   end
-  return vim.api.nvim_buf_create_user_command(_241.buf, "Lisp", _26_, {nargs = "*"})
+  return vim.api.nvim_buf_create_user_command(_241.buf, "SBCL", _26_, {nargs = "*"})
 end
-vim.api.nvim_create_autocmd("FileType", {desc = "[Lisp] add `Lisp` usercommand for starting swank server", pattern = "lisp", callback = _25_})
+vim.api.nvim_create_autocmd("FileType", {desc = "[SBCL] add `SBCL` usercommand for starting swank server", pattern = "lisp", callback = _25_})
 local function _27_(_241)
   local function _28_()
     return vim.cmd(("tabnew | term " .. "basilisp nrepl-server"))

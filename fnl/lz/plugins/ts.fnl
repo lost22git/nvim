@@ -59,7 +59,6 @@
                             ;;
                             :dockerfile
                             :http
-                            :hurl
                             :just
                             :sql
                             ;;
