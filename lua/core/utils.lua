@@ -81,53 +81,6 @@ M.lsp_with_server = function(name, f)
     return nil
   end
 end
-M.lsp_capabilities = function()
-  local cmp = require("blink.cmp")
-  local opts = {textDocument = {semanticTokens = {multilineTokenSupport = true}}}
-  return vim.tbl_deep_extend("force", cmp.get_lsp_capabilities(), opts)
-end
-local function lsp_format_on_save(client, bufid)
-  local case_13_, case_14_ = pcall(require, "conform")
-  local and_15_ = ((case_13_ == false) and true)
-  if and_15_ then
-    local _ = case_14_
-    and_15_ = client:supports_method("textDocument/formatting")
-  end
-  if and_15_ then
-    local _ = case_14_
-    local grp = vim.api.nvim_create_augroup("lsp_format_on_save", {})
-    local cb
-    do
-      local partial_17_ = {buffer = bufid, timeout_ms = 1000}
-      local function _18_(...)
-        return vim.lsp.buf.format(partial_17_, ...)
-      end
-      cb = _18_
-    end
-    vim.api.nvim_clear_autocmds({group = grp, buffer = bufid})
-    return vim.api.nvim_create_autocmd("BufWritePre", {group = grp, buffer = bufid, callback = cb})
-  else
-    return nil
-  end
-end
-local function lsp_codelens_refresh(client, bufid)
-  if client:supports_method("textDocument/codeLens") then
-    local grp = vim.api.nvim_create_augroup("lsp_codelens_refresh", {})
-    vim.api.nvim_clear_autocmds({group = grp, buffer = bufid})
-    vim.lsp.codelens.refresh()
-    return vim.api.nvim_create_autocmd({"BufEnter", "InsertLeave"}, {group = grp, buffer = bufid, callback = vim.lsp.codelens.refresh})
-  else
-    return nil
-  end
-end
-M.lsp_on_attach = function(client, bufid)
-  vim.bo[bufid]["omnifunc"] = nil
-  local maps = require("core.maps")
-  maps.lsp(bufid)
-  lsp_format_on_save(client, bufid)
-  lsp_codelens_refresh(client, bufid)
-  return nil
-end
 M.list_includes = function(a, b)
   vim.validate("a", a, "table")
   vim.validate("b", b, "table")
@@ -168,34 +121,6 @@ M.get_current_selection_text = function()
   vim.cmd("exe  \"normal \\<Esc>\"")
   vim.cmd("normal! gv\"xy")
   return vim.fn.trim(vim.fn.getreg("x"))
-end
-M.open_hover_window = function(text_or_lines, title, callback)
-  local lines
-  do
-    local case_25_ = type(text_or_lines)
-    if (case_25_ == "string") then
-      lines = vim.fn.split(text_or_lines, "\n", true)
-    else
-      local _ = case_25_
-      lines = text_or_lines
-    end
-  end
-  local max_cols = 0
-  for _, l in ipairs(lines) do
-    max_cols = math.max(max_cols, vim.api.nvim_strwidth(l))
-  end
-  local bufid = vim.api.nvim_create_buf(false, true)
-  vim.api.nvim_buf_set_lines(bufid, 0, -1, false, lines)
-  local winid = vim.api.nvim_open_win(bufid, true, {relative = "cursor", row = 1, col = 0, width = max_cols, height = math.min(16, #lines), style = "minimal", title = title})
-  M.disable_diagnostic(bufid)
-  vim.bo[bufid]["readonly"] = true
-  vim.bo[bufid]["modifiable"] = false
-  vim.wo[winid]["wrap"] = false
-  if callback then
-    return callback(bufid, winid)
-  else
-    return nil
-  end
 end
 M.create_keymaps_for_goto_entry = function(pattern, prev_key, next_key, tag, bufid)
   vim.keymap.set({"n", "v", "o"}, prev_key, string.format("<Cmd>call search('%s', 'bw')<CR>", pattern), {buffer = bufid, silent = true, desc = string.format("[goto_entry] Goto prev %s entry", tag)})

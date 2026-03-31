@@ -78,16 +78,15 @@
   (nmap! "gk" vim.lsp.buf.hover opts)
   (nmap! "gs" vim.lsp.buf.document_symbol opts)
   (nmap! "gS" vim.lsp.buf.workspace_symbol opts)
-  (nmap! "grl" vim.lsp.codelens.run opts)
-  (nmap! "[D" (partial vim.diagnostic.jump
-                       {:count -1
-                        :float true
-                        :severity vim.diagnostic.severity.ERROR})
+  (nmap! "<tab>d" #(vim.diagnostic.enable (not (vim.diagnostic.is_enabled)))
          opts)
-  (nmap! "]D" (partial vim.diagnostic.jump
-                       {:count 1
-                        :float true
-                        :severity vim.diagnostic.severity.ERROR})
+  (nmap! "[D"
+         (partial vim.diagnostic.jump
+                  {:count -1 :severity vim.diagnostic.severity.ERROR})
+         opts)
+  (nmap! "]D"
+         (partial vim.diagnostic.jump
+                  {:count 1 :severity vim.diagnostic.severity.ERROR})
          opts))
 
 (fn M.gitsigns [bufid]

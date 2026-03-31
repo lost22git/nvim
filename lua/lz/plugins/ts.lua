@@ -1,31 +1,18 @@
 -- [nfnl] fnl/lz/plugins/ts.fnl
-local function use_helix_source()
-  local rtp = vim.env.HELIX_RUNTIMEPATH
-  if (rtp and vim.fn.exists(rtp)) then
-    vim.opt.runtimepath:append(rtp)
-    local parser_source = (rtp .. "/grammars/sources/")
-    local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-    parser_config.koka = {filetype = "koka", install_info = {url = (parser_source .. "koka"), files = {"src/parser.c", "src/scanner.c"}}}
-    parser_config.nu = {filetype = "nu", install_info = {url = (parser_source .. "nu"), files = {"src/parser.c"}}}
-    return nil
-  else
+local function add_custom_sources()
+  vim.treesitter.language.register("crystal", {"cr"})
+  local function _1_()
+    local parsers = require("nvim-treesitter.parsers")
+    parsers.crystal = {install_info = {url = "https://github.com/crystal-lang-tools/tree-sitter-crystal", branch = "main", queries = "queries/nvim", generate = false, generate_from_json = false}}
     return nil
   end
+  return vim.api.nvim_create_autocmd("User", {desc = "[TS] perform actions after :TSUpdate", pattern = "TSUpdate", callback = _1_})
 end
-local function use_custom_source()
-  local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-  parser_config.crystal = {filetype = "crystal", install_info = {url = "https://github.com/crystal-lang-tools/tree-sitter-crystal", branch = "main", files = {"src/parser.c", "src/scanner.c"}}}
-  return nil
+local function install_langs()
+  return require("nvim-treesitter").install({"bash", "lua", "fennel", "regex", "vim", "vimdoc", "markdown", "markdown_inline", "dockerfile", "http", "just", "sql", "json", "toml", "xml", "yaml", "css", "html", "javascript", "typescript", "commonlisp", "scheme", "clojure", "crystal", "go", "gomod", "java"})
 end
 local function _2_()
-  local _let_3_ = require("nvim-treesitter.install")
-  local update = _let_3_.update
-  local ts_update = update({with_sync = true})
-  return ts_update()
+  add_custom_sources()
+  return install_langs()
 end
-local function _4_(_, opts)
-  use_helix_source()
-  use_custom_source()
-  return require("nvim-treesitter.configs").setup(opts)
-end
-return {{"nvim-treesitter/nvim-treesitter-context", dependencies = {"nvim-treesitter/nvim-treesitter"}, cmd = "TSContextEnable", opts = {}}, {"nvim-treesitter/nvim-treesitter", build = _2_, dependencies = {"nvim-treesitter/nvim-treesitter-textobjects"}, event = "VeryLazy", opts = {highlight = {enable = true, additional_vim_regex_highlighting = {"ruby"}, disable = {}}, indent = {enable = true, disable = {"ruby"}}, incremental_selection = {enable = true, disable = {"vim"}, keymaps = {init_selection = "<CR>", node_incremental = "<CR>", node_decremental = "<BS>"}}, autotag = {enable = true}, ensure_installed = {"bash", "lua", "fennel", "regex", "vim", "vimdoc", "markdown", "markdown_inline", "dockerfile", "http", "just", "sql", "json", "toml", "xml", "yaml", "css", "html", "javascript", "typescript", "clojure", "crystal", "go", "gomod", "java"}, auto_install = false, sync_install = false}, config = _4_}}
+return {{"nvim-treesitter/nvim-treesitter-context", dependencies = {"nvim-treesitter/nvim-treesitter"}, cmd = "TSContext", opts = {}}, {"nvim-treesitter/nvim-treesitter", branch = "main", build = "TSUpdate", dependencies = {"nvim-treesitter/nvim-treesitter-textobjects"}, config = _2_, lazy = false}}

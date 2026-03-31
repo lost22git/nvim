@@ -47,35 +47,6 @@
   (case (M.lsp_server_path name)
     path (f path)))
 
-(fn M.lsp_capabilities []
-  (let [cmp (require :blink.cmp)
-        opts {:textDocument {:semanticTokens {:multilineTokenSupport true}}}]
-    (vim.tbl_deep_extend "force" (cmp.get_lsp_capabilities) opts)))
-
-(fn lsp_format_on_save [client bufid]
-  (case (pcall require :conform)
-    (where (false _) (client:supports_method :textDocument/formatting))
-    (let [grp (vim.api.nvim_create_augroup :lsp_format_on_save {})
-          cb (partial vim.lsp.buf.format {:buffer bufid :timeout_ms 1000})]
-      (vim.api.nvim_clear_autocmds {:group grp :buffer bufid})
-      (autocmd! :BufWritePre {:group grp :buffer bufid :callback cb}))))
-
-(fn lsp_codelens_refresh [client bufid]
-  (when (client:supports_method :textDocument/codeLens)
-    (let [grp (vim.api.nvim_create_augroup :lsp_codelens_refresh {})]
-      (vim.api.nvim_clear_autocmds {:group grp :buffer bufid})
-      (vim.lsp.codelens.refresh)
-      (autocmd! [:BufEnter :InsertLeave]
-                {:group grp :buffer bufid :callback vim.lsp.codelens.refresh}))))
-
-(fn M.lsp_on_attach [client bufid]
-  (tset vim.bo bufid :omnifunc nil)
-  (local maps (require :core.maps))
-  (maps.lsp bufid)
-  (lsp_format_on_save client bufid)
-  (lsp_codelens_refresh client bufid)
-  nil)
-
 (fn M.list_includes [a b]
   (vim.validate :a a :table)
   (vim.validate :b b :table)
@@ -102,29 +73,6 @@
   (vim.cmd "exe  \"normal \\<Esc>\"")
   (vim.cmd "normal! gv\"xy")
   (vim.fn.trim (vim.fn.getreg "x")))
-
-(fn M.open_hover_window [text_or_lines title callback]
-  (local lines (case (type text_or_lines)
-                 :string (vim.fn.split text_or_lines "\n" true)
-                 _ text_or_lines))
-  (var max_cols 0)
-  (each [_ l (ipairs lines)]
-    (set max_cols (math.max max_cols (vim.api.nvim_strwidth l))))
-  (local bufid (vim.api.nvim_create_buf false true))
-  (vim.api.nvim_buf_set_lines bufid 0 -1 false lines)
-  (local winid (vim.api.nvim_open_win bufid true
-                                      {:relative :cursor
-                                       :row 1
-                                       :col 0
-                                       :width max_cols
-                                       :height (math.min 16 (length lines))
-                                       :style :minimal
-                                       :title title}))
-  (M.disable_diagnostic bufid)
-  (tset vim.bo bufid :readonly true)
-  (tset vim.bo bufid :modifiable false)
-  (tset vim.wo winid :wrap false)
-  (when callback (callback bufid winid)))
 
 (fn M.create_keymaps_for_goto_entry [pattern prev_key next_key tag bufid]
   (nvomap! prev_key (string.format "<Cmd>call search('%s', 'bw')<CR>" pattern)

@@ -20,7 +20,6 @@
                  2 #(call! :quicker :collapse)
                  :desc "[quicker] Collapse context"}]}}
  {1 "ibhagwan/fzf-lua"
-  :cmd :FzfLua
   :opts {:fzf_colors true
          :winopts {:backdrop vim.g.zz.backdrop :preview {:hidden true}}}
   :config (fn [_ opts]

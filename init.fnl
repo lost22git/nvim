@@ -5,3 +5,5 @@
 (require :core.aucmds)
 (require :core.hls)
 (require :core.maps)
+(require :core.ts)
+(require :core.lsp)

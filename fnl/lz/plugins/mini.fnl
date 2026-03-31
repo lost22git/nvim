@@ -15,10 +15,10 @@
             (local {: gen_ai_spec} (require :mini.extra))
             (setup {:mappings {:around "a"
                                :inside "i"
-                               :around_next "an"
-                               :inside_next "in"
-                               :around_last "al"
-                               :inside_last "il"
+                               :around_next "a]"
+                               :inside_next "i]"
+                               :around_last "a["
+                               :inside_last "i["
                                :goto_left "["
                                :goto_right "]"}
                     :custom_textobjects {;; treesitter-textobject
@@ -37,20 +37,6 @@
                                          :L (gen_ai_spec.line)
                                          :N (gen_ai_spec.number)}}))}
  {1 "nvim-mini/mini.surround" :lazy false :opts {:mappings {:add :ss}}}
- {1 "nvim-mini/mini.hipatterns"
-  :lazy false
-  :opts {:highlighters {:fixme {:pattern "%f[%w]()FIXME()%f[%W]"
-                                :group "MiniHipatternsFixme"}
-                        :hack {:pattern "%f[%w]()HACK()%f[%W]"
-                               :group "MiniHipatternsHack"}
-                        :todo {:pattern "%f[%w]()TODO()%f[%W]"
-                               :group "MiniHipatternsTodo"}
-                        :note {:pattern "%f[%w]()NOTE()%f[%W]"
-                               :group "MiniHipatternsNote"}
-                        :warn {:pattern "%f[%w]()WARNI?N?G?()%f[%W]"
-                               :group "MiniHipatternsHack"}
-                        :error {:pattern "%f[%w]()ERRO?R?()%f[%W]"
-                                :group "MiniHipatternsFixme"}}}}
  {1 "nvim-mini/mini.hues"
   :enabled false
   :lazy false

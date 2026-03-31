@@ -1,28 +1,19 @@
-(import-macros {: autocmd! : usercmd!} :config.macros)
+(local {: get_mason_path : lsp_with_server} (require :core.utils))
 
-(local {: get_mason_path : lsp_on_attach : lsp_capabilities : lsp_with_server}
-       (require :core.utils))
+(fn capabilities []
+  (let [cmp (require :blink.cmp)
+        opts {:textDocument {:semanticTokens {:multilineTokenSupport true}}}]
+    (vim.tbl_deep_extend "force" (cmp.get_lsp_capabilities) opts)))
 
 [{1 "neovim/nvim-lspconfig"
-  :cmd [:LspInfo :LspStart :LspLog]
+  :cmd :LspStart
   :dependencies [{1 "deathbeam/lspecho.nvim" :opts {}}
                  {1 "rachartier/tiny-inline-diagnostic.nvim"
                   :opts {:preset :ghost}}]
   :config (fn []
-            (vim.diagnostic.config {:severity_sort true
-                                    :virtual_text false
-                                    :float true
-                                    :jump {:float true}
-                                    ;; :virtual_lines {:current_line true}
-                                    })
             (vim.lsp.config "*"
                             {:root_markers [".git"]
-                             :capabilities (lsp_capabilities)})
-            (autocmd! :LspAttach
-                      {:callback #(-> $.data.client_id
-                                      (vim.lsp.get_client_by_id)
-                                      (assert)
-                                      (lsp_on_attach $.buf))})
+                             :capabilities (capabilities)})
             ;; crystal
             (vim.lsp.config :liger
                             {:cmd ["liger"]
@@ -54,6 +45,7 @@
                              :powershell_es
                              ;; === PL ===
                              :clojure_lsp
+                             :elixirls
                              :dartls
                              :emmylua_ls
                              :fennel_ls
@@ -74,6 +66,7 @@
                              :ty
                              :unison
                              :v_analyzer
+                             :zls
                              ;; === FE ===
                              :html
                              :htmx]))}

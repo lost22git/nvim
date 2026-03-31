@@ -75,25 +75,28 @@ M.lsp = function(bufid)
   vim.keymap.set("n", "gk", vim.lsp.buf.hover, opts)
   vim.keymap.set("n", "gs", vim.lsp.buf.document_symbol, opts)
   vim.keymap.set("n", "gS", vim.lsp.buf.workspace_symbol, opts)
-  vim.keymap.set("n", "grl", vim.lsp.codelens.run, opts)
-  local _2_
-  do
-    local partial_1_ = {count = -1, float = true, severity = vim.diagnostic.severity.ERROR}
-    local function _3_(...)
-      return vim.diagnostic.jump(partial_1_, ...)
-    end
-    _2_ = _3_
+  local function _1_()
+    return vim.diagnostic.enable(not vim.diagnostic.is_enabled())
   end
-  vim.keymap.set("n", "[D", _2_, opts)
-  local _5_
+  vim.keymap.set("n", "<tab>d", _1_, opts)
+  local _3_
   do
-    local partial_4_ = {count = 1, float = true, severity = vim.diagnostic.severity.ERROR}
-    local function _6_(...)
-      return vim.diagnostic.jump(partial_4_, ...)
+    local partial_2_ = {count = -1, severity = vim.diagnostic.severity.ERROR}
+    local function _4_(...)
+      return vim.diagnostic.jump(partial_2_, ...)
     end
-    _5_ = _6_
+    _3_ = _4_
   end
-  return vim.keymap.set("n", "]D", _5_, opts)
+  vim.keymap.set("n", "[D", _3_, opts)
+  local _6_
+  do
+    local partial_5_ = {count = 1, severity = vim.diagnostic.severity.ERROR}
+    local function _7_(...)
+      return vim.diagnostic.jump(partial_5_, ...)
+    end
+    _6_ = _7_
+  end
+  return vim.keymap.set("n", "]D", _6_, opts)
 end
 M.gitsigns = function(bufid)
   local opts = {buffer = bufid}
