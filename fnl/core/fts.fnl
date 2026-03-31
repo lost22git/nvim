@@ -24,7 +24,7 @@
   au FileType c3 setlocal commentstring=//\\ %s
   au FileType crystal setlocal commentstring=#\\ %s
   au FileType cyber setlocal commentstring=--\\ %s
-  au FileType fennel setlocal commentstring=;\\ %s
+  au FileType fennel setlocal commentstring=;;\\ %s
   au FileType flix setlocal commentstring=//\\ %s
   au FileType http setlocal commentstring=#\\ %s
   au FileType inko setlocal commentstring=#\\ %s
