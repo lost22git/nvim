@@ -36,7 +36,6 @@
                                          :I (gen_ai_spec.indent)
                                          :L (gen_ai_spec.line)
                                          :N (gen_ai_spec.number)}}))}
- {1 "nvim-mini/mini.surround" :lazy false :opts {:mappings {:add :ss}}}
  {1 "nvim-mini/mini.hues"
   :enabled false
   :lazy false

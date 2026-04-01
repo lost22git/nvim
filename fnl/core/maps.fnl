@@ -40,19 +40,6 @@
   (nvomap! "L" "$" {:desc "Goto line tail"})
   (nvomap! "mm" "%" {:desc "The old `%`"}))
 
-(fn readline []
-  (imap! "<C-a>" "<C-o>^" {:desc "[readline] Goto line head"})
-  (imap! "<C-b>" "<Left>" {:desc "[readline] Goto prev char"})
-  (imap! "<C-d>" "<Del>" {:desc "[readline] Delete next char"})
-  (imap! "<C-e>" "<C-o>$" {:desc "[readline] Goto line tail"})
-  (imap! "<C-f>" "<Right>" {:desc "[readline] Goto next char"})
-  (imap! "<C-k>" "<C-o>d$" {:desc "[readline] Delete to line tail"})
-  (imap! "<C-u>" "<C-o>d^" {:desc "[readline] Delete to line head"})
-  (cmap! "<C-a>" "<Home>" {:silent false :desc "[readline] Goto line begin"})
-  (cmap! "<C-b>" "<Left>" {:silent false :desc "[readline] Goto prev char"})
-  (cmap! "<C-d>" "<Del>" {:silent false :desc "[readline] Delete next char"})
-  (cmap! "<C-f>" "<Right>" {:silent false :desc "[readline] Goto next char"}))
-
 (fn messages []
   (fn create_messages_buf []
     (local bufid (vim.api.nvim_create_buf false true))
@@ -67,7 +54,6 @@
   (nvmap! "<Leader>m" create_messages_buf {:desc "Messages"}))
 
 (base)
-(readline)
 (messages)
 
 (local M {})
