@@ -8,11 +8,9 @@
  {1 "nvim-mini/mini.cursorword" :lazy false :opts {}}
  {1 "nvim-mini/mini.move" :lazy false :opts {}}
  {1 "nvim-mini/mini.ai"
-  :dependencies [{1 "nvim-mini/mini.extra" :opts {}}]
   :lazy false
   :config (fn []
             (local {: setup : gen_spec} (require :mini.ai))
-            (local {: gen_ai_spec} (require :mini.extra))
             (setup {:mappings {:around "a"
                                :inside "i"
                                :around_next "a]"
@@ -29,13 +27,7 @@
                                          :o (gen_spec.treesitter {:a ["@conditional.outer"
                                                                       "@loop.outer"]
                                                                   :i ["@conditional.inner"
-                                                                      "@loop.inner"]})
-                                         ;; Mini.Extra
-                                         :B (gen_ai_spec.buffer)
-                                         :D (gen_ai_spec.diagnostic)
-                                         :I (gen_ai_spec.indent)
-                                         :L (gen_ai_spec.line)
-                                         :N (gen_ai_spec.number)}}))}
+                                                                      "@loop.inner"]})}}))}
  {1 "nvim-mini/mini.hues"
   :enabled false
   :lazy false
