@@ -5,10 +5,7 @@
  :cmd :JdtStart
  :config (fn []
            ;; See `:help vim.lsp.start_client` for an overview of the supported `config` options.
-           (local {: lsp_capabilities
-                   : lsp_on_attach
-                   : lsp_server_package_path}
-                  (require :core.utils))
+           (local {: lsp_server_package_path} (require :core.utils))
            (local jdtls_root (lsp_server_package_path :jdtls))
            (local jdtls_jar
                   (assert (vim.fn.globpath (.. jdtls_root "/plugins")
@@ -29,9 +26,7 @@
              (local project_name (vim.fn.fnamemodify project_root ":p:h:t"))
              (local workspace_dir (.. workspace_root "/" project_name))
              (local opts
-                    {:capabilities (lsp_capabilities)
-                     :on_attach lsp_on_attach
-                     ;; The command that starts the language server
+                    {;; The command that starts the language server
                      ;; See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
                      :cmd ["java"
                            ;; 💀

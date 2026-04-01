@@ -1,19 +1,8 @@
 (local {: get_mason_path : lsp_with_server} (require :core.utils))
 
-(fn capabilities []
-  (let [cmp (require :blink.cmp)
-        opts {:textDocument {:semanticTokens {:multilineTokenSupport true}}}]
-    (vim.tbl_deep_extend "force" (cmp.get_lsp_capabilities) opts)))
-
 [{1 "neovim/nvim-lspconfig"
   :cmd :LspStart
-  :dependencies [{1 "deathbeam/lspecho.nvim" :opts {}}
-                 {1 "rachartier/tiny-inline-diagnostic.nvim"
-                  :opts {:preset :ghost}}]
   :config (fn []
-            (vim.lsp.config "*"
-                            {:root_markers [".git"]
-                             :capabilities (capabilities)})
             ;; crystal
             (vim.lsp.config :liger
                             {:cmd ["liger"]
@@ -70,6 +59,10 @@
                              ;; === FE ===
                              :html
                              :htmx]))}
+ {1 "deathbeam/lspecho.nvim" :event :LspAttach :opts {}}
+ {1 "rachartier/tiny-inline-diagnostic.nvim"
+  :event :LspAttach
+  :opts {:preset :ghost}}
  {1 "williamboman/mason.nvim"
   :cmd :Mason
   :opts {:install_root_dir (get_mason_path)
