@@ -33,9 +33,6 @@
   (nvmap! "<C-M-k>" "<C-w>-" {:desc "Resize window"})
   (nvmap! "<C-M-g>" "<C-w>=" {:desc "Resize window"})
   (nvomap! "<C-a>" "gg<S-v>G" {:desc "Select all"})
-  (nvomap! "<Leader>J" "J" {:desc "The old `J`"})
-  (nvomap! "J" "}" {:desc "Goto next blank line"})
-  (nvomap! "K" "{" {:desc "Goto prev blank line"})
   (nvomap! "H" "^" {:desc "Goto line head"})
   (nvomap! "L" "$" {:desc "Goto line tail"})
   (nvomap! "mm" "%" {:desc "The old `%`"}))
@@ -61,9 +58,6 @@
 (fn M.lsp [bufid]
   (local opts {:buffer bufid})
   (nmap! "gd" vim.lsp.buf.definition opts)
-  (nmap! "gk" vim.lsp.buf.hover opts)
-  (nmap! "gs" vim.lsp.buf.document_symbol opts)
-  (nmap! "gS" vim.lsp.buf.workspace_symbol opts)
   (nmap! "<tab>d" #(vim.diagnostic.enable (not (vim.diagnostic.is_enabled)))
          opts)
   (nmap! "[D"
