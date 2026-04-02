@@ -13,8 +13,7 @@
             (nmap! "<Leader>eb" "<Cmd>HurlRunner<CR>"
                    {:buffer bufid :silent true :desc "[hurl] HurlRunner"}))
 
-          (on! :FileType
-                    {:pattern :hurl :callback #(create_keymaps $.buf)}))}
+          (on! :FileType {:pattern :hurl :callback #(create_keymaps $.buf)}))}
  {1 "mistweaverco/kulala.nvim"
   :ft [:http :rest]
   :opts {:winbar true :show_variable_info_text :float}
@@ -53,7 +52,7 @@
               (nmap! k v {:buffer bufid :silent true})))
 
           (on! :FileType
-                    {:pattern [:http :rest]
-                     :callback (fn [{:buf bufid}]
-                                 (create_usercmds bufid)
-                                 (create_keymaps bufid))}))}]
+               {:pattern [:http :rest]
+                :callback (fn [{:buf bufid}]
+                            (create_usercmds bufid)
+                            (create_keymaps bufid))}))}]

@@ -77,7 +77,7 @@
              (call! :jdtls :start_or_attach opts))
 
            (when (= :java vim.bo.filetype) (start_or_attach))
-           (on! :FileType
-                     {:group (vim.api.nvim_create_augroup :JdtStartOrAttach {})
-                      :pattern :java
-                      :callback start_or_attach}))}
+           (on! :FileType {:group (vim.api.nvim_create_augroup :JdtStartOrAttach
+                                                               {})
+                           :pattern :java
+                           :callback start_or_attach}))}

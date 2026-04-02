@@ -3,92 +3,87 @@
 
 (local {: create_keymaps_for_goto_entry} (require :core.utils))
 
-(on! :FileType
-          {:desc "Set fileformat to unix"
-           :pattern "*"
-           :callback #(when (and vim.bo.modifiable
-                                 (not (vim.list_contains [:qf :FTerm]
-                                                         vim.bo.filetype)))
-                        (set vim.bo.fileformat :unix))})
+(on! :FileType {:desc "Set fileformat to unix"
+                :pattern "*"
+                :callback #(when (and vim.bo.modifiable
+                                      (not (vim.list_contains [:qf :FTerm]
+                                                              vim.bo.filetype)))
+                             (set vim.bo.fileformat :unix))})
 
 (on! :TextYankPost
-          {:desc "Highlight yanked text"
-           :pattern "*"
-           :callback #(vim.hl.on_yank {:higroup :Visual :timeout 200})})
+     {:desc "Highlight yanked text"
+      :pattern "*"
+      :callback #(vim.hl.on_yank {:higroup :Visual :timeout 200})})
 
 (on! :BufReadPost
-          {:desc "Restore cursor position"
-           :callback #(vim.cmd "silent! normal! g`\"zv")})
+     {:desc "Restore cursor position"
+      :callback #(vim.cmd "silent! normal! g`\"zv")})
 
-(on! :FileType
-          {:desc "Do not list quickfix buffers"
-           :pattern :qf
-           :callback #(set vim.opt_local.buflisted false)})
+(on! :FileType {:desc "Do not list quickfix buffers"
+                :pattern :qf
+                :callback #(set vim.opt_local.buflisted false)})
 
 (on! :BufWinEnter
-          {:desc "Add keymaps for Goto prev/next region"
-           :callback #(create_keymaps_for_goto_entry "[-\\/;#\\*] === .\\+ ==="
-                                                     "[r" "]r" :code_region
-                                                     $.buf)})
+     {:desc "Add keymaps for Goto prev/next region"
+      :callback #(create_keymaps_for_goto_entry "[-\\/;#\\*] === .\\+ ===" "[r"
+                                                "]r" :code_region $.buf)})
 
 ;; === CURSOR STYLE ===
 
 (var GUI_CURSOR_CACHE nil)
 
 ;; TODO: not working
-(on! [:VimLeave :VimSuspend]
-          {:desc "[Cursor Style] Restore terminal cursor style"
-           :pattern "*"
-           :callback (fn []
-                       (set GUI_CURSOR_CACHE (vim.opt.guicursor:get))
-                       (set vim.opt.guicursor {})
-                       ;; \x1b[?12l -> disable cursor blink
-                       ;; \x1b[6 q -> set cursor style to bar
-                       ;; (vim.fn.chansend vim.v.stderr "\x1b[6 q \x1b[?12l")
-                       (vim.api.nvim_ui_send "\x1b[6 q \x1b[?12l")
-                       nil)})
+(on! [:VimLeave :VimSuspend] {:desc "[Cursor Style] Restore terminal cursor style"
+                              :pattern "*"
+                              :callback (fn []
+                                          (set GUI_CURSOR_CACHE
+                                               (vim.opt.guicursor:get))
+                                          (set vim.opt.guicursor {})
+                                          ;; \x1b[?12l -> disable cursor blink
+                                          ;; \x1b[6 q -> set cursor style to bar
+                                          ;; (vim.fn.chansend vim.v.stderr "\x1b[6 q \x1b[?12l")
+                                          (vim.api.nvim_ui_send "\x1b[6 q \x1b[?12l")
+                                          nil)})
 
 (on! :VimResume
-          {:desc "[Cursor Style] Restore nvim cursor style"
-           :pattern "*"
-           :callback #(when GUI_CURSOR_CACHE
-                        (set vim.opt.guicursor GUI_CURSOR_CACHE))})
+     {:desc "[Cursor Style] Restore nvim cursor style"
+      :pattern "*"
+      :callback #(when GUI_CURSOR_CACHE
+                   (set vim.opt.guicursor GUI_CURSOR_CACHE))})
 
 ;; === TMUX ===
 
 (when (?. vim.env :TMUX)
   (on! :BufWritePost {:desc "[Tmux] Reload tmux config after [.tmux.conf] saved"
-                           :pattern ".tmux.conf"
-                           :callback #(let [cmd (.. "tmux source-file "
-                                                    (vim.api.nvim_buf_get_name $.buf))]
-                                        (vim.fn.system cmd)
-                                        nil)}))
+                      :pattern ".tmux.conf"
+                      :callback #(let [cmd (.. "tmux source-file "
+                                               (vim.api.nvim_buf_get_name $.buf))]
+                                   (vim.fn.system cmd)
+                                   nil)}))
 
 ;; === JUST ===
 
 (on! :FileType
-          {:desc "[Just] add keymaps for Goto prev/next task"
-           :pattern :just
-           :callback #(create_keymaps_for_goto_entry "\\v^\\w+.*:$" "[e" "]e"
-                                                     :just_task $.buf)})
+     {:desc "[Just] add keymaps for Goto prev/next task"
+      :pattern :just
+      :callback #(create_keymaps_for_goto_entry "\\v^\\w+.*:$" "[e" "]e"
+                                                :just_task $.buf)})
 
 ;; === HTTP ===
 
 (on! :FileType
-          {:desc "[Http] add keymaps for Goto prev/next http request"
-           :pattern [:http :rest :hurl]
-           :callback #(create_keymaps_for_goto_entry "\\v^<(HEAD|GET|POST|PUT|PATCH|DELETE|OPTION)>"
-                                                     "[e" "]e" :http_request
-                                                     $.buf)})
+     {:desc "[Http] add keymaps for Goto prev/next http request"
+      :pattern [:http :rest :hurl]
+      :callback #(create_keymaps_for_goto_entry "\\v^<(HEAD|GET|POST|PUT|PATCH|DELETE|OPTION)>"
+                                                "[e" "]e" :http_request $.buf)})
 
 ;; === CLOJURE ===
 
 (on! :FileType
-          {:desc "[Clojure] add keymaps for Goto prev/next (comment)"
-           :pattern [:clojure :janet]
-           :callback #(create_keymaps_for_goto_entry "\\v(^\\(comment|^#_)"
-                                                     "[C" "]C" :comment_form
-                                                     $.buf)})
+     {:desc "[Clojure] add keymaps for Goto prev/next (comment)"
+      :pattern [:clojure :janet]
+      :callback #(create_keymaps_for_goto_entry "\\v(^\\(comment|^#_)" "[C"
+                                                "]C" :comment_form $.buf)})
 
 (fn start-clojure-nrepl-server [args]
   (let [clj_opts (if (string.match args "%-M:")
@@ -100,36 +95,36 @@
     (vim.cmd (.. "tabnew | term " cmd))))
 
 (on! :FileType {:desc "[Clojure] add `Clj` usercommand for starting Clojure nREPL server"
-                     :pattern :clojure
-                     :callback #(bufusercmd! $.buf :Clj
-                                             (fn [{: args}]
-                                               (start-clojure-nrepl-server args))
-                                             {:nargs "*"})})
+                :pattern :clojure
+                :callback #(bufusercmd! $.buf :Clj
+                                        (fn [{: args}]
+                                          (start-clojure-nrepl-server args))
+                                        {:nargs "*"})})
 
 ;; === JANET ===
 
 (on! :FileType {:desc "[Janet] add `Janet` usercommand for starting janet-netrepl server"
-                     :pattern :janet
-                     :callback #(bufusercmd! $.buf :Janet
-                                             #(vim.cmd (.. "tabnew | term "
-                                                           "janet-netrepl"))
-                                             {:nargs "*"})})
+                :pattern :janet
+                :callback #(bufusercmd! $.buf :Janet
+                                        #(vim.cmd (.. "tabnew | term "
+                                                      "janet-netrepl"))
+                                        {:nargs "*"})})
 
 ;; === LISP ===
 
 (on! :FileType {:desc "[SBCL] add `SBCL` usercommand for starting swank server"
-                     :pattern :lisp
-                     :callback #(bufusercmd! $.buf :SBCL
-                                             #(->> "sbcl --eval \"(ql:quickload :swank)\" --eval \"(swank:create-server :dont-close t)\""
-                                                   (.. "tabnew | term ")
-                                                   (vim.cmd))
-                                             {:nargs "*"})})
+                :pattern :lisp
+                :callback #(bufusercmd! $.buf :SBCL
+                                        #(->> "sbcl --eval \"(ql:quickload :swank)\" --eval \"(swank:create-server :dont-close t)\""
+                                              (.. "tabnew | term ")
+                                              (vim.cmd))
+                                        {:nargs "*"})})
 
 ;; === BASILISP ===
 
 (on! :FileType {:desc "[Basilisp] add `Basilisp` usercommand for starting Basilisp nrepl server"
-                     :pattern :clojure
-                     :callback #(bufusercmd! $.buf :Basilisp
-                                             #(vim.cmd (.. "tabnew | term "
-                                                           "basilisp nrepl-server"))
-                                             {:nargs "*"})})
+                :pattern :clojure
+                :callback #(bufusercmd! $.buf :Basilisp
+                                        #(vim.cmd (.. "tabnew | term "
+                                                      "basilisp nrepl-server"))
+                                        {:nargs "*"})})

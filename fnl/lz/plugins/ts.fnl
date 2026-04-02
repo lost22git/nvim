@@ -3,18 +3,17 @@
 (fn add_custom_sources []
   (vim.treesitter.language.register :crystal [:cr])
   (on! :User {:desc "[TS] perform actions after :TSUpdate"
-                   :pattern :TSUpdate
-                   :callback (fn []
-                               (local parsers
-                                      (require "nvim-treesitter.parsers"))
-                               ;; crystal
-                               (set parsers.crystal
-                                    {:install_info {:url "https://github.com/crystal-lang-tools/tree-sitter-crystal"
-                                                    :branch :main
-                                                    :generate false
-                                                    :generate_from_json false
-                                                    :queries "queries/nvim"}})
-                               nil)}))
+              :pattern :TSUpdate
+              :callback (fn []
+                          (local parsers (require "nvim-treesitter.parsers"))
+                          ;; crystal
+                          (set parsers.crystal
+                               {:install_info {:url "https://github.com/crystal-lang-tools/tree-sitter-crystal"
+                                               :branch :main
+                                               :generate false
+                                               :generate_from_json false
+                                               :queries "queries/nvim"}})
+                          nil)}))
 
 (fn install_langs []
   (call! :nvim-treesitter :install [:bash

@@ -10,7 +10,6 @@
                                                                      {:scope "cursor"
                                                                       :focurs false}))}})
 
-
 (fn on_attach [_client bufid]
   (tset vim.bo bufid :omnifunc nil)
   (local {:lsp lsp_mappings} (require :core.maps))

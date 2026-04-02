@@ -32,26 +32,25 @@
           ;; For the first time, configure Chicken REPL for Scheme
           (configure-chicken-scheme)
           (on! :FileType
-                    {:desc "create `ConjureSchemeChange` usercmd to change conjure repl for Scheme"
-                     :pattern :scheme
-                     :callback #(bufusercmd! $.buf :ConjureSchemeChange
-                                             (fn [{:fargs [lang]}]
-                                               (change-scheme lang))
-                                             {:nargs 1
-                                              :complete (fn []
-                                                          [:chez :chicken])})})
+               {:desc "create `ConjureSchemeChange` usercmd to change conjure repl for Scheme"
+                :pattern :scheme
+                :callback #(bufusercmd! $.buf :ConjureSchemeChange
+                                        (fn [{:fargs [lang]}]
+                                          (change-scheme lang))
+                                        {:nargs 1
+                                         :complete (fn []
+                                                     [:chez :chicken])})})
           (on! :BufWinEnter
-                    {:desc "create keymaps for conjure log"
-                     :pattern ["conjure-log-*"]
-                     :callback (fn [{:buf bufid}]
-                                 (local {: disable_diagnostic
-                                         : create_keymaps_for_goto_entry}
-                                        (require :core.utils))
-                                 (disable_diagnostic)
-                                 (create_keymaps_for_goto_entry "\\v^(;|--|#|\\/\\/) -+$"
-                                                                "[e" "]e"
-                                                                :conjure_log
-                                                                bufid))}))}
+               {:desc "create keymaps for conjure log"
+                :pattern ["conjure-log-*"]
+                :callback (fn [{:buf bufid}]
+                            (local {: disable_diagnostic
+                                    : create_keymaps_for_goto_entry}
+                                   (require :core.utils))
+                            (disable_diagnostic)
+                            (create_keymaps_for_goto_entry "\\v^(;|--|#|\\/\\/) -+$"
+                                                           "[e" "]e"
+                                                           :conjure_log bufid))}))}
  {1 "pappasam/nvim-repl"
   :cmd :Repl
   :opts {:filetype_commands {:arturo {:cmd "arturo --repl"}
@@ -81,7 +80,6 @@
               (vmap! :<Leader>ee "<Plug>(ReplSendVisual)"
                      {:buffer bufid :desc "[repl] SendVisual"}))
 
-            (on! :FileType
-                      {:pattern ftypes :callback #(create_keymaps $.buf)})
+            (on! :FileType {:pattern ftypes :callback #(create_keymaps $.buf)})
             (when (vim.list_contains ftypes vim.bo.filetype)
               (create_keymaps 0)))}]
