@@ -12,6 +12,6 @@ local function _2_()
   vim.lsp.config("nim_langserver", {settings = {nim = {inlayHints = {exceptionHints = {enable = false}}}}})
   vim.lsp.config("raku_navigator", {cmd = {"raku-navigator", "--stdio"}})
   vim.lsp.config("zls", {settings = {zls = {enable_snippets = true, highlight_global_var_declarations = true, enable_argument_placeholders = false}}})
-  return vim.lsp.enable({"dockerls", "kulala_ls", "marksman", "bashls", "nushell", "powershell_es", "clojure_lsp", "elixirls", "dartls", "emmylua_ls", "fennel_ls", "fsautocomplete", "gleam", "gradle_ls", "gopls", "hls", "julials", "koka", "kotlin_lsp", "ocamllsp", "ols", "racket_langserver", "roc_ls", "rust_analyzer", "sourcekit", "ty", "unison", "v_analyzer", "zls", "html", "htmx"})
+  return vim.lsp.enable({"fennel_ls"})
 end
-return {{"neovim/nvim-lspconfig", cmd = "LspStart", config = _2_}, {"deathbeam/lspecho.nvim", event = "LspAttach", opts = {}}, {"rachartier/tiny-inline-diagnostic.nvim", event = "LspAttach", opts = {preset = "ghost"}}, {"williamboman/mason.nvim", cmd = "Mason", opts = {install_root_dir = get_mason_path(), PATH = "prepend", ui = {backdrop = vim.g.zz.backdrop}}}}
+return {{"neovim/nvim-lspconfig", config = _2_, lazy = false}, {"deathbeam/lspecho.nvim", event = "LspAttach", opts = {}}, {"rachartier/tiny-inline-diagnostic.nvim", event = "LspAttach", opts = {preset = "ghost"}}, {"williamboman/mason.nvim", cmd = "Mason", opts = {install_root_dir = get_mason_path(), PATH = "prepend", ui = {backdrop = vim.g.zz.backdrop}}}}

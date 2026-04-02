@@ -1,7 +1,8 @@
 (local {: get_mason_path : lsp_with_server} (require :core.utils))
 
 [{1 "neovim/nvim-lspconfig"
-  :cmd :LspStart
+  ;; :cmd :LspStart
+  :lazy false
   :config (fn []
             ;; crystal
             (vim.lsp.config :liger
@@ -25,40 +26,7 @@
                             {:settings {:zls {:enable_snippets true
                                               :enable_argument_placeholders false
                                               :highlight_global_var_declarations true}}})
-            (vim.lsp.enable [:dockerls
-                             :kulala_ls
-                             :marksman
-                             ;; === SHELL ===
-                             :bashls
-                             :nushell
-                             :powershell_es
-                             ;; === PL ===
-                             :clojure_lsp
-                             :elixirls
-                             :dartls
-                             :emmylua_ls
-                             :fennel_ls
-                             :fsautocomplete
-                             :gleam
-                             :gradle_ls
-                             :gopls
-                             :hls
-                             :julials
-                             :koka
-                             :kotlin_lsp
-                             :ocamllsp
-                             :ols
-                             :racket_langserver
-                             :roc_ls
-                             :rust_analyzer
-                             :sourcekit
-                             :ty
-                             :unison
-                             :v_analyzer
-                             :zls
-                             ;; === FE ===
-                             :html
-                             :htmx]))}
+            (vim.lsp.enable [:fennel_ls]))}
  {1 "deathbeam/lspecho.nvim" :event :LspAttach :opts {}}
  {1 "rachartier/tiny-inline-diagnostic.nvim"
   :event :LspAttach
