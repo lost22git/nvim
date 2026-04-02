@@ -1,6 +1,9 @@
 (set vim.opt.background :dark)
 (set vim.opt.termguicolors true)
 
+;; Remove the intro messages (due to the terrible logo N since v0.12)
+(vim.opt.shortmess:append "I")
+
 ;; GUI Font
 ;; Neovide respect it's config.toml which supports light style
 ;; As for others, use this

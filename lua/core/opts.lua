@@ -1,6 +1,7 @@
 -- [nfnl] fnl/core/opts.fnl
 vim.opt.background = "dark"
 vim.opt.termguicolors = true
+vim.opt.shortmess:append("I")
 if not vim.g.neovide then
   vim.opt.guifont = "IosevkaTermSlab NFM:h14"
   vim.opt.guifontwide = "Maple Mono SC NF:h14"
