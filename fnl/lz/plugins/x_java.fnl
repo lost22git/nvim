@@ -1,7 +1,6 @@
 (import-macros {: has! : autocmd! : call!} :config.macros)
 
 {1 "mfussenegger/nvim-jdtls"
- :dependencies ["neovim/nvim-lspconfig"]
  :cmd :JdtStart
  :config (fn []
            ;; See `:help vim.lsp.start_client` for an overview of the supported `config` options.

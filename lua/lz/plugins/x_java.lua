@@ -29,4 +29,4 @@ local function _1_()
   end
   return vim.api.nvim_create_autocmd("FileType", {group = vim.api.nvim_create_augroup("JdtStartOrAttach", {}), pattern = "java", callback = start_or_attach})
 end
-return {"mfussenegger/nvim-jdtls", dependencies = {"neovim/nvim-lspconfig"}, cmd = "JdtStart", config = _1_}
+return {"mfussenegger/nvim-jdtls", cmd = "JdtStart", config = _1_}
