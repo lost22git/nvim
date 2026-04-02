@@ -28,10 +28,6 @@
                                                                       "@loop.outer"]
                                                                   :i ["@conditional.inner"
                                                                       "@loop.inner"]})}}))}
- {1 "nvim-mini/mini.hues"
-  :enabled false
-  :lazy false
-  :init #(vim.cmd.colorscheme :minisummer)}
  {1 "nvim-mini/mini.bufremove" :lazy false :opts {}}
  {1 "nvim-mini/mini.files"
   :lazy false
