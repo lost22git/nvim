@@ -49,13 +49,10 @@
                                     :gomod
                                     :java]))
 
-[{1 "nvim-treesitter/nvim-treesitter-context"
-  :dependencies ["nvim-treesitter/nvim-treesitter"]
-  :cmd :TSContext
-  :opts {}}
+[{1 "nvim-treesitter/nvim-treesitter-context" :cmd :TSContext :opts {}}
  {1 "nvim-treesitter/nvim-treesitter"
   :branch :main
-  :build :TSUpdate
+  :build ":TSUpdate"
   :lazy false
   :dependencies ["nvim-treesitter/nvim-treesitter-textobjects"]
   :config (fn []

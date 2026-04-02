@@ -5,9 +5,8 @@
   :event [:InsertEnter :CmdLineEnter :TermEnter]
   :opts {:timeout 250 :escape_sequences {:v false :V false :c :<BS><BS><Esc>}}}
  {1 "Wansmer/treesj"
-  :dependencies ["nvim-treesitter/nvim-treesitter"]
   :opts {:use_default_keymaps false}
-  :keys [{1 "<Leader>j" 2 "<Cmd>TSJToggle<CR>" :desc "[treesj] Split/Join"}]}
+  :keys [{1 "<Leader>j" 2 "<Cmd>TSJToggle<CR>" :desc "[treesj] SplitJoin"}]}
  {1 "aaronik/treewalker.nvim"
   :opts {:highlight true :highlight_duration 300 :highlight_group :Visual}
   :keys (let [data [[:th :Left]

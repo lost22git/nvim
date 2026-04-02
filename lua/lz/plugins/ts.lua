@@ -15,4 +15,4 @@ local function _2_()
   add_custom_sources()
   return install_langs()
 end
-return {{"nvim-treesitter/nvim-treesitter-context", dependencies = {"nvim-treesitter/nvim-treesitter"}, cmd = "TSContext", opts = {}}, {"nvim-treesitter/nvim-treesitter", branch = "main", build = "TSUpdate", dependencies = {"nvim-treesitter/nvim-treesitter-textobjects"}, config = _2_, lazy = false}}
+return {{"nvim-treesitter/nvim-treesitter-context", cmd = "TSContext", opts = {}}, {"nvim-treesitter/nvim-treesitter", branch = "main", build = ":TSUpdate", dependencies = {"nvim-treesitter/nvim-treesitter-textobjects"}, config = _2_, lazy = false}}
