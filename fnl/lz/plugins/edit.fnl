@@ -1,5 +1,4 @@
 [{1 "lost22git/highlight-visual.nvim" :lazy false :opts {}}
- {1 "MagicDuck/grug-far.nvim" :cmd [:GrugFar :GrugFarWithin] :opts {}}
  {1 "mbbill/undotree"
   :keys [{1 :<Leader>u 2 "<CMD>UndotreeToggle<CR>" :desc "[undotree] Toggle"}]}
  {1 "TheBlob42/houdini.nvim"
