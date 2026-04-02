@@ -1,4 +1,4 @@
-(import-macros {: call! : autocmd!} :config.macros)
+(import-macros {: call! : on!} :config.macros)
 
 [{1 "mikavilpas/yazi.nvim" :cmd :Yazi :opts {}}
  {1 "stevearc/aerial.nvim"

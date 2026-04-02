@@ -1,4 +1,4 @@
-(import-macros {: has! : autocmd! : call!} :config.macros)
+(import-macros {: has! : on! : call!} :config.macros)
 
 {1 "mfussenegger/nvim-jdtls"
  :cmd :JdtStart
@@ -77,7 +77,7 @@
              (call! :jdtls :start_or_attach opts))
 
            (when (= :java vim.bo.filetype) (start_or_attach))
-           (autocmd! :FileType
+           (on! :FileType
                      {:group (vim.api.nvim_create_augroup :JdtStartOrAttach {})
                       :pattern :java
                       :callback start_or_attach}))}

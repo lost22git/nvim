@@ -1,4 +1,4 @@
-(import-macros {: autocmd!} :config.macros)
+(import-macros {: on!} :config.macros)
 
 (local {: lsp_with_server} (require :core.utils))
 
@@ -16,7 +16,7 @@
     (let [g (vim.api.nvim_create_augroup :lsp_format_on_save {})
           cb (partial vim.lsp.buf.format {:buffer bufid :timeout_ms 1000})]
       (vim.api.nvim_clear_autocmds {:group g :buffer bufid})
-      (autocmd! :BufWritePre {:group g :buffer bufid :callback cb}))))
+      (on! :BufWritePre {:group g :buffer bufid :callback cb}))))
 
 (fn on_attach [client bufid]
   (tset vim.bo bufid :omnifunc nil)
@@ -25,7 +25,7 @@
   (format_on_save client bufid)
   (pcall vim.lsp.codelens.enable true))
 
-(autocmd! :LspAttach {:desc "[LSP] LspAttach"
+(on! :LspAttach {:desc "[LSP] LspAttach"
                       :callback (fn [{:data {: client_id} :buf bufid}]
                                   (local client
                                          (assert (vim.lsp.get_client_by_id client_id)))

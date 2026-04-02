@@ -1,4 +1,4 @@
-(import-macros {: autocmd! : bufusercmd! : nmap! : call!} :config.macros)
+(import-macros {: on! : bufusercmd! : nmap! : call!} :config.macros)
 
 [{1 "jellydn/hurl.nvim"
   :ft :hurl
@@ -13,7 +13,7 @@
             (nmap! "<Leader>eb" "<Cmd>HurlRunner<CR>"
                    {:buffer bufid :silent true :desc "[hurl] HurlRunner"}))
 
-          (autocmd! :FileType
+          (on! :FileType
                     {:pattern :hurl :callback #(create_keymaps $.buf)}))}
  {1 "mistweaverco/kulala.nvim"
   :ft [:http :rest]
@@ -52,7 +52,7 @@
             (each [_ [k v] (pairs data)]
               (nmap! k v {:buffer bufid :silent true})))
 
-          (autocmd! :FileType
+          (on! :FileType
                     {:pattern [:http :rest]
                      :callback (fn [{:buf bufid}]
                                  (create_usercmds bufid)

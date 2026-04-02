@@ -1,8 +1,8 @@
-(import-macros {: call! : autocmd!} :config.macros)
+(import-macros {: call! : on!} :config.macros)
 
 (fn add_custom_sources []
   (vim.treesitter.language.register :crystal [:cr])
-  (autocmd! :User {:desc "[TS] perform actions after :TSUpdate"
+  (on! :User {:desc "[TS] perform actions after :TSUpdate"
                    :pattern :TSUpdate
                    :callback (fn []
                                (local parsers

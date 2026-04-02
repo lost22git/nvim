@@ -1,6 +1,6 @@
-(import-macros {: autocmd!} :config.macros)
+(import-macros {: on!} :config.macros)
 
-(autocmd! :Filetype {:desc "[TS] vim.treesitter.start()"
+(on! :Filetype {:desc "[TS] vim.treesitter.start()"
                      :callback (fn [{: buf}]
                                  (pcall vim.treesitter.start buf)
                                  nil)})

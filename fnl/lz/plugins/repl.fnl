@@ -1,4 +1,4 @@
-(import-macros {: autocmd! : bufusercmd! : nmap! : vmap! : nvmap! : call!}
+(import-macros {: on! : bufusercmd! : nmap! : vmap! : nvmap! : call!}
                :config.macros)
 
 [{1 "Olical/conjure"
@@ -31,7 +31,7 @@
 
           ;; For the first time, configure Chicken REPL for Scheme
           (configure-chicken-scheme)
-          (autocmd! :FileType
+          (on! :FileType
                     {:desc "create `ConjureSchemeChange` usercmd to change conjure repl for Scheme"
                      :pattern :scheme
                      :callback #(bufusercmd! $.buf :ConjureSchemeChange
@@ -40,7 +40,7 @@
                                              {:nargs 1
                                               :complete (fn []
                                                           [:chez :chicken])})})
-          (autocmd! :BufWinEnter
+          (on! :BufWinEnter
                     {:desc "create keymaps for conjure log"
                      :pattern ["conjure-log-*"]
                      :callback (fn [{:buf bufid}]
@@ -81,7 +81,7 @@
               (vmap! :<Leader>ee "<Plug>(ReplSendVisual)"
                      {:buffer bufid :desc "[repl] SendVisual"}))
 
-            (autocmd! :FileType
+            (on! :FileType
                       {:pattern ftypes :callback #(create_keymaps $.buf)})
             (when (vim.list_contains ftypes vim.bo.filetype)
               (create_keymaps 0)))}]

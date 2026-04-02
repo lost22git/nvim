@@ -1,4 +1,4 @@
-(import-macros {: autocmd!} :config.macros)
+(import-macros {: on!} :config.macros)
 
 (fn do_hls []
   (vim.cmd "highlight! Pmenu ctermbg=NONE guibg=NONE
@@ -18,6 +18,6 @@
               highlight! EndOfBuffer ctermbg=NONE guibg=NONE
               ")))
 
-(autocmd! :ColorScheme {:callback #(do_hls)})
+(on! :ColorScheme {:callback #(do_hls)})
 
 (do_hls)

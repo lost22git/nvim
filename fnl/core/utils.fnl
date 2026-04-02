@@ -1,4 +1,4 @@
-(import-macros {: has! : autocmd! : nvomap!} :config.macros)
+(import-macros {: has! : on! : nvomap!} :config.macros)
 
 (local M {})
 
