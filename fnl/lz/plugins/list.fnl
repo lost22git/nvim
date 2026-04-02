@@ -50,29 +50,4 @@
           (icollect [_ [k v] (pairs data)]
             {1 (.. :<Leader> k)
              2 (.. "<CMD>FzfLua " v "<CR>")
-             :desc (.. "[fzflua] " v)}))}
- {1 "bassamsdata/namu.nvim"
-  :cmd :Namu
-  :opts {:global {:movement {:next ["<M-j>" "<DOWN>"]
-                             :previous ["<M-k>" "<UP>"]
-                             :close ["<C-c>" "<Esc>"]}
-                  :multiselect {:enabled true
-                                :selected_icon "✓"
-                                :keymaps {:toggle "<Tab>"
-                                          :untoggle "<S-Tab>"
-                                          :select_all "<M-a>"
-                                          :clear_all "<M-x>"}}
-                  :custom_keymaps {:yank {:keys ["<M-y>"]}
-                                   :delete {:keys ["M-d"]}}}
-         :namu_symbols {:enable true :options {}}
-         :ui_select {:enable false}}
-  :keys (let [data [[:nd :diagnostics]
-                    [:nD "diagnostics workspace"]
-                    [:ns :symbols]
-                    [:nS :treesitter]
-                    [:nw :watchtower]
-                    [:nW :workspace]]]
-          (icollect [_ [k v] (pairs data)]
-            {1 (.. :<Leader> k)
-             2 (.. "<CMD>Namu " v "<CR>")
-             :desc (.. "[namu] " v)}))}]
+             :desc (.. "[fzflua] " v)}))}]
