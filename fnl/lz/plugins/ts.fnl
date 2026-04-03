@@ -54,7 +54,6 @@
   :branch :main
   :build ":TSUpdate"
   :lazy false
-  :dependencies ["nvim-treesitter/nvim-treesitter-textobjects"]
   :config (fn []
             (add_custom_sources)
             (install_langs))}]

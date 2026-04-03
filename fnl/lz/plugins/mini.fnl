@@ -18,16 +18,7 @@
                                :around_last "a["
                                :inside_last "i["
                                :goto_left "["
-                               :goto_right "]"}
-                    :custom_textobjects {;; treesitter-textobject
-                                         :F (gen_spec.treesitter {:a "@function.outer"
-                                                                  :i "@function.inner"})
-                                         :c (gen_spec.treesitter {:a "@class.outer"
-                                                                  :i "@class.inner"})
-                                         :o (gen_spec.treesitter {:a ["@conditional.outer"
-                                                                      "@loop.outer"]
-                                                                  :i ["@conditional.inner"
-                                                                      "@loop.inner"]})}}))}
+                               :goto_right "]"}}))}
  {1 "nvim-mini/mini.bufremove" :lazy false :opts {}}
  {1 "nvim-mini/mini.files"
   :lazy false
