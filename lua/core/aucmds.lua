@@ -31,10 +31,9 @@ local GUI_CURSOR_CACHE = nil
 local function _8_()
   GUI_CURSOR_CACHE = vim.opt.guicursor:get()
   vim.opt.guicursor = {}
-  vim.api.nvim_ui_send("\27[6 q \27[?12l")
   return nil
 end
-vim.api.nvim_create_autocmd({"VimLeave", "VimSuspend"}, {desc = "[Cursor Style] Restore terminal cursor style", pattern = "*", callback = _8_})
+vim.api.nvim_create_autocmd("VimSuspend", {desc = "[Cursor Style] Cache nvim cursor style", pattern = "*", callback = _8_})
 local function _9_()
   if GUI_CURSOR_CACHE then
     vim.opt.guicursor = GUI_CURSOR_CACHE

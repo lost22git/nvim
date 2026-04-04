@@ -1,7 +1,6 @@
 (import-macros {: call! : on!} :config.macros)
 
-[{1 "mikavilpas/yazi.nvim" :cmd :Yazi :opts {}}
- {1 "stevearc/aerial.nvim"
+[{1 "stevearc/aerial.nvim"
   :opts {}
   :keys [{1 "<Leader>O" 2 "<Cmd>AerialToggle<Cr>" :desc "[aerial] toggle"}]}
  {1 "stevearc/quicker.nvim"
@@ -19,6 +18,7 @@
                 {1 "<"
                  2 #(call! :quicker :collapse)
                  :desc "[quicker] Collapse context"}]}}
+ {1 "mikavilpas/yazi.nvim" :cmd :Yazi :opts {}}
  {1 "ibhagwan/fzf-lua"
   :opts {:fzf_colors true
          :winopts {:backdrop vim.g.zz.backdrop :preview {:hidden true}}}

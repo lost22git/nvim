@@ -32,18 +32,12 @@
 
 (var GUI_CURSOR_CACHE nil)
 
-;; TODO: not working
-(on! [:VimLeave :VimSuspend] {:desc "[Cursor Style] Restore terminal cursor style"
-                              :pattern "*"
-                              :callback (fn []
-                                          (set GUI_CURSOR_CACHE
-                                               (vim.opt.guicursor:get))
-                                          (set vim.opt.guicursor {})
-                                          ;; \x1b[?12l -> disable cursor blink
-                                          ;; \x1b[6 q -> set cursor style to bar
-                                          ;; (vim.fn.chansend vim.v.stderr "\x1b[6 q \x1b[?12l")
-                                          (vim.api.nvim_ui_send "\x1b[6 q \x1b[?12l")
-                                          nil)})
+(on! :VimSuspend {:desc "[Cursor Style] Cache nvim cursor style"
+                  :pattern "*"
+                  :callback (fn []
+                              (set GUI_CURSOR_CACHE (vim.opt.guicursor:get))
+                              (set vim.opt.guicursor {})
+                              nil)})
 
 (on! :VimResume
      {:desc "[Cursor Style] Restore nvim cursor style"

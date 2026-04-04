@@ -69,9 +69,6 @@
 ;; Mode
 (set vim.opt.showmode false)
 
-;; Mouse
-(set vim.opt.mouse "a")
-
 ;; Split
 (set vim.opt.splitright true)
 (set vim.opt.splitbelow true)
@@ -97,7 +94,6 @@
 
 ;; Search
 (set vim.opt.hlsearch true)
-(set vim.opt.magic true)
 (set vim.opt.grepformat "%f:%l:%c:%m")
 (set vim.opt.grepprg "rg --vimgrep --no-heading --smart-case")
 
