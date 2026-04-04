@@ -13,6 +13,30 @@
     ],
     "description": "find all symbols by module kw"
   },
+  "import": {
+    "prefix": "import",
+    "body": [
+      "import scheme"
+    ]
+  },
+  "import-prefix": {
+    "prefix": "import-prefix",
+    "body": [
+      "import (prefix ${1:mod} ${2:prefix}:)"
+    ]
+  },
+  "display": {
+    "prefix": "display",
+    "body": [
+      "display ${1:str} "
+    ]
+  },
+  "format": {
+    "prefix": "format",
+    "body": [
+      "format ${1|#t,port|} \"~A~%\" ${2:arg} "
+    ]
+  },
   "cond-expand": {
     "prefix": "cond-expand",
     "body": [
@@ -27,8 +51,17 @@
       "define-syntax ${1:name}",
       "\t(lambda (stx)",
       "\t\t(syntax-case stx ()",
-      "\t\t\t[(_ ${2:args}) ${3:body}",
+      "\t\t\t[(_ ${2:args}) ${3:body}]",
       "))"
+    ]
+  },
+  "define-syntax-rules": {
+    "prefix": "define-syntax-rules",
+    "body": [
+      "define-syntax ${1:name}",
+      "\t(syntax-rules ()",
+      "\t\t[(_ ${2:args}) ${3:body}]",
+      ")"
     ]
   },
   "define-function": {
@@ -156,7 +189,7 @@
     "prefix": "call-with-input-file",
     "body": [
       "call-with-input-file ${1:filepath}",
-      "\t(lambda (port) ${2:body} )",
+      "\t(lambda (in) ${2:body} )",
       "\t#:append"
     ]
   },
@@ -164,7 +197,35 @@
     "prefix": "call-with-output-file",
     "body": [
       "call-with-output-file ${1:filepath}",
-      "\t(lambda (port) ${2:body} )"
+      "\t(lambda (out) ${2:body} )"
+    ]
+  },
+  "call-with-input-string": {
+    "prefix": "call-with-input-string",
+    "body": [
+      "call-with-input-string ${1:string}",
+      "\t(lambda (in) ${2:body} )"
+    ]
+  },
+  "call-with-output-string": {
+    "prefix": "call-with-output-string",
+    "body": [
+      "call-with-output-string",
+      "\t(lambda (out) ${1:body} )"
+    ]
+  },
+  "call-with-input-port": {
+    "prefix": "call-with-input-port",
+    "body": [
+      "call-with-input-port ${1:in}",
+      "\t(lambda (in) ${2:body} )"
+    ]
+  },
+  "call-with-output-port": {
+    "prefix": "call-with-output-port",
+    "body": [
+      "call-with-output-port ${1:out}",
+      "\t(lambda (out) ${2:body} )"
     ]
   },
   "with-input-from-file": {
@@ -182,6 +243,34 @@
       "\t#:append"
     ]
   },
+  "with-input-from-string": {
+    "prefix": "with-input-from-string",
+    "body": [
+      "with-input-from-string ${1:string}",
+      "\t(lambda () ${2:body} )"
+    ]
+  },
+  "with-output-to-string": {
+    "prefix": "with-output-to-string",
+    "body": [
+      "with-output-to-string",
+      "\t(lambda () ${1:body} )"
+    ]
+  },
+  "with-input-from-port": {
+    "prefix": "with-input-from-port",
+    "body": [
+      "with-input-from-port ${1:in}",
+      "\t(lambda () ${2:body} )"
+    ]
+  },
+  "with-output-to-port": {
+    "prefix": "with-output-to-port",
+    "body": [
+      "with-output-to-port ${1:out}",
+      "\t(lambda () ${2:body} )"
+    ]
+  },
   "open-input-file": {
     "prefix": "open-input-file",
     "body": [
@@ -197,13 +286,13 @@
   "close-input-port": {
     "prefix": "close-input-port",
     "body": [
-      "close-input-port ${1:port} "
+      "close-input-port ${1:in} "
     ]
   },
   "close-output-port": {
     "prefix": "close-output-port",
     "body": [
-      "close-output-port ${1:port} "
+      "close-output-port ${1:out} "
     ]
   },
   "call-with-current-continuation": {
@@ -300,6 +389,30 @@
     "prefix": "string-ci>=?",
     "body": [
       "string-ci>=? ${1:a} ${2:b} "
+    ]
+  },
+  "current-input-port": {
+    "prefix": "current-input-port",
+    "body": [
+      "current-input-port"
+    ]
+  },
+  "current-output-port": {
+    "prefix": "current-output-port",
+    "body": [
+      "current-output-port"
+    ]
+  },
+  "current-error-port": {
+    "prefix": "current-error-port",
+    "body": [
+      "current-error-port"
+    ]
+  },
+  "command-line-arguments": {
+    "prefix": "command-line-arguments",
+    "body": [
+      "command-line-arguments"
     ]
   }
 }

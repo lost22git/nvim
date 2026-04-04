@@ -14,7 +14,7 @@
   "format": {
     "prefix": "format",
     "body": [
-      "format ${1|t,nil,stream|} \"~A~&\" $2 "
+      "format ${1|t,nil,stream|} \"~A~%\" $2 "
     ]
   },
   "print": {
