@@ -183,122 +183,122 @@
     "prefix": "case",
     "body": [
       "case ${1:v}",
-      "\t${2:pattern} ${3:body}",
+      "\t${2:pattern} ${3:thunk}",
       "\t${4:default}"
     ]
   },
   "compif": {
     "prefix": "compif",
     "body": [
-      "compif ${1:test} ${2:then_body} ${3:else_body}"
+      "compif ${1:test} ${2:then_thunk} ${3:else_thunk}"
     ]
   },
   "compwhen": {
     "prefix": "compwhen",
     "body": [
-      "compwhen ${1:test} ${2:body}"
+      "compwhen ${1:test} ${2:thunk}"
     ]
   },
   "cond": {
     "prefix": "cond",
     "body": [
       "cond",
-      "\t${1:test} ${2:body}",
+      "\t${1:test} ${2:thunk}",
       "\t_ ${3:default}"
     ]
   },
   "edefer": {
     "prefix": "edefer",
     "body": [
-      "edefer ${1:form} ${2:body}"
+      "edefer ${1:form} ${2:thunk}"
     ]
   },
   "defer": {
     "prefix": "defer",
     "body": [
-      "defer ${1:form} ${2:body}"
+      "defer ${1:form} ${2:thunk}"
     ]
   },
   "for-range": {
     "prefix": "for-range",
     "body": [
-      "for ${1:i} ${2:start} ${3:stop} ${4:body}"
+      "for ${1:i} ${2:start} ${3:stop} ${4:thunk}"
     ]
   },
   "if": {
     "prefix": "if",
     "body": [
-      "if ${1:test} ${2:then_body} ${3:else_body}"
+      "if ${1:test} ${2:then_thunk} ${3:else_thunk}"
     ]
   },
   "if-let": {
     "prefix": "if-let",
     "body": [
       "if-let [${1:k} ${2:v}]",
-      "\t${3:then_body}",
-      "\t${4:else_body}"
+      "\t${3:then_thunk}",
+      "\t${4:else_thunk}"
     ]
   },
   "if-with": {
     "prefix": "if-with",
     "body": [
-      "if-with [${1:v} ${2:ctor} ${3:dtor}] ${4:body}"
+      "if-with [${1:v} ${2:ctor} ${3:dtor}] ${4:thunk}"
     ]
   },
   "let": {
     "prefix": "let",
     "body": [
       "let [${1:k} ${2:v}]",
-      "\t${3:body}"
+      "\t${3:thunk}"
     ]
   },
   "loop-down": {
     "prefix": "loop-down",
     "body": [
-      "loop [${1:i} :down [${2:start} ${3:stop}]] ${4:body}"
+      "loop [${1:i} :down [${2:start} ${3:stop}]] ${4:thunk}"
     ]
   },
   "loop-down-to": {
     "prefix": "loop-down-to",
     "body": [
-      "loop [${1:i} :down-to [${2:start} ${3:stop}]] ${4:body}"
+      "loop [${1:i} :down-to [${2:start} ${3:stop}]] ${4:thunk}"
     ]
   },
   "loop-keys": {
     "prefix": "loop-keys",
     "body": [
-      "loop [${1:k} :keys ${2:col}] ${3:body}"
+      "loop [${1:k} :keys ${2:col}] ${3:thunk}"
     ]
   },
   "loop-in": {
     "prefix": "loop-in",
     "body": [
-      "loop [${1:v} :in ${2:col}] ${3:body}"
+      "loop [${1:v} :in ${2:col}] ${3:thunk}"
     ]
   },
   "loop-pairs": {
     "prefix": "loop-pairs",
     "body": [
-      "loop [[${1:k} ${2:v}] :pairs ${3:col}] ${4:body}"
+      "loop [[${1:k} ${2:v}] :pairs ${3:col}] ${4:thunk}"
     ]
   },
   "loop-range": {
     "prefix": "loop-range",
     "body": [
-      "loop [${1:i} :range [${2:start} ${3:stop}]] ${4:body}"
+      "loop [${1:i} :range [${2:start} ${3:stop}]] ${4:thunk}"
     ]
   },
   "loop-range-to": {
     "prefix": "loop-range-to",
     "body": [
-      "loop [${1:i} :range-to [${2:start} ${3:stop}]] ${4:body}"
+      "loop [${1:i} :range-to [${2:start} ${3:stop}]] ${4:thunk}"
     ]
   },
   "match": {
     "prefix": "match",
     "body": [
       "match ${1:v}",
-      "\t${2:pattern} ${3:body}",
+      "\t${2:pattern} ${3:thunk}",
       "\t${4:default}"
     ]
   },
@@ -335,7 +335,7 @@
   "try": {
     "prefix": "try",
     "body": [
-      "try ${1:body}",
+      "try ${1:thunk}",
       "\t([err fiber]",
       "\t\t(debug/stacktrace fiber err \"\")",
       "\t\t${2:fallback-value})"
@@ -344,50 +344,50 @@
   "when": {
     "prefix": "when",
     "body": [
-      "when ${1:test} ${2:body}"
+      "when ${1:test} ${2:thunk}"
     ]
   },
   "when-let": {
     "prefix": "when-let",
     "body": [
       "when-let [${1:k} ${2:v}]",
-      "\t${3:body}"
+      "\t${3:thunk}"
     ]
   },
   "when-with": {
     "prefix": "when-with",
     "body": [
-      "when-with [${1:v} ${2:ctor} ${3:dtor}] ${4:body}"
+      "when-with [${1:v} ${2:ctor} ${3:dtor}] ${4:thunk}"
     ]
   },
   "while": {
     "prefix": "while",
     "body": [
-      "while ${1:test} ${2:body}"
+      "while ${1:test} ${2:thunk}"
     ]
   },
   "with": {
     "prefix": "with",
     "body": [
-      "with [${1:v} ${2:ctor} ${3:dtor}] ${4:body}"
+      "with [${1:v} ${2:ctor} ${3:dtor}] ${4:thunk}"
     ]
   },
   "with-dyns": {
     "prefix": "with-dyns",
     "body": [
-      "with-dyns [${1:bindings}] ${2:body}"
+      "with-dyns [${1:bindings}] ${2:thunk}"
     ]
   },
   "with-syms": {
     "prefix": "with-syms",
     "body": [
-      "with-syms [${1:syms}] ${2:body}"
+      "with-syms [${1:syms}] ${2:thunk}"
     ]
   },
   "with-vars": {
     "prefix": "with-vars",
     "body": [
-      "with-vars [${1:bindings}] ${2:body}"
+      "with-vars [${1:bindings}] ${2:thunk}"
     ]
   }
 }

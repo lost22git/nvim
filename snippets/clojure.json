@@ -171,45 +171,45 @@
     "prefix": "assert-eq",
     "body": [
       "assert (= ${1:expect}",
-      "\t${2:body} )"
+      "\t${2:thunk} )"
     ]
   },
   "assert-false": {
     "prefix": "assert-false",
     "body": [
-      "assert (not ${1:false-body} )"
+      "assert (not ${1:false-thunk} )"
     ]
   },
   "assert-ne": {
     "prefix": "assert-ne",
     "body": [
       "assert (not= ${1:expect}",
-      "\t${2:body} )"
+      "\t${2:thunk} )"
     ]
   },
   "assert-nil": {
     "prefix": "assert-nil",
     "body": [
-      "assert (nil? ${1:body} )"
+      "assert (nil? ${1:thunk} )"
     ]
   },
   "assert-not-nil": {
     "prefix": "assert-not-nil",
     "body": [
-      "assert (not (nil? ${1:body} ))"
+      "assert (not (nil? ${1:thunk} ))"
     ]
   },
   "assert-true": {
     "prefix": "assert-true",
     "body": [
-      "assert ${1:true-body} "
+      "assert ${1:true-thunk} "
     ]
   },
   "binding": {
     "prefix": "binding",
     "body": [
       "binding [${1:k} ${2:v}]",
-      "\t${3:body} "
+      "\t${3:thunk} "
     ]
   },
   "bb-add-deps": {
@@ -360,7 +360,7 @@
       "defmethod ${1:name} ${2:tag}",
       "\t\"${3:doc}\"",
       "\t[${4:params}]",
-      "\t${5:body} "
+      "\t${5:thunk} "
     ]
   },
   "defmulti": {
@@ -375,7 +375,7 @@
       "defn ${1:name}",
       "\t\"${2:doc}\"",
       "\t[${3:params}]",
-      "\t${4:body} "
+      "\t${4:thunk} "
     ]
   },
   "defonce": {
@@ -412,72 +412,72 @@
     "prefix": "fn",
     "body": [
       "fn [${1:params}]",
-      "\t${2:body} "
+      "\t${2:thunk} "
     ]
   },
   "for": {
     "prefix": "for",
     "body": [
       "for [${1:i} ${2:col}]",
-      "\t${3:body} "
+      "\t${3:thunk} "
     ]
   },
   "for-when": {
     "prefix": "for-when",
     "body": [
       "for [${1:i} ${2:col} :when (${3:f} ${1:i})]",
-      "\t${4:body} "
+      "\t${4:thunk} "
     ]
   },
   "for-while": {
     "prefix": "for-while",
     "body": [
       "for [${1:i} ${2:col} :while (${3:f} ${1:i})]",
-      "\t${4:body} "
+      "\t${4:thunk} "
     ]
   },
   "if": {
     "prefix": "if",
     "body": [
-      "if ${1:test} ${2:then-body} ${3:else-body} "
+      "if ${1:test} ${2:then-thunk} ${3:else-thunk} "
     ]
   },
   "if-eq": {
     "prefix": "if-eq",
     "body": [
       "if (= ${1:a} ${2:b} )",
-      "\t${3:then-body}",
-      "\t${4:else-body} "
+      "\t${3:then-thunk}",
+      "\t${4:else-thunk} "
     ]
   },
   "if-let": {
     "prefix": "if-let",
     "body": [
       "if-let [${1:k} ${2:v}]",
-      "\t${3:then-body}",
-      "\t${4:else-body} "
+      "\t${3:then-thunk}",
+      "\t${4:else-thunk} "
     ]
   },
   "if-ne": {
     "prefix": "if-ne",
     "body": [
       "if (not= ${1:a} ${2:b})",
-      "\t${3:then-body}",
-      "\t${4:else-body} "
+      "\t${3:then-thunk}",
+      "\t${4:else-thunk} "
     ]
   },
   "if-not": {
     "prefix": "if-not",
     "body": [
-      "if-not ${1:test} ${2:then-body} ${3:else-body} "
+      "if-not ${1:test} ${2:then-thunk} ${3:else-thunk} "
     ]
   },
   "if-some": {
     "prefix": "if-some",
     "body": [
       "if-some [${1:a} ${2:b}]",
-      "\t${3:then-body}",
-      "\t${4:else-body} "
+      "\t${3:then-thunk}",
+      "\t${4:else-thunk} "
     ]
   },
   "ig-repl": {
@@ -523,7 +523,7 @@
     "prefix": "let",
     "body": [
       "let [${1:k} ${2:v}]",
-      "\t${3:body} "
+      "\t${3:thunk} "
     ]
   },
   "pprint": {
@@ -581,55 +581,55 @@
   "when": {
     "prefix": "when",
     "body": [
-      "when ${1:a} ${2:body} "
+      "when ${1:a} ${2:thunk} "
     ]
   },
   "when-eq": {
     "prefix": "when-eq",
     "body": [
       "when (= ${1:a} ${2:b} )",
-      "\t${3:body} "
+      "\t${3:thunk} "
     ]
   },
   "when-first": {
     "prefix": "when-first",
     "body": [
       "when-first [${1:a} ${2:b}]",
-      "\t${3:body} "
+      "\t${3:thunk} "
     ]
   },
   "when-let": {
     "prefix": "when-let",
     "body": [
       "when-let [${1:a} ${2:b}]",
-      "\t${3:body} "
+      "\t${3:thunk} "
     ]
   },
   "when-ne": {
     "prefix": "when-ne",
     "body": [
       "when (not= ${1:a} ${2:b} )",
-      "\t${3:body} "
+      "\t${3:thunk} "
     ]
   },
   "when-not": {
     "prefix": "when-not",
     "body": [
-      "when-not ${1:a} ${2:body} "
+      "when-not ${1:a} ${2:thunk} "
     ]
   },
   "when-some": {
     "prefix": "when-some",
     "body": [
       "when-some [${1:a} ${2:b}]",
-      "\t${3:body} "
+      "\t${3:thunk} "
     ]
   },
   "with-in-str": {
     "prefix": "with-in-str",
     "body": [
       "with-in-str ${1:s}",
-      "\t${2:body} "
+      "\t${2:thunk} "
     ]
   },
   "with-out-str": {
@@ -643,7 +643,7 @@
     "prefix": "with-open",
     "body": [
       "with-open [${1:k} ${2:v}]",
-      "\t${3:body} "
+      "\t${3:thunk} "
     ]
   }
 }

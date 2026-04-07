@@ -1,4 +1,196 @@
 {
+  "print_endline": {
+    "prefix": "print_endline",
+    "body": [
+      "print_endline ${1:str}"
+    ]
+  },
+  "printf": {
+    "prefix": "printf",
+    "body": [
+      "printf \"%s\\n\" ${1:a}"
+    ]
+  },
+  "let-rec": {
+    "prefix": "let-rec",
+    "body": [
+      "let rec ${1:name} ${2:arg} =",
+      "\t$3"
+    ]
+  },
+  "let-function": {
+    "prefix": "let-function",
+    "body": [
+      "let ${1:rec} ${2:name} = function",
+      "| ${3:p} -> $4",
+      "| ${5:p} -> $6"
+    ]
+  },
+  "let-open-module": {
+    "prefix": "let-open-module",
+    "body": [
+      "let open ${1:module} in",
+      "\t$2"
+    ]
+  },
+  "let-module": {
+    "prefix": "let-module",
+    "body": [
+      "let module ${1:alias} = ${2:module} in",
+      "\t$3"
+    ]
+  },
+  "assert": {
+    "prefix": "assert",
+    "body": [
+      "assert ( $1 )"
+    ]
+  },
+  "begin": {
+    "prefix": "begin",
+    "body": [
+      "begin",
+      "\t$1",
+      "end"
+    ]
+  },
+  "if-else": {
+    "prefix": "if-else",
+    "body": [
+      "if ${1:test} then",
+      "\t${2:then-thunk}",
+      "else",
+      "\t${3:else-thunk}"
+    ]
+  },
+  "if": {
+    "prefix": "if",
+    "body": [
+      "if ${1:test} then begin",
+      "\t${2:then-thunk}",
+      "end"
+    ]
+  },
+  "for-to": {
+    "prefix": "for-to",
+    "body": [
+      "for i = ${1:from} to ${2:to} do",
+      "\t${3:thunk}",
+      "done"
+    ]
+  },
+  "for-downto": {
+    "prefix": "for-downto",
+    "body": [
+      "for i = ${1:from} downto ${2:to} do",
+      "\t${3:thunk}",
+      "done"
+    ]
+  },
+  "while": {
+    "prefix": "while",
+    "body": [
+      "while ${1:test} do",
+      "\t${2:thunk}",
+      "done"
+    ]
+  },
+  "raise": {
+    "prefix": "raise",
+    "body": [
+      "raise $1"
+    ]
+  },
+  "exception": {
+    "prefix": "exception",
+    "body": [
+      "exception $1"
+    ]
+  },
+  "try-with": {
+    "prefix": "try-with",
+    "body": [
+      "try ${1:thunk} with",
+      "| exn -> $2"
+    ]
+  },
+  "finally": {
+    "prefix": "finally",
+    "body": [
+      "Fun,protect ~finally:(fun () -> $1) @@ fun () -> $2"
+    ]
+  },
+  "array": {
+    "prefix": "array",
+    "body": [
+      "[| $1; $2 |]"
+    ]
+  },
+  "list": {
+    "prefix": "list",
+    "body": [
+      "[ $1; $2 ]"
+    ]
+  },
+  "type-record": {
+    "prefix": "type-record",
+    "body": [
+      "type ${1:name} = {",
+      "\t${2:field} : ${3:typ};",
+      "}"
+    ]
+  },
+  "type-variant": {
+    "prefix": "type-variant",
+    "body": [
+      "type ${1:name} = ",
+      "| ${2:tag} of $3"
+    ]
+  },
+  "record-with": {
+    "prefix": "record-with",
+    "body": [
+      "{ ${1:record} with $2 = $3 ; }"
+    ]
+  },
+  "match-with": {
+    "prefix": "match-with",
+    "body": [
+      "match ${1:value} with",
+      "| ${2:p} -> $3",
+      "| ${4:p} -> $5"
+    ]
+  },
+  "module-alias": {
+    "prefix": "module-alias",
+    "body": [
+      "module ${1:alias} = ${2:module}"
+    ]
+  },
+  "module-sig": {
+    "prefix": "module-sig",
+    "body": [
+      "module type ${1:name} = sig",
+      "\t$2",
+      "end"
+    ]
+  },
+  "module-struct": {
+    "prefix": "module-struct",
+    "body": [
+      "module ${1:name} = struct",
+      "\t$2",
+      "end"
+    ]
+  },
+  "functor": {
+    "prefix": "functor",
+    "body": [
+      "module ${1:name} (${2:M} : ${3:SIG}) = struct",
+      "\t$4",
+      "end"
+    ]
+  },
   "deriving": {
     "prefix": "deriving",
     "body": [

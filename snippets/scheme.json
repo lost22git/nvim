@@ -41,8 +41,8 @@
     "prefix": "cond-expand",
     "body": [
       "cond-expand",
-      "\t(${1:feat} ${2:body} )",
-      "\t(else ${3:else-body} )"
+      "\t(${1:feat} ${2:thunk} )",
+      "\t(else ${3:else-thunk} )"
     ]
   },
   "define-syntax-case": {
@@ -51,7 +51,7 @@
       "define-syntax ${1:name}",
       "\t(lambda (stx)",
       "\t\t(syntax-case stx ()",
-      "\t\t\t[(_ ${2:args}) ${3:body}]",
+      "\t\t\t[(_ ${2:args}) ${3:thunk}]",
       "))"
     ]
   },
@@ -60,12 +60,12 @@
     "body": [
       "define-syntax ${1:name}",
       "\t(syntax-rules ()",
-      "\t\t[(_ ${2:args}) ${3:body}]",
+      "\t\t[(_ ${2:args}) ${3:thunk}]",
       ")"
     ]
   },
-  "define-function": {
-    "prefix": "define-function",
+  "define-fun": {
+    "prefix": "define-fun",
     "body": [
       "define (${1:name} ${2:a} )",
       "\t\"${3:doc}",
@@ -75,45 +75,45 @@
   "lambda": {
     "prefix": "lambda",
     "body": [
-      "lambda (${1:a}) ${2:body} "
+      "lambda (${1:a} ) ${2:thunk} "
     ]
   },
   "case-lambda": {
     "prefix": "case-lambda",
     "body": [
       "case-lambda",
-      "\t((${1:a}) ${2:body} )",
-      "\t((${3:a}) ${4:body} )"
+      "\t((${1:a} ) ${2:thunk} )",
+      "\t((${3:a} ) ${4:thunk} )"
     ]
   },
   "case": {
     "prefix": "case",
     "body": [
       "case ${1:a}",
-      "\t((${2:opt-1} ${3:opt-2}) ${4:body} )",
-      "\t(else ${5:else-body} )"
+      "\t((${2:opt-1} ${3:opt-2}) ${4:thunk} )",
+      "\t(else ${5:else-thunk} )"
     ]
   },
   "cond": {
     "prefix": "cond",
     "body": [
       "cond",
-      "\t(${1:pred-1} ${2:body})",
-      "\t(else ${3:body})"
+      "\t(${1:test} ${2:thunk} )",
+      "\t(else ${3:thunk} )"
     ]
   },
   "parameterize": {
     "prefix": "parameterize",
     "body": [
       "parameterize ((${1:k} ${2:v} ))",
-      "\t${3:body} "
+      "\t${3:thunk} "
     ]
   },
   "let": {
     "prefix": "let",
     "body": [
       "let ((${1:name} ${2:value} ))",
-      "\t${3:body} "
+      "\t${3:thunk} "
     ]
   },
   "let*": {
@@ -121,14 +121,14 @@
     "body": [
       "let* ((${1:name} ${2:value} )",
       "\t(${3:name} ${4:value} ))",
-      "\t${5:body} "
+      "\t${5:thunk} "
     ]
   },
   "let-loop": {
     "prefix": "let-loop",
     "body": [
       "let loop ((${1:name} ${2:value} ))",
-      "\t${3:body} "
+      "\t${3:thunk} "
     ]
   },
   "do": {
@@ -136,7 +136,13 @@
     "body": [
       "do ((${1:a} ${2:init} ${3:next} ))",
       "\t(${4:test} ${5:result} )",
-      "\t(${6:body} )"
+      "\t(${6:thunk} )"
+    ]
+  },
+  "for-each": {
+    "prefix": "for-each",
+    "body": [
+      "for-each ${1:f} ${2:list} "
     ]
   },
   "values": {
@@ -167,14 +173,7 @@
     "prefix": "let-values",
     "body": [
       "let-values (((${1:a} ${2:b}) ${3:values} ))",
-      "\t${4:body} "
-    ]
-  },
-  "let*-values": {
-    "prefix": "let*-values",
-    "body": [
-      "let*-values (((${1:a} ${2:b}) ${3:values} ))",
-      "\t${4:body} "
+      "\t${4:thunk} "
     ]
   },
   "call-with-values": {
@@ -189,7 +188,7 @@
     "prefix": "call-with-input-file",
     "body": [
       "call-with-input-file ${1:filepath}",
-      "\t(lambda (in) ${2:body} )",
+      "\t(lambda (in) ${2:thunk} )",
       "\t#:append"
     ]
   },
@@ -197,49 +196,49 @@
     "prefix": "call-with-output-file",
     "body": [
       "call-with-output-file ${1:filepath}",
-      "\t(lambda (out) ${2:body} )"
+      "\t(lambda (out) ${2:thunk} )"
     ]
   },
   "call-with-input-string": {
     "prefix": "call-with-input-string",
     "body": [
       "call-with-input-string ${1:string}",
-      "\t(lambda (in) ${2:body} )"
+      "\t(lambda (in) ${2:thunk} )"
     ]
   },
   "call-with-output-string": {
     "prefix": "call-with-output-string",
     "body": [
       "call-with-output-string",
-      "\t(lambda (out) ${1:body} )"
+      "\t(lambda (out) ${1:thunk} )"
     ]
   },
   "call-with-input-port": {
     "prefix": "call-with-input-port",
     "body": [
       "call-with-input-port ${1:in}",
-      "\t(lambda (in) ${2:body} )"
+      "\t(lambda (in) ${2:thunk} )"
     ]
   },
   "call-with-output-port": {
     "prefix": "call-with-output-port",
     "body": [
       "call-with-output-port ${1:out}",
-      "\t(lambda (out) ${2:body} )"
+      "\t(lambda (out) ${2:thunk} )"
     ]
   },
   "with-input-from-file": {
     "prefix": "with-input-from-file",
     "body": [
       "with-input-from-file ${1:filepath}",
-      "\t(lambda () ${2:body} )"
+      "\t(lambda () ${2:thunk} )"
     ]
   },
   "with-output-to-file": {
     "prefix": "with-output-to-file",
     "body": [
       "with-output-to-file ${1:filepath}",
-      "\t(lambda () ${2:body} )",
+      "\t(lambda () ${2:thunk} )",
       "\t#:append"
     ]
   },
@@ -247,28 +246,28 @@
     "prefix": "with-input-from-string",
     "body": [
       "with-input-from-string ${1:string}",
-      "\t(lambda () ${2:body} )"
+      "\t(lambda () ${2:thunk} )"
     ]
   },
   "with-output-to-string": {
     "prefix": "with-output-to-string",
     "body": [
       "with-output-to-string",
-      "\t(lambda () ${1:body} )"
+      "\t(lambda () ${1:thunk} )"
     ]
   },
   "with-input-from-port": {
     "prefix": "with-input-from-port",
     "body": [
       "with-input-from-port ${1:in}",
-      "\t(lambda () ${2:body} )"
+      "\t(lambda () ${2:thunk} )"
     ]
   },
   "with-output-to-port": {
     "prefix": "with-output-to-port",
     "body": [
       "with-output-to-port ${1:out}",
-      "\t(lambda () ${2:body} )"
+      "\t(lambda () ${2:thunk} )"
     ]
   },
   "open-input-file": {
@@ -295,11 +294,22 @@
       "close-output-port ${1:out} "
     ]
   },
-  "call-with-current-continuation": {
-    "prefix": "call-with-current-continuation",
+  "current-input-port": {
+    "prefix": "current-input-port",
     "body": [
-      "call-with-current-continuation",
-      "\t(lambda (k) $1 )"
+      "current-input-port"
+    ]
+  },
+  "current-output-port": {
+    "prefix": "current-output-port",
+    "body": [
+      "current-output-port"
+    ]
+  },
+  "current-error-port": {
+    "prefix": "current-error-port",
+    "body": [
+      "current-error-port"
     ]
   },
   "call/cc": {
@@ -309,6 +319,15 @@
       "\t(lambda (k) $1 )"
     ]
   },
+  "dynamic-wind": {
+    "prefix": "dynamic-wind",
+    "body": [
+      "dynamic-wind",
+      "\t(lambda () #f)",
+      "\t(lambda () ${1:thunk} )",
+      "\t(lambda () ${2:cleanup} )"
+    ]
+  },
   "with-exception-handler": {
     "prefix": "with-exception-handler",
     "body": [
@@ -316,16 +335,7 @@
       "\t(lambda (k)",
       "\t\t(with-exception-handler",
       "\t\t\t(lambda (exn) (k '()))",
-      "\t\t\t(lambda () ${1:body} )))"
-    ]
-  },
-  "dynamic-wind": {
-    "prefix": "dynamic-wind",
-    "body": [
-      "dynamic-wind",
-      "\t(lambda () #f)",
-      "\t(lambda () ${1:body} )",
-      "\t(lambda () ${2:cleanup} )"
+      "\t\t\t(lambda () ${1:thunk} )))"
     ]
   },
   "eq?": {
@@ -389,24 +399,6 @@
     "prefix": "string-ci>=?",
     "body": [
       "string-ci>=? ${1:a} ${2:b} "
-    ]
-  },
-  "current-input-port": {
-    "prefix": "current-input-port",
-    "body": [
-      "current-input-port"
-    ]
-  },
-  "current-output-port": {
-    "prefix": "current-output-port",
-    "body": [
-      "current-output-port"
-    ]
-  },
-  "current-error-port": {
-    "prefix": "current-error-port",
-    "body": [
-      "current-error-port"
     ]
   },
   "command-line-arguments": {

@@ -15,7 +15,7 @@
     "prefix": "case",
     "body": [
       "case ${1:EXPR}",
-      "\t(${2:PATTERN} ${3:BODY})",
+      "\t(${2:PATTERN} ${3:thunk})",
       "\t(_ ${4:DEFAULT})"
     ]
   },
@@ -23,7 +23,7 @@
     "prefix": "cond",
     "body": [
       "cond",
-      "\t(${1:COND-1} ${2:BODY})",
+      "\t(${1:COND-1} ${2:thunk})",
       "\t('true ${3:DEFAULT})"
     ]
   },
@@ -136,7 +136,7 @@
     "body": [
       "maybe",
       "\t(?= ${1:PATTERN} ${2:EXPR})",
-      "\t${3:BODY}"
+      "\t${3:thunk}"
     ]
   },
   "process_flag": {
@@ -167,8 +167,8 @@
     "prefix": "receive",
     "body": [
       "receive",
-      "\t(${1:PATTERN} ${2:BODY})",
-      "\t(after ${3:1000} ${4:TIMEOUT_BODY})"
+      "\t(${1:PATTERN} ${2:thunk})",
+      "\t(after ${3:1000} ${4:TIMEOUT_thunk})"
     ]
   },
   "register": {

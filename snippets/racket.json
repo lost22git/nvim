@@ -1,93 +1,393 @@
 {
-  "define-fn": {
-    "prefix": "define-fn",
+  "lang": {
+    "prefix": "lang",
     "body": [
-      "define (${1:name} ${2:arg})",
-      "\t${3:body}"
+      "#lang racket/base"
     ]
   },
-  "define-values": {
-    "prefix": "define-values",
+  "require": {
+    "prefix": "require",
     "body": [
-      "define-values (v v2)",
-      "\t${3:values}"
+      "require ${1:module}"
     ]
   },
-  "let": {
-    "prefix": "let",
+  "require-prefix": {
+    "prefix": "require-prefix",
     "body": [
-      "let ([${1:k} ${2:v}])",
-      "\t${3:body}"
+      "require (prefix-in ${1:prefix}: ${2:module})"
     ]
   },
-  "let-values": {
-    "prefix": "let-values",
+  "display": {
+    "prefix": "display",
     "body": [
-      "let-values ([(v v2) ${1:values}])",
-      "\t${2:body}"
+      "display ${1:str} "
     ]
   },
-  "for-in-range": {
-    "prefix": "for-in-range",
+  "displayln": {
+    "prefix": "displayln",
     "body": [
-      "for ([i (in-range ${1:from} ${2:to} ${3:step})])",
-      "\t${4:body}"
+      "displayln ${1:str} "
     ]
   },
-  "for-in-string": {
-    "prefix": "for-in-string",
+  "format": {
+    "prefix": "format",
     "body": [
-      "for ([c (in-string ${1:str})])",
-      "\t${2:body}"
+      "format \"~A~%\" ${1:a} "
     ]
   },
-  "for-in-list": {
-    "prefix": "for-in-list",
+  "print": {
+    "prefix": "print",
     "body": [
-      "for ([i (in-list ${1:list})])",
-      "\t${2:body}"
+      "print ${1:v} "
     ]
   },
-  "for-in-vector": {
-    "prefix": "for-in-vector",
+  "println": {
+    "prefix": "println",
     "body": [
-      "for ([i (in-vector ${1:vector})])",
-      "\t${2:body}"
+      "println ${1:v} "
     ]
   },
-  "for-in-hash": {
-    "prefix": "for-in-hash",
+  "printf": {
+    "prefix": "printf",
     "body": [
-      "for ([(k v) (in-hash ${1:hash-table})])",
-      "\t${2:body}"
+      "printf \"~A~%\" ${1:a} "
     ]
   },
-  "for-in-hash-keys": {
-    "prefix": "for-in-hash-keys",
+  "fprintf": {
+    "prefix": "fprintf",
     "body": [
-      "for ([k (in-hash-keys ${1:hash-table})])",
-      "\t${2:body}"
+      "fprintf ${1:out} \"~A~%\" ${2:a} "
     ]
   },
-  "for-in-hash-vaues": {
-    "prefix": "for-in-hash-vaues",
+  "define-syntax-case": {
+    "prefix": "define-syntax-case",
     "body": [
-      "for ([v (in-hash-values ${1:hash-table})])",
-      "\t${2:body}"
+      "define-syntax ${1:name}",
+      "\t(λ (stx)",
+      "\t\t(syntax-case stx ()",
+      "\t\t\t[(_ ${2:args}) ${3:thunk}]",
+      "))"
+    ]
+  },
+  "define-syntax-rule": {
+    "prefix": "define-syntax-rule",
+    "body": [
+      "define-syntax-rule (${1:name} ${2:arg} )",
+      "\t${3:thunk} "
+    ]
+  },
+  "define-syntax-rules": {
+    "prefix": "define-syntax-rules",
+    "body": [
+      "define-syntax ${1:name}",
+      "\t(syntax-rules ()",
+      "\t\t[(_ ${2:args}) ${3:thunk}]",
+      ")"
+    ]
+  },
+  "define-fun": {
+    "prefix": "define-fun",
+    "body": [
+      "define (${1:name} ${2:arg} )",
+      "\t${3:thunk} "
+    ]
+  },
+  "lambda": {
+    "prefix": "lambda",
+    "body": [
+      "λ (${1:a} ) ${2:thunk} "
+    ]
+  },
+  "case-lambda": {
+    "prefix": "case-lambda",
+    "body": [
+      "case-λ",
+      "\t[(${1:a} ) ${2:thunk} ]",
+      "\t[(${3:a} ) ${4:thunk} ]"
+    ]
+  },
+  "case": {
+    "prefix": "case",
+    "body": [
+      "case ${1:a}",
+      "\t((${2:opt-1} ${3:opt-2}) ${4:thunk} )",
+      "\t(else ${5:else-thunk} )"
+    ]
+  },
+  "cond": {
+    "prefix": "cond",
+    "body": [
+      "cond",
+      "\t(${1:test} ${2:thunk} )",
+      "\t(else ${3:thunk} )"
     ]
   },
   "parameterize": {
     "prefix": "parameterize",
     "body": [
-      "parameterize ([${1:binding-var} ${2:binding-value}])",
-      "\t${3:body}"
+      "parameterize ([${1:k} ${2:v} ])",
+      "\t${3:thunk} "
     ],
     "description": "dynamic bindings"
   },
-  "struct": {
-    "prefix": "struct",
+  "let": {
+    "prefix": "let",
     "body": [
-      "struct ${1:name} (${2:field}) #:transparent"
+      "let ([${1:k} ${2:v} ])",
+      "\t${3:thunk} "
+    ]
+  },
+  "match-let": {
+    "prefix": "match-let",
+    "body": [
+      "match-let ([${1:pattern} ${2:value} ])",
+      "\t${3:thunk} "
+    ]
+  },
+  "values": {
+    "prefix": "values",
+    "body": [
+      "values ${1:a} ${2:b} "
+    ]
+  },
+  "define-values": {
+    "prefix": "define-values",
+    "body": [
+      "define-values (${1:a} ${2:b}) ${3:values} "
+    ]
+  },
+  "set!-values": {
+    "prefix": "set!-values",
+    "body": [
+      "set!-values (${1:a} ${2:b}) ${3:values} "
+    ]
+  },
+  "let-values": {
+    "prefix": "let-values",
+    "body": [
+      "let-values (((${1:a} ${2:b}) ${3:values} ))",
+      "\t${4:thunk} "
+    ]
+  },
+  "call-with-values": {
+    "prefix": "call-with-values",
+    "body": [
+      "call-with-values",
+      "\t(λ () (values $1 $2 ))",
+      "\t(λ (a b) $3 )"
+    ]
+  },
+  "let-loop": {
+    "prefix": "let-loop",
+    "body": [
+      "let loop ([${1:k} ${2:v} ])",
+      "\t${3:thunk} "
+    ]
+  },
+  "do": {
+    "prefix": "do",
+    "body": [
+      "do ((${1:a} ${2:init} ${3:next} ))",
+      "\t(${4:test} ${5:result} )",
+      "\t(${6:thunk} )"
+    ]
+  },
+  "for-each": {
+    "prefix": "for-each",
+    "body": [
+      "for-each ${1:f} ${2:list} "
+    ]
+  },
+  "for": {
+    "prefix": "for",
+    "body": [
+      "for ([i ${1:coll} ])",
+      "\t${2:thunk} "
+    ]
+  },
+  "call-with-input-file": {
+    "prefix": "call-with-input-file",
+    "body": [
+      "call-with-input-file ${1:filepath}",
+      "\t(λ (in) ${2:thunk} )",
+      "\t#:exists '${3|append,error,update,can-update,replace,truncate,must-truncate,truncate/replace|}"
+    ]
+  },
+  "call-with-output-file": {
+    "prefix": "call-with-output-file",
+    "body": [
+      "call-with-output-file ${1:filepath}",
+      "\t(λ (out) ${2:thunk} )"
+    ]
+  },
+  "call-with-input-string": {
+    "prefix": "call-with-input-string",
+    "body": [
+      "call-with-input-string ${1:string}",
+      "\t(λ (in) ${2:thunk} )"
+    ]
+  },
+  "call-with-output-string": {
+    "prefix": "call-with-output-string",
+    "body": [
+      "call-with-output-string",
+      "\t(λ (out) ${1:thunk} )"
+    ]
+  },
+  "call-with-input-bytes": {
+    "prefix": "call-with-input-bytes",
+    "body": [
+      "call-with-input-bytes ${1:bytes}",
+      "\t(λ (in) ${2:thunk} )"
+    ]
+  },
+  "call-with-output-bytes": {
+    "prefix": "call-with-output-bytes",
+    "body": [
+      "call-with-output-bytes",
+      "\t(λ (out) ${1:thunk} )"
+    ]
+  },
+  "call-with-input-port": {
+    "prefix": "call-with-input-port",
+    "body": [
+      "call-with-input-port ${1:in}",
+      "\t(λ (in) ${2:thunk} )"
+    ]
+  },
+  "call-with-output-port": {
+    "prefix": "call-with-output-port",
+    "body": [
+      "call-with-output-port ${1:out}",
+      "\t(λ (out) ${2:thunk} )"
+    ]
+  },
+  "with-input-from-file": {
+    "prefix": "with-input-from-file",
+    "body": [
+      "with-input-from-file ${1:filepath}",
+      "\t(λ () ${2:thunk} )"
+    ]
+  },
+  "with-output-to-file": {
+    "prefix": "with-output-to-file",
+    "body": [
+      "with-output-to-file ${1:filepath}",
+      "\t(λ () ${2:thunk} )",
+      "\t#:exists '${3|append,error,update,can-update,replace,truncate,must-truncate,truncate/replace|}"
+    ]
+  },
+  "with-input-from-string": {
+    "prefix": "with-input-from-string",
+    "body": [
+      "with-input-from-string ${1:string}",
+      "\t(λ () ${2:thunk} )"
+    ]
+  },
+  "with-output-to-string": {
+    "prefix": "with-output-to-string",
+    "body": [
+      "with-output-to-string",
+      "\t(λ () ${1:thunk} )"
+    ]
+  },
+  "with-input-from-bytes": {
+    "prefix": "with-input-from-bytes",
+    "body": [
+      "with-input-from-bytes ${1:bytes}",
+      "\t(λ () ${2:thunk} )"
+    ]
+  },
+  "with-output-to-bytes": {
+    "prefix": "with-output-to-bytes",
+    "body": [
+      "with-output-to-bytes",
+      "\t(λ () ${1:thunk} )"
+    ]
+  },
+  "with-input-from-port": {
+    "prefix": "with-input-from-port",
+    "body": [
+      "with-input-from-port ${1:in}",
+      "\t(λ () ${2:thunk} )"
+    ]
+  },
+  "with-output-to-port": {
+    "prefix": "with-output-to-port",
+    "body": [
+      "with-output-to-port ${1:out}",
+      "\t(λ () ${2:thunk} )"
+    ]
+  },
+  "open-input-file": {
+    "prefix": "open-input-file",
+    "body": [
+      "open-input-file ${1:filepath} "
+    ]
+  },
+  "open-output-file": {
+    "prefix": "open-output-file",
+    "body": [
+      "open-output-file ${1:filepath}",
+      "\t#:exists '${2|append,error,update,can-update,replace,truncate,must-truncate,truncate/replace|}"
+    ]
+  },
+  "close-input-port": {
+    "prefix": "close-input-port",
+    "body": [
+      "close-input-port ${1:in} "
+    ]
+  },
+  "close-output-port": {
+    "prefix": "close-output-port",
+    "body": [
+      "close-output-port ${1:out} "
+    ]
+  },
+  "current-input-port": {
+    "prefix": "current-input-port",
+    "body": [
+      "current-input-port"
+    ]
+  },
+  "current-output-port": {
+    "prefix": "current-output-port",
+    "body": [
+      "current-output-port"
+    ]
+  },
+  "current-error-port": {
+    "prefix": "current-error-port",
+    "body": [
+      "current-error-port"
+    ]
+  },
+  "let/cc": {
+    "prefix": "let/cc",
+    "body": [
+      "let/cc k ${1:thunk} "
+    ]
+  },
+  "shift": {
+    "prefix": "shift",
+    "body": [
+      "shift k ${1:thunk} "
+    ]
+  },
+  "reset": {
+    "prefix": "reset",
+    "body": [
+      "reset",
+      "\t(shift k ${1:thunk} )"
+    ]
+  },
+  "dynamic-wind": {
+    "prefix": "dynamic-wind",
+    "body": [
+      "dynamic-wind",
+      "\t(λ () #f)",
+      "\t(λ () ${1:thunk} )",
+      "\t(λ () ${2:cleanup} )"
     ]
   },
   "with-handlers": {
@@ -95,7 +395,19 @@
     "body": [
       "with-handlers ([exn:fail? (λ (exn)",
       "\t(printf \"error: ~a\\n\" (exn-message exn)))])",
-      "\t${1:body}"
+      "\t${1:thunk} "
+    ]
+  },
+  "struct": {
+    "prefix": "struct",
+    "body": [
+      "struct ${1:name} (${2:slot-a} ) #:transparent"
+    ]
+  },
+  "current-command-line-arguments": {
+    "prefix": "current-command-line-arguments",
+    "body": [
+      "current-command-line-arguments"
     ]
   }
 }

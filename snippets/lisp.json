@@ -67,7 +67,7 @@
   "lambda": {
     "prefix": "lambda",
     "body": [
-      "lambda (${1:a}) ${2:body} "
+      "lambda (${1:a}) ${2:thunk} "
     ]
   },
   "defun": {
@@ -75,7 +75,7 @@
     "body": [
       "defun ${1:name} (${2:a} &${3|optional,key,rest,allow-other-keys|} )",
       "\t\"${4:doc}\"",
-      "\t${5:body} "
+      "\t${5:thunk} "
     ]
   },
   "defun-setf": {
@@ -95,7 +95,7 @@
     "prefix": "defmethod",
     "body": [
       "defmethod ${1:name} ${2|:before,:after,:around|} (${3:obj} &${4|optional,key,rest,allow-other-keys|} )",
-      "\t${5:body} "
+      "\t${5:thunk} "
     ]
   },
   "defgeneric-methods": {
@@ -103,7 +103,7 @@
     "body": [
       "defgeneric ${1:name} (${2:obj} &${3|optional,key,rest,allow-other-keys|} )",
       "\t(:documentation \"$4\")",
-      "\t(:method ($2) ${5:body} )"
+      "\t(:method ($2) ${5:thunk} )"
     ]
   },
   "defgeneric-method-list": {
@@ -112,7 +112,7 @@
       "defgeneric ${1:name} (${2:obj} &${3|optional,key,rest,allow-other-keys|} )",
       "\t(:documentation \"$4\")",
       "\t(:method-combination list)",
-      "\t(:method list ($2 $3) ${5:body} )"
+      "\t(:method list ($2 $3) ${5:thunk} )"
     ]
   },
   "defgeneric-method-progn": {
@@ -121,14 +121,14 @@
       "defgeneric ${1:name} (${2:obj} &${3|optional,key,rest,allow-other-keys|} )",
       "\t(:documentation \"$4\")",
       "\t(:method-combination progn)",
-      "\t(:method progn ($2 $3) ${5:body} )"
+      "\t(:method progn ($2 $3) ${5:thunk} )"
     ]
   },
   "after-initialize-instance": {
     "prefix": "after-initialize-instance",
     "body": [
       "defmethod initialize-instance :after ((obj ${1:class}) &key)",
-      "\t${2:body} "
+      "\t${2:thunk} "
     ]
   },
   "trace-method": {
@@ -216,14 +216,14 @@
     "prefix": "let-var",
     "body": [
       "let (${1:a} )",
-      "\t${2:body} "
+      "\t${2:thunk} "
     ]
   },
   "let": {
     "prefix": "let",
     "body": [
       "let ((${1:k} ${2:v} ))",
-      "\t${3:body} "
+      "\t${3:thunk} "
     ]
   },
   "let*": {
@@ -231,7 +231,7 @@
     "body": [
       "let* ((${1:k} ${2:v} )",
       "\t(${3:k2} ${4:v2} ))",
-      "\t${5:body} "
+      "\t${5:thunk} "
     ]
   },
   "values": {
@@ -277,7 +277,7 @@
     "prefix": "multiple-value-bind",
     "body": [
       "multiple-value-bind (${1:a} ${2:b}) ${3:values}",
-      "\t${4:body} "
+      "\t${4:thunk} "
     ],
     "description": "destructuring a multi-values"
   },
@@ -285,7 +285,7 @@
     "prefix": "destructuring-bind",
     "body": [
       "destructuring-bind (${1:a}) ${2:list}",
-      "\t${3:body}"
+      "\t${3:thunk}"
     ],
     "description": "destructuring a list"
   },
@@ -293,7 +293,7 @@
     "prefix": "with-slots",
     "body": [
       "with-slots (${1:slot-a} ${2:slot-b}) ${3:obj}",
-      "\t${4:body} "
+      "\t${4:thunk} "
     ],
     "description": "destructuring an object"
   },
@@ -307,7 +307,7 @@
     "prefix": "with-accessors",
     "body": [
       "with-accessors ((${1;accessor-a} $1) (${2:accessor-b} $2)) ${3:obj}",
-      "\t${4:body} "
+      "\t${4:thunk} "
     ]
   },
   "do": {
@@ -315,7 +315,7 @@
     "body": [
       "do ((${1:a} ${2:init} ${3:next} ))",
       "\t(${4:test} ${5:result} )",
-      "\t(${6:body} )"
+      "\t(${6:thunk} )"
     ]
   },
   "do*": {
@@ -323,56 +323,56 @@
     "body": [
       "do* ((${1:a} ${2:init} ${3:next} ))",
       "\t(${4:test} ${5:result} )",
-      "\t(${6:body} )"
+      "\t(${6:thunk} )"
     ]
   },
   "dotimes": {
     "prefix": "dotimes",
     "body": [
       "dotimes ${1:i} ${2:count} ${3:optional-result}",
-      "\t${4:body} "
+      "\t${4:thunk} "
     ]
   },
   "dolist": {
     "prefix": "dolist",
     "body": [
       "dolist (${1:a} ${2:list} ${3:optional-result} )",
-      "\t${4:body} "
+      "\t${4:thunk} "
     ]
   },
   "loop-list": {
     "prefix": "loop-list",
     "body": [
       "loop for ${1:i} in ${2:list}",
-      "\tdo (${3:body} )"
+      "\tdo (${3:thunk} )"
     ]
   },
   "loop-vector": {
     "prefix": "loop-vector",
     "body": [
       "loop for ${1:i} across ${2:vector}",
-      "\tdo (${3:body} )"
+      "\tdo (${3:thunk} )"
     ]
   },
   "loop-string": {
     "prefix": "loop-string",
     "body": [
       "loop for ${1:c} across ${2:string}",
-      "\tdo (${3:body} )"
+      "\tdo (${3:thunk} )"
     ]
   },
   "loop-hash-key": {
     "prefix": "loop-hash-key",
     "body": [
       "loop for ${1:k} being the hash-key of ${2:hash-table}",
-      "\tdo (${3:body} )"
+      "\tdo (${3:thunk} )"
     ]
   },
   "loop-hash-value": {
     "prefix": "loop-hash-value",
     "body": [
       "loop for ${1:v} being the hash-value of ${2:hash-table}",
-      "\tdo (${3:body} )"
+      "\tdo (${3:thunk} )"
     ]
   },
   "loop-hash-table": {
@@ -380,42 +380,42 @@
     "body": [
       "loop for ${1:k} being the hash-key of ${2:hash-table}",
       "\t using (hash-value v)",
-      "\tdo (${3:body} )"
+      "\tdo (${3:thunk} )"
     ]
   },
   "loop-repeat": {
     "prefix": "loop-repeat",
     "body": [
       "loop repeat ${1:times}",
-      "\tdo (${2:body} )"
+      "\tdo (${2:thunk} )"
     ]
   },
   "loop-from-to": {
     "prefix": "loop-from-to",
     "body": [
       "loop for i from ${1:from} to ${2:to} by ${3:step}",
-      "\tdo (${4:body} )"
+      "\tdo (${4:thunk} )"
     ]
   },
   "loop-from-below": {
     "prefix": "loop-from-below",
     "body": [
       "loop for i from ${1:from} below ${2:below} by ${3:step}",
-      "\tdo (${4:body} )"
+      "\tdo (${4:thunk} )"
     ]
   },
   "loop-from-downto": {
     "prefix": "loop-from-downto",
     "body": [
       "loop for i from ${1:from} downto ${2:downto} by ${3:step}",
-      "\tdo (${4:body} )"
+      "\tdo (${4:thunk} )"
     ]
   },
   "loop-from-above": {
     "prefix": "loop-from-above",
     "body": [
       "loop for i from ${1:from} above ${2:above} by ${3:step}",
-      "\tdo (${4:body} )"
+      "\tdo (${4:thunk} )"
     ]
   },
   "map": {
@@ -461,7 +461,7 @@
   "maphash": {
     "prefix": "maphash",
     "body": [
-      "maphash (lambda (k v) ${1:body} ) ${2:hash} "
+      "maphash (lambda (k v) ${1:thunk} ) ${2:hash} "
     ]
   },
   "gethash": {
@@ -476,21 +476,21 @@
       "with-hash-table-iterator (next ${1:hash-table} )",
       "\t(loop (multiple-value-bind (ok k v) (next)",
       "\t\t(unless ok (return))",
-      "\t\t${2:body} ))"
+      "\t\t${2:thunk} ))"
     ]
   },
   "with-input-from-string": {
     "prefix": "with-input-from-string",
     "body": [
       "with-input-from-string (s ${1:string} )",
-      "\t${2:body} "
+      "\t${2:thunk} "
     ]
   },
   "with-output-to-string": {
     "prefix": "with-output-to-string",
     "body": [
       "with-output-to-string (s)",
-      "\t${1:body} "
+      "\t${1:thunk} "
     ]
   },
   "with-input-from-file": {
@@ -498,21 +498,21 @@
     "body": [
       "with-open-file (in #p\"${1:foo.dat}\" :direction :input :if-does-not-exist nil)",
       "\t(when in",
-      "\t\t${2:body} )"
+      "\t\t${2:thunk} )"
     ]
   },
   "with-output-to-file": {
     "prefix": "with-output-to-file",
     "body": [
       "with-open-file (out #p\"${1:foo.dat}\" :direction :output :if-does-not-exist :create :if-exists ${2|:append,:supersede|})",
-      "\t${3:body} "
+      "\t${3:thunk} "
     ]
   },
   "with-open-stream": {
     "prefix": "with-open-stream",
     "body": [
       "with-open-stream (s ${1:stream} )",
-      "\t${2:body} "
+      "\t${2:thunk} "
     ]
   },
   "make-string-input-stream": {
@@ -615,7 +615,7 @@
     "prefix": "unwind-protect",
     "body": [
       "unwind-protect",
-      "\t${1:body}",
+      "\t${1:thunk}",
       "\t${2:cleanup} "
     ]
   },
