@@ -1,1 +1,1 @@
-[{1 "lost22git/crystal.nvim" :lazy false :opts {}}]
+[{1 "lost22git/crystal.nvim" :ft :crystal :opts {}}]

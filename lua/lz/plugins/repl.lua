@@ -13,7 +13,7 @@ local function _1_()
     return nil
   end
   local function configure_chicken_scheme()
-    vim.g["conjure#client#scheme#stdio#command"] = "chicken-csi -:c"
+    vim.g["conjure#client#scheme#stdio#command"] = "chicken-csi -:c -R apropos"
     vim.g["conjure#client#scheme#stdio#prompt_pattern"] = "\n-#;%d-> "
     vim.g["conjure#client#scheme#stdio#value_prefix_pattern"] = false
     return nil

@@ -18,7 +18,8 @@
             (set vim.g.conjure#client#scheme#stdio#value_prefix_pattern false))
 
           (fn configure-chicken-scheme []
-            (set vim.g.conjure#client#scheme#stdio#command "chicken-csi -:c")
+            (set vim.g.conjure#client#scheme#stdio#command
+                 "chicken-csi -:c -R apropos")
             (set vim.g.conjure#client#scheme#stdio#prompt_pattern "\n-#;%d-> ")
             (set vim.g.conjure#client#scheme#stdio#value_prefix_pattern false))
 
