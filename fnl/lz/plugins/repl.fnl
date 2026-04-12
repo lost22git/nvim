@@ -68,6 +68,7 @@
                              :raku {:cmd "rlwrap raku"}
                              :roc {:cmd "roc repl"}
                              :lisp {:cmd "rlwrap sbcl"}
+                             :ocaml {:cmd "rlwrap ocaml"}
                              :swift {:cmd "swift repl"}
                              :typescript {:cmd "deno repl"}
                              :v {:cmd "v repl"}}}
