@@ -11,6 +11,12 @@
       "printf \"%s\\n\" ${1:a}"
     ]
   },
+  "let-unit": {
+    "prefix": "let-unit",
+    "body": [
+      "let () = $1 in"
+    ]
+  },
   "let-rec": {
     "prefix": "let-rec",
     "body": [
@@ -117,7 +123,7 @@
   "finally": {
     "prefix": "finally",
     "body": [
-      "Fun,protect ~finally:(fun () -> $1) @@ fun () -> $2"
+      "Fun.protect ~finally:(fun () -> $1) @@ fun () -> $2"
     ]
   },
   "array": {
@@ -195,6 +201,28 @@
     "prefix": "deriving",
     "body": [
       "[@@deriving $1]"
+    ]
+  },
+  "eff": {
+    "prefix": "eff",
+    "body": [
+      "type _ Effect.t += ",
+      "| ${1:name} : ${2:arg} -> ${3:ret} Effect.t"
+    ]
+  },
+  "eff-match-with": {
+    "prefix": "eff-match-with",
+    "body": [
+      "match_with ${1:f} ${2:arg}",
+      "{",
+      "\teffc = (fun (type c) (eff : c Effect.t) ->",
+      "\t\tmatch eff with",
+      "\t\t| ${3:eff-f} ${4:eff-arg} -> Some (fun (k : (c, _) continuation) -> ",
+      "\t\t\t ${5:thunk} )",
+      "\t\t| _ -> None);",
+      "\texnc = (function e -> raise e);",
+      "\tretc = (fun _ -> ());",
+      "}"
     ]
   },
   "Logs-setup": {

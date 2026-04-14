@@ -1,0 +1,75 @@
+{
+  "val-unit": {
+    "prefix": "val-unit",
+    "body": [
+      "val () = $1"
+    ]
+  },
+  "val": {
+    "prefix": "val",
+    "body": [
+      "val ${1:name} = $2"
+    ]
+  },
+  "fun": {
+    "prefix": "fun",
+    "body": [
+      "fun ${1:name} ${2:arg} = $3"
+    ]
+  },
+  "infix": {
+    "prefix": "infix",
+    "body": [
+      "infix ${1:op}",
+      "fun x $1 y = $2"
+    ]
+  },
+  "let": {
+    "prefix": "let",
+    "body": [
+      "let val ${1:name} = $2",
+      "in $3",
+      "end"
+    ]
+  },
+  "if": {
+    "prefix": "if",
+    "body": [
+      "if ${1:test}",
+      "then $2",
+      "else $3"
+    ]
+  },
+  "while": {
+    "prefix": "while",
+    "body": [
+      "while ${1:test} do $2"
+    ]
+  },
+  "case-of": {
+    "prefix": "case-of",
+    "body": [
+      "case ${1:v} of",
+      "  ${2:p} => $3",
+      "| ${4:p} => $5"
+    ]
+  },
+  "datatype": {
+    "prefix": "datatype",
+    "body": [
+      "datatype ${1:name} = $2 | $3"
+    ]
+  },
+  "exception": {
+    "prefix": "exception",
+    "body": [
+      "exception $1"
+    ]
+  },
+  "raise": {
+    "prefix": "raise",
+    "body": [
+      "raise $1"
+    ]
+  }
+}

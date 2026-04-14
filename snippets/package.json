@@ -75,6 +75,10 @@
         "path": "./scheme.json"
       },
       {
+        "language": "sml",
+        "path": "./sml.json"
+      },
+      {
         "language": "sshconfig",
         "path": "./sshconfig.json"
       }
