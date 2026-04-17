@@ -14,7 +14,7 @@ vim.opt.wildignorecase = true
 vim.opt.showcmd = true
 vim.opt.cmdheight = 1
 vim.opt.completeopt = "menu,menuone,noselect,noinsert,preview"
-vim.opt.guicursor:append("t-c:ver25")
+vim.opt.guicursor:append({"n-v-sm:block-Cursor", "i-ci-ve-t-c:ver25-lCursor"})
 vim.opt.cursorcolumn = false
 vim.opt.cursorline = true
 vim.opt.cursorlineopt = "line,number"
