@@ -71,5 +71,35 @@
     "body": [
       "raise $1"
     ]
+  },
+  "signature": {
+    "prefix": "signature",
+    "body": [
+      "signature ${1:NAME} =",
+      "sig",
+      "\t$2",
+      "end;"
+    ]
+  },
+  "structure": {
+    "prefix": "structure",
+    "body": [
+      "structure ${1:Name} : ${2:SIG} =",
+      "struct",
+      "\t$3",
+      "end;"
+    ]
+  },
+  "structure-sig": {
+    "prefix": "structure-sig",
+    "body": [
+      "structure ${1:Name} :",
+      "sig",
+      "\t$2",
+      "end =",
+      "struct",
+      "\t$3",
+      "end"
+    ]
   }
 }
