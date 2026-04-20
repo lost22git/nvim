@@ -1,9 +1,6 @@
 [{1 "lost22git/highlight-visual.nvim" :lazy false :opts {}}
  {1 "mbbill/undotree"
   :keys [{1 :<Leader>u 2 "<CMD>UndotreeToggle<CR>" :desc "[undotree] Toggle"}]}
- {1 "TheBlob42/houdini.nvim"
-  :event [:InsertEnter :CmdLineEnter :TermEnter]
-  :opts {:timeout 250 :escape_sequences {:v false :V false :c :<BS><BS><Esc>}}}
  {1 "Wansmer/treesj"
   :opts {:use_default_keymaps false}
   :keys [{1 "<Leader>j" 2 "<Cmd>TSJToggle<CR>" :desc "[treesj] SplitJoin"}]}
