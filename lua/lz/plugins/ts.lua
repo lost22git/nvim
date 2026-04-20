@@ -1,6 +1,5 @@
 -- [nfnl] fnl/lz/plugins/ts.fnl
 local function add_custom_sources()
-  vim.treesitter.language.register("crystal", {"cr"})
   local function _1_()
     local parsers = require("nvim-treesitter.parsers")
     parsers.crystal = {install_info = {url = "https://github.com/crystal-lang-tools/tree-sitter-crystal", branch = "main", queries = "queries/nvim", generate = false, generate_from_json = false}}

@@ -9,5 +9,5 @@
  {1 "aymenhafeez/doric-themes.nvim"
   :lazy false
   :priority 1000
-  :init #(vim.cmd.colorscheme :doric-beach)
+  :init #(vim.cmd.colorscheme :doric-water)
   :opts {:styles {:italic false :bold true}}}]
