@@ -1,5 +1,10 @@
-(import-macros {: has! : on! : bufusercmd! : nmap! : nvmap! : nvomap!}
-               :config.macros)
+(import-macros {: has!
+                : on!
+                : usercmd!
+                : bufusercmd!
+                : nmap!
+                : nvmap!
+                : nvomap!} :config.macros)
 
 (local {: create_keymaps_for_goto_entry} (require :core.utils))
 
@@ -27,23 +32,6 @@
      {:desc "Add keymaps for Goto prev/next region"
       :callback #(create_keymaps_for_goto_entry "[-\\/;#\\*] === .\\+ ===" "[r"
                                                 "]r" :code_region $.buf)})
-
-;; === CURSOR STYLE ===
-
-(var GUI_CURSOR_CACHE nil)
-
-(on! :VimSuspend {:desc "[Cursor Style] Cache nvim cursor style"
-                  :pattern "*"
-                  :callback (fn []
-                              (set GUI_CURSOR_CACHE (vim.opt.guicursor:get))
-                              (set vim.opt.guicursor {})
-                              nil)})
-
-(on! :VimResume
-     {:desc "[Cursor Style] Restore nvim cursor style"
-      :pattern "*"
-      :callback #(when GUI_CURSOR_CACHE
-                   (set vim.opt.guicursor GUI_CURSOR_CACHE))})
 
 ;; === TMUX ===
 
@@ -88,7 +76,7 @@
         cmd (string.format "clj -Sdeps %s %s -e %s" deps clj_opts cider_opts)]
     (vim.cmd (.. "0tabnew | term " cmd))))
 
-(on! :FileType {:desc "[Clojure] add `Clj` usercommand for starting Clojure nREPL server"
+(on! :FileType {:desc "[Clojure] add `Clj` user command for starting Clojure nREPL server"
                 :pattern :clojure
                 :callback #(bufusercmd! $.buf :Clj
                                         (fn [{: args}]
@@ -97,7 +85,7 @@
 
 ;; === JANET ===
 
-(on! :FileType {:desc "[Janet] add `Janet` usercommand for starting janet-netrepl server"
+(on! :FileType {:desc "[Janet] add `Janet` user command for starting janet-netrepl server"
                 :pattern :janet
                 :callback #(bufusercmd! $.buf :Janet
                                         #(vim.cmd (.. "0tabnew | term "
@@ -106,7 +94,7 @@
 
 ;; === LISP ===
 
-(on! :FileType {:desc "[SBCL] add `SBCL` usercommand for starting swank server"
+(on! :FileType {:desc "[SBCL] add `SBCL` user command for starting swank server"
                 :pattern :lisp
                 :callback #(bufusercmd! $.buf :SBCL
                                         #(->> "sbcl --eval \"(ql:quickload :swank)\" --eval \"(swank:create-server :dont-close t)\""
@@ -116,9 +104,20 @@
 
 ;; === BASILISP ===
 
-(on! :FileType {:desc "[Basilisp] add `Basilisp` usercommand for starting Basilisp nrepl server"
+(on! :FileType {:desc "[Basilisp] add `Basilisp` user command for starting Basilisp nrepl server"
                 :pattern :clojure
                 :callback #(bufusercmd! $.buf :Basilisp
                                         #(vim.cmd (.. "0tabnew | term "
                                                       "basilisp nrepl-server"))
                                         {:nargs "*"})})
+
+;; === HELP ===
+
+(on! :UIEnter {:desc "add `Help` user command"
+               :once true
+               :callback #(usercmd! :Help
+                                    (fn [{: args}]
+                                      (-> (.. "tabnew | exe 'r !" args
+                                              "' | Man!")
+                                          (vim.cmd)))
+                                    {:nargs "*"})})

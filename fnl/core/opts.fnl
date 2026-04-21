@@ -26,7 +26,7 @@
 
 ;; Cursor
 (vim.opt.guicursor:append ["n-v-sm:block-Cursor" "i-ci-ve-t-c:ver25-lCursor"])
-(set vim.opt.cursorcolumn true)
+(set vim.opt.cursorcolumn false)
 (set vim.opt.cursorline true)
 (set vim.opt.cursorlineopt "line,number")
 
