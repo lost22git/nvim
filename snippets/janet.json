@@ -245,6 +245,12 @@
       "if-with [${1:v} ${2:ctor} ${3:dtor}] ${4:thunk}"
     ]
   },
+  "import": {
+    "prefix": "import",
+    "body": [
+      "import $1 :as $2"
+    ]
+  },
   "let": {
     "prefix": "let",
     "body": [
