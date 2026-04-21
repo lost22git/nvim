@@ -15,7 +15,7 @@ vim.opt.showcmd = true
 vim.opt.cmdheight = 1
 vim.opt.completeopt = "menu,menuone,noselect,noinsert,preview"
 vim.opt.guicursor:append({"n-v-sm:block-Cursor", "i-ci-ve-t-c:ver25-lCursor"})
-vim.opt.cursorcolumn = false
+vim.opt.cursorcolumn = true
 vim.opt.cursorline = true
 vim.opt.cursorlineopt = "line,number"
 vim.opt.encoding = "utf-8"
@@ -67,4 +67,4 @@ vim.opt.undofile = true
 vim.opt.updatetime = 500
 vim.opt.virtualedit = "block"
 vim.opt.wrap = false
-return nil
+return require("vim._core.ui2").enable({enable = true, msg = {target = "cmd"}})

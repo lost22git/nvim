@@ -83,7 +83,7 @@ local function start_clojure_nrepl_server(args)
   local deps = "'{:deps {nrepl/nrepl {:mvn/version \"1.3.0\"} refactor-nrepl/refactor-nrepl {:mvn/version \"3.10.0\"} cider/cider-nrepl {:mvn/version \"0.52.0\"} }}'"
   local cider_opts = "\"(require 'nrepl.cmdline) (nrepl.cmdline/-main \\\"--interactive\\\" \\\"--middleware\\\" \\\"[refactor-nrepl.middleware/wrap-refactor cider.nrepl/cider-middleware]\\\")\""
   local cmd = string.format("clj -Sdeps %s %s -e %s", deps, clj_opts, cider_opts)
-  return vim.cmd(("tabnew | term " .. cmd))
+  return vim.cmd(("0tabnew | term " .. cmd))
 end
 local function _20_(_241)
   local function _22_(_21_)
@@ -95,21 +95,21 @@ end
 vim.api.nvim_create_autocmd("FileType", {desc = "[Clojure] add `Clj` usercommand for starting Clojure nREPL server", pattern = "clojure", callback = _20_})
 local function _23_(_241)
   local function _24_()
-    return vim.cmd(("tabnew | term " .. "janet-netrepl"))
+    return vim.cmd(("0tabnew | term " .. "janet-netrepl"))
   end
   return vim.api.nvim_buf_create_user_command(_241.buf, "Janet", _24_, {nargs = "*"})
 end
 vim.api.nvim_create_autocmd("FileType", {desc = "[Janet] add `Janet` usercommand for starting janet-netrepl server", pattern = "janet", callback = _23_})
 local function _25_(_241)
   local function _26_()
-    return vim.cmd(("tabnew | term " .. "sbcl --eval \"(ql:quickload :swank)\" --eval \"(swank:create-server :dont-close t)\""))
+    return vim.cmd(("0tabnew | term " .. "sbcl --eval \"(ql:quickload :swank)\" --eval \"(swank:create-server :dont-close t)\""))
   end
   return vim.api.nvim_buf_create_user_command(_241.buf, "SBCL", _26_, {nargs = "*"})
 end
 vim.api.nvim_create_autocmd("FileType", {desc = "[SBCL] add `SBCL` usercommand for starting swank server", pattern = "lisp", callback = _25_})
 local function _27_(_241)
   local function _28_()
-    return vim.cmd(("tabnew | term " .. "basilisp nrepl-server"))
+    return vim.cmd(("0tabnew | term " .. "basilisp nrepl-server"))
   end
   return vim.api.nvim_buf_create_user_command(_241.buf, "Basilisp", _28_, {nargs = "*"})
 end

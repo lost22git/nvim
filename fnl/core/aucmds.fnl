@@ -86,7 +86,7 @@
         deps "'{:deps {nrepl/nrepl {:mvn/version \"1.3.0\"} refactor-nrepl/refactor-nrepl {:mvn/version \"3.10.0\"} cider/cider-nrepl {:mvn/version \"0.52.0\"} }}'"
         cider_opts "\"(require 'nrepl.cmdline) (nrepl.cmdline/-main \\\"--interactive\\\" \\\"--middleware\\\" \\\"[refactor-nrepl.middleware/wrap-refactor cider.nrepl/cider-middleware]\\\")\""
         cmd (string.format "clj -Sdeps %s %s -e %s" deps clj_opts cider_opts)]
-    (vim.cmd (.. "tabnew | term " cmd))))
+    (vim.cmd (.. "0tabnew | term " cmd))))
 
 (on! :FileType {:desc "[Clojure] add `Clj` usercommand for starting Clojure nREPL server"
                 :pattern :clojure
@@ -100,7 +100,7 @@
 (on! :FileType {:desc "[Janet] add `Janet` usercommand for starting janet-netrepl server"
                 :pattern :janet
                 :callback #(bufusercmd! $.buf :Janet
-                                        #(vim.cmd (.. "tabnew | term "
+                                        #(vim.cmd (.. "0tabnew | term "
                                                       "janet-netrepl"))
                                         {:nargs "*"})})
 
@@ -110,7 +110,7 @@
                 :pattern :lisp
                 :callback #(bufusercmd! $.buf :SBCL
                                         #(->> "sbcl --eval \"(ql:quickload :swank)\" --eval \"(swank:create-server :dont-close t)\""
-                                              (.. "tabnew | term ")
+                                              (.. "0tabnew | term ")
                                               (vim.cmd))
                                         {:nargs "*"})})
 
@@ -119,6 +119,6 @@
 (on! :FileType {:desc "[Basilisp] add `Basilisp` usercommand for starting Basilisp nrepl server"
                 :pattern :clojure
                 :callback #(bufusercmd! $.buf :Basilisp
-                                        #(vim.cmd (.. "tabnew | term "
+                                        #(vim.cmd (.. "0tabnew | term "
                                                       "basilisp nrepl-server"))
                                         {:nargs "*"})})

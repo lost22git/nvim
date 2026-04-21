@@ -5,8 +5,8 @@
 (vim.opt.shortmess:append "I")
 
 ;; GUI Font
-;; Neovide respect it's config.toml which supports light style
-;; As for others, use this
+;; Neovide respect it's config.toml which supports light style.
+;; As for others, use this.
 (when (not vim.g.neovide)
   (set vim.opt.guifont "IosevkaTermSlab NFM:h14")
   (set vim.opt.guifontwide "Maple Mono SC NF:h14"))
@@ -21,16 +21,12 @@
 (set vim.opt.showcmd true)
 (set vim.opt.cmdheight 1)
 
-;; Column Limitation
-; (set vim.opt.colorcolumn "80")
-; (set vim.opt.textwidth 100)
-
 ;; Completion
 (set vim.opt.completeopt "menu,menuone,noselect,noinsert,preview")
 
 ;; Cursor
 (vim.opt.guicursor:append ["n-v-sm:block-Cursor" "i-ci-ve-t-c:ver25-lCursor"])
-(set vim.opt.cursorcolumn false)
+(set vim.opt.cursorcolumn true)
 (set vim.opt.cursorline true)
 (set vim.opt.cursorlineopt "line,number")
 
@@ -110,3 +106,6 @@
 (set vim.opt.updatetime 500)
 (set vim.opt.virtualedit "block")
 (set vim.opt.wrap false)
+
+;; UI2
+((. (require :vim._core.ui2) :enable) {:enable true :msg {:target :cmd}})
