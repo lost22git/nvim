@@ -179,12 +179,50 @@
       "*task-id*"
     ]
   },
-  "case": {
-    "prefix": "case",
+  "tracev": {
+    "prefix": "tracev",
+    "body": "tracev $1",
+    "description": "debug print"
+  },
+  "pp": {
+    "prefix": "pp",
+    "body": "pp $1",
+    "description": "pretty print"
+  },
+  "print": {
+    "prefix": "print",
+    "body": "print $1",
+    "description": "print"
+  },
+  "printf": {
+    "prefix": "printf",
+    "body": "printf \"${1:%s}\" ${2:value}",
+    "description": "format print"
+  },
+  "eprint": {
+    "prefix": "eprint",
+    "body": "eprint $1",
+    "description": "error print"
+  },
+  "eprintf": {
+    "prefix": "eprintf",
+    "body": "eprintf \"${1:%s}\" $2",
+    "description": "error printf"
+  },
+  "xprint": {
+    "prefix": "xprint",
+    "body": "xprint ${1:(or (dyn *out*) stdout)} $2",
+    "description": "custom output target print"
+  },
+  "xprintf": {
+    "prefix": "xprintf",
+    "body": "xprintf ${1:(or (dyn *out*) stdout)} \"${2:%s}\" $3",
+    "description": "custom output target printf"
+  },
+  "import": {
+    "prefix": "import",
     "body": [
-      "case ${1:v}",
-      "\t${2:pattern} ${3:thunk}",
-      "\t${4:default}"
+      "import $1 :as $2"
     ]
   },
   "compif": {
@@ -199,12 +237,28 @@
       "compwhen ${1:test} ${2:thunk}"
     ]
   },
+  "case": {
+    "prefix": "case",
+    "body": [
+      "case ${1:v}",
+      "\t${2:pattern} ${3:thunk}",
+      "\t${4:default}"
+    ]
+  },
   "cond": {
     "prefix": "cond",
     "body": [
       "cond",
       "\t${1:test} ${2:thunk}",
       "\t_ ${3:default}"
+    ]
+  },
+  "match": {
+    "prefix": "match",
+    "body": [
+      "match ${1:v}",
+      "\t${2:pattern} ${3:thunk}",
+      "\t${4:default}"
     ]
   },
   "edefer": {
@@ -219,10 +273,11 @@
       "defer ${1:form} ${2:thunk}"
     ]
   },
-  "for-range": {
-    "prefix": "for-range",
+  "let": {
+    "prefix": "let",
     "body": [
-      "for ${1:i} ${2:start} ${3:stop} ${4:thunk}"
+      "let [${1:k} ${2:v}]",
+      "\t${3:thunk}"
     ]
   },
   "if": {
@@ -245,17 +300,71 @@
       "if-with [${1:v} ${2:ctor} ${3:dtor}] ${4:thunk}"
     ]
   },
-  "import": {
-    "prefix": "import",
+  "when": {
+    "prefix": "when",
     "body": [
-      "import $1 :as $2"
+      "when ${1:test} ${2:thunk}"
     ]
   },
-  "let": {
-    "prefix": "let",
+  "when-let": {
+    "prefix": "when-let",
     "body": [
-      "let [${1:k} ${2:v}]",
+      "when-let [${1:k} ${2:v}]",
       "\t${3:thunk}"
+    ]
+  },
+  "when-with": {
+    "prefix": "when-with",
+    "body": [
+      "when-with [${1:v} ${2:ctor} ${3:dtor}] ${4:thunk}"
+    ]
+  },
+  "try": {
+    "prefix": "try",
+    "body": [
+      "try ${1:thunk}",
+      "\t([err fiber]",
+      "\t\t(debug/stacktrace fiber err \"\")",
+      "\t\t${2:fallback-value})"
+    ]
+  },
+  "while": {
+    "prefix": "while",
+    "body": [
+      "while ${1:test} ${2:thunk}"
+    ]
+  },
+  "forever": {
+    "prefix": "forever",
+    "body": [
+      "forever $1"
+    ]
+  },
+  "for-range": {
+    "prefix": "for-range",
+    "body": [
+      "for ${1:i} ${2:start} ${3:stop} ${4:thunk}"
+    ]
+  },
+  "each": {
+    "prefix": "each",
+    "body": [
+      "each ${1:a} ${2:coll}",
+      "\t${3:thunk}"
+    ]
+  },
+  "eachk": {
+    "prefix": "eachk",
+    "body": [
+      "eachk k ${1:table}",
+      "\t${2:thunk}"
+    ]
+  },
+  "eachp": {
+    "prefix": "eachp",
+    "body": [
+      "eachp [k v] ${1:table}",
+      "\t${2:thunk}"
     ]
   },
   "loop-down": {
@@ -300,76 +409,46 @@
       "loop [${1:i} :range-to [${2:start} ${3:stop}]] ${4:thunk}"
     ]
   },
-  "match": {
-    "prefix": "match",
+  "seq-down": {
+    "prefix": "seq-down",
     "body": [
-      "match ${1:v}",
-      "\t${2:pattern} ${3:thunk}",
-      "\t${4:default}"
+      "seq [${1:i} :down [${2:start} ${3:stop}]] ${4:thunk}"
     ]
   },
-  "p": {
-    "prefix": "p",
-    "body": "print $1",
-    "description": "print"
-  },
-  "pd": {
-    "prefix": "pd",
-    "body": "tracev $1",
-    "description": "debug print"
-  },
-  "pe": {
-    "prefix": "pe",
-    "body": "eprint $1",
-    "description": "error print"
-  },
-  "pf": {
-    "prefix": "pf",
-    "body": "printf \"${1:%s}\" ${2:value}",
-    "description": "format print"
-  },
-  "pp": {
-    "prefix": "pp",
-    "body": "pp $1",
-    "description": "pretty print"
-  },
-  "px": {
-    "prefix": "px",
-    "body": "xprint ${1:(or (dyn *out*) stdout)} $2",
-    "description": "custom output target print"
-  },
-  "try": {
-    "prefix": "try",
+  "seq-down-to": {
+    "prefix": "seq-down-to",
     "body": [
-      "try ${1:thunk}",
-      "\t([err fiber]",
-      "\t\t(debug/stacktrace fiber err \"\")",
-      "\t\t${2:fallback-value})"
+      "seq [${1:i} :down-to [${2:start} ${3:stop}]] ${4:thunk}"
     ]
   },
-  "when": {
-    "prefix": "when",
+  "seq-keys": {
+    "prefix": "seq-keys",
     "body": [
-      "when ${1:test} ${2:thunk}"
+      "seq [${1:k} :keys ${2:col}] ${3:thunk}"
     ]
   },
-  "when-let": {
-    "prefix": "when-let",
+  "seq-in": {
+    "prefix": "seq-in",
     "body": [
-      "when-let [${1:k} ${2:v}]",
-      "\t${3:thunk}"
+      "seq [${1:v} :in ${2:col}] ${3:thunk}"
     ]
   },
-  "when-with": {
-    "prefix": "when-with",
+  "seq-pairs": {
+    "prefix": "seq-pairs",
     "body": [
-      "when-with [${1:v} ${2:ctor} ${3:dtor}] ${4:thunk}"
+      "seq [[${1:k} ${2:v}] :pairs ${3:col}] ${4:thunk}"
     ]
   },
-  "while": {
-    "prefix": "while",
+  "seq-range": {
+    "prefix": "seq-range",
     "body": [
-      "while ${1:test} ${2:thunk}"
+      "seq [${1:i} :range [${2:start} ${3:stop}]] ${4:thunk}"
+    ]
+  },
+  "seq-range-to": {
+    "prefix": "seq-range-to",
+    "body": [
+      "seq [${1:i} :range-to [${2:start} ${3:stop}]] ${4:thunk}"
     ]
   },
   "with": {
