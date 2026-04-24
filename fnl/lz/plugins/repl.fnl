@@ -23,24 +23,50 @@
             (set vim.g.conjure#client#scheme#stdio#prompt_pattern "\n-#;%d-> ")
             (set vim.g.conjure#client#scheme#stdio#value_prefix_pattern false))
 
-          (fn change-scheme [lang]
-            (vim.cmd :ConjureSchemeStop)
-            (case lang
-              :chez (configure-chez-scheme)
-              :chicken (configure-chicken-scheme))
-            (vim.cmd :ConjureSchemeStart))
+          (fn configure-nodejs []
+            (set vim.g.conjure#client#javascript#stdio#typescript_cmd "ts-node")
+            (set vim.g.conjure#client#javascript#stdio#javascript_cmd
+                 "node --experimental-repl-await")
+            (set vim.g.conjure#client#javascript#stdio#args "-i"))
 
-          ;; For the first time, configure Chicken REPL for Scheme
+          (fn configure-deno []
+            (set vim.g.conjure#client#javascript#stdio#typescript_cmd "deno")
+            (set vim.g.conjure#client#javascript#stdio#javascript_cmd "deno")
+            (set vim.g.conjure#client#javascript#stdio#args "repl"))
+
+          (fn conjure-change [ft repl]
+            (case ft
+              :scheme (vim.cmd :ConjureSchemeStop)
+              (where (or :javascript :typescript)) (vim.cmd :ConjureJavascriptStop))
+            (case [ft repl]
+              [:scheme :chez] (configure-chez-scheme)
+              [:scheme :chicken] (configure-chicken-scheme)
+              [:javascript :nodejs] (configure-nodejs)
+              [:javascript :deno] (configure-deno)
+              [:typescript :nodejs] (configure-nodejs)
+              [:typescript :deno] (configure-deno))
+            (case ft
+              :scheme (vim.cmd :ConjureSchemeStart)
+              (where (or :javascript :typescript)) (vim.cmd :ConjureJavascriptStart)))
+
+          (fn conjure-change-arg-cmp [ft]
+            (case ft
+              :scheme [:chez :chicken]
+              :javascript [:nodejs :deno]
+              :typescript [:nodejs :deno]))
+
           (configure-chicken-scheme)
+          (configure-nodejs)
           (on! :FileType
-               {:desc "create `ConjureSchemeChange` usercmd to change conjure repl for Scheme"
-                :pattern :scheme
-                :callback #(bufusercmd! $.buf :ConjureSchemeChange
-                                        (fn [{:fargs [lang]}]
-                                          (change-scheme lang))
-                                        {:nargs 1
-                                         :complete (fn []
-                                                     [:chez :chicken])})})
+               {:desc "create `ConjureChange` usercmd to change REPL"
+                :pattern [:scheme :javascript :typescript]
+                :callback (fn [{: buf}]
+                            (var ft (. vim.bo buf :filetype))
+                            (bufusercmd! buf :ConjureChange
+                                         (fn [{:fargs [repl]}]
+                                           (conjure-change ft repl))
+                                         {:nargs 1
+                                          :complete #(conjure-change-arg-cmp ft)}))})
           (on! :BufWinEnter
                {:desc "create keymaps for conjure log"
                 :pattern ["conjure-log-*"]
