@@ -1,4 +1,4 @@
-(import-macros {: nmap! : imap! : cmap! : vmap! : nvmap! : nvomap!}
+(import-macros {: nmap! : imap! : cmap! : vmap! : nvmap! : nvomap! : tmap!}
                :config.macros)
 
 (fn base []
@@ -35,7 +35,8 @@
   (nvomap! "<C-a>" "gg<S-v>G" {:desc "Select all"})
   (nvomap! "H" "^" {:desc "Goto line head"})
   (nvomap! "L" "$" {:desc "Goto line tail"})
-  (nvomap! "mm" "%" {:desc "The old `%`"}))
+  (nvomap! "mm" "%" {:desc "The old `%`"})
+  (tmap! "<Esc>" "<C-\\><C-n>" {:desc "Escape terminal mode"}))
 
 (fn messages []
   (fn create_messages_buf []
