@@ -31,6 +31,7 @@
                            :python [:ruff_format]
                            :racket [:myracketfmt]
                            :roc [:roc]
+                           :rust [:rustfmt]
                            :scheme [:myracketfmt]
                            :sh [:shfmt]
                            :swift [:swift]

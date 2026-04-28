@@ -30,6 +30,10 @@
   "vim.keymap.set [:n :v :o]"
   `(vim.keymap.set [:n :v :o] ,...))
 
+(fn tmap! [...]
+  "vim.keymap.set [:t]"
+  `(vim.keymap.set [:t] ,...))
+
 (fn on! [...]
   "vim.api.nvim_create_autocmd"
   `(vim.api.nvim_create_autocmd ,...))
@@ -60,6 +64,7 @@
  : vmap!
  : nvmap!
  : nvomap!
+ : tmap!
  : on!
  : usercmd!
  : bufusercmd!
