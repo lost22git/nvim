@@ -721,13 +721,20 @@
       "push (truename \".\") asdf:*central-registry*"
     ]
   },
-  "dump": {
-    "prefix": "dump",
+  "save-image": {
+    "prefix": "save-image",
     "body": [
-      "sb-ext:save-lisp-and-die ${1:name}",
+      "#+sbcl",
+      "(sb-ext:save-lisp-and-die \"${1:name}\"",
       "\t:toplevel #'main",
       "\t:executable t",
-      "\t:compression ${2:9/-7~22}"
+      "\t:compression ${2:9/-7~22})"
+    ]
+  },
+  "optimize": {
+    "prefix": "optimize",
+    "body": [
+      "declaim (optimize (speed 3) (debug 0) (safety 0)) "
     ]
   },
   "cl-project-make": {

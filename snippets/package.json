@@ -31,6 +31,10 @@
         "path": "./gleam.json"
       },
       {
+        "language": "haskell",
+        "path": "./haskell.json"
+      },
+      {
         "language": "http",
         "path": "./http.json"
       },

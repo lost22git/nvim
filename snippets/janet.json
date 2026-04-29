@@ -196,7 +196,7 @@
   },
   "printf": {
     "prefix": "printf",
-    "body": "printf \"${1:%s}\" ${2:value}",
+    "body": "printf \"%s\\n\" $1",
     "description": "format print"
   },
   "eprint": {
@@ -206,7 +206,7 @@
   },
   "eprintf": {
     "prefix": "eprintf",
-    "body": "eprintf \"${1:%s}\" $2",
+    "body": "eprintf \"%s\\n\" $1",
     "description": "error printf"
   },
   "xprint": {
@@ -216,8 +216,14 @@
   },
   "xprintf": {
     "prefix": "xprintf",
-    "body": "xprintf ${1:(or (dyn *out*) stdout)} \"${2:%s}\" $3",
+    "body": "xprintf ${1:(or (dyn *out*) stdout)} \"%s\\n\" $2",
     "description": "custom output target printf"
+  },
+  "format": {
+    "prefix": "format",
+    "body": [
+      "string/format \"%s\" $1"
+    ]
   },
   "import": {
     "prefix": "import",
@@ -364,6 +370,13 @@
     "prefix": "eachp",
     "body": [
       "eachp [k v] ${1:table}",
+      "\t${2:thunk}"
+    ]
+  },
+  "repeat": {
+    "prefix": "repeat",
+    "body": [
+      "repeat ${1:n}",
       "\t${2:thunk}"
     ]
   },

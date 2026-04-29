@@ -1,0 +1,195 @@
+{
+  "putStrLn": {
+    "prefix": "putStrLn",
+    "body": [
+      "putStrLn \\$ \"$1\""
+    ]
+  },
+  "putStr": {
+    "prefix": "putStr",
+    "body": [
+      "putStr \\$ \"$1\""
+    ]
+  },
+  "show": {
+    "prefix": "show",
+    "body": [
+      "show \\$ $1"
+    ]
+  },
+  "print": {
+    "prefix": "print",
+    "body": [
+      "print \\$ $1"
+    ]
+  },
+  "printf": {
+    "prefix": "printf",
+    "body": [
+      "printf \"%s\\n\" $1"
+    ]
+  },
+  "assert": {
+    "prefix": "assert",
+    "body": [
+      "assert ( $1 )"
+    ]
+  },
+  "let": {
+    "prefix": "let",
+    "body": [
+      "let ${1:name} = $2"
+    ]
+  },
+  "let-in": {
+    "prefix": "let-in",
+    "body": [
+      "let",
+      "\t${1:name} = $2",
+      "in",
+      "\t$3"
+    ]
+  },
+  "where": {
+    "prefix": "where",
+    "body": [
+      "where ${1:name} = $2"
+    ]
+  },
+  "lambda": {
+    "prefix": "lambda",
+    "body": [
+      "\\\\$1 -> $2 "
+    ]
+  },
+  "throw": {
+    "prefix": "throw",
+    "body": [
+      "throw $1"
+    ]
+  },
+  "throwIO": {
+    "prefix": "throwIO",
+    "body": [
+      "throwIO $1"
+    ]
+  },
+  "handle": {
+    "prefix": "handle",
+    "body": [
+      "handle (\\exn -> $1 ) \\$ $2"
+    ]
+  },
+  "catch": {
+    "prefix": "catch",
+    "body": [
+      "catch $1 \\$ \\exn -> $2"
+    ]
+  },
+  "try": {
+    "prefix": "try",
+    "body": [
+      "try \\$ $1"
+    ],
+    "description": "IO a -> IO (Either e a)"
+  },
+  "finally": {
+    "prefix": "finally",
+    "body": [
+      "finally $1 \\$ ${2:cleanup}"
+    ]
+  },
+  "case-of": {
+    "prefix": "case-of",
+    "body": [
+      "case $1 of",
+      "\t$2 -> $3",
+      "\totherwise -> $4"
+    ]
+  },
+  "if-else": {
+    "prefix": "if-else",
+    "body": [
+      "if ${1:test} then",
+      "\t${2:then-expr}",
+      "else",
+      "\t${3:else-expr}"
+    ]
+  },
+  "data-variant": {
+    "prefix": "data-variant",
+    "body": [
+      "data ${1:typename} = $2 | $3 deriving (Show, Eq, Ord)"
+    ]
+  },
+  "data-enum": {
+    "prefix": "data-enum",
+    "body": [
+      "data ${1:enumname} = $2 | $3 deriving (Show, Read, Eq, Ord, Enum, Bounded)"
+    ]
+  },
+  "newtype": {
+    "prefix": "newtype",
+    "body": [
+      "newtype ${1:typename} = $1 { ${2:fname} :: ${3:ftype} }"
+    ]
+  },
+  "type": {
+    "prefix": "type",
+    "body": [
+      "type $1 = $2"
+    ]
+  },
+  "class": {
+    "prefix": "class",
+    "body": [
+      "class $1 t where",
+      "\t${2:fun-name} :: ${3:fun-sig}"
+    ]
+  },
+  "instance": {
+    "prefix": "instance",
+    "body": [
+      "instance ${1:typeclass} ${2:impltype} where",
+      "\t${3:fun-name} ${4:arg} = $5"
+    ]
+  },
+  "module": {
+    "prefix": "module",
+    "body": [
+      "module $1",
+      "( $2",
+      ") where"
+    ]
+  },
+  "import": {
+    "prefix": "import",
+    "body": [
+      "import $1"
+    ]
+  },
+  "import-only": {
+    "prefix": "import-only",
+    "body": [
+      "import $1 ($2)"
+    ]
+  },
+  "import-hiding": {
+    "prefix": "import-hiding",
+    "body": [
+      "import $1 hiding ($2)"
+    ]
+  },
+  "import-prefix": {
+    "prefix": "import-prefix",
+    "body": [
+      "import qualified $1 as $2"
+    ]
+  },
+  "with-file": {
+    "prefix": "with-file",
+    "body": [
+      "withFile ${1:path} ${2|ReadMode,WriteMode,AppendMode,ReadWriteMode|} \\$ \\file -> $3"
+    ]
+  }
+}

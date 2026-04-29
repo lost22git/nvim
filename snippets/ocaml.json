@@ -2,26 +2,37 @@
   "print_endline": {
     "prefix": "print_endline",
     "body": [
-      "print_endline ${1:str}"
+      "print_endline @@ ${1:str}"
     ]
   },
   "printf": {
     "prefix": "printf",
     "body": [
-      "printf \"%s\\n\" ${1:a}"
+      "printf \"%s\\n\" $1"
+    ]
+  },
+  "lambda": {
+    "prefix": "lambda",
+    "body": [
+      "fun $1 -> $2 "
     ]
   },
   "let-unit": {
     "prefix": "let-unit",
     "body": [
-      "let () = $1 in"
+      "let () = $1"
     ]
   },
   "let-rec": {
     "prefix": "let-rec",
     "body": [
-      "let rec ${1:name} ${2:arg} =",
-      "\t$3"
+      "let rec ${1:name} ${2:arg} = $3"
+    ]
+  },
+  "let-fun": {
+    "prefix": "let-fun",
+    "body": [
+      "let ${1:name} ${2:arg} = $3"
     ]
   },
   "let-function": {
@@ -30,6 +41,12 @@
       "let ${1:rec} ${2:name} = function",
       "| ${3:p} -> $4",
       "| ${5:p} -> $6"
+    ]
+  },
+  "let-in": {
+    "prefix": "let-in",
+    "body": [
+      "let ${1:name} = ${2:value} in"
     ]
   },
   "let-open-module": {
@@ -64,9 +81,9 @@
     "prefix": "if-else",
     "body": [
       "if ${1:test} then",
-      "\t${2:then-thunk}",
+      "\t${2:then-expr}",
       "else",
-      "\t${3:else-thunk}"
+      "\t${3:else-expr}"
     ]
   },
   "if": {
