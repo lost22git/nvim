@@ -87,14 +87,15 @@
                              :flix {:cmd "flix repl"}
                              :haskell {:cmd "ghci"}
                              :java {:cmd "jshell"}
+                             :koka {:cmd "koka"}
                              :kotlin {:cmd "rlwrap kotlin -repl"}
                              :lfe {:cmd "lfe"}
+                             :lisp {:cmd "rlwrap sbcl"}
                              :nim {:cmd "inim"}
+                             :ocaml {:cmd "rlwrap ocaml"}
                              :racket {:cmd "rlwrap racket -i"}
                              :raku {:cmd "rlwrap raku"}
                              :roc {:cmd "roc repl"}
-                             :lisp {:cmd "rlwrap sbcl"}
-                             :ocaml {:cmd "rlwrap ocaml"}
                              :swift {:cmd "swift repl"}
                              :typescript {:cmd "deno repl"}
                              :v {:cmd "v repl"}}}
