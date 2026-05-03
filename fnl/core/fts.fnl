@@ -2,6 +2,7 @@
                                :bb :clojure
                                :c3 :c3
                                :cljd :clojure
+                               :ct :lisp
                                :egg :scheme
                                :fnlm :fennel
                                :flix :flix

@@ -38,6 +38,7 @@
 
 ;; elixir
 (lsp_with_server :elixir-ls #(vim.lsp.config :elixirls {:cmd [$]}))
+
 ;; flix
 (vim.lsp.config :flix {:cmd ["flix" "lsp"]
                        :filetypes [:flix]
