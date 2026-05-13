@@ -191,5 +191,11 @@
     "body": [
       "withFile ${1:path} ${2|ReadMode,WriteMode,AppendMode,ReadWriteMode|} \\$ \\file -> $3"
     ]
+  },
+  "language-extension": {
+    "prefix": "language-extension",
+    "body": [
+      "{-# LANGUAGE $1 #-}"
+    ]
   }
 }
