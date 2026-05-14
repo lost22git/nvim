@@ -15,14 +15,6 @@ M.disable_diagnostic = function(bufid)
     return nil
   end
 end
-M.get_flutter_path = function()
-  local path = vim.fn.exepath("flutter")
-  if (vim.fn.has("win32") == 1) then
-    return (path .. ".bat")
-  else
-    return path
-  end
-end
 M.get_mason_path = function()
   return (vim.fn.stdpath("data") .. "/mason")
 end
@@ -47,23 +39,23 @@ local function find_lsp_server_from_env_path(name)
     path = nil
   else
   end
-  local and_6_ = path
-  if and_6_ then
-    and_6_ = (vim.fn.has("win32") == 1)
+  local and_5_ = path
+  if and_5_ then
+    and_5_ = (vim.fn.has("win32") == 1)
   end
-  if and_6_ then
-    local _8_
+  if and_5_ then
+    local _7_
     do
-      local t_7_ = vim.fn.split(vim.fs.basename(path), "\\.")
-      if (nil ~= t_7_) then
-        t_7_ = t_7_[2]
+      local t_6_ = vim.fn.split(vim.fs.basename(path), "\\.")
+      if (nil ~= t_6_) then
+        t_6_ = t_6_[2]
       else
       end
-      _8_ = t_7_
+      _7_ = t_6_
     end
-    and_6_ = not _8_
+    and_5_ = not _7_
   end
-  if and_6_ then
+  if and_5_ then
     path = (path .. ".cmd")
   else
   end
@@ -73,9 +65,9 @@ M.lsp_server_path = function(name)
   return (find_lsp_server_from_mason(name) or find_lsp_server_from_env_path(name))
 end
 M.lsp_with_server = function(name, f)
-  local case_11_ = M.lsp_server_path(name)
-  if (nil ~= case_11_) then
-    local path = case_11_
+  local case_10_ = M.lsp_server_path(name)
+  if (nil ~= case_10_) then
+    local path = case_10_
     return f(path)
   else
     return nil

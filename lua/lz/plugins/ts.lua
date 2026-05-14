@@ -8,7 +8,7 @@ local function add_custom_sources()
   return vim.api.nvim_create_autocmd("User", {desc = "[TS] perform actions after :TSUpdate", pattern = "TSUpdate", callback = _1_})
 end
 local function install_langs()
-  return require("nvim-treesitter").install({"bash", "lua", "fennel", "regex", "vim", "vimdoc", "markdown", "markdown_inline", "dockerfile", "http", "just", "sql", "json", "toml", "xml", "yaml", "css", "html", "javascript", "typescript", "commonlisp", "scheme", "clojure", "crystal", "go", "gomod", "java"})
+  return require("nvim-treesitter").install({"bash", "lua", "fennel", "regex", "vim", "vimdoc", "markdown", "markdown_inline", "dockerfile", "http", "just", "sql", "json", "toml", "xml", "yaml", "css", "html", "javascript", "typescript", "commonlisp", "scheme", "clojure", "crystal", "go", "gomod", "java", "ocaml"})
 end
 local function _2_()
   add_custom_sources()

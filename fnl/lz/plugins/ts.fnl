@@ -46,7 +46,8 @@
                                     :crystal
                                     :go
                                     :gomod
-                                    :java]))
+                                    :java
+                                    :ocaml]))
 
 [{1 "nvim-treesitter/nvim-treesitter-context" :cmd :TSContext :opts {}}
  {1 "nvim-treesitter/nvim-treesitter"

@@ -89,6 +89,8 @@
                            #((vim.schedule_wrap on_exit) $ cmd
                                                          open_hover_window)))})
 
-[{1 "lost22git/hover.nvim"
+[{1 "lost22git/run-visual.nvim" :lazy false :opts {}}
+ {1 "lost22git/highlight-visual.nvim" :lazy false :opts {}}
+ {1 "lost22git/hover.nvim"
   :lazy false
   :opts {:items [nvim_help arturo_info lfe_info_fun lfe_info_mod]}}]

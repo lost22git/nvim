@@ -1,4 +1,4 @@
--- [nfnl] fnl/lz/plugins/hover.fnl
+-- [nfnl] fnl/lz/plugins/mine.fnl
 local nvim_help
 local function _2_(_1_)
   local text = _1_.text
@@ -149,4 +149,4 @@ local function _32_(_31_)
   return vim.system(cmd, {text = true, stdin = string.rep("y\n", 10)}, _39_)
 end
 lfe_info_mod = {name = "[hover] lfe (m mod)", event = "FileType", pattern = "lfe", key = "<Leader>K", mode = {"n", "v"}, run = _32_}
-return {{"lost22git/hover.nvim", opts = {items = {nvim_help, arturo_info, lfe_info_fun, lfe_info_mod}}, lazy = false}}
+return {{"lost22git/run-visual.nvim", opts = {}, lazy = false}, {"lost22git/highlight-visual.nvim", opts = {}, lazy = false}, {"lost22git/hover.nvim", opts = {items = {nvim_help, arturo_info, lfe_info_fun, lfe_info_mod}}, lazy = false}}
