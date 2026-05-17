@@ -12,14 +12,14 @@
         :pattern :arturo
         :key "<Leader>k"
         :mode [:n :v]
-        :run (fn [{: text : open_hover_window}]
+        :run (fn [{: text : open_hover}]
                (local cmd
                       ["sh"
                        "-c"
                        (.. "echo \"info '" text "\" | arturo --no-color")])
                (vim.notify (table.concat cmd " ") vim.log.levels.INFO)
 
-               (fn on_exit [res cmd open_hover_window]
+               (fn on_exit [res cmd open_hover]
                  (local out (-> (if (= res.stderr "") res.stdout res.stderr)
                                 (string.match "(%$%>.+)%s*%$%>")
                                 (string.gsub "\027%[.-m" "")
@@ -30,11 +30,10 @@
                  (fn cb [bufid _winid]
                    (tset vim.bo bufid :filetype :arturo))
 
-                 (open_hover_window out title cb))
+                 (open_hover out title cb))
 
                (vim.system cmd {:text true}
-                           #((vim.schedule_wrap on_exit) $ cmd
-                                                         open_hover_window)))})
+                           #((vim.schedule_wrap on_exit) $ cmd open_hover)))})
 
 (local lfe_info_fun
        {:name "[hover] lfe (h mod fun arity)"
@@ -42,7 +41,7 @@
         :pattern :lfe
         :key "<Leader>k"
         :mode [:n :v]
-        :run (fn [{: text : open_hover_window}]
+        :run (fn [{: text : open_hover}]
                (local cmd ["lfe"
                            "-e"
                            (do
@@ -55,17 +54,16 @@
                                  ")"))])
                (vim.notify (table.concat cmd " ") vim.log.levels.INFO)
 
-               (fn on_exit [res cmd open_hover_window]
+               (fn on_exit [res cmd open_hover]
                  (local out (-> (if (= res.stderr "") res.stdout res.stderr)
                                 (string.gsub "\027%[.-m" "")
                                 (case (a _) a)
                                 (vim.fn.trim)))
                  (local title (table.concat cmd " "))
-                 (open_hover_window out title nil))
+                 (open_hover out title nil))
 
                (vim.system cmd {:text true :stdin (string.rep "y\n" 10)}
-                           #((vim.schedule_wrap on_exit) $ cmd
-                                                         open_hover_window)))})
+                           #((vim.schedule_wrap on_exit) $ cmd open_hover)))})
 
 (local lfe_info_mod
        {:name "[hover] lfe (m mod)"
@@ -73,21 +71,20 @@
         :pattern :lfe
         :key "<Leader>K"
         :mode [:n :v]
-        :run (fn [{: text : open_hover_window}]
+        :run (fn [{: text : open_hover}]
                (local cmd ["lfe" "-e" (.. "(m '" text ")")])
                (vim.notify (table.concat cmd " ") vim.log.levels.INFO)
 
-               (fn on_exit [res cmd open_hover_window]
+               (fn on_exit [res cmd open_hover]
                  (local out (-> (if (= res.stderr "") res.stdout res.stderr)
                                 (string.gsub "\027%[.-m" "")
                                 (case (a _) a)
                                 (vim.fn.trim)))
                  (local title (table.concat cmd " "))
-                 (open_hover_window out title nil))
+                 (open_hover out title nil))
 
                (vim.system cmd {:text true :stdin (string.rep "y\n" 10)}
-                           #((vim.schedule_wrap on_exit) $ cmd
-                                                         open_hover_window)))})
+                           #((vim.schedule_wrap on_exit) $ cmd open_hover)))})
 
 [{1 "lost22git/run-visual.nvim" :lazy false :opts {}}
  {1 "lost22git/highlight-visual.nvim" :lazy false :opts {}}

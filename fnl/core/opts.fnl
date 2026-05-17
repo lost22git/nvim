@@ -1,9 +1,6 @@
 (set vim.opt.background :dark)
 (set vim.opt.termguicolors true)
 
-;; Remove the intro messages (due to the terrible logo N since v0.12)
-(vim.opt.shortmess:append "I")
-
 ;; GUI Font
 ;; Neovide respect it's config.toml which supports light style.
 ;; As for others, use this.
@@ -29,10 +26,6 @@
 (set vim.opt.cursorcolumn false)
 (set vim.opt.cursorline true)
 (set vim.opt.cursorlineopt "line,number")
-
-;; Encoding
-(set vim.opt.encoding "utf-8")
-(set vim.opt.fileencoding "utf-8")
 
 ;; Floating Window / Popup Menu
 (set vim.opt.winborder :single)
@@ -61,6 +54,14 @@
 (set vim.opt.number true)
 (set vim.opt.numberwidth 1)
 (set vim.opt.relativenumber true)
+
+;; List
+(set vim.opt.list false)
+(set vim.opt.listchars {:space "·"
+                        :tab "→ "
+                        :trail "·"
+                        :extends ">"
+                        :precedes "<"})
 
 ;; Mode
 (set vim.opt.showmode false)
@@ -96,7 +97,6 @@
 ;; Misc
 (set vim.opt.backup false)
 (set vim.opt.inccommand "split")
-(set vim.opt.list false)
 (set vim.opt.swapfile false)
 (set vim.opt.timeout true)
 (set vim.opt.ttimeout true)

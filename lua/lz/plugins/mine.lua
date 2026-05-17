@@ -8,10 +8,10 @@ nvim_help = {name = "[hover] nvim help", event = "FileType", pattern = {"lua", "
 local arturo_info
 local function _4_(_3_)
   local text = _3_.text
-  local open_hover_window = _3_.open_hover_window
+  local open_hover = _3_.open_hover
   local cmd = {"sh", "-c", ("echo \"info '" .. text .. "\" | arturo --no-color")}
   vim.notify(table.concat(cmd, " "), vim.log.levels.INFO)
-  local function on_exit(res, cmd0, open_hover_window0)
+  local function on_exit(res, cmd0, open_hover0)
     local out
     local function _9_()
       local case_5_, case_6_
@@ -36,10 +36,10 @@ local function _4_(_3_)
       vim.bo[bufid]["filetype"] = "arturo"
       return nil
     end
-    return open_hover_window0(out, title, cb)
+    return open_hover0(out, title, cb)
   end
   local function _11_(_241)
-    return vim.schedule_wrap(on_exit)(_241, cmd, open_hover_window)
+    return vim.schedule_wrap(on_exit)(_241, cmd, open_hover)
   end
   return vim.system(cmd, {text = true}, _11_)
 end
@@ -47,7 +47,7 @@ arturo_info = {name = "[hover] arturo info", event = "FileType", pattern = "artu
 local lfe_info_fun
 local function _13_(_12_)
   local text = _12_.text
-  local open_hover_window = _12_.open_hover_window
+  local open_hover = _12_.open_hover
   local cmd
   local function _14_()
     local _local_15_ = vim.split(text, ":")
@@ -85,7 +85,7 @@ local function _13_(_12_)
   end
   cmd = {"lfe", "-e", _14_()}
   vim.notify(table.concat(cmd, " "), vim.log.levels.INFO)
-  local function on_exit(res, cmd0, open_hover_window0)
+  local function on_exit(res, cmd0, open_hover0)
     local out
     local function _28_()
       local case_24_, case_25_
@@ -106,10 +106,10 @@ local function _13_(_12_)
     end
     out = vim.fn.trim(_28_())
     local title = table.concat(cmd0, " ")
-    return open_hover_window0(out, title, nil)
+    return open_hover0(out, title, nil)
   end
   local function _30_(_241)
-    return vim.schedule_wrap(on_exit)(_241, cmd, open_hover_window)
+    return vim.schedule_wrap(on_exit)(_241, cmd, open_hover)
   end
   return vim.system(cmd, {text = true, stdin = string.rep("y\n", 10)}, _30_)
 end
@@ -117,10 +117,10 @@ lfe_info_fun = {name = "[hover] lfe (h mod fun arity)", event = "FileType", patt
 local lfe_info_mod
 local function _32_(_31_)
   local text = _31_.text
-  local open_hover_window = _31_.open_hover_window
+  local open_hover = _31_.open_hover
   local cmd = {"lfe", "-e", ("(m '" .. text .. ")")}
   vim.notify(table.concat(cmd, " "), vim.log.levels.INFO)
-  local function on_exit(res, cmd0, open_hover_window0)
+  local function on_exit(res, cmd0, open_hover0)
     local out
     local function _37_()
       local case_33_, case_34_
@@ -141,10 +141,10 @@ local function _32_(_31_)
     end
     out = vim.fn.trim(_37_())
     local title = table.concat(cmd0, " ")
-    return open_hover_window0(out, title, nil)
+    return open_hover0(out, title, nil)
   end
   local function _39_(_241)
-    return vim.schedule_wrap(on_exit)(_241, cmd, open_hover_window)
+    return vim.schedule_wrap(on_exit)(_241, cmd, open_hover)
   end
   return vim.system(cmd, {text = true, stdin = string.rep("y\n", 10)}, _39_)
 end

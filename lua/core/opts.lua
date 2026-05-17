@@ -1,7 +1,6 @@
 -- [nfnl] fnl/core/opts.fnl
 vim.opt.background = "dark"
 vim.opt.termguicolors = true
-vim.opt.shortmess:append("I")
 if not vim.g.neovide then
   vim.opt.guifont = "IosevkaTermSlab NFM:h14"
   vim.opt.guifontwide = "Maple Mono SC NF:h14"
@@ -18,8 +17,6 @@ vim.opt.guicursor:append({"n-v-sm:block-Cursor", "i-ci-ve-t-c:ver25-lCursor"})
 vim.opt.cursorcolumn = false
 vim.opt.cursorline = true
 vim.opt.cursorlineopt = "line,number"
-vim.opt.encoding = "utf-8"
-vim.opt.fileencoding = "utf-8"
 vim.opt.winborder = "single"
 vim.opt.winblend = 0
 vim.opt.pumblend = 0
@@ -36,6 +33,8 @@ vim.opt.smartindent = true
 vim.opt.number = true
 vim.opt.numberwidth = 1
 vim.opt.relativenumber = true
+vim.opt.list = false
+vim.opt.listchars = {space = "\194\183", tab = "\226\134\146 ", trail = "\194\183", extends = ">", precedes = "<"}
 vim.opt.showmode = false
 vim.opt.splitright = true
 vim.opt.splitbelow = true
@@ -57,7 +56,6 @@ vim.opt.grepformat = "%f:%l:%c:%m"
 vim.opt.grepprg = "rg --vimgrep --no-heading --smart-case"
 vim.opt.backup = false
 vim.opt.inccommand = "split"
-vim.opt.list = false
 vim.opt.swapfile = false
 vim.opt.timeout = true
 vim.opt.ttimeout = true

@@ -3,7 +3,8 @@
  :opts {:default_format_opts {:lsp_format :fallback}
         :format_on_save {:lsp_format :fallback :timeout_ms 5000}
         ;; see :help conform-formatters
-        :formatters_by_ft {:basilisp [:cljfmt]
+        :formatters_by_ft {:bash [:shfmt]
+                           :basilisp [:cljfmt]
                            :clojure [:cljfmt]
                            :crystal [:crystal]
                            :css [:deno_fmt]

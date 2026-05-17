@@ -55,7 +55,7 @@ messages()
 local M = {}
 M.lsp = function(bufid)
   local opts = {buffer = bufid}
-  vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+  vim.keymap.set("n", "grd", vim.lsp.buf.definition, opts)
   local function _1_()
     return vim.diagnostic.enable(not vim.diagnostic.is_enabled())
   end
