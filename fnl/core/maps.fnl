@@ -58,7 +58,7 @@
 
 (fn M.lsp [bufid]
   (local opts {:buffer bufid})
-  (nmap! "gd" vim.lsp.buf.definition opts)
+  (nmap! "grd" vim.lsp.buf.definition opts)
   (nmap! "<tab>d" #(vim.diagnostic.enable (not (vim.diagnostic.is_enabled)))
          opts)
   (nmap! "[D"

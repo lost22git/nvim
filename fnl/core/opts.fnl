@@ -1,25 +1,14 @@
 (set vim.opt.background :dark)
 (set vim.opt.termguicolors true)
 
-;; Remove the intro messages (due to the terrible logo N since v0.12)
-(vim.opt.shortmess:append "I")
-
-;; GUI Font
-;; Neovide respect it's config.toml which supports light style.
-;; As for others, use this.
-(when (not vim.g.neovide)
-  (set vim.opt.guifont "IosevkaTermSlab NFM:h14")
-  (set vim.opt.guifontwide "Maple Mono SC NF:h14"))
-
 ;; Case
 (set vim.opt.ignorecase true)
-(set vim.opt.infercase true)
 (set vim.opt.smartcase true)
-(set vim.opt.wildignorecase true)
 
 ;; Cmdline
+(set vim.opt.cmdheight 0)
 (set vim.opt.showcmd true)
-(set vim.opt.cmdheight 1)
+(set vim.opt.inccommand "split")
 
 ;; Completion
 (set vim.opt.completeopt "menu,menuone,noselect,noinsert,preview")
@@ -29,10 +18,6 @@
 (set vim.opt.cursorcolumn false)
 (set vim.opt.cursorline true)
 (set vim.opt.cursorlineopt "line,number")
-
-;; Encoding
-(set vim.opt.encoding "utf-8")
-(set vim.opt.fileencoding "utf-8")
 
 ;; Floating Window / Popup Menu
 (set vim.opt.winborder :single)
@@ -52,7 +37,6 @@
 (set vim.opt.foldmethod "indent")
 
 ;; Indentation
-(set vim.opt.autoindent true)
 (set vim.opt.breakindent true)
 (set vim.opt.shiftwidth 2)
 (set vim.opt.smartindent true)
@@ -61,6 +45,14 @@
 (set vim.opt.number true)
 (set vim.opt.numberwidth 1)
 (set vim.opt.relativenumber true)
+
+;; List
+(set vim.opt.list false)
+(set vim.opt.listchars {:space "·"
+                        :tab "→ "
+                        :trail "·"
+                        :extends ">"
+                        :precedes "<"})
 
 ;; Mode
 (set vim.opt.showmode false)
@@ -95,8 +87,6 @@
 
 ;; Misc
 (set vim.opt.backup false)
-(set vim.opt.inccommand "split")
-(set vim.opt.list false)
 (set vim.opt.swapfile false)
 (set vim.opt.timeout true)
 (set vim.opt.ttimeout true)
