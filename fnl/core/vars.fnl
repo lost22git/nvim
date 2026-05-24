@@ -2,7 +2,6 @@
 
 (local zz_default {:backdrop 100
                    :shell (when (has! :win32) "pwsh")
-                   :statusline false
                    :transparent false})
 
 (set vim.g.zz (vim.tbl_deep_extend "force" zz_default (or vim.g.zz {})))

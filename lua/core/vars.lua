@@ -6,7 +6,7 @@ if (vim.fn.has("win32") == 1) then
 else
   _1_ = nil
 end
-zz_default = {backdrop = 100, shell = _1_, statusline = false, transparent = false}
+zz_default = {backdrop = 100, shell = _1_, transparent = false}
 vim.g.zz = vim.tbl_deep_extend("force", zz_default, (vim.g.zz or {}))
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "

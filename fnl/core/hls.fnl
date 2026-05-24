@@ -7,10 +7,6 @@
             highlight! link BlinkCmpMenuBorder FloatBorder
             highlight! link BlinkCmpSignatureHelpBorder FloatBorder
             ")
-  (when (not vim.g.zz.statusline)
-    (vim.cmd "highlight! link StatusLine Normal
-              highlight! link StatusLineNC Normal
-             "))
   (when vim.g.zz.transparent
     (vim.cmd "highlight! Normal ctermbg=NONE guibg=NONE
               highlight! NormalNC ctermbg=NONE guibg=NONE

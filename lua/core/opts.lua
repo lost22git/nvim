@@ -33,11 +33,6 @@ vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.opt.signcolumn = "yes"
 vim.opt.laststatus = 3
-if not vim.g.zz.statusline then
-  vim.opt.laststatus = 0
-  vim.opt.statusline = "%{repeat('\226\148\128',winwidth('.'))}"
-else
-end
 vim.opt.tabstop = 2
 vim.opt.expandtab = true
 vim.opt.smarttab = true

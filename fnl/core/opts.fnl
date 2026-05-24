@@ -66,9 +66,6 @@
 
 ;; Status Line
 (set vim.opt.laststatus 3)
-(when (not vim.g.zz.statusline)
-  (set vim.opt.laststatus 0)
-  (set vim.opt.statusline "%{repeat('─',winwidth('.'))}"))
 
 ;; <Tab> key
 (set vim.opt.tabstop 2)
