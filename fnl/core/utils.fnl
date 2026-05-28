@@ -10,10 +10,6 @@
         v_modes [:v :V v_block_mode]]
     (vim.list_contains v_modes (vim.fn.mode))))
 
-(fn M.disable_diagnostic [bufid]
-  (when (vim.diagnostic.is_enabled {:bufnr bufid})
-    (pcall vim.diagnostic.enable false {:bufnr bufid})))
-
 (fn M.get_mason_path []
   (.. (vim.fn.stdpath "data") "/mason"))
 

@@ -91,29 +91,26 @@ local function _1_()
   vim.api.nvim_create_autocmd("FileType", {desc = "create `ConjureChange` usercmd to change REPL", pattern = {"scheme", "javascript", "typescript"}, callback = _9_})
   local function _15_(_14_)
     local bufid = _14_.buf
-    local _local_16_ = require("core.utils")
-    local disable_diagnostic = _local_16_.disable_diagnostic
-    local create_keymaps_for_goto_entry = _local_16_.create_keymaps_for_goto_entry
-    disable_diagnostic()
-    return create_keymaps_for_goto_entry("\\v^(;|--|#|\\/\\/) -+$", "[e", "]e", "conjure_log", bufid)
+    pcall(vim.diagnostic.enable, false, {bufnr = bufid})
+    return require("core.utils").create_keymaps_for_goto_entry("\\v^(;|--|#|\\/\\/) -+$", "[e", "]e", "conjure_log", bufid)
   end
   return vim.api.nvim_create_autocmd("BufWinEnter", {desc = "create keymaps for conjure log", pattern = {"conjure-log-*"}, callback = _15_})
 end
-local function _17_(_, opts)
+local function _16_(_, opts)
   require("repl").setup(opts)
   local ftypes = vim.tbl_keys(opts.filetype_commands)
   local function create_keymaps(bufid)
     vim.keymap.set("n", "<Leader>ee", "<Plug>(ReplSendLine)", {buffer = bufid, desc = "[repl] SendLine"})
     return vim.keymap.set("v", "<Leader>ee", "<Plug>(ReplSendVisual)", {buffer = bufid, desc = "[repl] SendVisual"})
   end
-  local function _18_(_241)
+  local function _17_(_241)
     return create_keymaps(_241.buf)
   end
-  vim.api.nvim_create_autocmd("FileType", {pattern = ftypes, callback = _18_})
+  vim.api.nvim_create_autocmd("FileType", {pattern = ftypes, callback = _17_})
   if vim.list_contains(ftypes, vim.bo.filetype) then
     return create_keymaps(0)
   else
     return nil
   end
 end
-return {{"Olical/conjure", cmd = "ConjureConnect", event = "VeryLazy", init = _1_}, {"pappasam/nvim-repl", cmd = "Repl", opts = {filetype_commands = {arturo = {cmd = "arturo --repl"}, basilisp = {cmd = "basilisp repl"}, crystal = {cmd = "crystal i"}, elixir = {cmd = "iex"}, flix = {cmd = "flix repl"}, haskell = {cmd = "ghci"}, java = {cmd = "jshell"}, koka = {cmd = "koka"}, kotlin = {cmd = "rlwrap kotlin -repl"}, lfe = {cmd = "lfe"}, lisp = {cmd = "rlwrap sbcl"}, nim = {cmd = "inim"}, ocaml = {cmd = "rlwrap ocaml"}, racket = {cmd = "rlwrap racket -i"}, raku = {cmd = "rlwrap raku"}, roc = {cmd = "roc repl"}, swift = {cmd = "swift repl"}, typescript = {cmd = "deno repl"}, v = {cmd = "v repl"}}}, config = _17_}}
+return {{"Olical/conjure", cmd = "ConjureConnect", event = "VeryLazy", init = _1_}, {"pappasam/nvim-repl", cmd = "Repl", opts = {filetype_commands = {arturo = {cmd = "arturo --repl"}, basilisp = {cmd = "basilisp repl"}, crystal = {cmd = "crystal i"}, elixir = {cmd = "iex"}, flix = {cmd = "flix repl"}, haskell = {cmd = "ghci"}, java = {cmd = "jshell"}, koka = {cmd = "koka"}, kotlin = {cmd = "rlwrap kotlin -repl"}, lfe = {cmd = "lfe"}, lisp = {cmd = "rlwrap sbcl"}, nim = {cmd = "inim"}, ocaml = {cmd = "rlwrap ocaml"}, racket = {cmd = "rlwrap racket -i"}, raku = {cmd = "rlwrap raku"}, roc = {cmd = "roc repl"}, swift = {cmd = "swift repl"}, typescript = {cmd = "deno repl"}, v = {cmd = "v repl"}}}, config = _16_}}

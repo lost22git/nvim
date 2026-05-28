@@ -8,13 +8,6 @@ M.on_v_modes = function()
   local v_modes = {"v", "V", v_block_mode}
   return vim.list_contains(v_modes, vim.fn.mode())
 end
-M.disable_diagnostic = function(bufid)
-  if vim.diagnostic.is_enabled({bufnr = bufid}) then
-    return pcall(vim.diagnostic.enable, false, {bufnr = bufid})
-  else
-    return nil
-  end
-end
 M.get_mason_path = function()
   return (vim.fn.stdpath("data") .. "/mason")
 end
@@ -39,23 +32,23 @@ local function find_lsp_server_from_env_path(name)
     path = nil
   else
   end
-  local and_5_ = path
-  if and_5_ then
-    and_5_ = (vim.fn.has("win32") == 1)
+  local and_4_ = path
+  if and_4_ then
+    and_4_ = (vim.fn.has("win32") == 1)
   end
-  if and_5_ then
-    local _7_
+  if and_4_ then
+    local _6_
     do
-      local t_6_ = vim.fn.split(vim.fs.basename(path), "\\.")
-      if (nil ~= t_6_) then
-        t_6_ = t_6_[2]
+      local t_5_ = vim.fn.split(vim.fs.basename(path), "\\.")
+      if (nil ~= t_5_) then
+        t_5_ = t_5_[2]
       else
       end
-      _7_ = t_6_
+      _6_ = t_5_
     end
-    and_5_ = not _7_
+    and_4_ = not _6_
   end
-  if and_5_ then
+  if and_4_ then
     path = (path .. ".cmd")
   else
   end
@@ -65,9 +58,9 @@ M.lsp_server_path = function(name)
   return (find_lsp_server_from_mason(name) or find_lsp_server_from_env_path(name))
 end
 M.lsp_with_server = function(name, f)
-  local case_10_ = M.lsp_server_path(name)
-  if (nil ~= case_10_) then
-    local path = case_10_
+  local case_9_ = M.lsp_server_path(name)
+  if (nil ~= case_9_) then
+    local path = case_9_
     return f(path)
   else
     return nil

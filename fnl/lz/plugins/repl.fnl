@@ -61,7 +61,7 @@
                {:desc "create `ConjureChange` usercmd to change REPL"
                 :pattern [:scheme :javascript :typescript]
                 :callback (fn [{: buf}]
-                            (var ft (. vim.bo buf :filetype))
+                            (local ft (. vim.bo buf :filetype))
                             (bufusercmd! buf :ConjureChange
                                          (fn [{:fargs [repl]}]
                                            (conjure-change ft repl))
@@ -71,13 +71,10 @@
                {:desc "create keymaps for conjure log"
                 :pattern ["conjure-log-*"]
                 :callback (fn [{:buf bufid}]
-                            (local {: disable_diagnostic
-                                    : create_keymaps_for_goto_entry}
-                                   (require :core.utils))
-                            (disable_diagnostic)
-                            (create_keymaps_for_goto_entry "\\v^(;|--|#|\\/\\/) -+$"
-                                                           "[e" "]e"
-                                                           :conjure_log bufid))}))}
+                            (pcall vim.diagnostic.enable false {:bufnr bufid})
+                            (call! :core.utils :create_keymaps_for_goto_entry
+                                   "\\v^(;|--|#|\\/\\/) -+$" "[e" "]e"
+                                   :conjure_log bufid))}))}
  {1 "pappasam/nvim-repl"
   :cmd :Repl
   :opts {:filetype_commands {:arturo {:cmd "arturo --repl"}

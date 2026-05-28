@@ -7,3 +7,5 @@
 (require :core.maps)
 (require :core.ts)
 (require :core.lsp)
+
+(vim.cmd.colorscheme "blue")

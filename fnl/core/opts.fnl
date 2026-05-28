@@ -6,12 +6,13 @@
 (set vim.opt.smartcase true)
 
 ;; Cmdline
-(set vim.opt.cmdheight 0)
+(set vim.opt.cmdheight 1)
 (set vim.opt.showcmd true)
 (set vim.opt.inccommand "split")
 
 ;; Completion
-(set vim.opt.completeopt "menu,menuone,noselect,noinsert,preview")
+(set vim.opt.autocomplete true)
+(set vim.opt.completeopt "fuzzy,menu,menuone,noselect,noinsert,popup")
 
 ;; Cursor
 (vim.opt.guicursor:append ["n-v-sm:block-Cursor" "i-ci-ve-t-c:ver25-lCursor"])
@@ -19,10 +20,11 @@
 (set vim.opt.cursorline true)
 (set vim.opt.cursorlineopt "line,number")
 
-;; Floating Window / Popup Menu
-(set vim.opt.winborder :single)
-(set vim.opt.winblend 0)
+;; Popup Menu / Floating Window
 (set vim.opt.pumblend 0)
+(set vim.opt.pumborder :single)
+(set vim.opt.winblend 0)
+(set vim.opt.winborder :single)
 
 ;; Fold
 (vim.opt.fillchars:append {:eob " "
@@ -65,7 +67,7 @@
 (set vim.opt.signcolumn "yes")
 
 ;; Status Line
-(set vim.opt.laststatus 3)
+(set vim.opt.laststatus 0)
 
 ;; <Tab> key
 (set vim.opt.tabstop 2)

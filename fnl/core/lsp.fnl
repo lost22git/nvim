@@ -1,4 +1,4 @@
-(import-macros {: on!} :config.macros)
+(import-macros {: call! : on!} :config.macros)
 
 (local {: lsp_with_server} (require :core.utils))
 
@@ -10,10 +10,14 @@
                                                                      {:scope "cursor"
                                                                       :focurs false}))}})
 
-(fn on_attach [_client bufid]
-  (tset vim.bo bufid :omnifunc nil)
-  (local {:lsp lsp_mappings} (require :core.maps))
-  (lsp_mappings bufid)
+(fn on_attach [client bufid]
+  ;; Load custom lsp mappings
+  (call! :core.maps :lsp bufid)
+  ;; Enable lsp completion when no blink.cmp
+  (let [(has_blink_cmp _) (pcall require :blink.cmp)]
+    (when (not has_blink_cmp)
+      (pcall vim.lsp.completion.enable true client.id bufid {:autotrigger true})))
+  ;; Enable lsp codelens
   (pcall vim.lsp.codelens.enable true))
 
 (on! :LspAttach {:desc "[LSP] LspAttach"
@@ -24,9 +28,12 @@
                              nil)})
 
 (fn capabilities []
-  (let [cmp (require :blink.cmp)
-        opts {:textDocument {:semanticTokens {:multilineTokenSupport true}}}]
-    (vim.tbl_deep_extend "force" (cmp.get_lsp_capabilities) opts)))
+  (let [opts {:textDocument {:semanticTokens {:multilineTokenSupport true}}}
+        (has_blink_cmp blink_cmp) (pcall require :blink.cmp)]
+    (if has_blink_cmp
+        (blink_cmp.get_lsp_capabilities opts)
+        (vim.tbl_deep_extend :force (vim.lsp.protocol.make_client_capabilities)
+                             opts))))
 
 (vim.lsp.config "*" {:root_markers [".git"] :capabilities (capabilities)})
 
