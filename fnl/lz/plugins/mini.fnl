@@ -7,18 +7,6 @@
             (MiniIcons.mock_nvim_web_devicons))}
  {1 "nvim-mini/mini.cursorword" :lazy false :opts {}}
  {1 "nvim-mini/mini.move" :lazy false :opts {}}
- {1 "nvim-mini/mini.ai"
-  :lazy false
-  :config (fn []
-            (local {: setup : gen_spec} (require :mini.ai))
-            (setup {:mappings {:around "a"
-                               :inside "i"
-                               :around_next "a]"
-                               :inside_next "i]"
-                               :around_last "a["
-                               :inside_last "i["
-                               :goto_left "["
-                               :goto_right "]"}}))}
  {1 "nvim-mini/mini.bufremove"
   :lazy false
   :config (fn []
