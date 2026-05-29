@@ -1,6 +1,6 @@
 -- [nfnl] fnl/lz/plugins/cmp.fnl
 local completion_list_opts = {selection = {preselect = true, auto_insert = false}}
-local common_keymaps = {["<Tab>"] = {"accept"}, ["<M-j>"] = {"select_next"}, ["<M-k>"] = {"select_prev"}, ["<C-c>"] = {"hide", "fallback"}}
+local common_keymaps = {["<Tab>"] = {"accept", "fallback"}, ["<M-j>"] = {"select_next"}, ["<M-k>"] = {"select_prev"}, ["<C-c>"] = {"hide", "fallback"}}
 local function _1_()
   vim.opt.autocomplete = false
   return nil

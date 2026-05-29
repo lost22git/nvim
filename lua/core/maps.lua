@@ -34,7 +34,7 @@ local function base()
   vim.keymap.set({"n", "v", "o"}, "H", "^", {desc = "Goto line head"})
   vim.keymap.set({"n", "v", "o"}, "L", "$", {desc = "Goto line tail"})
   vim.keymap.set({"n", "v", "o"}, "mm", "%", {desc = "The old `%`"})
-  return vim.keymap.set({"t"}, "<Esc>", "<C-\\><C-n>", {desc = "Escape terminal mode"})
+  return vim.keymap.set({"t"}, "<Esc><Esc>", "<C-\\><C-n>", {desc = "Escape terminal mode"})
 end
 local function messages()
   local function create_messages_buf()

@@ -2,8 +2,7 @@
                :config.macros)
 
 [{1 "Olical/conjure"
-  :cmd :ConjureConnect
-  :event :VeryLazy
+  :lazy false
   :init (fn []
           (set vim.g.conjure#highlight#enabled true)
           (set vim.g.conjure#extract#tree_sitter#enabled true)
@@ -93,6 +92,7 @@
                              :racket {:cmd "rlwrap racket -i"}
                              :raku {:cmd "rlwrap raku"}
                              :roc {:cmd "roc repl"}
+                             :scala {:cmd "scala repl"}
                              :swift {:cmd "swift repl"}
                              :typescript {:cmd "deno repl"}
                              :v {:cmd "v repl"}}}

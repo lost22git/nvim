@@ -9,8 +9,7 @@
  {1 "nvim-mini/mini.move" :lazy false :opts {}}
  {1 "nvim-mini/mini.bufremove"
   :lazy false
-  :config (fn []
-            (call! :mini.bufremove :setup {}))}
+  :config #(call! :mini.bufremove :setup {})}
  {1 "nvim-mini/mini.files"
   :lazy false
   :opts {:windows {:preview true}}

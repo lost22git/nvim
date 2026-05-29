@@ -20,6 +20,7 @@
                  :desc "[quicker] Collapse context"}]}}
  {1 "mikavilpas/yazi.nvim" :cmd :Yazi :opts {}}
  {1 "ibhagwan/fzf-lua"
+  :lazy false
   :opts {:fzf_colors true
          :winopts {:backdrop vim.g.zz.backdrop :preview {:hidden true}}}
   :config (fn [_ opts]

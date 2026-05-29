@@ -1,5 +1,5 @@
 (local completion_list_opts {:selection {:preselect true :auto_insert false}})
-(local common_keymaps {:<Tab> [:accept]
+(local common_keymaps {:<Tab> [:accept :fallback]
                        :<M-j> [:select_next]
                        :<M-k> [:select_prev]
                        :<C-c> [:hide :fallback]})

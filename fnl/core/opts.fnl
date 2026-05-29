@@ -39,9 +39,12 @@
 (set vim.opt.foldmethod "indent")
 
 ;; Indentation
-(set vim.opt.breakindent true)
 (set vim.opt.shiftwidth 2)
+(set vim.opt.tabstop 2)
 (set vim.opt.smartindent true)
+(set vim.opt.smarttab true)
+(set vim.opt.breakindent true)
+(set vim.opt.expandtab true)
 
 ;; Line Number
 (set vim.opt.number true)
@@ -68,11 +71,6 @@
 
 ;; Status Line
 (set vim.opt.laststatus 0)
-
-;; <Tab> key
-(set vim.opt.tabstop 2)
-(set vim.opt.expandtab true)
-(set vim.opt.smarttab true)
 
 ;; Scroll
 (set vim.opt.smoothscroll true)

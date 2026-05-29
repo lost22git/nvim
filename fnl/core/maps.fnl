@@ -36,7 +36,7 @@
   (nvomap! "H" "^" {:desc "Goto line head"})
   (nvomap! "L" "$" {:desc "Goto line tail"})
   (nvomap! "mm" "%" {:desc "The old `%`"})
-  (tmap! "<Esc>" "<C-\\><C-n>" {:desc "Escape terminal mode"}))
+  (tmap! "<Esc><Esc>" "<C-\\><C-n>" {:desc "Escape terminal mode"}))
 
 (fn messages []
   (fn create_messages_buf []

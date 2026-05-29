@@ -33,6 +33,7 @@
                            :racket [:myracketfmt]
                            :roc [:roc]
                            :rust [:rustfmt]
+                           :scala [:myscalafmt]
                            :scheme [:myracketfmt]
                            :sh [:shfmt]
                            :swift [:swift]
@@ -42,4 +43,6 @@
                            :v [:v]
                            :zig [:zigfmt]}
         :formatters {:myracketfmt {:command "raco"
-                                   :args ["fmt" "--limit" "50"]}}}}
+                                   :args ["fmt" "--limit" "50"]}
+                     :myscalafmt {:command "scala"
+                                  :args ["fmt" "-F" "--stdin" "-F" "--stdout"]}}}}
