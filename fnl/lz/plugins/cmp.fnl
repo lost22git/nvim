@@ -6,7 +6,7 @@
 
 {1 "saghen/blink.cmp"
  :version "1.*"
- :event [:InsertEnter :CmdlineEnter]
+ :event :InsertEnter
  :dependencies [{1 "rafamadriz/friendly-snippets"}
                 {1 "mikavilpas/blink-ripgrep.nvim"}]
  :init (fn []

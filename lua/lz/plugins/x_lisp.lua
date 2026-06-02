@@ -37,4 +37,4 @@ local function _6_(...)
   end
   return tbl_21_
 end
-return {{"lost22git/nvim-paredit", branch = "add-racket-lang", opts = {keys = vim.tbl_extend("error", _1_, _6_(...)), use_default_keys = false}, lazy = false}}
+return {{"lost22git/nvim-paredit", branch = "add-racket-lang", ft = {"clojure", "fennel", "janet", "lisp", "scheme", "racket"}, opts = {keys = vim.tbl_extend("error", _1_, _6_(...)), use_default_keys = false}}}

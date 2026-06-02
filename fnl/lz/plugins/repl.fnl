@@ -2,7 +2,7 @@
                :config.macros)
 
 [{1 "Olical/conjure"
-  :lazy false
+  :keys "<Leader>e"
   :init (fn []
           (set vim.g.conjure#highlight#enabled true)
           (set vim.g.conjure#extract#tree_sitter#enabled true)

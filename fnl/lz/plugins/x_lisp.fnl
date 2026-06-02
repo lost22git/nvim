@@ -1,6 +1,6 @@
 [{1 "lost22git/nvim-paredit"
   :branch :add-racket-lang
-  :lazy false
+  :ft [:clojure :fennel :janet :lisp :scheme :racket]
   :opts {:use_default_keys false
          :keys (vim.tbl_extend :error
                                (let [data [[:du :raise_form]
