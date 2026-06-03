@@ -7,9 +7,6 @@
             (MiniIcons.mock_nvim_web_devicons))}
  {1 "nvim-mini/mini.cursorword" :lazy false :opts {}}
  {1 "nvim-mini/mini.move" :lazy false :opts {}}
- {1 "nvim-mini/mini.bufremove"
-  :lazy false
-  :config #(call! :mini.bufremove :setup {})}
  {1 "nvim-mini/mini.files"
   :lazy false
   :opts {:windows {:preview true}}
