@@ -9,14 +9,14 @@
   :keys [{1 "<Leader>j" 2 "<Cmd>TSJToggle<CR>" :desc "[treesj] SplitJoin"}]}
  {1 "aaronik/treewalker.nvim"
   :opts {:highlight true :highlight_duration 300 :highlight_group :Visual}
-  :keys (let [data [[:th :Left]
-                    [:tl :Right]
-                    [:tk :Up]
-                    [:tj :Down]
-                    [:tsh :SwapLeft]
-                    [:tsl :SwapRight]
-                    [:tsk :SwapUp]
-                    [:tsj :SwapDown]]]
+  :keys (let [data [[:sh :Left]
+                    [:sl :Right]
+                    [:sk :Up]
+                    [:sj :Down]
+                    [:ssh :SwapLeft]
+                    [:ssl :SwapRight]
+                    [:ssk :SwapUp]
+                    [:ssj :SwapDown]]]
           (icollect [_ [k v] (ipairs data)]
             {1 k
              2 (.. "<Cmd>Treewalker " v "<CR>")

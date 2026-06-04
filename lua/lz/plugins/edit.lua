@@ -1,7 +1,7 @@
 -- [nfnl] fnl/lz/plugins/edit.fnl
 local _1_
 do
-  local data = {{"th", "Left"}, {"tl", "Right"}, {"tk", "Up"}, {"tj", "Down"}, {"tsh", "SwapLeft"}, {"tsl", "SwapRight"}, {"tsk", "SwapUp"}, {"tsj", "SwapDown"}}
+  local data = {{"sh", "Left"}, {"sl", "Right"}, {"sk", "Up"}, {"sj", "Down"}, {"ssh", "SwapLeft"}, {"ssl", "SwapRight"}, {"ssk", "SwapUp"}, {"ssj", "SwapDown"}}
   local tbl_26_ = {}
   local i_27_ = 0
   for _, _3_ in ipairs(data) do

@@ -92,7 +92,7 @@
                              :racket {:cmd "rlwrap racket -i"}
                              :raku {:cmd "rlwrap raku"}
                              :roc {:cmd "roc repl"}
-                             :scala {:cmd "scala repl"}
+                             :scala {:cmd "scala repl ."}
                              :swift {:cmd "swift repl"}
                              :typescript {:cmd "deno repl"}
                              :v {:cmd "v repl"}}}
