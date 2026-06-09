@@ -1,0 +1,192 @@
+{
+  "printn": {
+    "prefix": "printn",
+    "body": [
+      "io::printn($1);"
+    ]
+  },
+  "printfn": {
+    "prefix": "printfn",
+    "body": [
+      "io::printfn(\"$1\", $2);"
+    ]
+  },
+  "main": {
+    "prefix": "main",
+    "body": [
+      "fn void main() {",
+      "\t$1",
+      "}"
+    ]
+  },
+  "fn": {
+    "prefix": "fn",
+    "body": [
+      "fn ${1:return_type} ${2:name}($3) {",
+      "\t$4",
+      "}"
+    ]
+  },
+  "fn-short": {
+    "prefix": "fn-short",
+    "body": [
+      "fn ${1:return_type} ${2:name}($3) => $4;"
+    ]
+  },
+  "lambda": {
+    "prefix": "lambda",
+    "body": [
+      "fn($1) { $2 }"
+    ]
+  },
+  "lambda-short": {
+    "prefix": "lambda-short",
+    "body": [
+      "fn($1) => $2"
+    ]
+  },
+  "method": {
+    "prefix": "method",
+    "body": [
+      "fn ${1:return_type} ${2:type}.${3:name}(&self, $4) {",
+      "\t$5",
+      "}"
+    ]
+  },
+  "defer": {
+    "prefix": "defer",
+    "body": [
+      "defer $1"
+    ]
+  },
+  "defer-block": {
+    "prefix": "defer-block",
+    "body": [
+      "defer { $1 }"
+    ]
+  },
+  "defer-try": {
+    "prefix": "defer-try",
+    "body": [
+      "defer try $1"
+    ]
+  },
+  "defer-catch": {
+    "prefix": "defer-catch",
+    "body": [
+      "defer catch { $1 }"
+    ]
+  },
+  "defer-catch-error": {
+    "prefix": "defer-catch-error",
+    "body": [
+      "defer (catch err) { $1 }"
+    ]
+  },
+  "if-try": {
+    "prefix": "if-try",
+    "body": [
+      "if (try $1) {",
+      "\t$2",
+      "} else {",
+      "\t$3",
+      "}"
+    ]
+  },
+  "if-try-value": {
+    "prefix": "if-try-value",
+    "body": [
+      "if (try v = $1) {",
+      "\t$2",
+      "} else {",
+      "\t$3",
+      "}"
+    ]
+  },
+  "if-catch": {
+    "prefix": "if-catch",
+    "body": [
+      "if (catch $1) {",
+      "\t$2",
+      "} else {",
+      "\t$3",
+      "}"
+    ]
+  },
+  "if-catch-error": {
+    "prefix": "if-catch-error",
+    "body": [
+      "if (catch err = $1) {",
+      "\t$2",
+      "} else {",
+      "\t$3",
+      "}"
+    ]
+  },
+  "foreach-index-value": {
+    "prefix": "foreach-index-value",
+    "body": [
+      "foreach (i, v : $1) {",
+      "\t$2",
+      "}"
+    ]
+  },
+  "foreach-index-value-mut": {
+    "prefix": "foreach-index-value-mut",
+    "body": [
+      "foreach (i, &v : $1) {",
+      "\t$2",
+      "}"
+    ]
+  },
+  "foreach-value": {
+    "prefix": "foreach-value",
+    "body": [
+      "foreach (v : $1) {",
+      "\t$2",
+      "}"
+    ]
+  },
+  "foreach-value-mut": {
+    "prefix": "foreach-value",
+    "body": [
+      "foreach (&v : $1) {",
+      "\t$2",
+      "}"
+    ]
+  },
+  "pool": {
+    "prefix": "pool",
+    "body": [
+      "@pool() {",
+      "\t$1",
+      "};"
+    ]
+  },
+  "pool_init": {
+    "prefix": "pool_init",
+    "body": [
+      "@pool_init(mem, ${1:pool_size}) {",
+      "\t$2",
+      "};"
+    ]
+  },
+  "alias": {
+    "prefix": "alias",
+    "body": [
+      "alias $1 = $2;"
+    ]
+  },
+  "typedef": {
+    "prefix": "typedef",
+    "body": [
+      "typedef $1 = $2;"
+    ]
+  },
+  "typedef-inline": {
+    "prefix": "typedef-inline",
+    "body": [
+      "typedef $1 = inline $2"
+    ]
+  }
+}
