@@ -18,7 +18,7 @@ vim.opt.winblend = 0
 vim.opt.winborder = "single"
 vim.opt.fillchars:append({eob = " ", foldsep = " ", foldopen = "\239\145\188", foldclose = "\239\145\160"})
 vim.opt.foldcolumn = "1"
-vim.opt.foldenable = true
+vim.opt.foldenable = false
 vim.opt.foldlevelstart = 99
 vim.opt.foldlevel = 99
 vim.opt.foldmethod = "indent"
@@ -36,10 +36,10 @@ vim.opt.listchars = {space = "\194\183", tab = "\226\134\146 ", trail = "\194\18
 vim.opt.showmode = false
 vim.opt.splitright = true
 vim.opt.splitbelow = true
-vim.opt.signcolumn = "yes"
+vim.opt.signcolumn = "no"
 vim.opt.laststatus = 0
 vim.opt.smoothscroll = true
-vim.opt.scrolloff = 99
+vim.opt.scrolloff = 9
 vim.opt.sidescrolloff = 9
 vim.opt.hlsearch = true
 vim.opt.grepformat = "%f:%l:%c:%m"

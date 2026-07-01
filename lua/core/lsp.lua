@@ -2,7 +2,7 @@
 local _local_1_ = require("core.utils")
 local lsp_with_server = _local_1_.lsp_with_server
 local function _2_(_, bufid)
-  return vim.diagnostic.open_float(bufid, {scope = "cursor", focurs = false})
+  return vim.diagnostic.open_float({bufnr = bufid, scope = "cursor", focus = false})
 end
 vim.diagnostic.config({severity_sort = true, jump = {on_jump = _2_}, virtual_text = false})
 local function on_attach(client, bufid)

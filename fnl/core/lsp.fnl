@@ -6,9 +6,9 @@
                         :virtual_text false
                         ;; :virtual_lines {:current_line true}
                         :jump {:on_jump (fn [_ bufid]
-                                          (vim.diagnostic.open_float bufid
-                                                                     {:scope "cursor"
-                                                                      :focurs false}))}})
+                                          (vim.diagnostic.open_float {:bufnr bufid
+                                                                      :scope "cursor"
+                                                                      :focus false}))}})
 
 (fn on_attach [client bufid]
   ;; Load custom lsp mappings

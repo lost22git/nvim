@@ -43,6 +43,15 @@
                                    (vim.fn.system cmd)
                                    nil)}))
 
+;; === TERMUX ===
+
+(when (has! :termux)
+  (on! :BufWritePost
+       {:desc "[Termux] Reload termux config after [termux.properties] saved"
+        :pattern "termux.properties"
+        :callback (fn []
+                    (vim.fn.system "termux-reload-settings"))}))
+
 ;; === JUST ===
 
 (on! :FileType
@@ -83,6 +92,15 @@
                                           (start-clojure-nrepl-server args))
                                         {:nargs "*"})})
 
+;; === BASILISP ===
+
+(on! :FileType {:desc "[Basilisp] add `Basilisp` user command for starting Basilisp nrepl server"
+                :pattern :clojure
+                :callback #(bufusercmd! $.buf :Basilisp
+                                        #(vim.cmd (.. "0tabnew | term "
+                                                      "basilisp nrepl-server"))
+                                        {:nargs "*"})})
+
 ;; === JANET ===
 
 (on! :FileType {:desc "[Janet] add `Janet` user command for starting janet-netrepl server"
@@ -100,15 +118,6 @@
                                         #(->> "sbcl --eval \"(ql:quickload :swank)\" --eval \"(swank:create-server :dont-close t)\""
                                               (.. "0tabnew | term ")
                                               (vim.cmd))
-                                        {:nargs "*"})})
-
-;; === BASILISP ===
-
-(on! :FileType {:desc "[Basilisp] add `Basilisp` user command for starting Basilisp nrepl server"
-                :pattern :clojure
-                :callback #(bufusercmd! $.buf :Basilisp
-                                        #(vim.cmd (.. "0tabnew | term "
-                                                      "basilisp nrepl-server"))
                                         {:nargs "*"})})
 
 ;; === HELP ===

@@ -33,7 +33,7 @@
                            :foldclose ""})
 
 (set vim.opt.foldcolumn "1")
-(set vim.opt.foldenable true)
+(set vim.opt.foldenable false)
 (set vim.opt.foldlevelstart 99)
 (set vim.opt.foldlevel 99)
 (set vim.opt.foldmethod "indent")
@@ -67,14 +67,14 @@
 (set vim.opt.splitbelow true)
 
 ;; Status Column
-(set vim.opt.signcolumn "yes")
+(set vim.opt.signcolumn "no")
 
 ;; Status Line
 (set vim.opt.laststatus 0)
 
 ;; Scroll
 (set vim.opt.smoothscroll true)
-(set vim.opt.scrolloff 99)
+(set vim.opt.scrolloff 9)
 (set vim.opt.sidescrolloff 9)
 
 ;; Search

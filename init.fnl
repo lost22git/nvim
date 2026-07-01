@@ -8,4 +8,4 @@
 (require :core.ts)
 (require :core.lsp)
 
-(vim.cmd.colorscheme "catppuccin")
+(vim.cmd.colorscheme "lunaperche")

@@ -45,18 +45,25 @@ if _9_ then
   vim.api.nvim_create_autocmd("BufWritePost", {desc = "[Tmux] Reload tmux config after [.tmux.conf] saved", pattern = ".tmux.conf", callback = _11_})
 else
 end
-local function _13_(_241)
+if (vim.fn.has("termux") == 1) then
+  local function _13_()
+    return vim.fn.system("termux-reload-settings")
+  end
+  vim.api.nvim_create_autocmd("BufWritePost", {desc = "[Termux] Reload termux config after [termux.properties] saved", pattern = "termux.properties", callback = _13_})
+else
+end
+local function _15_(_241)
   return create_keymaps_for_goto_entry("\\v^\\w+.*:$", "[e", "]e", "just_task", _241.buf)
 end
-vim.api.nvim_create_autocmd("FileType", {desc = "[Just] add keymaps for Goto prev/next task", pattern = "just", callback = _13_})
-local function _14_(_241)
+vim.api.nvim_create_autocmd("FileType", {desc = "[Just] add keymaps for Goto prev/next task", pattern = "just", callback = _15_})
+local function _16_(_241)
   return create_keymaps_for_goto_entry("\\v^<(HEAD|GET|POST|PUT|PATCH|DELETE|OPTION)>", "[e", "]e", "http_request", _241.buf)
 end
-vim.api.nvim_create_autocmd("FileType", {desc = "[Http] add keymaps for Goto prev/next http request", pattern = {"http", "rest", "hurl"}, callback = _14_})
-local function _15_(_241)
+vim.api.nvim_create_autocmd("FileType", {desc = "[Http] add keymaps for Goto prev/next http request", pattern = {"http", "rest", "hurl"}, callback = _16_})
+local function _17_(_241)
   return create_keymaps_for_goto_entry("\\v(^\\(comment|^#_)", "[C", "]C", "comment_form", _241.buf)
 end
-vim.api.nvim_create_autocmd("FileType", {desc = "[Clojure] add keymaps for Goto prev/next (comment)", pattern = {"clojure", "janet"}, callback = _15_})
+vim.api.nvim_create_autocmd("FileType", {desc = "[Clojure] add keymaps for Goto prev/next (comment)", pattern = {"clojure", "janet"}, callback = _17_})
 local function start_clojure_nrepl_server(args)
   local clj_opts
   if string.match(args, "%-M:") then
@@ -69,40 +76,40 @@ local function start_clojure_nrepl_server(args)
   local cmd = string.format("clj -Sdeps %s %s -e %s", deps, clj_opts, cider_opts)
   return vim.cmd(("0tabnew | term " .. cmd))
 end
-local function _17_(_241)
-  local function _19_(_18_)
-    local args = _18_.args
+local function _19_(_241)
+  local function _21_(_20_)
+    local args = _20_.args
     return start_clojure_nrepl_server(args)
   end
-  return vim.api.nvim_buf_create_user_command(_241.buf, "Clj", _19_, {nargs = "*"})
+  return vim.api.nvim_buf_create_user_command(_241.buf, "Clj", _21_, {nargs = "*"})
 end
-vim.api.nvim_create_autocmd("FileType", {desc = "[Clojure] add `Clj` user command for starting Clojure nREPL server", pattern = "clojure", callback = _17_})
-local function _20_(_241)
-  local function _21_()
-    return vim.cmd(("0tabnew | term " .. "janet-netrepl"))
-  end
-  return vim.api.nvim_buf_create_user_command(_241.buf, "Janet", _21_, {nargs = "*"})
-end
-vim.api.nvim_create_autocmd("FileType", {desc = "[Janet] add `Janet` user command for starting janet-netrepl server", pattern = "janet", callback = _20_})
+vim.api.nvim_create_autocmd("FileType", {desc = "[Clojure] add `Clj` user command for starting Clojure nREPL server", pattern = "clojure", callback = _19_})
 local function _22_(_241)
   local function _23_()
-    return vim.cmd(("0tabnew | term " .. "sbcl --eval \"(ql:quickload :swank)\" --eval \"(swank:create-server :dont-close t)\""))
-  end
-  return vim.api.nvim_buf_create_user_command(_241.buf, "SBCL", _23_, {nargs = "*"})
-end
-vim.api.nvim_create_autocmd("FileType", {desc = "[SBCL] add `SBCL` user command for starting swank server", pattern = "lisp", callback = _22_})
-local function _24_(_241)
-  local function _25_()
     return vim.cmd(("0tabnew | term " .. "basilisp nrepl-server"))
   end
-  return vim.api.nvim_buf_create_user_command(_241.buf, "Basilisp", _25_, {nargs = "*"})
+  return vim.api.nvim_buf_create_user_command(_241.buf, "Basilisp", _23_, {nargs = "*"})
 end
-vim.api.nvim_create_autocmd("FileType", {desc = "[Basilisp] add `Basilisp` user command for starting Basilisp nrepl server", pattern = "clojure", callback = _24_})
-local function _26_()
-  local function _28_(_27_)
-    local args = _27_.args
+vim.api.nvim_create_autocmd("FileType", {desc = "[Basilisp] add `Basilisp` user command for starting Basilisp nrepl server", pattern = "clojure", callback = _22_})
+local function _24_(_241)
+  local function _25_()
+    return vim.cmd(("0tabnew | term " .. "janet-netrepl"))
+  end
+  return vim.api.nvim_buf_create_user_command(_241.buf, "Janet", _25_, {nargs = "*"})
+end
+vim.api.nvim_create_autocmd("FileType", {desc = "[Janet] add `Janet` user command for starting janet-netrepl server", pattern = "janet", callback = _24_})
+local function _26_(_241)
+  local function _27_()
+    return vim.cmd(("0tabnew | term " .. "sbcl --eval \"(ql:quickload :swank)\" --eval \"(swank:create-server :dont-close t)\""))
+  end
+  return vim.api.nvim_buf_create_user_command(_241.buf, "SBCL", _27_, {nargs = "*"})
+end
+vim.api.nvim_create_autocmd("FileType", {desc = "[SBCL] add `SBCL` user command for starting swank server", pattern = "lisp", callback = _26_})
+local function _28_()
+  local function _30_(_29_)
+    local args = _29_.args
     return vim.cmd(("tabnew | exe 'r !" .. args .. "' | Man!"))
   end
-  return vim.api.nvim_create_user_command("Help", _28_, {nargs = "*"})
+  return vim.api.nvim_create_user_command("Help", _30_, {nargs = "*"})
 end
-return vim.api.nvim_create_autocmd("UIEnter", {desc = "add `Help` user command", once = true, callback = _26_})
+return vim.api.nvim_create_autocmd("UIEnter", {desc = "add `Help` user command", once = true, callback = _28_})
