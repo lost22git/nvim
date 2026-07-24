@@ -82,7 +82,9 @@
                      (.. args " -M"))
         deps "'{:deps {nrepl/nrepl {:mvn/version \"1.3.0\"} refactor-nrepl/refactor-nrepl {:mvn/version \"3.10.0\"} cider/cider-nrepl {:mvn/version \"0.52.0\"} }}'"
         cider_opts "\"(require 'nrepl.cmdline) (nrepl.cmdline/-main \\\"--interactive\\\" \\\"--middleware\\\" \\\"[refactor-nrepl.middleware/wrap-refactor cider.nrepl/cider-middleware]\\\")\""
-        cmd (string.format "clj -Sdeps %s %s -e %s" deps clj_opts cider_opts)]
+        extra_opts "\"(require '[clojure.repl :as repl]) (require '[clojure.repl.deps :as deps]) (require '[clojure.java.javadoc :as javadoc])\""
+        cmd (string.format "clj -Sdeps %s %s -e %s -e %s" deps clj_opts
+                           extra_opts cider_opts)]
     (vim.cmd (.. "0tabnew | term " cmd))))
 
 (on! :FileType {:desc "[Clojure] add `Clj` user command for starting Clojure nREPL server"
@@ -99,6 +101,15 @@
                 :callback #(bufusercmd! $.buf :Basilisp
                                         #(vim.cmd (.. "0tabnew | term "
                                                       "basilisp nrepl-server"))
+                                        {:nargs "*"})})
+
+;; === CLJGO  ===
+
+(on! :FileType {:desc "[Cljgo] add `Cljgo` user command for starting Cljgo nrepl server"
+                :pattern :clojure
+                :callback #(bufusercmd! $.buf :Cljgo
+                                        #(vim.cmd (.. "0tabnew | term "
+                                                      "cljgo nrepl"))
                                         {:nargs "*"})})
 
 ;; === JANET ===
