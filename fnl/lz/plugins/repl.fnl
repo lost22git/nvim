@@ -107,5 +107,4 @@
                      {:buffer bufid :desc "[repl] SendVisual"}))
 
             (on! :FileType {:pattern ftypes :callback #(create_keymaps $.buf)})
-            (when (vim.list_contains ftypes vim.bo.filetype)
-              (create_keymaps 0)))}]
+            (create_keymaps 0))}]

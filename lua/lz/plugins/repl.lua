@@ -107,10 +107,6 @@ local function _16_(_, opts)
     return create_keymaps(_241.buf)
   end
   vim.api.nvim_create_autocmd("FileType", {pattern = ftypes, callback = _17_})
-  if vim.list_contains(ftypes, vim.bo.filetype) then
-    return create_keymaps(0)
-  else
-    return nil
-  end
+  return create_keymaps(0)
 end
 return {{"Olical/conjure", keys = "<Leader>e", init = _1_}, {"pappasam/nvim-repl", cmd = "Repl", opts = {filetype_commands = {arturo = {cmd = "arturo --repl"}, basilisp = {cmd = "basilisp repl"}, crystal = {cmd = "crystal i"}, elixir = {cmd = "iex"}, flix = {cmd = "flix repl"}, haskell = {cmd = "ghci"}, java = {cmd = "jshell"}, koka = {cmd = "koka"}, kotlin = {cmd = "rlwrap kotlin -repl"}, lfe = {cmd = "lfe"}, lisp = {cmd = "rlwrap sbcl"}, nim = {cmd = "inim"}, ocaml = {cmd = "rlwrap ocaml"}, racket = {cmd = "rlwrap racket -i"}, raku = {cmd = "rlwrap raku"}, roc = {cmd = "roc repl"}, scala = {cmd = "scala repl ."}, swift = {cmd = "swift repl"}, typescript = {cmd = "deno repl"}, v = {cmd = "v repl"}}}, config = _16_}}

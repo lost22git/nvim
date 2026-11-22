@@ -26,7 +26,7 @@ local function _3_()
     return vim.api.nvim_buf_create_user_command(bufid, "KulalaScriptsClearGlobal", _6_, {nargs = "*"})
   end
   local function create_keymaps(bufid)
-    local data = {{"<Leader>ee", "<Cmd>KulalaRun<CR>"}, {"<Leader>E", "<Cmd>KulalaSearch<CR>"}, {"<Leader>eb", "<Cmd>KulalaRunAll<CR>"}, {"<Leader>el", "<Cmd>KulalaOpen<CR>"}}
+    local data = {{"<Leader>ee", "<Cmd>KulalaRun<CR>"}, {"<Leader>es", "<Cmd>KulalaSearch<CR>"}, {"<Leader>eb", "<Cmd>KulalaRunAll<CR>"}, {"<Leader>el", "<Cmd>KulalaOpen<CR>"}}
     for _, _7_ in pairs(data) do
       local k = _7_[1]
       local v = _7_[2]

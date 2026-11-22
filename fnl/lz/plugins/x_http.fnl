@@ -45,7 +45,7 @@
           (fn create_keymaps [bufid]
             (local data
                    [["<Leader>ee" "<Cmd>KulalaRun<CR>"]
-                    ["<Leader>E" "<Cmd>KulalaSearch<CR>"]
+                    ["<Leader>es" "<Cmd>KulalaSearch<CR>"]
                     ["<Leader>eb" "<Cmd>KulalaRunAll<CR>"]
                     ["<Leader>el" "<Cmd>KulalaOpen<CR>"]])
             (each [_ [k v] (pairs data)]
