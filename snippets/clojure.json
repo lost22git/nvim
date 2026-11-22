@@ -251,11 +251,11 @@
   "bb-main": {
     "prefix": "bb-main",
     "body": [
-      "(defn -main [args]",
+      "(defn -main [& args]",
       "\t${1})",
       "",
       "(when (= *file* (System/getProperty \"babashka.file\"))",
-      "\t(-main *command-line-args*))"
+      "\t(apply -main *command-line-args*))"
     ]
   },
   "bb-proc": {
@@ -524,6 +524,13 @@
     "body": [
       "let [${1:k} ${2:v}]",
       "\t${3:thunk} "
+    ]
+  },
+  "main": {
+    "prefix": "main",
+    "body": [
+      "(defn -main [& args]",
+      "\t${1} )"
     ]
   },
   "pprint": {
