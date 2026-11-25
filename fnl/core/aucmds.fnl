@@ -121,6 +121,15 @@
                                                       "janet-netrepl"))
                                         {:nargs "*"})})
 
+;; === JOLT ===
+
+(on! :FileType {:desc "[Jolt] add `Jolt` user command for starting Cljgo nrepl server"
+                :pattern :clojure
+                :callback #(bufusercmd! $.buf :Jolt
+                                        #(vim.cmd (.. "0tabnew | term "
+                                                      "jolt nrepl-server"))
+                                        {:nargs "*"})})
+
 ;; === LISP ===
 
 (on! :FileType {:desc "[SBCL] add `SBCL` user command for starting swank server"

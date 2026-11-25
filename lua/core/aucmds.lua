@@ -108,16 +108,23 @@ end
 vim.api.nvim_create_autocmd("FileType", {desc = "[Janet] add `Janet` user command for starting janet-netrepl server", pattern = "janet", callback = _26_})
 local function _28_(_241)
   local function _29_()
+    return vim.cmd(("0tabnew | term " .. "jolt nrepl-server"))
+  end
+  return vim.api.nvim_buf_create_user_command(_241.buf, "Jolt", _29_, {nargs = "*"})
+end
+vim.api.nvim_create_autocmd("FileType", {desc = "[Jolt] add `Jolt` user command for starting Cljgo nrepl server", pattern = "clojure", callback = _28_})
+local function _30_(_241)
+  local function _31_()
     return vim.cmd(("0tabnew | term " .. "sbcl --eval \"(ql:quickload :swank)\" --eval \"(swank:create-server :dont-close t)\""))
   end
-  return vim.api.nvim_buf_create_user_command(_241.buf, "SBCL", _29_, {nargs = "*"})
+  return vim.api.nvim_buf_create_user_command(_241.buf, "SBCL", _31_, {nargs = "*"})
 end
-vim.api.nvim_create_autocmd("FileType", {desc = "[SBCL] add `SBCL` user command for starting swank server", pattern = "lisp", callback = _28_})
-local function _30_()
-  local function _32_(_31_)
-    local args = _31_.args
+vim.api.nvim_create_autocmd("FileType", {desc = "[SBCL] add `SBCL` user command for starting swank server", pattern = "lisp", callback = _30_})
+local function _32_()
+  local function _34_(_33_)
+    local args = _33_.args
     return vim.cmd(("tabnew | exe 'r !" .. args .. "' | Man!"))
   end
-  return vim.api.nvim_create_user_command("Help", _32_, {nargs = "*"})
+  return vim.api.nvim_create_user_command("Help", _34_, {nargs = "*"})
 end
-return vim.api.nvim_create_autocmd("UIEnter", {desc = "add `Help` user command", once = true, callback = _30_})
+return vim.api.nvim_create_autocmd("UIEnter", {desc = "add `Help` user command", once = true, callback = _32_})
